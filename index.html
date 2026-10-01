@@ -1,98 +1,425 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Reel Maker</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Reel Maker</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #111;
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-        .container {
-            max-width: 600px;
-            margin: auto;
-        }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+    }
 
-        h1 {
-            font-size: 40px;
-            margin-bottom: 10px;
-        }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px 18px 60px;
+    }
 
-        p {
-            color: #aaa;
-        }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
 
-        textarea {
-            width: 100%;
-            height: 120px;
-            margin-top: 25px;
-            padding: 15px;
-            border-radius: 10px;
-            border: none;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
+    .header h1 {
+      font-size: 42px;
+      margin-bottom: 8px;
+    }
 
-        button {
-            margin-top: 20px;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 10px;
-            background: #ff2d55;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-        }
+    .header p {
+      color: #cbd5e1;
+      font-size: 17px;
+    }
 
-        button:hover {
-            opacity: 0.85;
-        }
+    .card {
+      background: #1e293b;
+      border-radius: 18px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
 
-        #result {
-            margin-top: 30px;
-            font-size: 18px;
-        }
-    </style>
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px;
+      border-radius: 10px;
+      border: 1px solid #475569;
+      background: #0f172a;
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #60a5fa;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 15px;
+      padding: 16px;
+      border: none;
+      border-radius: 10px;
+      background: #2563eb;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .progress {
+      margin-top: 20px;
+    }
+
+    .step {
+      padding: 12px;
+      margin: 8px 0;
+      background: #0f172a;
+      border-radius: 8px;
+      color: #94a3b8;
+    }
+
+    .step.active {
+      color: white;
+    }
+
+    .step.done {
+      color: #4ade80;
+    }
+
+    .result h2 {
+      margin-top: 0;
+    }
+
+    .hook {
+      background: #0f172a;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    .scene {
+      background: #0f172a;
+      border-radius: 12px;
+      padding: 18px;
+      margin: 12px 0;
+      border-left: 4px solid #3b82f6;
+    }
+
+    .scene h3 {
+      margin-top: 0;
+    }
+
+    .scene p {
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #334155;
+      padding: 7px 10px;
+      border-radius: 20px;
+      margin: 4px;
+      color: #e2e8f0;
+    }
+
+    .notice {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-top: 15px;
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body>
 
 <div class="container">
 
+  <div class="header">
     <h1>🎬 AI Reel Maker</h1>
+    <p>Turn a simple topic into a complete short-form reel plan.</p>
+  </div>
 
-    <p>Turn your idea into a Reel.</p>
+  <div class="card">
 
-    <textarea id="topic" placeholder="Enter your Reel topic..."></textarea>
+    <label for="topic">Enter your reel topic</label>
 
-    <br>
+    <input
+      id="topic"
+      type="text"
+      placeholder="Example: 5 amazing facts about India"
+    >
 
-    <button onclick="createReel()">Create Reel</button>
+    <button onclick="createReel()">
+      🚀 Create Reel
+    </button>
 
-    <div id="result"></div>
+    <div id="progress" class="progress hidden">
+
+      <div id="step1" class="step">
+        ⏳ Understanding your topic...
+      </div>
+
+      <div id="step2" class="step">
+        ⏳ Creating the hook...
+      </div>
+
+      <div id="step3" class="step">
+        ⏳ Writing the reel script...
+      </div>
+
+      <div id="step4" class="step">
+        ⏳ Creating scenes...
+      </div>
+
+      <div id="step5" class="step">
+        ⏳ Preparing caption and hashtags...
+      </div>
+
+    </div>
+
+  </div>
+
+  <div id="result" class="card result hidden"></div>
 
 </div>
 
 <script>
-function createReel() {
-    const topic = document.getElementById("topic").value;
 
-    if (topic.trim() === "") {
-        document.getElementById("result").innerText =
-            "Please enter a topic first.";
-        return;
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function completeStep(id, text) {
+
+  const element = document.getElementById(id);
+
+  element.classList.remove("active");
+  element.classList.add("done");
+
+  element.innerHTML = "✅ " + text;
+}
+
+async function createReel() {
+
+  const topic = document.getElementById("topic").value.trim();
+
+  if (!topic) {
+    alert("Please enter a reel topic first.");
+    return;
+  }
+
+  const progress = document.getElementById("progress");
+  const result = document.getElementById("result");
+
+  progress.classList.remove("hidden");
+  result.classList.add("hidden");
+
+  const steps = document.querySelectorAll(".step");
+
+  steps.forEach(step => {
+    step.classList.remove("active", "done");
+  });
+
+  document.getElementById("step1").classList.add("active");
+
+  await wait(700);
+
+  completeStep("step1", "Topic understood");
+
+  document.getElementById("step2").classList.add("active");
+
+  await wait(700);
+
+  completeStep("step2", "Hook created");
+
+  document.getElementById("step3").classList.add("active");
+
+  await wait(900);
+
+  completeStep("step3", "Script created");
+
+  document.getElementById("step4").classList.add("active");
+
+  await wait(900);
+
+  completeStep("step4", "Scenes created");
+
+  document.getElementById("step5").classList.add("active");
+
+  await wait(700);
+
+  completeStep("step5", "Caption and hashtags ready");
+
+
+  const hook =
+    "You won't believe these facts about " +
+    topic
+      .replace(/^5\s+/i, "")
+      .replace(/^facts\s+about\s+/i, "") +
+    "!";
+
+
+  const scenes = [
+
+    {
+      title: "Scene 1 — Hook",
+      voice:
+        "Stop scrolling! Here's something you should know about " +
+        topic +
+        ".",
+      visual:
+        "Fast, attention-grabbing visuals related to the topic."
+    },
+
+    {
+      title: "Scene 2 — Fact 1",
+      voice:
+        "First, let's start with one of the most interesting things about " +
+        topic +
+        ".",
+      visual:
+        "Show a strong visual representing the first fact."
+    },
+
+    {
+      title: "Scene 3 — Fact 2",
+      voice:
+        "Here's another surprising detail that many people don't know.",
+      visual:
+        "Show a different visual related to the second fact."
+    },
+
+    {
+      title: "Scene 4 — Fact 3",
+      voice:
+        "But there's more. This next fact makes the story even more interesting.",
+      visual:
+        "Show an engaging visual for the third fact."
+    },
+
+    {
+      title: "Scene 5 — Fact 4",
+      voice:
+        "And here's another detail that is worth remembering.",
+      visual:
+        "Show a relevant image or video clip."
+    },
+
+    {
+      title: "Scene 6 — Ending",
+      voice:
+        "Which of these facts surprised you the most? Follow for more.",
+      visual:
+        "End with a clean follow and engagement screen."
     }
 
-    document.getElementById("result").innerText =
-        "🎬 Your Reel idea is ready: " + topic;
+  ];
+
+
+  let html = `
+    <h2>🎉 Your Reel Plan Is Ready</h2>
+
+    <div class="hook">
+      <strong>🔥 Hook:</strong>
+      <br><br>
+      ${hook}
+    </div>
+
+    <h2>🎬 Reel Scenes</h2>
+  `;
+
+
+  scenes.forEach(scene => {
+
+    html += `
+      <div class="scene">
+
+        <h3>${scene.title}</h3>
+
+        <p>
+          <strong>🎙️ Voiceover:</strong>
+          <br>
+          ${scene.voice}
+        </p>
+
+        <p>
+          <strong>🖼️ Visual:</strong>
+          <br>
+          ${scene.visual}
+        </p>
+
+      </div>
+    `;
+
+  });
+
+
+  html += `
+
+    <h2>📝 Caption</h2>
+
+    <div class="hook">
+      ${topic} — facts that might surprise you!
+      Watch till the end and tell us which one you knew already.
+    </div>
+
+    <h2>#️⃣ Hashtags</h2>
+
+    <div>
+
+      <span class="tag">#Reels</span>
+      <span class="tag">#India</span>
+      <span class="tag">#Facts</span>
+      <span class="tag">#DidYouKnow</span>
+      <span class="tag">#ViralReels</span>
+      <span class="tag">#Shorts</span>
+      <span class="tag">#AI</span>
+
+    </div>
+
+    <p class="notice">
+      Stage 1 complete — script and scene planning are ready.
+      Actual AI video generation will be connected in the next stage.
+    </p>
+
+  `;
+
+
+  result.innerHTML = html;
+
+  result.classList.remove("hidden");
+
+  result.scrollIntoView({
+    behavior: "smooth"
+  });
+
 }
+
 </script>
 
 </body>
