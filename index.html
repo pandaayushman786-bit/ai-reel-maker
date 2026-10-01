@@ -1,1 +1,99 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Reel Maker</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #aaa;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            background: #ff2d55;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        #result {
+            margin-top: 30px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎬 AI Reel Maker</h1>
+
+    <p>Turn your idea into a Reel.</p>
+
+    <textarea id="topic" placeholder="Enter your Reel topic..."></textarea>
+
+    <br>
+
+    <button onclick="createReel()">Create Reel</button>
+
+    <div id="result"></div>
+
+</div>
+
+<script>
+function createReel() {
+    const topic = document.getElementById("topic").value;
+
+    if (topic.trim() === "") {
+        document.getElementById("result").innerText =
+            "Please enter a topic first.";
+        return;
+    }
+
+    document.getElementById("result").innerText =
+        "🎬 Your Reel idea is ready: " + topic;
+}
+</script>
+
+</body>
+</html>
