@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>AI Reel Maker — Stage 8.1</title>
+<title>AI Reel Maker — Stage 8.2</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 
 body{
-font-family:Arial,Inter,sans-serif;
-background:#07111f;
-color:#f5f7fb;
+font-family:Arial,Helvetica,sans-serif;
+background:#050b16;
+color:#fff;
 min-height:100vh;
 }
 
@@ -21,141 +21,141 @@ button{cursor:pointer}
 .app{
 max-width:1500px;
 margin:auto;
-padding:24px;
+padding:22px;
 }
 
 header{
 display:flex;
 justify-content:space-between;
 align-items:center;
+margin-bottom:22px;
 gap:15px;
-margin-bottom:24px;
 }
 
 .brand{
 display:flex;
 align-items:center;
-gap:13px;
+gap:12px;
 }
 
 .logo{
 width:48px;
 height:48px;
+border-radius:14px;
 display:grid;
 place-items:center;
-border-radius:14px;
-background:linear-gradient(135deg,#704cff,#00c6ff);
 font-size:24px;
+background:linear-gradient(135deg,#744cff,#00bfff);
 }
 
 .brand h1{font-size:22px}
-
 .brand p{
-font-size:13px;
-color:#8997aa;
+font-size:12px;
+color:#8190a5;
 margin-top:4px;
 }
 
 .stage{
 padding:8px 13px;
-border-radius:30px;
-background:#10223a;
-border:1px solid #29405e;
-color:#9edfff;
-font-size:12px;
+border-radius:20px;
+background:#111f35;
+border:1px solid #2c4160;
+font-size:11px;
+color:#9fdcff;
 font-weight:bold;
 }
 
 .layout{
 display:grid;
-grid-template-columns:minmax(0,1fr) 430px;
-gap:22px;
+grid-template-columns:minmax(0,1fr) 420px;
+gap:20px;
 }
 
 .panel{
-background:#0b1728;
-border:1px solid #1d2d45;
+background:#0b1423;
+border:1px solid #1d2c42;
 border-radius:20px;
-box-shadow:0 18px 50px #0005;
+box-shadow:0 15px 45px #0008;
 }
 
-.left{padding:24px}
-
+.left{padding:22px}
 .right{
-padding:22px;
-position:sticky;
-top:20px;
+padding:20px;
 height:max-content;
+position:sticky;
+top:15px;
 }
 
-.section{margin-bottom:25px}
+.section{
+margin-bottom:24px;
+}
 
 .section-title{
 display:flex;
 justify-content:space-between;
 align-items:center;
-gap:10px;
-margin-bottom:13px;
+margin-bottom:12px;
 }
 
-.section-title h2{font-size:16px}
+.section-title h2{
+font-size:15px;
+}
 
 .section-title span{
-font-size:11px;
-color:#7d8da4;
+font-size:10px;
+color:#77879d;
 }
 
 label{
 display:block;
-font-size:12px;
+font-size:11px;
 color:#aebbd0;
 margin-bottom:7px;
 }
 
 input,select{
 width:100%;
-background:#07111f;
-border:1px solid #263852;
-border-radius:11px;
-padding:13px;
+background:#07101d;
+border:1px solid #263851;
+border-radius:10px;
+padding:12px;
 color:#fff;
 outline:none;
 }
 
 input:focus,select:focus{
-border-color:#648cff;
+border-color:#6d7cff;
 }
 
 .topic-row{
 display:flex;
-gap:10px;
+gap:9px;
 }
 
 .topic-row input{flex:1}
 
+button{
+border-radius:10px;
+padding:11px 14px;
+}
+
 .primary{
 border:0;
-border-radius:11px;
-padding:13px 18px;
-font-weight:bold;
 color:#fff;
-background:linear-gradient(135deg,#704cff,#168dff);
+font-weight:bold;
+background:linear-gradient(135deg,#704cff,#168fff);
 }
 
 .secondary{
-border:1px solid #2b3d58;
-background:#101e31;
+border:1px solid #2b3e59;
+background:#101c2d;
 color:#dce5f2;
-border-radius:10px;
-padding:11px 15px;
 }
 
 .danger{
-border:1px solid #5d2c34;
-background:#241419;
-color:#ff9da7;
-border-radius:10px;
-padding:11px 15px;
+border:1px solid #5d3038;
+background:#24151a;
+color:#ff9ea8;
 }
 
 button:disabled{
@@ -166,7 +166,7 @@ cursor:not-allowed;
 .grid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:12px;
+gap:10px;
 }
 
 .grid.two{
@@ -174,75 +174,54 @@ grid-template-columns:repeat(2,1fr);
 }
 
 .option{
-background:#0a1423;
-border:1px solid #21324a;
-border-radius:13px;
+background:#091321;
+border:1px solid #21334b;
+border-radius:12px;
 padding:12px;
 }
 
 .toggle-row{
 display:flex;
-gap:8px;
+gap:7px;
 }
 
 .toggle{
-border:1px solid #2a3b55;
-background:#091423;
-color:#9facbf;
-padding:9px 12px;
-border-radius:9px;
+background:#091321;
+border:1px solid #2a3d57;
+color:#8f9db0;
+padding:8px 11px;
 }
 
 .toggle.active{
-background:#182958;
-border-color:#617cff;
-color:white;
-}
-
-.range-wrap{
-background:#0a1423;
-border:1px solid #21324a;
-border-radius:13px;
-padding:13px;
-}
-
-.range-top{
-display:flex;
-justify-content:space-between;
-font-size:12px;
-color:#aebbd0;
-margin-bottom:10px;
-}
-
-input[type=range]{
-padding:0;
-accent-color:#704cff;
+background:#1b2853;
+border-color:#7180ff;
+color:#fff;
 }
 
 .timeline{
 display:flex;
-gap:9px;
+gap:8px;
 overflow-x:auto;
 padding-bottom:5px;
 }
 
 .scene{
 min-width:145px;
-padding:12px;
-background:#081322;
-border:1px solid #22344d;
-border-radius:12px;
+padding:11px;
+border-radius:11px;
+background:#08121f;
+border:1px solid #21334b;
 }
 
 .scene.active{
-background:#142144;
-border-color:#667dff;
+background:#17244b;
+border-color:#7081ff;
 }
 
 .scene-num{
-font-size:10px;
-color:#8292aa;
-margin-bottom:8px;
+font-size:9px;
+color:#74839a;
+margin-bottom:7px;
 }
 
 .scene-title{
@@ -251,62 +230,109 @@ font-weight:bold;
 }
 
 .scene-time{
-font-size:10px;
-color:#7f8ea4;
-margin-top:8px;
+font-size:9px;
+color:#75859b;
+margin-top:7px;
 }
 
 .script,.caption-box{
-background:#07111f;
-border:1px solid #22344d;
-border-radius:13px;
-padding:15px;
-color:#ccd6e4;
+background:#07101c;
+border:1px solid #21334b;
+border-radius:12px;
+padding:14px;
 font-size:13px;
 line-height:1.6;
+color:#d0d9e6;
 }
 
-.script{min-height:130px}
+.script{
+min-height:120px;
+}
 
 .actions{
 display:flex;
 flex-wrap:wrap;
+gap:8px;
+margin-top:9px;
+}
+
+.generation{
+display:none;
+margin-top:12px;
+padding:13px;
+background:#09172a;
+border:1px solid #29415f;
+border-radius:12px;
+}
+
+.generation.show{display:block}
+
+.gen-title{
+font-size:12px;
+font-weight:bold;
+margin-bottom:7px;
+}
+
+.gen-step{
+display:flex;
+align-items:center;
 gap:9px;
-margin-top:10px;
+padding:6px 0;
+font-size:11px;
+color:#63748a;
+}
+
+.gen-step.active{color:#fff}
+.gen-step.done{color:#68e0aa}
+
+.dot{
+width:8px;
+height:8px;
+border-radius:50%;
+background:#35465e;
+}
+
+.gen-step.active .dot{
+background:#7080ff;
+box-shadow:0 0 12px #7080ff;
+}
+
+.gen-step.done .dot{
+background:#3bd79a;
 }
 
 .progress{
-height:8px;
+height:7px;
+border-radius:20px;
 background:#172337;
-border-radius:99px;
 overflow:hidden;
-margin-top:14px;
+margin-top:12px;
 }
 
 .progress-bar{
 height:100%;
 width:0%;
 background:linear-gradient(90deg,#704cff,#00c6ff);
-transition:width .25s;
+transition:width .2s;
 }
 
 .progress-text{
 text-align:center;
-font-size:11px;
-color:#8391a5;
-margin-top:8px;
-min-height:16px;
+font-size:10px;
+color:#8291a5;
+margin-top:7px;
+min-height:15px;
 }
 
 .phone{
 width:270px;
 height:480px;
-margin:0 auto 18px;
-background:#02060b;
-border:9px solid #151d29;
-border-radius:32px;
+margin:0 auto 15px;
+border:8px solid #151d2a;
+border-radius:30px;
 overflow:hidden;
-box-shadow:0 20px 50px #0009;
+background:#02050a;
+box-shadow:0 20px 50px #000a;
 }
 
 canvas{
@@ -317,9 +343,16 @@ height:100%;
 
 .phone-label{
 text-align:center;
-font-size:11px;
-color:#748198;
-margin-bottom:14px;
+font-size:10px;
+color:#75849a;
+margin-bottom:13px;
+}
+
+.preview-time{
+text-align:center;
+font-size:12px;
+color:#a8b4c6;
+margin-bottom:10px;
 }
 
 .preview-controls{
@@ -328,84 +361,44 @@ grid-template-columns:1fr 1fr;
 gap:8px;
 }
 
-.preview-controls button{width:100%}
-
-.status{
-background:#081322;
-border:1px solid #263752;
-border-radius:12px;
-padding:13px;
-font-size:12px;
-color:#92a0b4;
-margin-top:14px;
-line-height:1.8;
+.preview-controls button{
+width:100%;
 }
 
-.status strong{color:#e2e9f3}
+.status{
+margin-top:13px;
+padding:12px;
+border-radius:11px;
+background:#08121f;
+border:1px solid #253750;
+font-size:11px;
+line-height:1.9;
+color:#8d9bb0;
+}
+
+.status strong{color:#fff}
 
 .badge{
 display:inline-block;
-padding:5px 9px;
-border-radius:99px;
-background:#142650;
-color:#8db1ff;
-font-size:10px;
+padding:5px 8px;
+border-radius:20px;
+background:#14244a;
+color:#9eb4ff;
+font-size:9px;
 font-weight:bold;
 margin-bottom:12px;
 }
 
-.generation{
-display:none;
-background:#09172a;
-border:1px solid #28405e;
-border-radius:14px;
-padding:14px;
-margin-top:14px;
-}
-
-.generation.show{display:block}
-
-.gen-title{
-font-size:13px;
-font-weight:bold;
-margin-bottom:8px;
-}
-
-.gen-step{
-display:flex;
-align-items:center;
-gap:10px;
-padding:7px 0;
-font-size:12px;
-color:#66758a;
-}
-
-.gen-step.active{color:#fff}
-.gen-step.done{color:#72e6b0}
-
-.dot{
-width:9px;
-height:9px;
-border-radius:50%;
-background:#33465f;
-}
-
-.gen-step.active .dot{
-background:#6d7cff;
-box-shadow:0 0 12px #6d7cff;
-}
-
-.gen-step.done .dot{
-background:#38d69a;
-}
-
 @media(max-width:1050px){
 .layout{grid-template-columns:1fr}
-.right{position:relative;top:auto}
+.right{
+position:relative;
+top:auto;
+}
 }
 
 @media(max-width:650px){
-.app{padding:14px}
+.app{padding:13px}
 .stage{display:none}
 .grid,.grid.two{grid-template-columns:1fr}
 .topic-row{flex-direction:column}
@@ -423,12 +416,12 @@ background:#38d69a;
 <div class="logo">🎬</div>
 <div>
 <h1>AI Reel Maker</h1>
-<p>Professional AI-powered reel creation studio</p>
+<p>Professional AI Reel Creation Studio</p>
 </div>
 </div>
 
 <div class="stage">
-Stage 8.1 • Professional Editor
+STAGE 8.2
 </div>
 
 </header>
@@ -436,15 +429,15 @@ Stage 8.1 • Professional Editor
 
 <div class="layout">
 
-<div class="panel left">
+<!-- LEFT -->
 
-<!-- TOPIC -->
+<div class="panel left">
 
 <div class="section">
 
 <div class="section-title">
-<h2>1. What do you want to create?</h2>
-<span>AI understands your topic</span>
+<h2>1. Create Your Reel</h2>
+<span>Topic-aware AI engine</span>
 </div>
 
 <label>Topic</label>
@@ -465,37 +458,37 @@ placeholder="Example: Chandrayaan-3, Ferrari 488, BMW M3 GTR">
 <div class="generation" id="generation">
 
 <div class="gen-title">
-🤖 AI Reel Generation
+🤖 Generating your reel
 </div>
 
 <div class="gen-step" id="step1">
 <div class="dot"></div>
-Analyzing your topic
+Analyzing topic
 </div>
 
 <div class="gen-step" id="step2">
 <div class="dot"></div>
-Creating the hook
+Creating hook
 </div>
 
 <div class="gen-step" id="step3">
 <div class="dot"></div>
-Writing the voiceover
+Writing voiceover
 </div>
 
 <div class="gen-step" id="step4">
 <div class="dot"></div>
-Building topic-specific scenes
+Building scenes
 </div>
 
 <div class="gen-step" id="step5">
 <div class="dot"></div>
-Preparing captions and visuals
+Applying editing choices
 </div>
 
 <div class="gen-step" id="step6">
 <div class="dot"></div>
-Finalizing reel
+Preparing preview
 </div>
 
 </div>
@@ -505,7 +498,7 @@ Finalizing reel
 </div>
 
 <div class="progress-text" id="generationText">
-Enter a topic and press Generate Reel.
+Enter a topic.
 </div>
 
 </div>
@@ -517,39 +510,32 @@ Enter a topic and press Generate Reel.
 
 <div class="section-title">
 <h2>2. Reel Settings</h2>
-<span>Customer controls</span>
+<span>Every setting affects the project</span>
 </div>
 
 <div class="grid">
 
 <div class="option">
 <label>Duration</label>
-
 <select id="duration">
 <option value="30">30 seconds</option>
 <option value="45" selected>45 seconds</option>
 <option value="60">60 seconds</option>
 </select>
-
 </div>
-
 
 <div class="option">
 <label>Language</label>
-
 <select id="language">
 <option>English</option>
 <option>Hindi</option>
 <option>Odia</option>
 <option>Bengali</option>
 </select>
-
 </div>
-
 
 <div class="option">
 <label>Audience</label>
-
 <select id="audience">
 <option>General</option>
 <option>Young audience</option>
@@ -558,7 +544,6 @@ Enter a topic and press Generate Reel.
 <option>Tech audience</option>
 <option>News audience</option>
 </select>
-
 </div>
 
 </div>
@@ -571,15 +556,13 @@ Enter a topic and press Generate Reel.
 
 <div class="section-title">
 <h2>3. Content Style</h2>
-<span>How should AI write?</span>
+<span>AI writing controls</span>
 </div>
 
 <div class="grid">
 
 <div class="option">
-
-<label>Content style</label>
-
+<label>Content Style</label>
 <select id="contentStyle">
 <option>Fast & Viral</option>
 <option>News Style</option>
@@ -588,14 +571,10 @@ Enter a topic and press Generate Reel.
 <option>Storytelling</option>
 <option>Professional</option>
 </select>
-
 </div>
 
-
 <div class="option">
-
-<label>Hook style</label>
-
+<label>Hook Style</label>
 <select id="hookStyle">
 <option>Curiosity</option>
 <option>Shocking Fact</option>
@@ -603,14 +582,10 @@ Enter a topic and press Generate Reel.
 <option>Bold Statement</option>
 <option>Story Hook</option>
 </select>
-
 </div>
 
-
 <div class="option">
-
-<label>Voice style</label>
-
+<label>Voice Style</label>
 <select id="voiceStyle">
 <option>Energetic</option>
 <option>Professional</option>
@@ -618,7 +593,6 @@ Enter a topic and press Generate Reel.
 <option>Dramatic</option>
 <option>News Anchor</option>
 </select>
-
 </div>
 
 </div>
@@ -630,16 +604,14 @@ Enter a topic and press Generate Reel.
 <div class="section">
 
 <div class="section-title">
-<h2>4. Visual Style</h2>
-<span>Customer choice</span>
+<h2>4. Visual & Editing</h2>
+<span>Real-time preview</span>
 </div>
 
 <div class="grid">
 
 <div class="option">
-
-<label>Visual theme</label>
-
+<label>Visual Style</label>
 <select id="visualStyle">
 <option>Cinematic</option>
 <option>Realistic</option>
@@ -648,27 +620,19 @@ Enter a topic and press Generate Reel.
 <option>News</option>
 <option>Minimal</option>
 </select>
-
 </div>
 
-
 <div class="option">
-
-<label>Aspect ratio</label>
-
+<label>Aspect Ratio</label>
 <select id="aspect">
 <option>9:16 Vertical</option>
 <option>1:1 Square</option>
 <option>16:9 Landscape</option>
 </select>
-
 </div>
 
-
 <div class="option">
-
 <label>Transition</label>
-
 <select id="transition">
 <option>Dynamic</option>
 <option>Fade</option>
@@ -676,7 +640,6 @@ Enter a topic and press Generate Reel.
 <option>Zoom</option>
 <option>Cut</option>
 </select>
-
 </div>
 
 </div>
@@ -688,8 +651,8 @@ Enter a topic and press Generate Reel.
 <div class="section">
 
 <div class="section-title">
-<h2>5. Music</h2>
-<span>Background soundtrack</span>
+<h2>5. Background Music</h2>
+<span>Embedded into export</span>
 </div>
 
 <div class="grid two">
@@ -712,20 +675,20 @@ Enter a topic and press Generate Reel.
 
 </div>
 
+<div class="option">
 
-<div class="range-wrap">
-
-<div class="range-top">
-<span>Music volume</span>
-<strong id="musicVolumeText">35%</strong>
-</div>
+<label>Music Volume</label>
 
 <input
-id="musicVolume"
 type="range"
+id="musicVolume"
 min="0"
 max="100"
 value="35">
+
+<div id="musicVolumeText">
+35%
+</div>
 
 </div>
 
@@ -738,8 +701,8 @@ value="35">
 <div class="section">
 
 <div class="section-title">
-<h2>6. Captions</h2>
-<span>Social editing</span>
+<h2>6. Animated Captions</h2>
+<span>Actually affects preview</span>
 </div>
 
 <div class="grid">
@@ -762,10 +725,9 @@ OFF
 
 </div>
 
-
 <div class="option">
 
-<label>Caption style</label>
+<label>Caption Style</label>
 
 <select id="captionStyle">
 <option>Bold Viral</option>
@@ -777,10 +739,9 @@ OFF
 
 </div>
 
-
 <div class="option">
 
-<label>Caption animation</label>
+<label>Animation</label>
 
 <select id="captionAnimation">
 <option>Pop</option>
@@ -796,20 +757,20 @@ OFF
 </div>
 
 
-<!-- BRANDING -->
+<!-- BRAND -->
 
 <div class="section">
 
 <div class="section-title">
 <h2>7. Branding</h2>
-<span>Make the reel yours</span>
+<span>Optional</span>
 </div>
 
 <div class="grid two">
 
 <div class="option">
 
-<label>Brand name / watermark</label>
+<label>Brand Name</label>
 
 <input
 id="brandName"
@@ -817,10 +778,9 @@ placeholder="Example: Nexora Bharat">
 
 </div>
 
-
 <div class="option">
 
-<label>Brand position</label>
+<label>Position</label>
 
 <select id="brandPosition">
 <option>Top Left</option>
@@ -841,14 +801,14 @@ placeholder="Example: Nexora Bharat">
 
 <div class="section-title">
 <h2>8. Scene Timeline</h2>
-<span id="timelineStatus">Waiting for generation</span>
+<span id="timelineStatus">Waiting</span>
 </div>
 
 <div class="timeline" id="timeline">
 
 <div class="scene">
 <div class="scene-num">SCENE 1</div>
-<div class="scene-title">No reel generated</div>
+<div class="scene-title">Generate a reel</div>
 <div class="scene-time">--</div>
 </div>
 
@@ -867,7 +827,7 @@ placeholder="Example: Nexora Bharat">
 </div>
 
 <div class="caption-box" id="hook">
-Enter a topic and press Generate Reel.
+Your AI hook will appear here.
 </div>
 
 </div>
@@ -878,12 +838,12 @@ Enter a topic and press Generate Reel.
 <div class="section">
 
 <div class="section-title">
-<h2>10. Voiceover Script</h2>
-<span>AI-generated</span>
+<h2>10. Voiceover</h2>
+<span>Browser voice for prototype</span>
 </div>
 
 <div class="script" id="script">
-Your generated voiceover script will appear here.
+Your generated voiceover will appear here.
 </div>
 
 <div class="actions">
@@ -907,11 +867,11 @@ Your generated voiceover script will appear here.
 
 <div class="section-title">
 <h2>11. Social Caption</h2>
-<span>Ready for Instagram</span>
+<span>Ready to copy</span>
 </div>
 
 <div class="caption-box" id="socialCaption">
-Your caption will appear here.
+Your social caption will appear here.
 </div>
 
 <div class="actions">
@@ -934,14 +894,14 @@ Your caption will appear here.
 <div class="section">
 
 <div class="section-title">
-<h2>12. Export</h2>
-<span>Final reel</span>
+<h2>12. Final Video</h2>
+<span>WebM prototype export</span>
 </div>
 
 <div class="actions">
 
 <button class="primary" id="previewBtn">
-👁️ Preview Reel
+▶️ Preview Reel
 </button>
 
 <button class="secondary" id="stopPreview">
@@ -963,9 +923,7 @@ Your caption will appear here.
 </div>
 
 <div class="progress">
-
 <div class="progress-bar" id="exportBar"></div>
-
 </div>
 
 <div class="progress-text" id="exportText">
@@ -977,12 +935,12 @@ Ready
 </div>
 
 
-<!-- RIGHT PREVIEW -->
+<!-- RIGHT -->
 
 <div class="panel right">
 
 <div class="badge">
-LIVE EDITOR PREVIEW
+LIVE REEL PREVIEW
 </div>
 
 <div class="phone">
@@ -995,15 +953,18 @@ height="960">
 
 </div>
 
-<div class="phone-label">
-9:16 vertical reel preview
+<div class="preview-time" id="previewTime">
+00:00 / 00:45
 </div>
 
+<div class="phone-label">
+Animated 9:16 preview
+</div>
 
 <div class="preview-controls">
 
 <button class="secondary" id="playMusic">
-▶️ Play Music
+🎵 Music
 </button>
 
 <button class="danger" id="stopMusic">
@@ -1012,39 +973,32 @@ height="960">
 
 </div>
 
-
 <div class="status">
 
 <strong>Project Status</strong>
 
 <div>
-Topic:
-<span id="statusTopic">Not generated</span>
+Topic: <span id="statusTopic">Not generated</span>
 </div>
 
 <div>
-Duration:
-<span id="statusDuration">45 sec</span>
+Duration: <span id="statusDuration">45 sec</span>
 </div>
 
 <div>
-Scenes:
-<span id="statusScenes">6</span>
+Scenes: <span id="statusScenes">0</span>
 </div>
 
 <div>
-Music:
-<span id="statusMusic">ON</span>
+Music: <span id="statusMusic">ON</span>
 </div>
 
 <div>
-Captions:
-<span id="statusCaptions">ON</span>
+Captions: <span id="statusCaptions">ON</span>
 </div>
 
 <div>
-Engine:
-<span id="statusEngine">Ready</span>
+Renderer: <span id="statusEngine">Ready</span>
 </div>
 
 </div>
@@ -1052,21 +1006,22 @@ Engine:
 </div>
 
 </div>
-
 </div>
 
 
 <script>
 
-/* =========================================
-CORE STATE
-========================================= */
+/* =====================================================
+STATE
+===================================================== */
 
 const $=id=>document.getElementById(id);
 
 let scenes=[];
-let currentScene=0;
 let generated=false;
+
+let currentScene=0;
+
 let previewRunning=false;
 let previewStart=0;
 let previewRAF=null;
@@ -1074,585 +1029,362 @@ let previewRAF=null;
 let musicEnabled=true;
 let captionsEnabled=true;
 
+let renderCancelled=false;
+
 let audioCtx=null;
+let musicDestination=null;
 let musicGain=null;
 let musicOscillators=[];
 
 
-/* =========================================
+/* =====================================================
 TOPIC DETECTION
-========================================= */
+===================================================== */
 
 function detectTopic(topic){
 
-const t=topic
-.toLowerCase()
-.trim()
-.replace(/[–—]/g,"-");
+const t=topic.toLowerCase().trim();
 
 if(
-t.includes("chandrayaan-3") ||
-t.includes("chandrayaan 3") ||
+t.includes("chandrayaan-3")||
+t.includes("chandrayaan 3")||
 t.includes("chandrayaan3")
-){
-return "chandrayaan3";
-}
+)return"chandrayaan3";
 
 if(
-t.includes("chandrayaan-2") ||
-t.includes("chandrayaan 2") ||
+t.includes("chandrayaan-2")||
+t.includes("chandrayaan 2")||
 t.includes("chandrayaan2")
-){
-return "chandrayaan2";
-}
+)return"chandrayaan2";
 
 if(
-t.includes("chandrayaan-1") ||
-t.includes("chandrayaan 1") ||
+t.includes("chandrayaan-1")||
+t.includes("chandrayaan 1")||
 t.includes("chandrayaan1")
-){
-return "chandrayaan1";
-}
+)return"chandrayaan1";
 
 if(
-t.includes("ferrari 488") ||
-t.includes("488 gtb") ||
+t.includes("ferrari 488")||
+t.includes("488 gtb")||
 t.includes("488 pista")
-){
-return "ferrari488";
-}
+)return"ferrari488";
 
 if(
-t.includes("bmw m3 gtr") ||
+t.includes("bmw m3 gtr")||
 t.includes("m3 gtr")
-){
-return "bmwm3gtr";
-}
+)return"bmwm3gtr";
 
 if(
-t.includes("space") ||
-t.includes("rocket") ||
-t.includes("moon") ||
-t.includes("nasa") ||
-t.includes("planet")
-){
-return "space";
-}
+t.includes("space")||
+t.includes("rocket")||
+t.includes("moon")||
+t.includes("nasa")
+)return"space";
 
 if(
-t.includes("artificial intelligence") ||
-t.includes("technology") ||
-t.includes("tech") ||
-t.includes(" ai")
-){
-return "technology";
-}
+t.includes("technology")||
+t.includes("artificial intelligence")||
+t.includes(" ai ")||
+t.endsWith(" ai")
+)return"technology";
 
 if(
-t.includes("business") ||
-t.includes("startup") ||
-t.includes("company") ||
-t.includes("stock")
-){
-return "business";
-}
+t.includes("business")||
+t.includes("startup")||
+t.includes("company")
+)return"business";
 
 if(
-t.includes("india") ||
-t.includes("indian")
-){
-return "india";
-}
+t.includes("bmw")||
+t.includes("ferrari")||
+t.includes("mercedes")||
+t.includes("lamborghini")||
+t.includes("porsche")||
+t.includes("car")
+)return"cars";
 
-if(
-t.includes("car") ||
-t.includes("bmw") ||
-t.includes("ferrari") ||
-t.includes("mercedes") ||
-t.includes("lamborghini") ||
-t.includes("porsche")
-){
-return "cars";
-}
-
-return "general";
-
+return"general";
 }
 
 
-/* =========================================
-TOPIC-SPECIFIC CONTENT
-========================================= */
+/* =====================================================
+SCENE ENGINE
+===================================================== */
 
 function createScenes(topic){
 
 const type=detectTopic(topic);
 
-
-/* CHANDRAYAAN 3 */
-
 if(type==="chandrayaan3"){
 
-return [
-
+return[
 {
 title:"Chandrayaan-3 Mission",
 text:"Chandrayaan-3 was India's lunar mission designed to demonstrate a safe and controlled soft landing on the Moon."
 },
-
 {
 title:"Journey to the Moon",
-text:"The spacecraft launched aboard the LVM3-M4 on July 14, 2023 and was gradually moved toward lunar orbit."
+text:"The spacecraft launched aboard LVM3-M4 on July 14, 2023 and was gradually moved toward lunar orbit."
 },
-
 {
 title:"Vikram Lander",
 text:"The Vikram lander carried the landing systems and scientific instruments needed to operate on the lunar surface."
 },
-
 {
 title:"Pragyan Rover",
 text:"After landing, the Pragyan rover descended from Vikram and explored the area around the landing site."
 },
-
 {
 title:"Historic Soft Landing",
-text:"On August 23, 2023, Vikram successfully soft-landed on the Moon, near the lunar south polar region."
+text:"On August 23, 2023, Vikram successfully soft-landed on the Moon near the lunar south polar region."
 },
-
 {
 title:"Science on the Moon",
 text:"The lander and rover performed experiments measuring properties of the lunar surface, plasma environment, seismic activity and elemental composition."
 }
-
 ];
-
 }
 
 
-/* CHANDRAYAAN 2 */
-
 if(type==="chandrayaan2"){
 
-return [
-
+return[
 {
 title:"Chandrayaan-2",
 text:"Chandrayaan-2 was India's second lunar exploration mission and launched in July 2019."
 },
-
 {
-title:"Orbiter",
-text:"The Chandrayaan-2 orbiter remained in lunar orbit and continued scientific observations of the Moon."
+title:"The Orbiter",
+text:"The Chandrayaan-2 orbiter remained in lunar orbit and continued scientific observations."
 },
-
 {
 title:"Vikram Lander",
-text:"The Vikram lander was designed to perform a controlled landing on the lunar surface."
+text:"Vikram was designed to perform a controlled landing on the lunar surface."
 },
-
 {
 title:"Pragyan Rover",
-text:"The Pragyan rover was designed to explore the lunar surface near the landing area."
+text:"Pragyan was designed to explore the lunar surface near the landing area."
 },
-
 {
 title:"Lunar Science",
 text:"The mission carried scientific instruments designed to study the Moon's surface and environment."
 },
-
 {
 title:"Mission Legacy",
 text:"Experience from Chandrayaan-2 became part of the engineering journey toward Chandrayaan-3."
 }
-
 ];
-
 }
 
 
-/* CHANDRAYAAN 1 */
-
 if(type==="chandrayaan1"){
 
-return [
-
+return[
 {
 title:"Chandrayaan-1",
 text:"India launched Chandrayaan-1 in October 2008 as its first lunar exploration mission."
 },
-
 {
 title:"Lunar Mapping",
 text:"The spacecraft carried instruments designed to study and map the Moon's surface."
 },
-
 {
 title:"Water Evidence",
 text:"Chandrayaan-1 contributed important observations related to water molecules on the Moon."
 },
-
 {
 title:"Scientific Payloads",
 text:"The mission carried scientific instruments from India and international partners."
 },
-
 {
 title:"Lunar Exploration",
-text:"The mission expanded scientific knowledge about the Moon and demonstrated India's growing space capabilities."
+text:"The mission expanded scientific knowledge about the Moon."
 },
-
 {
 title:"Mission Legacy",
-text:"Chandrayaan-1 became an important foundation for India's later lunar exploration missions."
+text:"Chandrayaan-1 became an important foundation for India's later lunar missions."
 }
-
 ];
-
 }
 
-
-/* FERRARI */
 
 if(type==="ferrari488"){
 
-return [
-
+return[
 {
 title:"Ferrari 488",
 text:"The Ferrari 488 became one of the defining turbocharged Ferraris of its generation."
 },
-
 {
 title:"Twin-Turbo V8",
 text:"Its twin-turbocharged V8 engine delivered strong acceleration and a distinctive performance character."
 },
-
 {
 title:"Mid-Engine Layout",
 text:"The mid-engine layout helped give the 488 sharp handling and strong balance."
 },
-
 {
 title:"Aerodynamic Design",
 text:"Its bodywork was engineered around airflow, cooling and high-speed stability."
 },
-
 {
 title:"Performance Focus",
 text:"The 488 was built around speed, response and driver involvement."
 },
-
 {
 title:"The 488 Legacy",
 text:"The Ferrari 488 became an important chapter in Ferrari's modern mid-engine performance story."
 }
-
 ];
-
 }
 
 
-/* BMW M3 GTR */
-
 if(type==="bmwm3gtr"){
 
-return [
-
+return[
 {
 title:"BMW M3 GTR",
 text:"The BMW M3 GTR became one of the most recognizable performance versions of the E46 era."
 },
-
 {
 title:"Racing DNA",
 text:"Its identity was strongly connected to BMW motorsport engineering."
 },
-
 {
 title:"E46 Era",
 text:"The E46 platform gave the M3 GTR its distinctive proportions and aggressive appearance."
 },
-
 {
 title:"V8 Connection",
 text:"The racing version became famous for its powerful V8 engine."
 },
-
 {
 title:"Gaming Icon",
 text:"Need for Speed Most Wanted helped make the M3 GTR famous with a huge gaming audience."
 },
-
 {
 title:"Enduring Icon",
 text:"The M3 GTR remains one of BMW's most recognizable performance icons."
 }
-
 ];
-
 }
 
 
-/* SPACE */
-
-if(type==="space"){
-
-return [
-
+return[
 {
 title:topic,
-text:`${topic} is connected to humanity's continuing effort to understand space and the objects beyond Earth.`
+text:`Here is the story behind ${topic} and what makes it interesting.`
 },
-
-{
-title:"The Mission",
-text:`The most interesting part of ${topic} is the technology used to study or reach its target.`
-},
-
-{
-title:"The Technology",
-text:`Space missions require advanced spacecraft, sensors, communication systems and careful mission planning.`
-},
-
-{
-title:"The Challenge",
-text:`Working in space means engineers must solve problems involving distance, temperature, radiation and limited communication.`
-},
-
-{
-title:"The Discovery",
-text:`Scientific observations can reveal new information about planets, moons, stars and the wider universe.`
-},
-
-{
-title:"Why It Matters",
-text:`Every successful space mission adds another piece to humanity's understanding of the universe.`
-}
-
-];
-
-}
-
-
-/* TECHNOLOGY */
-
-if(type==="technology"){
-
-return [
-
-{
-title:topic,
-text:`${topic} is changing how people interact with technology and information.`
-},
-
-{
-title:"How It Works",
-text:`The technology combines software, data and computing systems to perform tasks that once required much more manual work.`
-},
-
-{
-title:"Real Applications",
-text:`Businesses and creators are already exploring practical ways to use ${topic}.`
-},
-
-{
-title:"The Advantage",
-text:`The biggest opportunity is using technology to make difficult or time-consuming tasks faster and easier.`
-},
-
-{
-title:"The Challenge",
-text:`At the same time, reliability, privacy, security and responsible use remain important considerations.`
-},
-
-{
-title:"What's Next",
-text:`The technology will continue evolving as developers discover new applications and improve the systems behind it.`
-}
-
-];
-
-}
-
-
-/* INDIA */
-
-if(type==="india"){
-
-return [
-
-{
-title:topic,
-text:`${topic} is connected to an important part of India's history, society, science or development.`
-},
-
-{
-title:"The Background",
-text:`Understanding the background helps explain why ${topic} matters today.`
-},
-
-{
-title:"The Key Detail",
-text:`One of the most interesting aspects of ${topic} is how it has changed or influenced India.`
-},
-
-{
-title:"The Impact",
-text:`Its effects can be seen across different parts of Indian society and development.`
-},
-
-{
-title:"The Bigger Picture",
-text:`Looking at ${topic} in context reveals a much larger story.`
-},
-
-{
-title:"The Takeaway",
-text:`That is what makes ${topic} worth understanding beyond a single headline.`
-}
-
-];
-
-}
-
-
-/* GENERAL */
-
-return [
-
-{
-title:topic,
-text:`Here is the story behind ${topic} and why people are paying attention to it.`
-},
-
 {
 title:"The Big Idea",
-text:`The first thing to understand about ${topic} is what makes it interesting.`
+text:`The first thing to understand about ${topic} is what makes it different.`
 },
-
 {
 title:"Key Detail",
 text:`There is more to ${topic} than what people usually see at first glance.`
 },
-
 {
 title:"Why It Matters",
 text:`This is the part of ${topic} that makes the subject worth exploring.`
 },
-
 {
 title:"The Bigger Picture",
 text:`Looking at the details gives a clearer picture of ${topic}.`
 },
-
 {
 title:"Final Takeaway",
 text:`And that is why ${topic} continues to attract attention.`
 }
-
 ];
-
 }
 
 
-/* =========================================
+/* =====================================================
 HOOK
-========================================= */
+===================================================== */
 
-function createHook(topic,type){
+function createHook(topic){
 
+const type=detectTopic(topic);
 const style=$("hookStyle").value;
 
 if(type==="chandrayaan3"){
 
 if(style==="Question")
-return "How did Chandrayaan-3 successfully land on the Moon?";
+return"How did Chandrayaan-3 successfully land on the Moon?";
 
 if(style==="Shocking Fact")
-return "India achieved a historic lunar landing with Chandrayaan-3.";
+return"India achieved a historic lunar landing with Chandrayaan-3.";
 
 if(style==="Bold Statement")
-return "Chandrayaan-3 changed India's lunar exploration story.";
+return"Chandrayaan-3 changed India's lunar exploration story.";
 
-if(style==="Story Hook")
-return "It took years of engineering to reach this moment on the Moon.";
-
-return "Chandrayaan-3 achieved a historic soft landing on the Moon.";
-
+return"Chandrayaan-3 achieved a historic soft landing on the Moon.";
 }
 
-if(type==="ferrari488"){
+if(type==="ferrari488")
+return"Why is the Ferrari 488 still such an important modern Ferrari?";
 
-if(style==="Question")
-return "Why is the Ferrari 488 still such an important modern Ferrari?";
+if(type==="bmwm3gtr")
+return"Why is the BMW M3 GTR still one of the most famous BMW performance icons?";
 
-if(style==="Shocking Fact")
-return "The Ferrari 488 changed Ferrari's turbocharged era.";
-
-return "The Ferrari 488 became one of Ferrari's most memorable modern supercars.";
-
-}
-
-if(type==="bmwm3gtr"){
-return "Why is the BMW M3 GTR still one of the most famous BMW performance icons?";
-}
-
-return `Here's what makes ${topic} worth knowing about.`;
-
+return`Here's what makes ${topic} worth knowing about.`;
 }
 
 
-/* =========================================
+/* =====================================================
 SCRIPT
-========================================= */
+===================================================== */
 
-function buildScript(topic){
+function buildScript(){
 
-return scenes.map((s,i)=>{
-
-return `Scene ${i+1}. ${s.title}. ${s.text}`;
-
-}).join(" ");
-
+return scenes.map((s,i)=>
+`Scene ${i+1}. ${s.title}. ${s.text}`
+).join(" ");
 }
 
 
-/* =========================================
+/* =====================================================
 CAPTION
-========================================= */
+===================================================== */
 
-function buildCaption(topic,type){
+function buildCaption(topic){
 
-let hashtags="";
+let tags="#Reels #AI #Trending";
 
-if(type==="chandrayaan3"){
-hashtags="#Chandrayaan3 #ISRO #India #Space #Moon #IndianSpace";
-}
-else if(type==="ferrari488"){
-hashtags="#Ferrari488 #Ferrari #Supercars #Cars #CarCulture";
-}
-else if(type==="bmwm3gtr"){
-hashtags="#BMWM3GTR #BMW #E46 #Cars #NeedForSpeed";
-}
-else{
-hashtags="#Reels #Trending #Interesting #Technology #India";
-}
+const type=detectTopic(topic);
 
-return `🚀 ${topic} — a quick look at what makes this topic interesting.
+if(type==="chandrayaan3")
+tags="#Chandrayaan3 #ISRO #India #Space #Moon";
 
-What do you think? 👇
+if(type==="ferrari488")
+tags="#Ferrari488 #Ferrari #Supercars #Cars";
 
-${hashtags}`;
+if(type==="bmwm3gtr")
+tags="#BMWM3GTR #BMW #E46 #Cars";
 
+return`${topic} — a quick look at the story.
+
+Follow for more.
+
+${tags}`;
 }
 
 
-/* =========================================
-GENERATION ANIMATION
-========================================= */
+/* =====================================================
+WAIT
+===================================================== */
 
-function setGenerationStep(number,percent,text){
+function wait(ms){
+return new Promise(resolve=>setTimeout(resolve,ms));
+}
+
+
+/* =====================================================
+GENERATION
+===================================================== */
+
+function setStep(n,p,text){
 
 for(let i=1;i<=6;i++){
 
@@ -1660,88 +1392,65 @@ const el=$("step"+i);
 
 el.classList.remove("active","done");
 
-if(i<number){
-el.classList.add("done");
-}
-
-if(i===number){
-el.classList.add("active");
-}
+if(i<n)el.classList.add("done");
+if(i===n)el.classList.add("active");
 
 }
 
-$("generationBar").style.width=percent+"%";
+$("generationBar").style.width=p+"%";
 $("generationText").textContent=text;
-
 }
 
-
-function wait(ms){
-return new Promise(resolve=>setTimeout(resolve,ms));
-}
-
-
-/* =========================================
-GENERATE REEL
-========================================= */
 
 async function generateReel(){
-
-if(generateReel.running)return;
 
 const topic=$("topic").value.trim();
 
 if(!topic){
 
-$("generationText").textContent="Please enter a topic first.";
-$("topic").focus();
+$("generationText").textContent=
+"Enter a topic first.";
 
 return;
 }
 
-generateReel.running=true;
-
 $("generateBtn").disabled=true;
 $("generation").classList.add("show");
 
-$("statusEngine").textContent="Generating...";
-$("hookStatus").textContent="Generating";
-$("timelineStatus").textContent="Generating";
+$("statusEngine").textContent="Generating";
 
-setGenerationStep(1,8,"Understanding your topic...");
+setStep(1,8,"Analyzing topic...");
 await wait(450);
 
-const type=detectTopic(topic);
-
-setGenerationStep(2,25,"Creating your hook...");
+setStep(2,23,"Creating hook...");
 await wait(450);
 
-const hook=createHook(topic,type);
+const hook=createHook(topic);
 
-setGenerationStep(3,42,"Writing the voiceover...");
+setStep(3,40,"Writing voiceover...");
 await wait(450);
 
 scenes=createScenes(topic);
 
-const script=buildScript(topic);
+const script=buildScript();
 
-setGenerationStep(4,62,"Building topic-specific scenes...");
-await wait(550);
+setStep(4,60,"Building topic-specific scenes...");
+await wait(500);
 
 renderTimeline();
 
-setGenerationStep(5,82,"Preparing captions and visuals...");
-await wait(500);
+setStep(5,80,"Applying your editing choices...");
+await wait(450);
 
 $("hook").textContent=hook;
 $("script").textContent=script;
-$("socialCaption").textContent=buildCaption(topic,type);
+$("socialCaption").textContent=buildCaption(topic);
 
-$("hookStatus").textContent="Ready";
-$("timelineStatus").textContent="6 scenes";
-
-setGenerationStep(6,100,"Reel ready!");
+setStep(6,100,"Preparing preview...");
 await wait(400);
+
+generated=true;
+currentScene=0;
 
 $("statusTopic").textContent=topic;
 $("statusDuration").textContent=$("duration").value+" sec";
@@ -1750,70 +1459,63 @@ $("statusMusic").textContent=musicEnabled?"ON":"OFF";
 $("statusCaptions").textContent=captionsEnabled?"ON":"OFF";
 $("statusEngine").textContent="Ready";
 
-generated=true;
-currentScene=0;
+$("hookStatus").textContent="Ready";
+$("timelineStatus").textContent="6 scenes";
 
 drawFrame(0);
 
-generateReel.running=false;
 $("generateBtn").disabled=false;
-
 }
 
 
-/* =========================================
+/* =====================================================
 TIMELINE
-========================================= */
+===================================================== */
 
 function renderTimeline(){
 
-const timeline=$("timeline");
+$("timeline").innerHTML="";
 
-timeline.innerHTML="";
+const total=Number($("duration").value);
+const each=total/6;
 
-const duration=Number($("duration").value);
-const sceneDuration=duration/6;
-
-scenes.forEach((scene,index)=>{
+scenes.forEach((scene,i)=>{
 
 const div=document.createElement("div");
 
-div.className="scene"+(index===0?" active":"");
+div.className="scene"+(i===currentScene?" active":"");
 
 div.innerHTML=`
-<div class="scene-num">SCENE ${index+1}</div>
+<div class="scene-num">SCENE ${i+1}</div>
 <div class="scene-title">${escapeHTML(scene.title)}</div>
-<div class="scene-time">${sceneDuration.toFixed(1)} sec</div>
+<div class="scene-time">${each.toFixed(1)} sec</div>
 `;
 
 div.onclick=()=>{
 
-currentScene=index;
+currentScene=i;
 
-document.querySelectorAll(".scene").forEach(x=>{
-x.classList.remove("active");
-});
+document.querySelectorAll(".scene")
+.forEach(x=>x.classList.remove("active"));
 
 div.classList.add("active");
 
 drawFrame(0);
-
 };
 
-timeline.appendChild(div);
+$("timeline").appendChild(div);
 
 });
-
 }
 
 
-/* =========================================
-ESCAPE HTML
-========================================= */
+/* =====================================================
+ESCAPE
+===================================================== */
 
-function escapeHTML(value){
+function escapeHTML(v){
 
-return String(value)
+return String(v)
 .replace(/&/g,"&amp;")
 .replace(/</g,"&lt;")
 .replace(/>/g,"&gt;")
@@ -1823,56 +1525,83 @@ return String(value)
 }
 
 
-/* =========================================
+/* =====================================================
 CANVAS
-========================================= */
+===================================================== */
 
 const canvas=$("canvas");
 const ctx=canvas.getContext("2d");
+
 
 function drawBackground(time,type){
 
 const w=canvas.width;
 const h=canvas.height;
 
-ctx.fillStyle="#050914";
-ctx.fillRect(0,0,w,h);
-
-const g=ctx.createLinearGradient(0,0,w,h);
+const g=ctx.createLinearGradient(
+0,0,w,h
+);
 
 if(type==="chandrayaan3"){
-g.addColorStop(0,"#0a1640");
-g.addColorStop(.5,"#26115b");
-g.addColorStop(1,"#05070f");
+
+g.addColorStop(0,"#07184c");
+g.addColorStop(.5,"#24145e");
+g.addColorStop(1,"#03050d");
+
 }
 else if(type==="ferrari488"){
-g.addColorStop(0,"#30030b");
-g.addColorStop(.5,"#651020");
-g.addColorStop(1,"#07070b");
+
+g.addColorStop(0,"#3b0610");
+g.addColorStop(.5,"#7a1123");
+g.addColorStop(1,"#050609");
+
 }
 else if(type==="bmwm3gtr"){
-g.addColorStop(0,"#061b36");
-g.addColorStop(.5,"#082f50");
-g.addColorStop(1,"#03070c");
+
+g.addColorStop(0,"#061a35");
+g.addColorStop(.5,"#0b4264");
+g.addColorStop(1,"#02060c");
+
 }
 else{
-g.addColorStop(0,"#10204c");
-g.addColorStop(.5,"#35135f");
-g.addColorStop(1,"#05070f");
+
+g.addColorStop(0,"#10234d");
+g.addColorStop(.5,"#32165b");
+g.addColorStop(1,"#03050c");
+
 }
 
 ctx.fillStyle=g;
 ctx.fillRect(0,0,w,h);
 
-for(let i=0;i<35;i++){
 
-const x=(i*97+(time*.02*(i%3+1)))%w;
-const y=(i*71)%h;
+/* moving light */
+
+const x=(Math.sin(time*.0005)+1)/2*w;
+
+const glow=ctx.createRadialGradient(
+x,300,5,
+x,300,250
+);
+
+glow.addColorStop(0,"rgba(255,255,255,.18)");
+glow.addColorStop(1,"rgba(255,255,255,0)");
+
+ctx.fillStyle=glow;
+ctx.fillRect(0,0,w,h);
+
+
+/* particles */
+
+for(let i=0;i<45;i++){
+
+const px=(i*113+time*.02*(i%4+1))%w;
+const py=(i*79)%h;
 
 ctx.beginPath();
-ctx.arc(x,y,1.5+(i%3),0,Math.PI*2);
+ctx.arc(px,py,1+(i%2),0,Math.PI*2);
 
-ctx.fillStyle="rgba(255,255,255,.13)";
+ctx.fillStyle="rgba(255,255,255,.16)";
 ctx.fill();
 
 }
@@ -1880,9 +1609,233 @@ ctx.fill();
 }
 
 
-/* =========================================
-DRAW FRAME
-========================================= */
+/* =====================================================
+VISUAL OBJECT
+===================================================== */
+
+function drawVisual(time,type){
+
+const w=canvas.width;
+
+ctx.save();
+
+const pulse=
+1+Math.sin(time*.003)*.035;
+
+ctx.translate(w/2,360);
+ctx.scale(pulse,pulse);
+
+
+if(type==="chandrayaan3"){
+
+/* moon */
+
+ctx.beginPath();
+ctx.arc(0,0,145,0,Math.PI*2);
+
+ctx.fillStyle="#c6cad4";
+ctx.fill();
+
+for(let i=0;i<18;i++){
+
+ctx.beginPath();
+
+ctx.arc(
+Math.sin(i*5)*100,
+Math.cos(i*3)*95,
+6+(i%6),
+0,
+Math.PI*2
+);
+
+ctx.fillStyle="rgba(55,60,72,.28)";
+ctx.fill();
+
+}
+
+if(currentScene===2||currentScene===3){
+
+ctx.fillStyle="#eee";
+ctx.fillRect(-50,-40,100,65);
+
+ctx.strokeStyle="#555";
+ctx.lineWidth=7;
+
+ctx.beginPath();
+
+ctx.moveTo(-40,25);
+ctx.lineTo(-90,85);
+
+ctx.moveTo(40,25);
+ctx.lineTo(90,85);
+
+ctx.stroke();
+
+}
+
+}
+
+
+else if(
+type==="ferrari488"||
+type==="bmwm3gtr"
+){
+
+const bmw=type==="bmwm3gtr";
+
+ctx.fillStyle=bmw?"#d8e1ea":"#d81735";
+
+ctx.beginPath();
+
+ctx.roundRect(
+-150,-45,
+300,90,
+25
+);
+
+ctx.fill();
+
+ctx.fillStyle="#0a0e14";
+
+ctx.beginPath();
+
+ctx.moveTo(-80,-45);
+ctx.lineTo(-30,-90);
+ctx.lineTo(55,-75);
+ctx.lineTo(95,-45);
+ctx.closePath();
+
+ctx.fill();
+
+ctx.fillStyle="#050609";
+
+ctx.beginPath();
+ctx.arc(-100,50,31,0,Math.PI*2);
+ctx.fill();
+
+ctx.beginPath();
+ctx.arc(100,50,31,0,Math.PI*2);
+ctx.fill();
+
+}
+else{
+
+ctx.beginPath();
+
+ctx.arc(
+0,
+0,
+120,
+0,
+Math.PI*2
+);
+
+ctx.fillStyle="rgba(100,135,255,.3)";
+ctx.fill();
+
+ctx.strokeStyle="rgba(150,190,255,.8)";
+ctx.lineWidth=4;
+ctx.stroke();
+
+}
+
+ctx.restore();
+
+}
+
+
+/* =====================================================
+CAPTION ANIMATION
+===================================================== */
+
+function drawCaption(time,scene){
+
+if(!captionsEnabled)return;
+
+const style=$("captionAnimation").value;
+
+const progress=
+(time%1800)/1800;
+
+let alpha=1;
+let offset=0;
+let scale=1;
+
+if(style==="Fade"){
+
+alpha=Math.min(1,progress*3);
+
+}
+
+if(style==="Slide Up"){
+
+offset=(1-Math.min(1,progress*3))*40;
+
+}
+
+if(style==="Pop"){
+
+scale=.8+Math.min(1,progress*3)*.2;
+
+}
+
+if(style==="Typewriter"){
+
+const count=
+Math.max(
+1,
+Math.floor(scene.text.length*
+Math.min(1,progress*2)
+);
+
+scene={
+...scene,
+text:scene.text.slice(0,count)
+};
+
+}
+
+ctx.save();
+
+ctx.globalAlpha=alpha;
+
+ctx.translate(
+canvas.width/2,
+680-offset
+);
+
+ctx.scale(scale,scale);
+
+ctx.textAlign="center";
+
+ctx.font="bold 20px Arial";
+
+if($("captionStyle").value==="Cinematic")
+ctx.fillStyle="#f5f5f5";
+
+else if($("captionStyle").value==="News")
+ctx.fillStyle="#ffd84d";
+
+else
+ctx.fillStyle="#fff";
+
+wrapText(
+ctx,
+scene.text,
+0,
+0,
+420,
+30
+);
+
+ctx.restore();
+
+}
+
+
+/* =====================================================
+FRAME
+===================================================== */
 
 function drawFrame(time){
 
@@ -1891,17 +1844,17 @@ if(!scenes.length){
 ctx.fillStyle="#050914";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
-ctx.fillStyle="#fff";
 ctx.textAlign="center";
-ctx.font="bold 30px Arial";
-ctx.fillText("AI Reel Maker",270,430);
 
-ctx.font="18px Arial";
-ctx.fillStyle="#aebbd0";
-ctx.fillText("Generate a reel to begin",270,480);
+ctx.fillStyle="#fff";
+ctx.font="bold 30px Arial";
+ctx.fillText("AI REEL MAKER",270,430);
+
+ctx.font="16px Arial";
+ctx.fillStyle="#93a1b5";
+ctx.fillText("Generate a reel to begin",270,470);
 
 return;
-
 }
 
 const topic=$("topic").value.trim();
@@ -1910,151 +1863,36 @@ const scene=scenes[currentScene];
 
 drawBackground(time,type);
 
-const w=canvas.width;
-const h=canvas.height;
+drawVisual(time,type);
+
+
+/* topic */
 
 ctx.textAlign="center";
 
-ctx.fillStyle="rgba(255,255,255,.65)";
-ctx.font="bold 15px Arial";
-ctx.fillText(topic.toUpperCase(),w/2,70);
+ctx.fillStyle="rgba(255,255,255,.7)";
+ctx.font="bold 13px Arial";
 
-ctx.fillStyle="rgba(255,255,255,.45)";
-ctx.font="12px Arial";
-ctx.fillText("SCENE "+(currentScene+1),w/2,100);
-
-
-/* VISUAL SYMBOL */
-
-ctx.save();
-
-const pulse=1+Math.sin(time*.002)*.04;
-
-ctx.translate(w/2,350);
-ctx.scale(pulse,pulse);
-
-if(type==="chandrayaan3"){
-
-/* moon */
-
-ctx.beginPath();
-ctx.arc(0,0,145,0,Math.PI*2);
-ctx.fillStyle="#c5c8d2";
-ctx.fill();
-
-for(let i=0;i<13;i++){
-
-ctx.beginPath();
-
-ctx.arc(
-Math.sin(i*4)*95,
-Math.cos(i*7)*95,
-7+(i%6),
-0,
-Math.PI*2
+ctx.fillText(
+topic.toUpperCase(),
+270,
+55
 );
 
-ctx.fillStyle="rgba(60,65,80,.28)";
-ctx.fill();
 
-}
+/* scene number */
 
-/* lander-like shape */
+ctx.fillStyle="rgba(255,255,255,.45)";
+ctx.font="11px Arial";
 
-if(currentScene===2||currentScene===4){
-
-ctx.fillStyle="#f0f0f0";
-ctx.fillRect(-55,-35,110,70);
-
-ctx.strokeStyle="#555";
-ctx.lineWidth=7;
-
-ctx.beginPath();
-ctx.moveTo(-45,35);
-ctx.lineTo(-90,90);
-ctx.moveTo(45,35);
-ctx.lineTo(90,90);
-ctx.stroke();
-
-}
-
-}
-else if(type==="ferrari488"){
-
-ctx.fillStyle="#d91535";
-
-ctx.beginPath();
-ctx.roundRect(-145,-45,290,90,25);
-ctx.fill();
-
-ctx.fillStyle="#111";
-
-ctx.beginPath();
-ctx.ellipse(-95,55,38,25,0,0,Math.PI*2);
-ctx.fill();
-
-ctx.beginPath();
-ctx.ellipse(95,55,38,25,0,0,Math.PI*2);
-ctx.fill();
-
-ctx.fillStyle="#7fd7ff";
-
-ctx.beginPath();
-ctx.moveTo(-70,-45);
-ctx.lineTo(-25,-90);
-ctx.lineTo(55,-70);
-ctx.lineTo(90,-45);
-ctx.closePath();
-ctx.fill();
-
-}
-else if(type==="bmwm3gtr"){
-
-ctx.fillStyle="#d9e1ea";
-
-ctx.beginPath();
-ctx.roundRect(-150,-40,300,85,22);
-ctx.fill();
-
-ctx.fillStyle="#0b1017";
-
-ctx.beginPath();
-ctx.moveTo(-70,-40);
-ctx.lineTo(-20,-82);
-ctx.lineTo(55,-70);
-ctx.lineTo(95,-40);
-ctx.closePath();
-ctx.fill();
-
-ctx.fillStyle="#05070a";
-
-ctx.beginPath();
-ctx.arc(-95,48,30,0,Math.PI*2);
-ctx.fill();
-
-ctx.beginPath();
-ctx.arc(95,48,30,0,Math.PI*2);
-ctx.fill();
-
-}
-else{
-
-ctx.beginPath();
-ctx.arc(0,0,115,0,Math.PI*2);
-
-ctx.fillStyle="rgba(105,130,255,.28)";
-ctx.fill();
-
-ctx.strokeStyle="rgba(150,180,255,.8)";
-ctx.lineWidth=4;
-ctx.stroke();
-
-}
-
-ctx.restore();
+ctx.fillText(
+"SCENE "+(currentScene+1),
+270,
+80
+);
 
 
-/* TEXT */
+/* title */
 
 ctx.fillStyle="#fff";
 ctx.font="bold 31px Arial";
@@ -2062,85 +1900,82 @@ ctx.font="bold 31px Arial";
 wrapText(
 ctx,
 scene.title,
-w/2,
-570,
-440,
-40
-);
-
-if(captionsEnabled){
-
-ctx.fillStyle="rgba(255,255,255,.88)";
-ctx.font="18px Arial";
-
-wrapText(
-ctx,
-scene.text,
-w/2,
-665,
+270,
+555,
 430,
-29
+38
 );
 
-}
+
+/* animated caption */
+
+drawCaption(time,scene);
 
 
-/* BRAND */
+/* branding */
 
 const brand=$("brandName").value.trim();
 
 if(brand){
 
+ctx.save();
+
 ctx.font="bold 13px Arial";
-ctx.fillStyle="rgba(255,255,255,.7)";
+ctx.fillStyle="rgba(255,255,255,.72)";
 
 let x=25;
-let y=35;
+let y=30;
 
 const pos=$("brandPosition").value;
 
 if(pos==="Top Right"){
-x=w-25;
+x=515;
 ctx.textAlign="right";
 }
 
 if(pos==="Bottom Left"){
 x=25;
-y=h-25;
+y=930;
 ctx.textAlign="left";
 }
 
 if(pos==="Bottom Right"){
-x=w-25;
-y=h-25;
+x=515;
+y=930;
 ctx.textAlign="right";
 }
 
 ctx.fillText(brand,x,y);
 
-}
+ctx.restore();
 
 }
 
+}
 
-/* =========================================
+
+/* =====================================================
 TEXT WRAP
-========================================= */
+===================================================== */
 
 function wrapText(ctx,text,x,y,maxWidth,lineHeight){
 
 const words=text.split(" ");
+
 let line="";
-let lines=[];
+const lines=[];
 
-for(let n=0;n<words.length;n++){
+for(let i=0;i<words.length;i++){
 
-const test=line+words[n]+" ";
+const test=line+words[i]+" ";
 
-if(ctx.measureText(test).width>maxWidth && n>0){
+if(
+ctx.measureText(test).width>maxWidth &&
+line!==""
+){
 
 lines.push(line.trim());
-line=words[n]+" ";
+line=words[i]+" ";
 
 }else{
 
@@ -2150,51 +1985,95 @@ line=test;
 
 }
 
+if(line.trim())
 lines.push(line.trim());
 
 lines.forEach((l,i)=>{
-ctx.fillText(l,x,y+i*lineHeight);
+ctx.fillText(
+l,
+x,
+y+i*lineHeight
+);
 });
 
 }
 
 
-/* =========================================
+/* =====================================================
 PREVIEW
-========================================= */
+===================================================== */
 
-function previewLoop(timestamp){
+function formatTime(sec){
+
+sec=Math.max(0,Math.floor(sec));
+
+const m=Math.floor(sec/60);
+const s=sec%60;
+
+return(
+String(m).padStart(2,"0")+
+":"+
+String(s).padStart(2,"0")
+);
+
+}
+
+
+function previewLoop(now){
 
 if(!previewRunning)return;
 
-const duration=Number($("duration").value)*1000;
+const duration=
+Number($("duration").value);
 
-const elapsed=timestamp-previewStart;
-
-const sceneDuration=duration/6;
-
-currentScene=Math.min(
-5,
-Math.floor(elapsed/sceneDuration)
-);
-
-document.querySelectorAll(".scene").forEach((el,i)=>{
-el.classList.toggle("active",i===currentScene);
-});
-
-drawFrame(elapsed);
+const elapsed=
+(now-previewStart)/1000;
 
 if(elapsed>=duration){
 
+drawFrame(0);
+
+$("previewTime").textContent=
+formatTime(duration)+
+" / "+
+formatTime(duration);
+
 previewRunning=false;
 
-$("exportText").textContent="Preview finished.";
+stopMusic();
+
+$("exportText").textContent=
+"Preview finished.";
 
 return;
 
 }
 
-previewRAF=requestAnimationFrame(previewLoop);
+const sceneLength=duration/6;
+
+currentScene=
+Math.min(
+5,
+Math.floor(elapsed/sceneLength)
+);
+
+document.querySelectorAll(".scene")
+.forEach((el,i)=>{
+el.classList.toggle(
+"active",
+i===currentScene
+);
+});
+
+drawFrame(elapsed*1000);
+
+$("previewTime").textContent=
+formatTime(elapsed)+
+" / "+
+formatTime(duration);
+
+previewRAF=
+requestAnimationFrame(previewLoop);
 
 }
 
@@ -2202,7 +2081,10 @@ previewRAF=requestAnimationFrame(previewLoop);
 $("previewBtn").onclick=()=>{
 
 if(!generated){
-$("exportText").textContent="Generate a reel first.";
+
+$("exportText").textContent=
+"Generate a reel first.";
+
 return;
 }
 
@@ -2211,9 +2093,13 @@ if(previewRunning)return;
 previewRunning=true;
 previewStart=performance.now();
 
-$("exportText").textContent="Playing preview...";
+$("exportText").textContent=
+"Playing complete reel preview...";
 
-previewRAF=requestAnimationFrame(previewLoop);
+if(musicEnabled)startMusic(true);
+
+previewRAF=
+requestAnimationFrame(previewLoop);
 
 };
 
@@ -2222,129 +2108,134 @@ $("stopPreview").onclick=()=>{
 
 previewRunning=false;
 
-if(previewRAF){
+if(previewRAF)
 cancelAnimationFrame(previewRAF);
-}
 
-$("exportText").textContent="Preview stopped.";
+stopMusic();
+
+$("exportText").textContent=
+"Preview stopped.";
 
 };
 
 
-/* =========================================
+/* =====================================================
 VOICE
-========================================= */
+===================================================== */
 
 $("playVoice").onclick=()=>{
 
-if(!generated){
-$("exportText").textContent="Generate a reel first.";
-return;
-}
+if(!generated)return;
 
 speechSynthesis.cancel();
 
-const utterance=new SpeechSynthesisUtterance(
+const u=
+new SpeechSynthesisUtterance(
 $("script").textContent
 );
 
 const style=$("voiceStyle").value;
 
 if(style==="Energetic"){
-utterance.rate=1.08;
-utterance.pitch=1.08;
+u.rate=1.1;
+u.pitch=1.05;
 }
 
 if(style==="Professional"){
-utterance.rate=.98;
-utterance.pitch=1;
+u.rate=.98;
+u.pitch=1;
 }
 
 if(style==="Calm"){
-utterance.rate=.88;
-utterance.pitch=.95;
+u.rate=.88;
+u.pitch=.95;
 }
 
 if(style==="Dramatic"){
-utterance.rate=.94;
-utterance.pitch=.9;
+u.rate=.94;
+u.pitch=.9;
 }
 
 if(style==="News Anchor"){
-utterance.rate=1.02;
-utterance.pitch=1;
+u.rate=1.02;
+u.pitch=1;
 }
 
-speechSynthesis.speak(utterance);
+speechSynthesis.speak(u);
 
 };
 
 
 $("stopVoice").onclick=()=>{
-
 speechSynthesis.cancel();
-
 };
 
 
-/* =========================================
-MUSIC
-========================================= */
+/* =====================================================
+MUSIC ENGINE
+===================================================== */
 
-function stopMusic(){
-
-musicOscillators.forEach(o=>{
-
-try{o.stop()}catch(e){}
-
-});
-
-musicOscillators=[];
-
-}
-
-
-function playMusic(){
-
-stopMusic();
-
-if(!musicEnabled)return;
+function ensureAudio(){
 
 if(!audioCtx){
 
-audioCtx=new(
+audioCtx=
+new(
 window.AudioContext||
 window.webkitAudioContext
 )();
 
 }
 
-if(audioCtx.state==="suspended"){
+if(audioCtx.state==="suspended")
 audioCtx.resume();
+
 }
 
-musicGain=audioCtx.createGain();
+
+function startMusic(forPreview=false){
+
+if(!musicEnabled)return;
+
+ensureAudio();
+
+stopMusic();
+
+musicDestination=
+audioCtx.createMediaStreamDestination();
+
+musicGain=
+audioCtx.createGain();
 
 musicGain.gain.value=
 Number($("musicVolume").value)/100*.12;
 
 musicGain.connect(audioCtx.destination);
 
+musicGain.connect(musicDestination);
+
 const notes=[
-220,277.18,329.63,440,
-329.63,277.18
+220,
+277.18,
+329.63,
+440,
+329.63,
+277.18
 ];
 
 notes.forEach((freq,i)=>{
 
-const osc=audioCtx.createOscillator();
+const osc=
+audioCtx.createOscillator();
+
+const gain=
+audioCtx.createGain();
 
 osc.type="triangle";
+
 osc.frequency.value=freq;
 
-const gain=audioCtx.createGain();
-
-gain.gain.value=.25;
+gain.gain.value=.24;
 
 osc.connect(gain);
 gain.connect(musicGain);
@@ -2358,20 +2249,51 @@ musicOscillators.push(osc);
 }
 
 
-$("playMusic").onclick=playMusic;
+function stopMusic(){
 
-$("stopMusic").onclick=stopMusic;
+musicOscillators.forEach(o=>{
+
+try{
+o.stop();
+}catch(e){}
+
+});
+
+musicOscillators=[];
+
+}
+
+
+$("playMusic").onclick=()=>{
+
+startMusic();
+
+$("exportText").textContent=
+"Music playing.";
+
+};
+
+
+$("stopMusic").onclick=()=>{
+
+stopMusic();
+
+$("exportText").textContent=
+"Music stopped.";
+
+};
+
 
 $("musicVolume").oninput=()=>{
 
-const value=$("musicVolume").value;
+const v=$("musicVolume").value;
 
-$("musicVolumeText").textContent=value+"%";
+$("musicVolumeText").textContent=v+"%";
 
 if(musicGain){
 
 musicGain.gain.value=
-Number(value)/100*.12;
+Number(v)/100*.12;
 
 }
 
@@ -2394,8 +2316,8 @@ $("musicOff").onclick=()=>{
 
 musicEnabled=false;
 
-$("musicOff").classList.add("active");
 $("musicOn").classList.remove("active");
+$("musicOff").classList.add("active");
 
 $("statusMusic").textContent="OFF";
 
@@ -2404,9 +2326,9 @@ stopMusic();
 };
 
 
-/* =========================================
+/* =====================================================
 CAPTIONS
-========================================= */
+===================================================== */
 
 $("captionsOn").onclick=()=>{
 
@@ -2426,8 +2348,8 @@ $("captionsOff").onclick=()=>{
 
 captionsEnabled=false;
 
-$("captionsOff").classList.add("active");
 $("captionsOn").classList.remove("active");
+$("captionsOff").classList.add("active");
 
 $("statusCaptions").textContent="OFF";
 
@@ -2436,110 +2358,107 @@ drawFrame(0);
 };
 
 
-/* =========================================
+/* =====================================================
 COPY
-========================================= */
+===================================================== */
 
 async function copyText(text){
 
 try{
 
-if(navigator.clipboard &&
-window.isSecureContext){
+if(
+navigator.clipboard &&
+window.isSecureContext
+){
 
 await navigator.clipboard.writeText(text);
-
 return true;
 
 }
 
 }catch(e){}
 
-const area=document.createElement("textarea");
+const area=
+document.createElement("textarea");
 
 area.value=text;
+
 area.style.position="fixed";
 area.style.left="-9999px";
 
 document.body.appendChild(area);
 
-area.focus();
 area.select();
 
-let ok=false;
+let result=false;
 
 try{
-ok=document.execCommand("copy");
+result=document.execCommand("copy");
 }catch(e){}
 
 area.remove();
 
-return ok;
+return result;
 
 }
 
 
 $("copyCaption").onclick=async()=>{
 
-if(!generated){
+if(!generated)return;
 
-$("exportText").textContent="Generate a reel first.";
-return;
-
-}
-
-const caption=$("socialCaption").textContent;
-
-const ok=await copyText(caption);
+const ok=
+await copyText(
+$("socialCaption").textContent
+);
 
 $("exportText").textContent=
 ok
-?"Caption copied successfully."
-:"Could not copy caption.";
+?"Caption copied."
+:"Copy failed.";
 
 };
 
 
 $("copyHashtags").onclick=async()=>{
 
-if(!generated){
+if(!generated)return;
 
-$("exportText").textContent="Generate a reel first.";
-return;
+const text=
+$("socialCaption").textContent;
 
-}
+const tags=
+(text.match(/#[A-Za-z0-9]+/g)||[])
+.join(" ");
 
-const text=$("socialCaption").textContent;
-
-const hashtags=
-(text.match(/#[A-Za-z0-9]+/g)||[]).join(" ");
-
-const ok=await copyText(hashtags);
+const ok=await copyText(tags);
 
 $("exportText").textContent=
 ok
-?"Hashtags copied successfully."
-:"Could not copy hashtags.";
+?"Hashtags copied."
+:"Copy failed.";
 
 };
 
 
-/* =========================================
-RENDER WEBM
-========================================= */
+/* =====================================================
+REAL EXPORT WITH MUSIC AUDIO TRACK
+===================================================== */
 
 $("renderBtn").onclick=async()=>{
 
 if(!generated){
 
-$("exportText").textContent="Generate a reel first.";
+$("exportText").textContent=
+"Generate a reel first.";
+
 return;
 
 }
 
-if($("renderBtn").disabled)return;
-
 $("renderBtn").disabled=true;
+$("cancelRender").disabled=false;
+
 renderCancelled=false;
 
 const duration=
@@ -2547,25 +2466,73 @@ Number($("duration").value);
 
 const fps=30;
 
-const totalFrames=duration*fps;
+const totalFrames=
+duration*fps;
 
-const stream=canvas.captureStream(fps);
 
-let mime="video/webm;codecs=vp9";
+/* VIDEO */
 
-if(!MediaRecorder.isTypeSupported(mime)){
-mime="video/webm;codecs=vp8";
+const videoStream=
+canvas.captureStream(fps);
+
+
+/* AUDIO */
+
+let audioStream=null;
+
+if(musicEnabled){
+
+ensureAudio();
+
+startMusic();
+
+audioStream=
+musicDestination.stream;
+
 }
 
-if(!MediaRecorder.isTypeSupported(mime)){
+
+/* COMBINE STREAMS */
+
+const finalStream=
+new MediaStream();
+
+videoStream
+.getVideoTracks()
+.forEach(track=>{
+finalStream.addTrack(track);
+});
+
+if(audioStream){
+
+audioStream
+.getAudioTracks()
+.forEach(track=>{
+finalStream.addTrack(track);
+});
+
+}
+
+
+/* CODEC */
+
+let mime=
+"video/webm;codecs=vp9,opus";
+
+if(!MediaRecorder.isTypeSupported(mime))
+mime=
+"video/webm;codecs=vp8,opus";
+
+if(!MediaRecorder.isTypeSupported(mime))
 mime="video/webm";
-}
 
-const recorder=new MediaRecorder(
-stream,
+
+const recorder=
+new MediaRecorder(
+finalStream,
 {
 mimeType:mime,
-videoBitsPerSecond:6000000
+videoBitsPerSecond:7000000
 }
 );
 
@@ -2573,37 +2540,50 @@ const chunks=[];
 
 recorder.ondataavailable=e=>{
 
-if(e.data.size>0){
+if(e.data.size)
 chunks.push(e.data);
-}
 
 };
 
-const finished=new Promise(resolve=>{
-
+const finished=
+new Promise(resolve=>{
 recorder.onstop=resolve;
-
 });
 
-recorder.start(1000);
+recorder.start(500);
 
-const start=performance.now();
 
-for(let frame=0;frame<totalFrames;frame++){
+/* RENDER LOOP */
+
+const start=
+performance.now();
+
+for(
+let frame=0;
+frame<totalFrames;
+frame++
+){
 
 if(renderCancelled)break;
 
-const elapsed=frame/fps*1000;
+const elapsed=
+(frame/fps)*1000;
 
-currentScene=Math.min(
+const sceneLength=
+(duration*1000)/6;
+
+currentScene=
+Math.min(
 5,
-Math.floor(elapsed/(duration*1000/6))
+Math.floor(elapsed/sceneLength)
 );
 
 drawFrame(elapsed);
 
 const percent=
-Math.round((frame/totalFrames)*100);
+Math.round(
+(frame/totalFrames)*100
+);
 
 $("exportBar").style.width=
 percent+"%";
@@ -2611,29 +2591,38 @@ percent+"%";
 $("exportText").textContent=
 "Rendering "+percent+"%";
 
-await new Promise(requestAnimationFrame);
+await new Promise(
+requestAnimationFrame
+);
 
 }
+
 
 recorder.stop();
 
 await finished;
 
+stopMusic();
+
+
 if(!renderCancelled){
 
-const blob=new Blob(
+const blob=
+new Blob(
 chunks,
 {type:mime}
 );
 
-const url=URL.createObjectURL(blob);
+const url=
+URL.createObjectURL(blob);
 
-const a=document.createElement("a");
+const a=
+document.createElement("a");
 
 a.href=url;
 
 a.download=
-"ai-reel-stage-8-1-"+Date.now()+".webm";
+"AI-Reel-Stage-8-2-"+Date.now()+".webm";
 
 document.body.appendChild(a);
 
@@ -2641,21 +2630,23 @@ a.click();
 
 a.remove();
 
-setTimeout(()=>{
-URL.revokeObjectURL(url);
-},5000);
-
-$("exportText").textContent=
-"Reel downloaded successfully.";
+setTimeout(
+()=>URL.revokeObjectURL(url),
+5000
+);
 
 $("exportBar").style.width="100%";
 
-}else{
+$("exportText").textContent=
+"Downloaded with embedded background music.";
+
+}
+else{
+
+$("exportBar").style.width="0%";
 
 $("exportText").textContent=
 "Render cancelled.";
-
-$("exportBar").style.width="0%";
 
 }
 
@@ -2664,89 +2655,35 @@ $("renderBtn").disabled=false;
 };
 
 
-/* =========================================
+/* =====================================================
 CANCEL
-========================================= */
+===================================================== */
 
 $("cancelRender").onclick=()=>{
 
 renderCancelled=true;
 
-};
-
-
-/* =========================================
-NEW REEL
-========================================= */
-
-$("newReel").onclick=()=>{
-
-previewRunning=false;
-
-if(previewRAF){
-cancelAnimationFrame(previewRAF);
-}
-
-speechSynthesis.cancel();
-stopMusic();
-
-scenes=[];
-currentScene=0;
-generated=false;
-
-$("topic").value="";
-
-$("hook").textContent=
-"Enter a topic and press Generate Reel.";
-
-$("script").textContent=
-"Your generated voiceover script will appear here.";
-
-$("socialCaption").textContent=
-"Your caption will appear here.";
-
-$("timeline").innerHTML=`
-<div class="scene">
-<div class="scene-num">SCENE 1</div>
-<div class="scene-title">No reel generated</div>
-<div class="scene-time">--</div>
-</div>
-`;
-
-$("hookStatus").textContent="Waiting";
-$("timelineStatus").textContent="Waiting for generation";
-
-$("statusTopic").textContent="Not generated";
-$("statusEngine").textContent="Ready";
-
-$("generation").classList.remove("show");
-
-$("generationBar").style.width="0%";
-
-$("generationText").textContent=
-"Enter a topic and press Generate Reel.";
-
-$("exportBar").style.width="0%";
-
-$("exportText").textContent="Ready";
-
-drawFrame(0);
+$("exportText").textContent=
+"Cancelling render...";
 
 };
 
 
-/* =========================================
-SETTINGS UPDATE
-========================================= */
+/* =====================================================
+SETTINGS
+===================================================== */
 
 $("duration").onchange=()=>{
 
 $("statusDuration").textContent=
 $("duration").value+" sec";
 
-if(generated){
+$("previewTime").textContent=
+"00:00 / "+
+formatTime(Number($("duration").value));
+
+if(generated)
 renderTimeline();
-}
 
 };
 
@@ -2759,7 +2696,7 @@ $("brandPosition").onchange=()=>{
 drawFrame(0);
 };
 
-$("visualStyle").onchange=()=>{
+$("captionAnimation").onchange=()=>{
 drawFrame(0);
 };
 
@@ -2767,21 +2704,86 @@ $("captionStyle").onchange=()=>{
 drawFrame(0);
 };
 
-$("captionAnimation").onchange=()=>{
+$("visualStyle").onchange=()=>{
 drawFrame(0);
 };
 
 
-/* =========================================
-GENERATE BUTTON
-========================================= */
+/* =====================================================
+NEW REEL
+===================================================== */
 
-$("generateBtn").onclick=generateReel;
+$("newReel").onclick=()=>{
+
+previewRunning=false;
+
+if(previewRAF)
+cancelAnimationFrame(previewRAF);
+
+speechSynthesis.cancel();
+
+stopMusic();
+
+scenes=[];
+currentScene=0;
+generated=false;
+
+$("topic").value="";
+
+$("hook").textContent=
+"Your AI hook will appear here.";
+
+$("script").textContent=
+"Your generated voiceover will appear here.";
+
+$("socialCaption").textContent=
+"Your social caption will appear here.";
+
+$("timeline").innerHTML=`
+<div class="scene">
+<div class="scene-num">SCENE 1</div>
+<div class="scene-title">Generate a reel</div>
+<div class="scene-time">--</div>
+</div>
+`;
+
+$("hookStatus").textContent="Waiting";
+$("timelineStatus").textContent="Waiting";
+
+$("statusTopic").textContent="Not generated";
+$("statusScenes").textContent="0";
+$("statusEngine").textContent="Ready";
+
+$("generation").classList.remove("show");
+
+$("generationBar").style.width="0%";
+
+$("generationText").textContent=
+"Enter a topic.";
+
+$("exportBar").style.width="0%";
+
+$("exportText").textContent="Ready";
+
+drawFrame(0);
+
+};
 
 
-/* =========================================
-INITIAL CANVAS
-========================================= */
+/* =====================================================
+GENERATE
+===================================================== */
+
+$("generateBtn").onclick=
+generateReel;
+
+
+/* =====================================================
+INITIAL
+===================================================== */
+
+$("previewTime").textContent=
+"00:00 / 00:45";
 
 drawFrame(0);
 
