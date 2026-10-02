@@ -2,28 +2,30 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>AI Reel Maker — Stage 7.6</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Reel Maker — Stage 7.7</title>
 
 <style>
 *{
   box-sizing:border-box;
-  margin:0;
-  padding:0;
 }
 
 body{
+  margin:0;
   font-family:Arial,Helvetica,sans-serif;
   background:#07111f;
   color:#fff;
-  min-height:100vh;
+}
+
+.container{
+  width:min(1150px,94%);
+  margin:auto;
+  padding:30px 0 60px;
 }
 
 header{
-  padding:22px;
-  text-align:center;
-  background:linear-gradient(135deg,#0d1b2f,#102d4d);
-  border-bottom:1px solid #24405f;
+  margin-bottom:28px;
 }
 
 .logo{
@@ -34,224 +36,205 @@ header{
 .stage{
   display:inline-block;
   margin-top:8px;
-  padding:6px 12px;
+  padding:7px 12px;
   border-radius:20px;
-  background:#173b60;
-  color:#8ed0ff;
+  background:#13253d;
+  color:#8fc7ff;
   font-size:13px;
 }
 
-.container{
-  width:min(1100px,94%);
-  margin:25px auto 60px;
+h1{
+  font-size:42px;
+  margin:25px 0 10px;
 }
 
-.card{
-  background:#0d1b2a;
-  border:1px solid #1e3853;
-  border-radius:18px;
+.subtitle{
+  color:#9db0c8;
+  line-height:1.6;
+}
+
+.panel{
+  background:#0d1b2d;
+  border:1px solid #1b3553;
+  border-radius:20px;
   padding:22px;
-  margin-bottom:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,.2);
-}
-
-h2{
-  margin-bottom:14px;
+  margin-top:20px;
 }
 
 label{
   display:block;
-  margin:14px 0 7px;
-  color:#a9bfd5;
   font-size:14px;
+  color:#9db0c8;
+  margin-bottom:8px;
 }
 
 input,select{
   width:100%;
   padding:14px;
-  border-radius:10px;
-  border:1px solid #31506e;
-  background:#081522;
-  color:#fff;
-  font-size:16px;
+  border-radius:12px;
+  border:1px solid #294563;
+  background:#081423;
+  color:white;
   outline:none;
 }
 
 input:focus,select:focus{
-  border-color:#4da8ff;
-}
-
-button{
-  border:0;
-  border-radius:11px;
-  padding:13px 18px;
-  margin-top:15px;
-  cursor:pointer;
-  font-weight:700;
-  color:#fff;
-  background:linear-gradient(135deg,#1677ff,#6a4cff);
-  transition:.2s;
-}
-
-button:hover{
-  transform:translateY(-1px);
-  filter:brightness(1.08);
-}
-
-button.secondary{
-  background:#18334e;
-}
-
-button.green{
-  background:linear-gradient(135deg,#0c9b67,#16c784);
-}
-
-button.red{
-  background:linear-gradient(135deg,#c63838,#e45b5b);
-}
-
-.progress{
-  width:100%;
-  height:10px;
-  background:#152638;
-  border-radius:20px;
-  overflow:hidden;
-  margin-top:15px;
-}
-
-.progress-bar{
-  width:0%;
-  height:100%;
-  background:linear-gradient(90deg,#3da5ff,#7c5cff);
-  transition:.3s;
-}
-
-.status{
-  margin-top:10px;
-  color:#9fc2df;
-  font-size:14px;
+  border-color:#5eb4ff;
 }
 
 .grid{
   display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+button{
+  border:0;
+  border-radius:12px;
+  padding:14px 18px;
+  cursor:pointer;
+  font-weight:700;
+  color:#fff;
+  background:#1479e8;
+}
+
+button:hover{
+  opacity:.9;
+}
+
+button.secondary{
+  background:#18304d;
+}
+
+button.success{
+  background:#168a5a;
+}
+
+.actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+
+.status{
+  margin-top:15px;
+  color:#83bfff;
+  min-height:22px;
+}
+
+.progress{
+  width:100%;
+  height:8px;
+  background:#172b43;
+  border-radius:10px;
+  overflow:hidden;
+  margin-top:14px;
+}
+
+.progressBar{
+  width:0%;
+  height:100%;
+  background:#4da9ff;
+  transition:.3s;
+}
+
+.sectionTitle{
+  font-size:22px;
+  margin:0 0 15px;
+}
+
+.hook{
+  font-size:24px;
+  font-weight:800;
+  line-height:1.4;
+}
+
+.script{
+  color:#dce8f5;
+  line-height:1.7;
+  white-space:pre-line;
+}
+
+.scenes{
+  display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:15px;
+  gap:14px;
 }
 
 .scene{
-  background:#081522;
-  border:1px solid #23415d;
-  border-radius:14px;
+  background:#091727;
+  border:1px solid #1d3856;
+  border-radius:16px;
   padding:17px;
 }
 
-.scene-number{
-  color:#62b5ff;
+.sceneNumber{
+  color:#63b5ff;
   font-size:13px;
-  font-weight:bold;
+  font-weight:800;
   margin-bottom:8px;
 }
 
-.scene-title{
-  font-size:18px;
-  font-weight:700;
-  margin-bottom:7px;
+.sceneTitle{
+  font-weight:800;
+  margin-bottom:8px;
 }
 
-.scene-text{
-  color:#b6c8d9;
+.sceneText{
+  color:#b7c9dd;
   line-height:1.5;
   font-size:14px;
 }
 
-.preview-layout{
-  display:grid;
-  grid-template-columns:350px 1fr;
-  gap:25px;
-  align-items:start;
+.sceneTheme{
+  margin-top:10px;
+  font-size:12px;
+  color:#6e9bc7;
 }
 
-.phone{
-  width:300px;
-  max-width:100%;
-  margin:auto;
-  padding:10px;
-  background:#000;
-  border-radius:30px;
-  box-shadow:0 20px 50px rgba(0,0,0,.5);
+.previewWrap{
+  display:flex;
+  justify-content:center;
+  margin-top:20px;
 }
 
 canvas{
-  display:block;
-  width:100%;
+  width:min(360px,80vw);
   height:auto;
-  aspect-ratio:9/16;
-  border-radius:22px;
-  background:#000;
+  border-radius:24px;
+  border:2px solid #284663;
+  background:#02060b;
+  box-shadow:0 20px 60px rgba(0,0,0,.45);
 }
 
-.preview-info{
-  color:#a9bfd5;
+.caption{
+  color:#a9bfd6;
   line-height:1.6;
 }
 
-.result-box{
-  background:#081522;
-  border:1px solid #24445f;
-  border-radius:13px;
-  padding:17px;
-  margin-top:15px;
+.hashtags{
+  color:#79bfff;
+  line-height:1.7;
 }
 
-.result-label{
-  color:#65b8ff;
+.small{
+  color:#7188a1;
   font-size:13px;
-  font-weight:bold;
-  margin-bottom:7px;
-}
-
-.result-text{
-  line-height:1.55;
-  color:#dceaf5;
-}
-
-.tag{
-  display:inline-block;
-  margin:5px 5px 0 0;
-  padding:6px 9px;
-  background:#173451;
-  border-radius:20px;
-  color:#9fd3ff;
-  font-size:12px;
-}
-
-.hidden{
-  display:none;
-}
-
-.warning{
-  color:#ffc86b;
-}
-
-.success{
-  color:#62e6a5;
-}
-
-.footer{
-  text-align:center;
-  color:#6f8aa2;
-  padding:20px;
-  font-size:13px;
+  line-height:1.5;
 }
 
 @media(max-width:800px){
-  .grid,
-  .preview-layout{
+  .grid{
     grid-template-columns:1fr;
   }
 
-  .phone{
-    width:280px;
+  .scenes{
+    grid-template-columns:1fr;
+  }
+
+  h1{
+    font-size:32px;
   }
 }
 </style>
@@ -259,305 +242,309 @@ canvas{
 
 <body>
 
-<header>
-  <div class="logo">🎬 AI Reel Maker</div>
-  <div class="stage">Stage 7.6 • Clean Universal Reel Engine</div>
-</header>
-
 <div class="container">
 
-  <div class="card">
-    <h2>Create Your Reel</h2>
+<header>
+  <div class="logo">🎬 AI Reel Maker</div>
+  <div class="stage">Stage 7.7 • Topic-Specific Content Engine</div>
 
-    <label for="topic">Topic</label>
-    <input
-      id="topic"
-      type="text"
-      placeholder="Example: Chandrayaan missions, Ferrari, AI, Indian history..."
-    >
+  <h1>Create a Reel About Exactly What You Enter</h1>
 
-    <div class="grid">
+  <div class="subtitle">
+    Topic-focused scenes, animated captions, cinematic visuals,
+    background music and browser voice preview.
+  </div>
+</header>
 
-      <div>
-        <label for="duration">Reel Length</label>
-        <select id="duration">
-          <option value="30">30 seconds</option>
-          <option value="45" selected>45 seconds</option>
-          <option value="60">60 seconds</option>
-        </select>
-      </div>
 
-      <div>
-        <label for="style">Content Style</label>
-        <select id="style">
-          <option value="viral">Fast & Viral</option>
-          <option value="news">News Style</option>
-          <option value="educational">Educational</option>
-          <option value="cinematic">Cinematic</option>
-        </select>
-      </div>
+<div class="panel">
 
-      <div>
-        <label for="voice">Voice Style</label>
-        <select id="voice">
-          <option value="energetic">Energetic</option>
-          <option value="professional">Professional</option>
-          <option value="calm">Calm</option>
-          <option value="dramatic">Dramatic</option>
-        </select>
-      </div>
+  <label for="topic">What should the reel be about?</label>
 
+  <input
+    id="topic"
+    type="text"
+    placeholder="Example: Ferrari 488"
+    value="Ferrari 488"
+  >
+
+  <div class="grid" style="margin-top:15px;">
+
+    <div>
+      <label for="duration">Reel Length</label>
+
+      <select id="duration">
+        <option value="30">30 seconds</option>
+        <option value="45" selected>45 seconds</option>
+        <option value="60">60 seconds</option>
+      </select>
     </div>
 
+    <div>
+      <label for="style">Content Style</label>
+
+      <select id="style">
+        <option value="viral">Fast & Viral</option>
+        <option value="news">News Style</option>
+        <option value="educational">Educational</option>
+        <option value="cinematic" selected>Cinematic</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="voiceStyle">Voice Style</label>
+
+      <select id="voiceStyle">
+        <option value="energetic" selected>Energetic</option>
+        <option value="professional">Professional</option>
+        <option value="calm">Calm</option>
+        <option value="dramatic">Dramatic</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="actions">
     <button onclick="generateReel()">Generate Reel</button>
-
-    <div class="progress">
-      <div class="progress-bar" id="progress"></div>
-    </div>
-
-    <div class="status" id="status">
-      Enter any topic to begin.
-    </div>
+    <button class="secondary" onclick="previewReel()">Preview Reel</button>
+    <button class="success" onclick="renderReel()">Render & Download</button>
+    <button class="secondary" onclick="playVoice()">🔊 Play Voice</button>
   </div>
 
+  <div id="status" class="status"></div>
 
-  <div class="card hidden" id="contentCard">
-
-    <h2>🎯 Reel Plan</h2>
-
-    <div class="result-box">
-      <div class="result-label">HOOK</div>
-      <div class="result-text" id="hook"></div>
-    </div>
-
-    <div class="result-box">
-      <div class="result-label">VOICEOVER SCRIPT</div>
-      <div class="result-text" id="script"></div>
-      <button class="secondary" onclick="playVoice()">🔊 Play Voice Preview</button>
-      <button class="red" onclick="stopVoice()">⏹ Stop Voice</button>
-    </div>
-
-  </div>
-
-
-  <div class="card hidden" id="scenesCard">
-
-    <h2>🎬 Scene Planner</h2>
-
-    <div class="grid" id="scenes"></div>
-
-  </div>
-
-
-  <div class="card hidden" id="previewCard">
-
-    <h2>📱 Reel Preview</h2>
-
-    <div class="preview-layout">
-
-      <div class="phone">
-        <canvas id="reelCanvas" width="540" height="960"></canvas>
-      </div>
-
-      <div class="preview-info">
-
-        <p>
-          Preview the complete reel before rendering.
-        </p>
-
-        <button class="secondary" onclick="previewReel()">
-          ▶ Preview Full Reel
-        </button>
-
-        <button class="red" onclick="stopPreview()">
-          ⏹ Stop Preview
-        </button>
-
-        <button class="green" onclick="renderReel()">
-          🎥 Render & Download Reel
-        </button>
-
-        <div class="result-box">
-          <div class="result-label">RENDER STATUS</div>
-          <div id="renderStatus">
-            Ready.
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="card hidden" id="socialCard">
-
-    <h2>📲 Social Media Copy</h2>
-
-    <div class="result-box">
-      <div class="result-label">CAPTION</div>
-      <div class="result-text" id="caption"></div>
-    </div>
-
-    <div class="result-box">
-      <div class="result-label">HASHTAGS</div>
-      <div id="hashtags"></div>
-    </div>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>🚀 Project Status</h2>
-
-    <div class="result-box">
-      <div class="result-label">CURRENT ENGINE</div>
-      <div class="result-text success">
-        Universal topic-based browser reel engine
-      </div>
-    </div>
-
-    <div class="result-box">
-      <div class="result-label">CURRENTLY AVAILABLE</div>
-      <div class="result-text">
-        Topic planning • 6 scenes • 9:16 canvas • animated captions •
-        browser voice preview • generated background music • WebM rendering
-      </div>
-    </div>
-
-    <div class="result-box">
-      <div class="result-label">FUTURE AI CONNECTION</div>
-      <div class="result-text warning">
-        Real AI script generation, AI images/video, AI voice and MP4 export
-        can be connected later.
-      </div>
-    </div>
-
+  <div class="progress">
+    <div id="progressBar" class="progressBar"></div>
   </div>
 
 </div>
 
-<div class="footer">
-  AI Reel Maker • Stage 7.6
+
+<div id="result" style="display:none;">
+
+  <div class="panel">
+
+    <div class="sectionTitle">🔥 Hook</div>
+
+    <div id="hook" class="hook"></div>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="sectionTitle">🎙️ Voiceover Script</div>
+
+    <div id="script" class="script"></div>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="sectionTitle">🎬 Scene Planner</div>
+
+    <div id="scenes" class="scenes"></div>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="sectionTitle">📱 Reel Preview</div>
+
+    <div class="previewWrap">
+      <canvas id="canvas" width="540" height="960"></canvas>
+    </div>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="sectionTitle">📲 Instagram Caption</div>
+
+    <div id="caption" class="caption"></div>
+
+    <br>
+
+    <div class="sectionTitle">#️⃣ Hashtags</div>
+
+    <div id="hashtags" class="hashtags"></div>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="sectionTitle">⚙️ Project Status</div>
+
+    <div class="small">
+      Stage 7.7 uses a browser-based topic engine.
+      Known topics can receive dedicated content.
+      Unknown topics receive topic-focused fallback scenes.
+      Real AI research and generation can be connected later.
+    </div>
+  </div>
+
+</div>
+
 </div>
 
 
 <script>
 
 let currentPlan = null;
-let previewTimer = null;
-let previewStart = 0;
-let previewRunning = false;
-let renderRunning = false;
+let animationFrame = null;
 let audioContext = null;
-let musicNodes = [];
-let currentSpeech = null;
 
 
 /* =========================
-   TOPIC ANALYSIS
+   BASIC HELPERS
+========================= */
+
+function escapeHTML(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function cleanTopic(topic){
+
+  return topic
+    .trim()
+    .replace(/\s+/g," ");
+
+}
+
+
+/* =========================
+   TOPIC DETECTION
 ========================= */
 
 function detectTopic(topic){
 
-  const t = topic.toLowerCase().trim();
+  const t = topic.toLowerCase();
+
+  /*
+    Exact-topic detection comes BEFORE broad categories.
+  */
+
+  if(
+    t.includes("ferrari 488") ||
+    t.includes("488 gtb") ||
+    t.includes("488 pista")
+  ){
+    return "ferrari488";
+  }
+
+
+  if(
+    t.includes("bmw m3 gtr") ||
+    t.includes("m3 gtr") ||
+    t.includes("m3gtr")
+  ){
+    return "bmwm3gtr";
+  }
+
 
   if(
     t.includes("chandrayaan") ||
     t.includes("chandra yaan") ||
-    t.includes("isro") ||
-    t.includes("moon mission") ||
-    t.includes("lunar mission") ||
     t.includes("vikram lander") ||
     t.includes("pragyan rover")
   ){
     return "chandrayaan";
   }
 
-  if(
-    t.includes("space") ||
-    t.includes("nasa") ||
-    t.includes("planet") ||
-    t.includes("mars") ||
-    t.includes("jupiter") ||
-    t.includes("saturn") ||
-    t.includes("black hole") ||
-    t.includes("galaxy") ||
-    t.includes("astronaut")
-  ){
-    return "space";
-  }
 
   if(
-    t.includes("car") ||
-    t.includes("ferrari") ||
     t.includes("lamborghini") ||
-    t.includes("bugatti") ||
-    t.includes("bmw") ||
-    t.includes("mercedes") ||
+    t.includes("ferrari") ||
     t.includes("porsche") ||
+    t.includes("bugatti") ||
     t.includes("koenigsegg") ||
-    t.includes("pagani")
+    t.includes("pagani") ||
+    t.includes("mclaren") ||
+    t.includes("mercedes") ||
+    t.includes("bmw")
   ){
     return "cars";
   }
 
+
   if(
-    t.includes("ai") ||
+    t.includes("space") ||
+    t.includes("nasa") ||
+    t.includes("isro") ||
+    t.includes("moon") ||
+    t.includes("mars") ||
+    t.includes("rocket") ||
+    t.includes("galaxy")
+  ){
+    return "space";
+  }
+
+
+  if(
     t.includes("artificial intelligence") ||
-    t.includes("robot") ||
+    t.includes(" ai ") ||
+    t.startsWith("ai ") ||
+    t.endsWith(" ai") ||
     t.includes("technology") ||
-    t.includes("tech") ||
-    t.includes("computer") ||
-    t.includes("smartphone")
+    t.includes("robot") ||
+    t.includes("software")
   ){
     return "technology";
   }
 
-  if(
-    t.includes("history") ||
-    t.includes("historical") ||
-    t.includes("ancient") ||
-    t.includes("empire") ||
-    t.includes("war")
-  ){
-    return "history";
-  }
 
   if(
     t.includes("business") ||
-    t.includes("company") ||
     t.includes("startup") ||
     t.includes("stock") ||
-    t.includes("economy")
+    t.includes("company") ||
+    t.includes("entrepreneur")
   ){
     return "business";
   }
 
+
+  if(
+    t.includes("history") ||
+    t.includes("historical") ||
+    t.includes("ancient")
+  ){
+    return "history";
+  }
+
+
   if(
     t.includes("india") ||
-    t.includes("indian") ||
-    t.includes("delhi") ||
-    t.includes("mumbai") ||
-    t.includes("kolkata") ||
-    t.includes("odisha")
+    t.includes("indian")
   ){
     return "india";
   }
 
+
   if(
     t.includes("science") ||
     t.includes("physics") ||
-    t.includes("biology") ||
     t.includes("chemistry") ||
-    t.includes("human body")
+    t.includes("biology")
   ){
     return "science";
   }
 
+
   return "general";
+
 }
 
 
@@ -567,55 +554,185 @@ function detectTopic(topic){
 
 function makeHook(topic,type,style){
 
-  const clean = topic.trim();
+  if(type === "ferrari488"){
 
-  if(style === "news"){
-    return "Here is what you need to know about " + clean + ".";
+    if(style === "viral"){
+      return `The Ferrari 488 is one of the most famous turbocharged Ferraris ever made.`;
+    }
+
+    return `Here's a closer look at the Ferrari 488 and what made it special.`;
+
   }
 
-  if(style === "educational"){
-    return "Here are six important things to know about " + clean + ".";
+
+  if(type === "bmwm3gtr"){
+
+    return `The BMW M3 GTR became an icon both on the road and in racing culture.`;
+
   }
 
-  if(style === "cinematic"){
-    return "The story of " + clean + " is more fascinating than you might think.";
-  }
 
   if(type === "chandrayaan"){
-    return "India's Moon missions changed the story of lunar exploration. Here are the key moments.";
+
+    return `India's Chandrayaan missions changed the story of India's lunar exploration.`;
+
   }
+
 
   if(type === "space"){
-    return "Space is full of unbelievable discoveries. Here are six you should know.";
+
+    return `Space is full of discoveries that are difficult to imagine.`;
+
   }
 
-  if(type === "cars"){
-    return "This is what makes " + clean + " so fascinating.";
-  }
 
   if(type === "technology"){
-    return "Technology is changing faster than ever. Let's look at " + clean + ".";
+
+    return `Technology is changing how we live, work and create.`;
+
   }
 
-  if(type === "history"){
-    return "History is full of moments that still shape the world today.";
-  }
 
   if(type === "business"){
-    return "There is more to " + clean + " than most people realize.";
+
+    return `Behind every successful business is a story of decisions, risk and execution.`;
+
   }
 
-  return "Stop scrolling! Here are six interesting things about " + clean + ".";
+
+  if(type === "history"){
+
+    return `History becomes fascinating when we look beyond the dates and names.`;
+
+  }
+
+
+  if(type === "india"){
+
+    return `India has stories and achievements that deserve a closer look.`;
+
+  }
+
+
+  if(type === "science"){
+
+    return `Science becomes fascinating when we understand what is happening behind the scenes.`;
+
+  }
+
+
+  return `Let's take a closer look at ${topic}.`;
+
 }
 
 
 /* =========================
-   UNIVERSAL SCENE GENERATOR
+   SCENE GENERATOR
 ========================= */
 
 function makeScenes(topic,type){
 
-  const clean = topic.trim();
+  /*
+    FERRARI 488
+  */
+
+  if(type === "ferrari488"){
+
+    return [
+
+      {
+        title:"The Ferrari 488",
+        text:"The Ferrari 488 became the successor to Ferrari's 458-era mid-engine sports car family.",
+        theme:"ferrari"
+      },
+
+      {
+        title:"Twin-Turbo V8",
+        text:"One of the defining features of the 488 is its twin-turbocharged V8 engine.",
+        theme:"engine"
+      },
+
+      {
+        title:"Mid-Engine Layout",
+        text:"The engine sits behind the driver, helping create the balance and proportions expected from a modern Ferrari sports car.",
+        theme:"midengine"
+      },
+
+      {
+        title:"Aerodynamic Design",
+        text:"The 488's bodywork was designed around airflow, cooling and high-speed aerodynamic performance.",
+        theme:"aero"
+      },
+
+      {
+        title:"Performance Focus",
+        text:"Everything from the engine response to the chassis and electronics was developed around high-performance driving.",
+        theme:"performance"
+      },
+
+      {
+        title:"The 488 Legacy",
+        text:"The Ferrari 488 became an important chapter in Ferrari's move into a new generation of turbocharged performance cars.",
+        theme:"legacy"
+      }
+
+    ];
+
+  }
+
+
+  /*
+    BMW M3 GTR
+  */
+
+  if(type === "bmwm3gtr"){
+
+    return [
+
+      {
+        title:"BMW M3 GTR",
+        text:"The BMW M3 GTR became famous for combining the M3 name with an unusually serious racing identity.",
+        theme:"bmw"
+      },
+
+      {
+        title:"Racing DNA",
+        text:"The M3 GTR was created around motorsport, where performance and competition shaped the car's development.",
+        theme:"racing"
+      },
+
+      {
+        title:"The E46 Era",
+        text:"The E46 generation gave the M3 GTR its distinctive body shape and became especially recognizable among car enthusiasts.",
+        theme:"e46"
+      },
+
+      {
+        title:"The V8 Connection",
+        text:"The racing version became especially notable for its V8-powered competition configuration.",
+        theme:"v8"
+      },
+
+      {
+        title:"A Gaming Icon",
+        text:"The M3 GTR became globally recognizable through its appearance in Need for Speed Most Wanted.",
+        theme:"gaming"
+      },
+
+      {
+        title:"Why It Still Matters",
+        text:"The combination of racing history, distinctive design and gaming culture turned the M3 GTR into an enduring automotive icon.",
+        theme:"legacy"
+      }
+
+    ];
+
+  }
+
+
+  /*
+    CHANDRAYAAN
+  */
 
   if(type === "chandrayaan"){
 
@@ -623,504 +740,456 @@ function makeScenes(topic,type){
 
       {
         title:"Chandrayaan-1",
-        text:"Chandrayaan-1 was India's first mission to the Moon, launched in 2008.",
+        text:"Chandrayaan-1 was India's first mission to the Moon and launched in 2008.",
         theme:"moon"
       },
 
       {
         title:"Studying the Moon",
-        text:"The mission carried scientific instruments designed to study the lunar surface and environment.",
-        theme:"moon"
+        text:"The mission carried scientific instruments designed to study the lunar surface and its composition.",
+        theme:"science"
       },
 
       {
-        title:"Water-related discovery",
-        text:"Chandrayaan-1 helped provide important evidence of water-related molecules on the lunar surface.",
+        title:"Water Evidence",
+        text:"Chandrayaan-1 played an important role in observations that provided evidence of water-related molecules on the Moon.",
         theme:"watermoon"
       },
 
       {
         title:"Chandrayaan-2",
-        text:"Chandrayaan-2 launched in 2019 with an orbiter, lander and rover.",
+        text:"Chandrayaan-2 launched in 2019 with an orbiter, lander and rover designed for lunar exploration.",
         theme:"orbiter"
       },
 
       {
         title:"Chandrayaan-3",
-        text:"Chandrayaan-3 successfully landed near the Moon's south polar region in August 2023.",
+        text:"Chandrayaan-3 achieved a successful soft landing on the Moon in August 2023.",
         theme:"lander"
       },
 
       {
         title:"Vikram & Pragyan",
-        text:"The Vikram lander and Pragyan rover became major milestones in India's lunar exploration program.",
+        text:"The Vikram lander and Pragyan rover became major parts of India's lunar exploration milestone.",
         theme:"rover"
       }
 
     ];
+
   }
 
 
-  if(type === "space"){
-
-    return [
-
-      {
-        title:"The Universe",
-        text:clean + " exists within an enormous universe filled with stars, planets and galaxies.",
-        theme:"galaxy"
-      },
-
-      {
-        title:"Scale",
-        text:"The distances involved in space are so enormous that scientists often measure them in light-years.",
-        theme:"stars"
-      },
-
-      {
-        title:"Extreme environments",
-        text:"Space contains extreme environments with powerful gravity, radiation and temperatures.",
-        theme:"blackhole"
-      },
-
-      {
-        title:"Exploration",
-        text:"Space missions allow scientists to collect information that cannot be obtained from Earth.",
-        theme:"rocket"
-      },
-
-      {
-        title:"New discoveries",
-        text:"Modern telescopes continue to reveal objects and phenomena that expand our understanding of the universe.",
-        theme:"telescope"
-      },
-
-      {
-        title:"The future",
-        text:"Future missions may reveal even more about the origins and evolution of our universe.",
-        theme:"future"
-      }
-
-    ];
-  }
-
+  /*
+    GENERAL CARS
+  */
 
   if(type === "cars"){
 
     return [
 
       {
-        title:"The design",
-        text:clean + " stands out because of its distinctive design and engineering.",
+        title:"The Car",
+        text:`${topic} has a design and identity that make it recognizable among car enthusiasts.`,
         theme:"car"
       },
 
       {
-        title:"Performance",
-        text:"Performance cars combine power, aerodynamics and chassis engineering to improve speed and control.",
-        theme:"speed"
-      },
-
-      {
         title:"Engineering",
-        text:"Modern automotive engineering uses advanced materials and computer-controlled systems.",
+        text:`The engineering behind ${topic} is an important part of what makes the car interesting.`,
         theme:"engine"
       },
 
       {
-        title:"Aerodynamics",
-        text:"Airflow plays an important role in stability, efficiency and high-speed performance.",
+        title:"Performance",
+        text:`Performance is a major part of the story surrounding ${topic}.`,
+        theme:"performance"
+      },
+
+      {
+        title:"Design",
+        text:`The proportions, bodywork and aerodynamic details help define the character of ${topic}.`,
         theme:"aero"
       },
 
       {
-        title:"Technology",
-        text:"Modern cars increasingly combine mechanical engineering with advanced software.",
-        theme:"techcar"
+        title:"Driving Experience",
+        text:`The technology and chassis setup of ${topic} are designed around its intended driving experience.`,
+        theme:"drive"
       },
 
       {
-        title:"The future",
-        text:"The next generation of cars is likely to bring even more changes in performance and technology.",
-        theme:"futurecar"
+        title:"Legacy",
+        text:`${topic} remains an interesting part of modern automotive culture.`,
+        theme:"legacy"
       }
 
     ];
+
   }
 
+
+  /*
+    SPACE
+  */
+
+  if(type === "space"){
+
+    return [
+
+      {
+        title:"The Topic",
+        text:`${topic} is connected to one of humanity's biggest questions: what exists beyond Earth?`,
+        theme:"space"
+      },
+
+      {
+        title:"Exploration",
+        text:`Understanding ${topic} requires observation, scientific instruments and careful analysis.`,
+        theme:"exploration"
+      },
+
+      {
+        title:"The Science",
+        text:`Scientists study ${topic} to better understand the universe and the physical processes around us.`,
+        theme:"science"
+      },
+
+      {
+        title:"What We Learn",
+        text:`Research involving ${topic} can help expand our understanding of space.`,
+        theme:"galaxy"
+      },
+
+      {
+        title:"Technology",
+        text:`Studying ${topic} also pushes engineers to develop better spacecraft, instruments and computing systems.`,
+        theme:"technology"
+      },
+
+      {
+        title:"The Bigger Picture",
+        text:`${topic} is part of a much larger effort to understand our place in the universe.`,
+        theme:"future"
+      }
+
+    ];
+
+  }
+
+
+  /*
+    TECHNOLOGY
+  */
 
   if(type === "technology"){
 
     return [
 
       {
-        title:"The idea",
-        text:clean + " is part of a rapidly changing technology landscape.",
+        title:"What It Is",
+        text:`${topic} is becoming an important part of the modern technology landscape.`,
         theme:"technology"
       },
 
       {
-        title:"How it works",
-        text:"Modern technology combines hardware, software and data to solve increasingly complex problems.",
-        theme:"circuit"
+        title:"How It Works",
+        text:`The underlying systems behind ${topic} combine software, computing and data.`,
+        theme:"code"
       },
 
       {
-        title:"Real-world use",
-        text:"Technology can improve communication, productivity, entertainment and many everyday tasks.",
+        title:"Real-World Use",
+        text:`${topic} can be applied to real-world problems and digital workflows.`,
+        theme:"digital"
+      },
+
+      {
+        title:"Why It Matters",
+        text:`The growth of ${topic} is changing how people interact with technology.`,
         theme:"network"
       },
 
       {
-        title:"Rapid change",
-        text:"New developments can quickly change how people use existing technology.",
-        theme:"future"
-      },
-
-      {
         title:"Challenges",
-        text:"Security, privacy, reliability and responsible use remain important considerations.",
-        theme:"security"
+        text:`Like any emerging technology, ${topic} also brings technical and practical challenges.`,
+        theme:"warning"
       },
 
       {
-        title:"What's next",
-        text:"The next generation of technology may create new products, industries and opportunities.",
+        title:"What's Next",
+        text:`The future development of ${topic} will depend on better technology, responsible use and continued innovation.`,
         theme:"future"
       }
 
     ];
+
   }
 
+
+  /*
+    BUSINESS
+  */
+
+  if(type === "business"){
+
+    return [
+
+      {
+        title:"The Idea",
+        text:`${topic} starts with an idea that attempts to solve a problem or create value.`,
+        theme:"business"
+      },
+
+      {
+        title:"The Market",
+        text:`Understanding the market around ${topic} is important for judging demand and competition.`,
+        theme:"market"
+      },
+
+      {
+        title:"Customers",
+        text:`A successful ${topic} strategy depends on understanding what customers actually need.`,
+        theme:"customers"
+      },
+
+      {
+        title:"Execution",
+        text:`Turning ${topic} into a successful business requires consistent execution.`,
+        theme:"growth"
+      },
+
+      {
+        title:"Challenges",
+        text:`Competition, costs and changing customer behaviour can all affect ${topic}.`,
+        theme:"challenge"
+      },
+
+      {
+        title:"The Bigger Picture",
+        text:`The long-term story of ${topic} depends on how well its ideas translate into real-world value.`,
+        theme:"future"
+      }
+
+    ];
+
+  }
+
+
+  /*
+    HISTORY
+  */
 
   if(type === "history"){
 
     return [
 
       {
-        title:"The beginning",
-        text:clean + " has a story shaped by people, events and changing societies.",
+        title:"The Beginning",
+        text:`${topic} has a story shaped by events, people and decisions from the past.`,
         theme:"history"
       },
 
       {
-        title:"Important events",
-        text:"Major historical events often influence politics, culture, technology and everyday life.",
+        title:"The Context",
+        text:`Understanding the world around ${topic} helps explain why it became important.`,
+        theme:"map"
+      },
+
+      {
+        title:"Key Events",
+        text:`Important events connected to ${topic} helped shape what came afterwards.`,
         theme:"timeline"
       },
 
       {
         title:"People",
-        text:"Individuals and communities can play important roles in changing the course of history.",
+        text:`The history of ${topic} is also connected to the people who influenced its development.`,
         theme:"people"
       },
 
       {
-        title:"Change",
-        text:"Historical periods change as societies respond to new challenges and opportunities.",
-        theme:"change"
+        title:"Impact",
+        text:`The effects of ${topic} can still be seen in later events and developments.`,
+        theme:"impact"
       },
 
       {
         title:"Legacy",
-        text:"The effects of historical events can continue long after the original events have ended.",
+        text:`The legacy of ${topic} continues to influence how the subject is remembered today.`,
         theme:"legacy"
-      },
-
-      {
-        title:"Why it matters",
-        text:"Understanding history can help explain how the present world developed.",
-        theme:"world"
       }
 
     ];
+
   }
 
 
-  if(type === "business"){
-
-    return [
-
-      {
-        title:"The idea",
-        text:clean + " is connected to a business model, market or economic opportunity.",
-        theme:"business"
-      },
-
-      {
-        title:"The market",
-        text:"Markets change as customer demand, technology and competition evolve.",
-        theme:"market"
-      },
-
-      {
-        title:"Competition",
-        text:"Companies compete through products, services, pricing, technology and customer experience.",
-        theme:"competition"
-      },
-
-      {
-        title:"Innovation",
-        text:"Innovation can create new markets or change how existing industries operate.",
-        theme:"innovation"
-      },
-
-      {
-        title:"Challenges",
-        text:"Businesses must manage costs, customers, competitors and changing market conditions.",
-        theme:"challenge"
-      },
-
-      {
-        title:"The future",
-        text:"Long-term success depends on how businesses adapt as markets continue to change.",
-        theme:"futurebusiness"
-      }
-
-    ];
-  }
-
+  /*
+    INDIA
+  */
 
   if(type === "india"){
 
     return [
 
       {
-        title:"The subject",
-        text:clean + " is connected to India's diverse society, geography, history or development.",
+        title:"The Story",
+        text:`${topic} is connected to India's wider story of culture, people and development.`,
         theme:"india"
       },
 
       {
-        title:"Geography",
-        text:"India contains a wide range of landscapes, climates and natural environments.",
-        theme:"mountains"
+        title:"The Background",
+        text:`Understanding the background of ${topic} helps explain why it matters.`,
+        theme:"map"
       },
 
       {
         title:"People",
-        text:"The country is home to many languages, traditions and cultural communities.",
-        theme:"culture"
+        text:`People and communities play an important role in the story of ${topic}.`,
+        theme:"people"
       },
 
       {
         title:"Development",
-        text:"India continues to change through infrastructure, technology and economic development.",
+        text:`The story of ${topic} is connected to India's changing economy, technology or society.`,
         theme:"city"
       },
 
       {
-        title:"Innovation",
-        text:"Indian researchers, businesses and institutions contribute to many fields.",
-        theme:"innovation"
+        title:"Why It Matters",
+        text:`${topic} represents one part of India's much larger and constantly changing story.`,
+        theme:"culture"
       },
 
       {
-        title:"The future",
-        text:"India's future will continue to be shaped by technology, people and economic development.",
-        theme:"futureindia"
+        title:"Looking Ahead",
+        text:`The next chapter of ${topic} will depend on how people, technology and institutions develop.`,
+        theme:"future"
       }
 
     ];
+
   }
 
+
+  /*
+    SCIENCE
+  */
 
   if(type === "science"){
 
     return [
 
       {
-        title:"The question",
-        text:clean + " is a subject scientists study to better understand how the world works.",
+        title:"The Question",
+        text:`${topic} begins with a scientific question about how the world works.`,
         theme:"science"
       },
 
       {
+        title:"The Principle",
+        text:`Scientists use evidence and experiments to understand ${topic}.`,
+        theme:"experiment"
+      },
+
+      {
         title:"Observation",
-        text:"Scientific research begins by observing patterns and asking questions.",
+        text:`Careful observation helps researchers identify patterns connected to ${topic}.`,
         theme:"research"
       },
 
       {
         title:"Evidence",
-        text:"Scientists use experiments, measurements and evidence to test explanations.",
-        theme:"experiment"
-      },
-
-      {
-        title:"Discovery",
-        text:"New evidence can improve existing explanations or lead to new scientific ideas.",
-        theme:"discovery"
+        text:`Scientific evidence is important when explaining what we know about ${topic}.`,
+        theme:"data"
       },
 
       {
         title:"Applications",
-        text:"Scientific knowledge can eventually lead to new technologies and practical applications.",
-        theme:"lab"
+        text:`Research into ${topic} can lead to useful applications and new discoveries.`,
+        theme:"technology"
       },
 
       {
-        title:"The future",
-        text:"Continued research can reveal information that is still unknown today.",
+        title:"What Comes Next",
+        text:`Future research may reveal more about ${topic} and the questions surrounding it.`,
         theme:"future"
       }
 
     ];
+
   }
 
 
-  /* GENERAL TOPIC */
+  /*
+    UNIVERSAL FALLBACK
+
+    Important:
+    It uses the exact topic in every scene.
+    It does NOT suddenly switch to unrelated subjects.
+  */
 
   return [
 
     {
-      title:"What is it?",
-      text:clean + " is a subject with interesting facts, ideas and real-world connections.",
-      theme:"general"
+      title:"Introducing It",
+      text:`Let's start with ${topic} and understand what makes it interesting.`,
+      theme:"intro"
     },
 
     {
-      title:"Why it matters",
-      text:clean + " can be understood better by looking at its background and real-world importance.",
-      theme:"importance"
+      title:"The Core Idea",
+      text:`The most important thing to understand about ${topic} is what it actually represents.`,
+      theme:"core"
     },
 
     {
-      title:"How it works",
-      text:"Understanding the key principles behind " + clean + " helps explain why it works the way it does.",
+      title:"How It Works",
+      text:`Looking closer at ${topic} helps explain how its main ideas, features or characteristics fit together.`,
       theme:"system"
     },
 
     {
-      title:"Interesting detail",
-      text:"One of the most interesting aspects of " + clean + " is how different factors come together.",
-      theme:"detail"
-    },
-
-    {
-      title:"Real-world impact",
-      text:clean + " can affect people, technology, culture, business or everyday life depending on the subject.",
+      title:"Why It Matters",
+      text:`${topic} becomes more interesting when we look at its real-world importance and impact.`,
       theme:"impact"
     },
 
     {
-      title:"What's next",
-      text:"As knowledge and technology continue to develop, our understanding of " + clean + " can continue to change.",
+      title:"What Makes It Interesting",
+      text:`There are several details about ${topic} that can make the subject worth exploring.`,
+      theme:"details"
+    },
+
+    {
+      title:"The Bigger Picture",
+      text:`And that is why ${topic} continues to be an interesting subject to explore.`,
       theme:"future"
     }
 
   ];
+
 }
 
 
 /* =========================
-   SCRIPT GENERATOR
-========================= */
-
-function makeScript(topic,scenes){
-
-  let text = "";
-
-  scenes.forEach((scene,index)=>{
-
-    text += scene.text;
-
-    if(index < scenes.length - 1){
-      text += " ";
-    }
-
-  });
-
-  return text;
-}
-
-
-/* =========================
-   CAPTION
-========================= */
-
-function makeCaption(topic,style){
-
-  if(style === "news"){
-    return "A quick breakdown of " + topic + ". Save this reel and share it with someone who should know.";
-  }
-
-  if(style === "educational"){
-    return "Learn something new about " + topic + " in under a minute.";
-  }
-
-  if(style === "cinematic"){
-    return "A cinematic look at " + topic + ".";
-  }
-
-  return "Here are some interesting things to know about " + topic + ". Follow for more.";
-}
-
-
-/* =========================
-   HASHTAGS
-========================= */
-
-function makeHashtags(topic,type){
-
-  let words = topic
-    .replace(/[^\w\s]/g,"")
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0,4);
-
-  let tags = words.map(function(word){
-    return "#" + word;
-  });
-
-  const common = [
-    "#Reels",
-    "#Shorts",
-    "#Facts",
-    "#DidYouKnow",
-    "#Explore"
-  ];
-
-  if(type === "chandrayaan"){
-    common.push("#Chandrayaan","#ISRO","#Space");
-  }
-
-  if(type === "space"){
-    common.push("#Space","#Science","#Astronomy");
-  }
-
-  if(type === "cars"){
-    common.push("#Cars","#CarCulture","#Automotive");
-  }
-
-  if(type === "technology"){
-    common.push("#Technology","#Tech","#Innovation");
-  }
-
-  if(type === "business"){
-    common.push("#Business","#Startup","#Entrepreneurship");
-  }
-
-  return [...new Set([...tags,...common])].slice(0,12);
-}
-
-
-/* =========================
-   GENERATE REEL
+   PLAN GENERATION
 ========================= */
 
 function generateReel(){
 
-  stopPreview();
-  stopVoice();
+  const topic = cleanTopic(
+    document.getElementById("topic").value
+  );
 
-  const topicInput = document.getElementById("topic").value.trim();
+  if(!topic){
 
-  if(!topicInput){
-    document.getElementById("status").textContent =
-      "Please enter a topic first.";
+    alert("Please enter a topic first.");
     return;
+
   }
+
 
   const duration = Number(
     document.getElementById("duration").value
@@ -1129,100 +1198,226 @@ function generateReel(){
   const style =
     document.getElementById("style").value;
 
-  const voice =
-    document.getElementById("voice").value;
+  const voiceStyle =
+    document.getElementById("voiceStyle").value;
 
-  const type = detectTopic(topicInput);
+
+  const type = detectTopic(topic);
 
   const hook = makeHook(
-    topicInput,
+    topic,
     type,
     style
   );
 
   const scenes = makeScenes(
-    topicInput,
+    topic,
     type
   );
 
-  const script = makeScript(
-    topicInput,
-    scenes
-  );
 
-  const caption = makeCaption(
-    topicInput,
-    style
-  );
+  const scriptParts = [
+    hook,
+    ...scenes.map(scene => scene.text)
+  ];
 
-  const hashtags = makeHashtags(
-    topicInput,
-    type
-  );
+
+  const script =
+    scriptParts.join("\n\n");
+
 
   currentPlan = {
-    topic:topicInput,
-    type:type,
-    duration:duration,
-    style:style,
-    voice:voice,
-    hook:hook,
-    scenes:scenes,
-    script:script,
-    caption:caption,
-    hashtags:hashtags
+
+    topic,
+    type,
+    duration,
+    style,
+    voiceStyle,
+    hook,
+    script,
+    scenes
+
   };
 
-  updateProgress(20,"Analyzing topic...");
 
-  setTimeout(function(){
+  document.getElementById("result").style.display =
+    "block";
 
-    updateProgress(45,"Building hook and script...");
 
-    document.getElementById("hook").textContent =
-      hook;
+  document.getElementById("hook").textContent =
+    hook;
 
-    document.getElementById("script").textContent =
-      script;
 
-    setTimeout(function(){
+  document.getElementById("script").textContent =
+    script;
 
-      updateProgress(70,"Creating six scenes...");
 
-      renderScenes();
+  renderSceneCards();
 
-      setTimeout(function(){
+  updateSocialContent();
 
-        updateProgress(90,"Preparing social media copy...");
+  setProgress(100);
 
-        document.getElementById("caption").textContent =
-          caption;
+  document.getElementById("status").textContent =
+    `Ready — ${scenes.length} topic-focused scenes generated for "${topic}".`;
 
-        renderHashtags();
 
-        document.getElementById("contentCard")
-          .classList.remove("hidden");
+  startPreview(0,Math.min(15,duration));
 
-        document.getElementById("scenesCard")
-          .classList.remove("hidden");
+}
 
-        document.getElementById("previewCard")
-          .classList.remove("hidden");
 
-        document.getElementById("socialCard")
-          .classList.remove("hidden");
+/* =========================
+   SCENE CARDS
+========================= */
 
-        setTimeout(function(){
+function renderSceneCards(){
 
-          updateProgress(100,"Reel plan ready.");
+  const box =
+    document.getElementById("scenes");
 
-        },300);
+  box.innerHTML = "";
 
-      },300);
 
-    },300);
+  currentPlan.scenes.forEach((scene,index)=>{
 
-  },300);
+    const card =
+      document.createElement("div");
+
+    card.className = "scene";
+
+    card.innerHTML = `
+
+      <div class="sceneNumber">
+        SCENE ${index + 1}
+      </div>
+
+      <div class="sceneTitle">
+        ${escapeHTML(scene.title)}
+      </div>
+
+      <div class="sceneText">
+        ${escapeHTML(scene.text)}
+      </div>
+
+      <div class="sceneTheme">
+        Visual theme: ${escapeHTML(scene.theme)}
+      </div>
+
+    `;
+
+    box.appendChild(card);
+
+  });
+
+}
+
+
+/* =========================
+   SOCIAL CONTENT
+========================= */
+
+function updateSocialContent(){
+
+  const topic =
+    currentPlan.topic;
+
+  let tags = [
+
+    "#AIReelMaker",
+    "#Reels",
+    "#InstagramReels",
+    "#ShortVideo"
+
+  ];
+
+
+  if(currentPlan.type === "ferrari488"){
+
+    tags.push(
+      "#Ferrari488",
+      "#Ferrari",
+      "#Supercars",
+      "#CarCulture"
+    );
+
+  }
+
+
+  else if(currentPlan.type === "bmwm3gtr"){
+
+    tags.push(
+      "#BMWM3GTR",
+      "#BMW",
+      "#E46",
+      "#CarCulture"
+    );
+
+  }
+
+
+  else if(currentPlan.type === "chandrayaan"){
+
+    tags.push(
+      "#Chandrayaan",
+      "#ISRO",
+      "#IndiaInSpace",
+      "#MoonMission"
+    );
+
+  }
+
+
+  else if(currentPlan.type === "space"){
+
+    tags.push(
+      "#Space",
+      "#Science",
+      "#Astronomy"
+    );
+
+  }
+
+
+  else if(currentPlan.type === "technology"){
+
+    tags.push(
+      "#Technology",
+      "#AI",
+      "#Innovation"
+    );
+
+  }
+
+
+  else{
+
+    const safeTopic =
+      topic
+        .replace(/[^a-zA-Z0-9 ]/g,"")
+        .trim()
+        .split(/\s+/)
+        .map(word =>
+          word.charAt(0).toUpperCase() +
+          word.slice(1)
+        )
+        .join("");
+
+    if(safeTopic){
+
+      tags.push("#" + safeTopic);
+
+    }
+
+  }
+
+
+  document.getElementById("caption").textContent =
+    `${currentPlan.hook} Explore the story of ${topic} in this short reel.`;
+
+  document.getElementById("hashtags").textContent =
+    tags.join(" ");
+
 }
 
 
@@ -1230,76 +1425,11 @@ function generateReel(){
    PROGRESS
 ========================= */
 
-function updateProgress(value,message){
+function setProgress(value){
 
-  document.getElementById("progress").style.width =
-    value + "%";
+  document.getElementById("progressBar").style.width =
+    `${value}%`;
 
-  document.getElementById("status").textContent =
-    message;
-}
-
-
-/* =========================
-   SCENES UI
-========================= */
-
-function renderScenes(){
-
-  const box =
-    document.getElementById("scenes");
-
-  box.innerHTML = "";
-
-  currentPlan.scenes.forEach(function(scene,index){
-
-    const div = document.createElement("div");
-
-    div.className = "scene";
-
-    div.innerHTML = `
-      <div class="scene-number">
-        SCENE ${index + 1}
-      </div>
-
-      <div class="scene-title">
-        ${escapeHTML(scene.title)}
-      </div>
-
-      <div class="scene-text">
-        ${escapeHTML(scene.text)}
-      </div>
-    `;
-
-    box.appendChild(div);
-
-  });
-}
-
-
-/* =========================
-   HASHTAGS UI
-========================= */
-
-function renderHashtags(){
-
-  const box =
-    document.getElementById("hashtags");
-
-  box.innerHTML = "";
-
-  currentPlan.hashtags.forEach(function(tag){
-
-    const span =
-      document.createElement("span");
-
-    span.className = "tag";
-
-    span.textContent = tag;
-
-    box.appendChild(span);
-
-  });
 }
 
 
@@ -1308,450 +1438,309 @@ function renderHashtags(){
 ========================= */
 
 const canvas =
-  document.getElementById("reelCanvas");
+  document.getElementById("canvas");
 
 const ctx =
   canvas.getContext("2d");
 
-function drawBackground(){
+
+function drawBackground(theme,time){
+
+  const colors = {
+
+    ferrari:["#240000","#850000","#050505"],
+    engine:["#08111d","#173a5b","#02050a"],
+    midengine:["#180b08","#5b2514","#030303"],
+    aero:["#051726","#0b5477","#020609"],
+    performance:["#210909","#6d1717","#020202"],
+    legacy:["#151515","#343434","#020202"],
+
+    bmw:["#061525","#0a4c83","#020509"],
+    racing:["#111111","#5a1111","#020202"],
+    e46:["#0a1b30","#234d76","#020509"],
+    v8:["#1a0b05","#63300e","#030202"],
+    gaming:["#071b28","#164a61","#02070a"],
+
+    moon:["#07111d","#29364a","#020406"],
+    science:["#071827","#17496c","#02070d"],
+    watermoon:["#052331","#11617a","#020609"],
+    orbiter:["#081a29","#255b7d","#02060a"],
+    lander:["#17100a","#755126","#020202"],
+    rover:["#161616","#58636a","#020202"],
+
+    space:["#020516","#10184a","#010107"],
+    exploration:["#051629","#153f66","#010509"],
+    galaxy:["#090522","#33196a","#020108"],
+    technology:["#041723","#0c5570","#020709"],
+
+    code:["#041c18","#11624e","#020806"],
+    digital:["#06192a","#124f7c","#02070d"],
+    network:["#061725","#1d4c71","#02070b"],
+    warning:["#241306","#713a10","#020202"],
+    future:["#09091f","#2b2a65","#02020a"],
+
+    business:["#15100a","#58431e","#020202"],
+    market:["#071b22","#16606a","#020709"],
+    customers:["#07192a","#214b70","#02060a"],
+    growth:["#061c12","#1d6945","#020805"],
+    challenge:["#220b0b","#6a2020","#020202"],
+
+    history:["#21150c","#674522","#020202"],
+    map:["#101a1b","#36574e","#020706"],
+    timeline:["#1b111f","#593c68","#020205"],
+    people:["#171313","#56484b","#020202"],
+    impact:["#1a0e06","#69401c","#020202"],
+
+    india:["#211306","#74330f","#020202"],
+    culture:["#25100c","#7b2d1d","#020202"],
+    city:["#071421","#17496c","#020609"],
+
+    experiment:["#071a23","#19566c","#02070a"],
+    research:["#061725","#1e4f6d","#02060a"],
+    data:["#07131f","#315174","#02060a"],
+
+    intro:["#07111f","#1d4265","#02050a"],
+    core:["#071b2a","#185477","#02070b"],
+    system:["#081b16","#1b5b45","#020806"],
+    details:["#1a1008","#66441e","#020202"]
+
+  };
+
+
+  const c =
+    colors[theme] ||
+    colors.intro;
+
 
   const g =
     ctx.createLinearGradient(
       0,0,
-      canvas.width,
-      canvas.height
+      540,960
     );
 
-  g.addColorStop(0,"#071b32");
-  g.addColorStop(.5,"#102f50");
-  g.addColorStop(1,"#02070e");
+
+  g.addColorStop(0,c[0]);
+  g.addColorStop(.5,c[1]);
+  g.addColorStop(1,c[2]);
+
 
   ctx.fillStyle = g;
+
   ctx.fillRect(
     0,0,
-    canvas.width,
-    canvas.height
+    540,960
   );
+
+
+  const pulse =
+    Math.sin(time * .0015) * 20;
+
+
+  const glow =
+    ctx.createRadialGradient(
+      270,
+      380,
+      40,
+      270,
+      380,
+      430 + pulse
+    );
+
+
+  glow.addColorStop(
+    0,
+    "rgba(255,255,255,.10)"
+  );
+
+  glow.addColorStop(
+    1,
+    "rgba(255,255,255,0)"
+  );
+
+
+  ctx.fillStyle = glow;
+
+  ctx.fillRect(
+    0,0,
+    540,960
+  );
+
+
+  drawParticles(time);
+
 }
 
 
-function drawGrid(time){
+function drawParticles(time){
 
-  ctx.save();
+  for(let i=0;i<35;i++){
 
-  ctx.strokeStyle =
-    "rgba(100,190,255,.10)";
+    const x =
+      (i * 83 + time * (0.015 + i*0.0003)) % 580 - 20;
 
-  ctx.lineWidth = 1;
+    const y =
+      (i * 137) % 960;
 
-  const offset =
-    (time * .025) % 60;
+    const r =
+      1 + (i % 3);
 
-  for(let x=-60;x<canvas.width+60;x+=60){
-
-    ctx.beginPath();
-
-    ctx.moveTo(x+offset,0);
-    ctx.lineTo(x+offset,canvas.height);
-
-    ctx.stroke();
-
-  }
-
-  for(let y=-60;y<canvas.height+60;y+=60){
 
     ctx.beginPath();
 
-    ctx.moveTo(0,y+offset);
-    ctx.lineTo(canvas.width,y+offset);
+    ctx.arc(
+      x,
+      y,
+      r,
+      0,
+      Math.PI*2
+    );
 
-    ctx.stroke();
+    ctx.fillStyle =
+      "rgba(255,255,255,.16)";
+
+    ctx.fill();
 
   }
 
-  ctx.restore();
 }
 
 
 /* =========================
-   CINEMATIC ART
+   VISUAL DRAWING
 ========================= */
 
-function drawTheme(theme,time){
-
-  const cx = canvas.width/2;
-  const cy = 370;
+function drawThemeVisual(theme,time){
 
   ctx.save();
 
-  /* universal glowing orb */
+  const cx = 270;
+  const cy = 385;
 
-  if(theme === "moon" ||
-     theme === "watermoon"){
 
-    const radius = 125;
+  if(theme === "ferrari" ||
+     theme === "midengine" ||
+     theme === "performance" ||
+     theme === "legacy"){
 
-    const grad =
-      ctx.createRadialGradient(
-        cx-35,cy-40,10,
-        cx,cy,radius
-      );
+    drawSportsCar(
+      cx,
+      cy,
+      time
+    );
 
-    grad.addColorStop(0,"#f5f8ff");
-    grad.addColorStop(.5,"#9da9bc");
-    grad.addColorStop(1,"#38465c");
+  }
 
-    ctx.fillStyle = grad;
 
-    ctx.beginPath();
-    ctx.arc(cx,cy,radius,0,Math.PI*2);
-    ctx.fill();
+  else if(theme === "engine" ||
+          theme === "v8"){
 
-    for(let i=0;i<25;i++){
+    drawEngine(
+      cx,
+      cy,
+      time
+    );
 
-      const a =
-        i * 2.31;
+  }
 
-      const x =
-        cx + Math.cos(a)*90;
 
-      const y =
-        cy + Math.sin(a)*90;
+  else if(theme === "aero"){
 
-      ctx.fillStyle =
-        "rgba(30,40,55,.3)";
+    drawAero(
+      cx,
+      cy,
+      time
+    );
 
-      ctx.beginPath();
+  }
 
-      ctx.arc(
-        x,
-        y,
-        5+(i%4)*3,
-        0,
-        Math.PI*2
-      );
 
-      ctx.fill();
+  else if(theme === "bmw" ||
+          theme === "racing" ||
+          theme === "e46" ||
+          theme === "gaming"){
 
-    }
+    drawBMW(
+      cx,
+      cy,
+      time
+    );
 
-    if(theme === "watermoon"){
+  }
 
-      ctx.strokeStyle =
-        "rgba(80,190,255,.8)";
 
-      ctx.lineWidth = 5;
+  else if(theme === "moon" ||
+          theme === "watermoon"){
 
-      for(let i=0;i<4;i++){
-
-        ctx.beginPath();
-
-        ctx.arc(
-          cx,
-          cy,
-          145+i*15+
-          Math.sin(time*.003+i)*8,
-          0,
-          Math.PI*2
-        );
-
-        ctx.stroke();
-
-      }
-
-    }
+    drawMoon(
+      cx,
+      cy,
+      time,
+      theme === "watermoon"
+    );
 
   }
 
 
   else if(theme === "orbiter"){
 
-    drawPlanet(cx,cy,100);
-
-    ctx.translate(
-      cx + Math.cos(time*.001)*150,
-      cy + Math.sin(time*.001)*80
+    drawOrbiter(
+      cx,
+      cy,
+      time
     );
-
-    ctx.rotate(time*.001);
-
-    ctx.fillStyle="#dce7ef";
-
-    ctx.fillRect(-55,-10,110,20);
-
-    ctx.fillStyle="#2465a0";
-
-    ctx.fillRect(-42,-5,30,10);
-    ctx.fillRect(12,-5,30,10);
-
-    ctx.fillStyle="#d7a94b";
-
-    ctx.fillRect(-8,-25,16,50);
 
   }
 
 
   else if(theme === "lander"){
 
-    drawPlanet(cx,cy+80,150);
-
-    ctx.translate(
+    drawLander(
       cx,
-      cy-30
+      cy,
+      time
     );
-
-    ctx.fillStyle="#d5dce3";
-
-    ctx.fillRect(
-      -65,
-      -50,
-      130,
-      90
-    );
-
-    ctx.fillStyle="#9aabba";
-
-    ctx.fillRect(
-      -35,
-      -85,
-      70,
-      35
-    );
-
-    ctx.strokeStyle="#d5dce3";
-
-    ctx.lineWidth=8;
-
-    const legY=40;
-
-    [
-      [-50,legY],
-      [50,legY]
-    ].forEach(function(p){
-
-      ctx.beginPath();
-      ctx.moveTo(p[0],0);
-      ctx.lineTo(p[0]*1.5,p[1]+45);
-      ctx.stroke();
-
-    });
 
   }
 
 
   else if(theme === "rover"){
 
-    drawPlanet(cx,cy+100,150);
-
-    ctx.translate(cx,cy-10);
-
-    ctx.fillStyle="#e1b95e";
-
-    ctx.fillRect(-80,-40,160,65);
-
-    ctx.fillStyle="#cbd3dc";
-
-    ctx.fillRect(-55,-70,110,30);
-
-    ctx.fillStyle="#222";
-
-    [-55,55].forEach(function(x){
-
-      ctx.beginPath();
-      ctx.arc(x,35,23,0,Math.PI*2);
-      ctx.fill();
-
-    });
-
-    ctx.strokeStyle="#e1b95e";
-    ctx.lineWidth=5;
-
-    ctx.beginPath();
-    ctx.moveTo(0,-70);
-    ctx.lineTo(0,-125);
-    ctx.stroke();
-
-  }
-
-
-  else if(
-    theme === "galaxy" ||
-    theme === "stars"
-  ){
-
-    for(let i=0;i<100;i++){
-
-      const x =
-        (i*83)%canvas.width;
-
-      const y =
-        (i*137)%560;
-
-      const size =
-        1+(i%3);
-
-      ctx.fillStyle =
-        "rgba(255,255,255,"+
-        (.25+(i%5)/10)+")";
-
-      ctx.beginPath();
-
-      ctx.arc(
-        x,
-        y,
-        size,
-        0,
-        Math.PI*2
-      );
-
-      ctx.fill();
-
-    }
-
-    const grad =
-      ctx.createRadialGradient(
-        cx,cy,
-        10,
-        cx,cy,
-        250
-      );
-
-    grad.addColorStop(0,"#d9a8ff");
-    grad.addColorStop(.4,"#613aa0");
-    grad.addColorStop(1,"rgba(0,0,0,0)");
-
-    ctx.fillStyle=grad;
-
-    ctx.beginPath();
-    ctx.arc(cx,cy,250,0,Math.PI*2);
-    ctx.fill();
-
-  }
-
-
-  else if(
-    theme === "blackhole"
-  ){
-
-    for(let r=180;r>30;r-=20){
-
-      ctx.strokeStyle =
-        "rgba(120,180,255,"+
-        (1-r/220)+")";
-
-      ctx.lineWidth=8;
-
-      ctx.beginPath();
-
-      ctx.ellipse(
-        cx,
-        cy,
-        r,
-        r*.35,
-        time*.0003,
-        0,
-        Math.PI*2
-      );
-
-      ctx.stroke();
-
-    }
-
-    ctx.fillStyle="#000";
-
-    ctx.beginPath();
-    ctx.arc(cx,cy,55,0,Math.PI*2);
-    ctx.fill();
-
-  }
-
-
-  else if(
-    theme === "rocket"
-  ){
-
-    ctx.translate(
+    drawRover(
       cx,
-      cy+Math.sin(time*.003)*20
+      cy,
+      time
     );
-
-    ctx.fillStyle="#e9eef5";
-
-    ctx.beginPath();
-
-    ctx.moveTo(0,-120);
-    ctx.quadraticCurveTo(
-      70,-45,
-      45,70
-    );
-
-    ctx.lineTo(-45,70);
-
-    ctx.quadraticCurveTo(
-      -70,-45,
-      0,-120
-    );
-
-    ctx.fill();
-
-    ctx.fillStyle="#51a7ff";
-
-    ctx.beginPath();
-    ctx.arc(0,-45,20,0,Math.PI*2);
-    ctx.fill();
-
-    ctx.fillStyle="#ff9e45";
-
-    ctx.beginPath();
-    ctx.moveTo(-20,70);
-    ctx.lineTo(0,145);
-    ctx.lineTo(20,70);
-    ctx.fill();
 
   }
 
 
   else if(
-    theme === "car" ||
-    theme === "speed" ||
-    theme === "engine" ||
-    theme === "aero"
+    theme === "space" ||
+    theme === "exploration" ||
+    theme === "galaxy"
   ){
 
-    drawCar(cx,cy);
+    drawGalaxy(
+      cx,
+      cy,
+      time
+    );
 
   }
 
 
   else if(
     theme === "technology" ||
-    theme === "circuit" ||
+    theme === "code" ||
+    theme === "digital" ||
     theme === "network"
   ){
 
-    drawTech(cx,cy,time);
-
-  }
-
-
-  else if(
-    theme === "india" ||
-    theme === "culture" ||
-    theme === "mountains"
-  ){
-
-    drawIndia(cx,cy,time);
-
-  }
-
-
-  else if(
-    theme === "history" ||
-    theme === "timeline" ||
-    theme === "legacy"
-  ){
-
-    drawHistory(cx,cy,time);
+    drawTech(
+      cx,
+      cy,
+      time
+    );
 
   }
 
@@ -1759,320 +1748,1058 @@ function drawTheme(theme,time){
   else if(
     theme === "business" ||
     theme === "market" ||
-    theme === "competition"
+    theme === "customers" ||
+    theme === "growth"
   ){
 
-    drawBusiness(cx,cy,time);
+    drawBusiness(
+      cx,
+      cy,
+      time
+    );
 
   }
 
 
   else if(
-    theme === "science" ||
-    theme === "research" ||
-    theme === "experiment" ||
-    theme === "discovery"
+    theme === "history" ||
+    theme === "map" ||
+    theme === "timeline" ||
+    theme === "people"
   ){
 
-    drawScience(cx,cy,time);
+    drawHistory(
+      cx,
+      cy,
+      time
+    );
+
+  }
+
+
+  else if(
+    theme === "india" ||
+    theme === "culture" ||
+    theme === "city"
+  ){
+
+    drawIndia(
+      cx,
+      cy,
+      time
+    );
 
   }
 
 
   else{
 
-    drawUniversal(cx,cy,time);
+    drawGeneric(
+      cx,
+      cy,
+      time
+    );
 
   }
 
+
   ctx.restore();
+
 }
 
 
 /* =========================
-   ART HELPERS
+   CAR VISUAL
 ========================= */
 
-function drawPlanet(x,y,r){
+function drawSportsCar(x,y,time){
 
-  const g =
-    ctx.createRadialGradient(
-      x-r*.35,
-      y-r*.35,
-      5,
-      x,
-      y,
-      r
-    );
+  const move =
+    Math.sin(time*.002)*7;
 
-  g.addColorStop(0,"#dbe8f6");
-  g.addColorStop(.5,"#70839a");
-  g.addColorStop(1,"#172333");
 
-  ctx.fillStyle=g;
+  ctx.save();
+
+  ctx.translate(
+    x,
+    y + move
+  );
+
+
+  ctx.fillStyle =
+    "rgba(0,0,0,.45)";
 
   ctx.beginPath();
 
-  ctx.arc(x,y,r,0,Math.PI*2);
+  ctx.ellipse(
+    0,
+    100,
+    190,
+    28,
+    0,
+    0,
+    Math.PI*2
+  );
 
   ctx.fill();
-}
 
 
-function drawCar(x,y){
-
-  ctx.translate(x,y);
-
-  ctx.fillStyle="#e33445";
+  ctx.fillStyle =
+    "#b71919";
 
   ctx.beginPath();
 
-  ctx.moveTo(-180,45);
-  ctx.lineTo(-125,-25);
-  ctx.lineTo(-55,-55);
-  ctx.lineTo(65,-50);
-  ctx.lineTo(140,-15);
-  ctx.lineTo(180,45);
+  ctx.moveTo(-185,55);
+  ctx.lineTo(-130,15);
+  ctx.lineTo(-70,-5);
+  ctx.lineTo(-25,-58);
+  ctx.lineTo(65,-63);
+  ctx.lineTo(130,-25);
+  ctx.lineTo(180,15);
+  ctx.lineTo(190,58);
+  ctx.lineTo(145,72);
+  ctx.lineTo(-145,72);
   ctx.closePath();
 
   ctx.fill();
 
-  ctx.fillStyle="#b9e0f5";
+
+  ctx.fillStyle =
+    "#090d12";
 
   ctx.beginPath();
 
-  ctx.moveTo(-75,-38);
-  ctx.lineTo(-35,-70);
-  ctx.lineTo(45,-67);
-  ctx.lineTo(90,-25);
+  ctx.moveTo(-52,-52);
+  ctx.lineTo(-18,-87);
+  ctx.lineTo(57,-87);
+  ctx.lineTo(105,-34);
   ctx.closePath();
 
   ctx.fill();
 
-  ctx.fillStyle="#080b10";
 
-  [-105,105].forEach(function(w){
+  ctx.fillStyle =
+    "#a9d7ee";
 
-    ctx.beginPath();
-    ctx.arc(w,50,35,0,Math.PI*2);
-    ctx.fill();
+  ctx.globalAlpha=.75;
 
-  });
+  ctx.beginPath();
+
+  ctx.moveTo(-45,-55);
+  ctx.lineTo(-14,-78);
+  ctx.lineTo(45,-78);
+  ctx.lineTo(75,-42);
+  ctx.closePath();
+
+  ctx.fill();
+
+  ctx.globalAlpha=1;
+
+
+  ctx.fillStyle =
+    "#090909";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    -105,
+    70,
+    28,
+    0,
+    Math.PI*2
+  );
+
+  ctx.arc(
+    105,
+    70,
+    28,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  ctx.fillStyle =
+    "#777";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    -105,
+    70,
+    12,
+    0,
+    Math.PI*2
+  );
+
+  ctx.arc(
+    105,
+    70,
+    12,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  ctx.restore();
 
 }
 
 
-function drawTech(x,y,time){
+/* =========================
+   ENGINE
+========================= */
+
+function drawEngine(x,y,time){
+
+  ctx.save();
 
   ctx.translate(x,y);
 
-  ctx.strokeStyle="#4eb4ff";
-  ctx.lineWidth=4;
+
+  const rotation =
+    time*.001;
+
+
+  ctx.rotate(rotation);
+
 
   for(let i=0;i<8;i++){
 
     const a =
-      i*Math.PI/4 +
-      time*.0004;
+      i*Math.PI/4;
+
+    ctx.save();
+
+    ctx.rotate(a);
+
+    ctx.fillStyle =
+      "#9a9a9a";
+
+    ctx.fillRect(
+      -12,
+      -145,
+      24,
+      145
+    );
+
+    ctx.restore();
+
+  }
+
+
+  ctx.fillStyle =
+    "#242424";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    0,
+    0,
+    105,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  ctx.fillStyle =
+    "#a6a6a6";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    0,
+    0,
+    42,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  ctx.fillStyle =
+    "#e01b1b";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    0,
+    0,
+    14,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  ctx.restore();
+
+}
+
+
+/* =========================
+   AERO
+========================= */
+
+function drawAero(x,y,time){
+
+  ctx.save();
+
+  ctx.translate(x,y);
+
+
+  for(let i=0;i<8;i++){
 
     ctx.beginPath();
 
     ctx.moveTo(
-      Math.cos(a)*50,
-      Math.sin(a)*50
+      -200,
+      -90 + i*28
+    );
+
+    ctx.bezierCurveTo(
+      -60,
+      -150 + i*20,
+      70,
+      100 + i*10,
+      210,
+      -20 + i*25
+    );
+
+    ctx.strokeStyle =
+      `rgba(100,190,255,${.25 + i*.05})`;
+
+    ctx.lineWidth=3;
+
+    ctx.stroke();
+
+  }
+
+
+  ctx.restore();
+
+}
+
+
+/* =========================
+   BMW
+========================= */
+
+function drawBMW(x,y,time){
+
+  ctx.save();
+
+  ctx.translate(
+    x,
+    y + Math.sin(time*.002)*6
+  );
+
+
+  ctx.fillStyle =
+    "rgba(0,0,0,.45)";
+
+  ctx.beginPath();
+
+  ctx.ellipse(
+    0,
+    100,
+    190,
+    25,
+    0,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  ctx.fillStyle =
+    "#b9c4cf";
+
+  ctx.beginPath();
+
+  ctx.moveTo(-180,60);
+  ctx.lineTo(-125,10);
+  ctx.lineTo(-55,-5);
+  ctx.lineTo(-20,-65);
+  ctx.lineTo(75,-62);
+  ctx.lineTo(130,-18);
+  ctx.lineTo(180,20);
+  ctx.lineTo(185,60);
+  ctx.closePath();
+
+  ctx.fill();
+
+
+  ctx.fillStyle =
+    "#07111b";
+
+  ctx.beginPath();
+
+  ctx.moveTo(-38,-58);
+  ctx.lineTo(-10,-84);
+  ctx.lineTo(60,-80);
+  ctx.lineTo(100,-38);
+  ctx.closePath();
+
+  ctx.fill();
+
+
+  ctx.fillStyle =
+    "#080808";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    -105,
+    65,
+    29,
+    0,
+    Math.PI*2
+  );
+
+  ctx.arc(
+    105,
+    65,
+    29,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  ctx.fillStyle =
+    "#333";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    -105,
+    65,
+    12,
+    0,
+    Math.PI*2
+  );
+
+  ctx.arc(
+    105,
+    65,
+    12,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  ctx.restore();
+
+}
+
+
+/* =========================
+   MOON
+========================= */
+
+function drawMoon(x,y,time,water=false){
+
+  const pulse =
+    Math.sin(time*.001)*5;
+
+
+  ctx.save();
+
+  ctx.translate(x,y);
+
+
+  ctx.fillStyle =
+    water ? "#9de7ff" : "#c6cbd0";
+
+
+  ctx.beginPath();
+
+  ctx.arc(
+    0,
+    0,
+    125 + pulse,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  const craters = [
+
+    [-45,-40,20],
+    [45,-60,14],
+    [60,30,24],
+    [-70,50,17],
+    [10,65,11],
+    [-5,-5,10]
+
+  ];
+
+
+  craters.forEach(c=>{
+
+    ctx.fillStyle =
+      water
+      ? "rgba(15,120,150,.45)"
+      : "rgba(70,70,70,.35)";
+
+    ctx.beginPath();
+
+    ctx.arc(
+      c[0],
+      c[1],
+      c[2],
+      0,
+      Math.PI*2
+    );
+
+    ctx.fill();
+
+  });
+
+
+  ctx.restore();
+
+}
+
+
+/* =========================
+   ORBITER
+========================= */
+
+function drawOrbiter(x,y,time){
+
+  ctx.save();
+
+  ctx.translate(x,y);
+
+  ctx.rotate(
+    Math.sin(time*.001)*.15
+  );
+
+
+  ctx.fillStyle =
+    "#b7b7b7";
+
+  ctx.fillRect(
+    -55,
+    -20,
+    110,
+    40
+  );
+
+
+  ctx.fillStyle =
+    "#274e7a";
+
+  ctx.fillRect(
+    -145,
+    -15,
+    80,
+    30
+  );
+
+  ctx.fillRect(
+    65,
+    -15,
+    80,
+    30
+  );
+
+
+  ctx.strokeStyle =
+    "#eee";
+
+  ctx.lineWidth=5;
+
+  ctx.beginPath();
+
+  ctx.moveTo(
+    0,
+    20
+  );
+
+  ctx.lineTo(
+    0,
+    90
+  );
+
+  ctx.stroke();
+
+
+  ctx.restore();
+
+}
+
+
+/* =========================
+   LANDER
+========================= */
+
+function drawLander(x,y,time){
+
+  ctx.save();
+
+  ctx.translate(
+    x,
+    y + Math.sin(time*.002)*5
+  );
+
+
+  ctx.fillStyle =
+    "#c8b27e";
+
+  ctx.fillRect(
+    -60,
+    -55,
+    120,
+    100
+  );
+
+
+  ctx.fillStyle =
+    "#777";
+
+  ctx.fillRect(
+    -80,
+    40,
+    20,
+    70
+  );
+
+  ctx.fillRect(
+    60,
+    40,
+    20,
+    70
+  );
+
+
+  ctx.fillStyle =
+    "#4d89a7";
+
+  ctx.fillRect(
+    -38,
+    -38,
+    76,
+    32
+  );
+
+
+  ctx.restore();
+
+}
+
+
+/* =========================
+   ROVER
+========================= */
+
+function drawRover(x,y,time){
+
+  ctx.save();
+
+  ctx.translate(
+    x,
+    y + Math.sin(time*.002)*4
+  );
+
+
+  ctx.fillStyle =
+    "#b9b0a0";
+
+  ctx.fillRect(
+    -95,
+    -45,
+    190,
+    85
+  );
+
+
+  ctx.fillStyle =
+    "#6e7377";
+
+  [-65,-20,25,70].forEach(px=>{
+
+    ctx.beginPath();
+
+    ctx.arc(
+      px,
+      45,
+      18,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fill();
+
+  });
+
+
+  ctx.strokeStyle =
+    "#c5c5c5";
+
+  ctx.lineWidth=8;
+
+  ctx.beginPath();
+
+  ctx.moveTo(
+    40,
+    -45
+  );
+
+  ctx.lineTo(
+    90,
+    -105
+  );
+
+  ctx.stroke();
+
+
+  ctx.restore();
+
+}
+
+
+/* =========================
+   GALAXY
+========================= */
+
+function drawGalaxy(x,y,time){
+
+  ctx.save();
+
+  ctx.translate(x,y);
+
+
+  for(let i=0;i<140;i++){
+
+    const a =
+      i*.47 + time*.00015;
+
+    const r =
+      (i%45)*3.4;
+
+    const px =
+      Math.cos(a)*r;
+
+    const py =
+      Math.sin(a)*r*.48;
+
+
+    ctx.fillStyle =
+      "rgba(210,225,255,.75)";
+
+    ctx.beginPath();
+
+    ctx.arc(
+      px,
+      py,
+      1.5,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fill();
+
+  }
+
+
+  ctx.restore();
+
+}
+
+
+/* =========================
+   TECHNOLOGY
+========================= */
+
+function drawTech(x,y,time){
+
+  ctx.save();
+
+  ctx.translate(x,y);
+
+
+  ctx.strokeStyle =
+    "rgba(95,210,255,.55)";
+
+  ctx.lineWidth=3;
+
+
+  for(let i=-3;i<=3;i++){
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      -180,
+      i*45
     );
 
     ctx.lineTo(
-      Math.cos(a)*190,
-      Math.sin(a)*190
+      180,
+      i*45
     );
 
     ctx.stroke();
 
   }
 
-  ctx.fillStyle="#63d6ff";
+
+  for(let i=-3;i<=3;i++){
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      i*45,
+      -160
+    );
+
+    ctx.lineTo(
+      i*45,
+      160
+    );
+
+    ctx.stroke();
+
+  }
+
+
+  ctx.fillStyle =
+    "#67d7ff";
 
   ctx.beginPath();
 
   ctx.arc(
-    0,
-    0,
-    55+
-    Math.sin(time*.004)*10,
+    Math.sin(time*.001)*100,
+    Math.cos(time*.0013)*100,
+    18,
     0,
     Math.PI*2
   );
 
   ctx.fill();
 
-}
 
-
-function drawIndia(x,y,time){
-
-  ctx.translate(x,y);
-
-  ctx.strokeStyle="#ff9933";
-  ctx.lineWidth=8;
-
-  ctx.beginPath();
-
-  ctx.moveTo(-90,-130);
-  ctx.lineTo(-20,-75);
-  ctx.lineTo(55,-95);
-  ctx.lineTo(90,-15);
-  ctx.lineTo(45,80);
-  ctx.lineTo(5,155);
-  ctx.lineTo(-25,70);
-  ctx.lineTo(-85,10);
-  ctx.closePath();
-
-  ctx.stroke();
-
-  ctx.strokeStyle="#ffffff";
-
-  ctx.beginPath();
-
-  ctx.moveTo(-55,0);
-  ctx.lineTo(55,0);
-
-  ctx.stroke();
-
-  ctx.strokeStyle="#138808";
-
-  ctx.beginPath();
-
-  ctx.moveTo(-55,25);
-  ctx.lineTo(55,25);
-
-  ctx.stroke();
+  ctx.restore();
 
 }
 
 
-function drawHistory(x,y,time){
-
-  ctx.translate(x,y);
-
-  ctx.fillStyle="#d3a75b";
-
-  for(let i=0;i<5;i++){
-
-    ctx.fillRect(
-      -180+i*75,
-      -80,
-      45,
-      170
-    );
-
-  }
-
-  ctx.fillRect(-205,90,420,20);
-
-  ctx.strokeStyle="#f3d99a";
-  ctx.lineWidth=4;
-
-  ctx.beginPath();
-
-  ctx.moveTo(-170,-120);
-  ctx.lineTo(170,-120);
-
-  ctx.stroke();
-
-}
-
+/* =========================
+   BUSINESS
+========================= */
 
 function drawBusiness(x,y,time){
 
+  ctx.save();
+
   ctx.translate(x,y);
 
-  ctx.strokeStyle="#57d69b";
-  ctx.lineWidth=6;
 
-  const bars=[60,120,190,260];
+  const bars = [70,110,155,205];
 
-  bars.forEach(function(h,i){
+  bars.forEach((h,i)=>{
 
-    ctx.strokeRect(
-      -170+i*90,
-      150-h,
-      45,
+    ctx.fillStyle =
+      i%2
+      ? "#4aa7e8"
+      : "#69c88c";
+
+    ctx.fillRect(
+      -150 + i*80,
+      100-h,
+      50,
       h
     );
 
   });
 
-  ctx.beginPath();
 
-  ctx.moveTo(-170,120);
-  ctx.lineTo(-80,50);
-  ctx.lineTo(5,80);
-  ctx.lineTo(95,-20);
-  ctx.lineTo(170,-100);
-
-  ctx.stroke();
+  ctx.restore();
 
 }
 
 
-function drawScience(x,y,time){
+/* =========================
+   HISTORY
+========================= */
+
+function drawHistory(x,y,time){
+
+  ctx.save();
 
   ctx.translate(x,y);
 
-  ctx.strokeStyle="#70d8ff";
+
+  ctx.strokeStyle =
+    "#c89c62";
+
   ctx.lineWidth=5;
 
-  ctx.strokeRect(
-    -90,-80,
-    180,180
+
+  ctx.beginPath();
+
+  ctx.moveTo(
+    -190,
+    0
   );
+
+  ctx.lineTo(
+    190,
+    0
+  );
+
+  ctx.stroke();
+
+
+  for(let i=0;i<6;i++){
+
+    const px =
+      -150 + i*60;
+
+    ctx.fillStyle =
+      "#d4a76a";
+
+    ctx.beginPath();
+
+    ctx.arc(
+      px,
+      0,
+      14,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fill();
+
+  }
+
+
+  ctx.restore();
+
+}
+
+
+/* =========================
+   INDIA
+========================= */
+
+function drawIndia(x,y,time){
+
+  ctx.save();
+
+  ctx.translate(x,y);
+
+
+  ctx.fillStyle =
+    "#e28c32";
+
+  ctx.beginPath();
+
+  ctx.moveTo(
+    -40,
+    -160
+  );
+
+  ctx.lineTo(
+    55,
+    -80
+  );
+
+  ctx.lineTo(
+    90,
+    20
+  );
+
+  ctx.lineTo(
+    45,
+    110
+  );
+
+  ctx.lineTo(
+    5,
+    170
+  );
+
+  ctx.lineTo(
+    -35,
+    75
+  );
+
+  ctx.lineTo(
+    -85,
+    5
+  );
+
+  ctx.lineTo(
+    -55,
+    -80
+  );
+
+  ctx.closePath();
+
+  ctx.fill();
+
+
+  ctx.globalAlpha=.4;
+
+  ctx.fillStyle =
+    "#ffffff";
 
   ctx.beginPath();
 
   ctx.arc(
     0,
     0,
-    65+
-    Math.sin(time*.003)*8,
+    100,
     0,
     Math.PI*2
   );
 
-  ctx.stroke();
-
-  ctx.fillStyle="#70d8ff";
-
-  ctx.beginPath();
-
-  ctx.arc(0,0,18,0,Math.PI*2);
-
   ctx.fill();
+
+
+  ctx.globalAlpha=1;
+
+  ctx.restore();
 
 }
 
 
-function drawUniversal(x,y,time){
+/* =========================
+   GENERIC
+========================= */
+
+function drawGeneric(x,y,time){
+
+  ctx.save();
 
   ctx.translate(x,y);
 
+
   const radius =
-    90+
-    Math.sin(time*.003)*15;
+    115 + Math.sin(time*.0015)*20;
 
-  const g =
-    ctx.createRadialGradient(
-      0,0,
-      10,
-      0,0,
-      radius
-    );
 
-  g.addColorStop(0,"#67c9ff");
-  g.addColorStop(.5,"#4856c8");
-  g.addColorStop(1,"rgba(20,30,70,0)");
+  ctx.strokeStyle =
+    "rgba(100,190,255,.45)";
 
-  ctx.fillStyle=g;
+  ctx.lineWidth=4;
+
 
   ctx.beginPath();
 
@@ -2084,7 +2811,254 @@ function drawUniversal(x,y,time){
     Math.PI*2
   );
 
+  ctx.stroke();
+
+
+  ctx.beginPath();
+
+  ctx.arc(
+    0,
+    0,
+    radius*.65,
+    0,
+    Math.PI*2
+  );
+
+  ctx.stroke();
+
+
+  ctx.fillStyle =
+    "rgba(100,190,255,.5)";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    Math.sin(time*.001)*90,
+    Math.cos(time*.0013)*90,
+    15,
+    0,
+    Math.PI*2
+  );
+
   ctx.fill();
+
+
+  ctx.restore();
+
+}
+
+
+/* =========================
+   TEXT OVERLAY
+========================= */
+
+function drawTextOverlay(scene,index,total,time){
+
+  const topic =
+    currentPlan.topic;
+
+
+  ctx.fillStyle =
+    "rgba(0,0,0,.28)";
+
+  ctx.fillRect(
+    0,
+    0,
+    540,
+    150
+  );
+
+
+  ctx.fillStyle =
+    "#ffffff";
+
+  ctx.font =
+    "700 28px Arial";
+
+  ctx.fillText(
+    topic.length > 28
+      ? topic.slice(0,28) + "..."
+      : topic,
+    30,
+    52
+  );
+
+
+  ctx.fillStyle =
+    "#76c4ff";
+
+  ctx.font =
+    "700 16px Arial";
+
+  ctx.fillText(
+    `SCENE ${index+1} / ${total}`,
+    30,
+    83
+  );
+
+
+  ctx.fillStyle =
+    "rgba(255,255,255,.85)";
+
+  ctx.font =
+    "500 17px Arial";
+
+
+  const words =
+    scene.title.split(" ");
+
+
+  let line="";
+
+  let y=790;
+
+
+  words.forEach(word=>{
+
+    const test =
+      line + word + " ";
+
+    if(
+      ctx.measureText(test).width >
+      470
+    ){
+
+      ctx.fillText(
+        line,
+        35,
+        y
+      );
+
+      y += 25;
+
+      line =
+        word + " ";
+
+    }else{
+
+      line =
+        test;
+
+    }
+
+  });
+
+
+  if(line){
+
+    ctx.fillText(
+      line,
+      35,
+      y
+    );
+
+  }
+
+
+  /*
+    Animated caption box
+  */
+
+  const boxY =
+    820;
+
+
+  ctx.fillStyle =
+    "rgba(0,0,0,.60)";
+
+  ctx.fillRect(
+    25,
+    boxY,
+    490,
+    90
+  );
+
+
+  ctx.fillStyle =
+    "#fff";
+
+  ctx.font =
+    "600 17px Arial";
+
+
+  const words2 =
+    scene.text.split(" ");
+
+  let line2="";
+  let lineCount=0;
+
+
+  words2.forEach(word=>{
+
+    const test =
+      line2 + word + " ";
+
+    if(
+      ctx.measureText(test).width >
+      450 ||
+      lineCount>=3
+    ){
+
+      ctx.fillText(
+        line2,
+        45,
+        boxY + 28 + lineCount*21
+      );
+
+      lineCount++;
+
+      line2 =
+        word + " ";
+
+    }else{
+
+      line2 =
+        test;
+
+    }
+
+  });
+
+
+  if(line2 && lineCount<4){
+
+    ctx.fillText(
+      line2,
+      45,
+      boxY + 28 + lineCount*21
+    );
+
+  }
+
+
+  /*
+    Progress line
+  */
+
+  ctx.fillStyle =
+    "rgba(255,255,255,.18)";
+
+  ctx.fillRect(
+    30,
+    925,
+    480,
+    5
+  );
+
+
+  ctx.fillStyle =
+    "#55b4ff";
+
+  const progress =
+    ((index + ((time%1000)/1000)) / total);
+
+
+  ctx.fillRect(
+    30,
+    925,
+    480 * progress,
+    5
+  );
 
 }
 
@@ -2093,373 +3067,160 @@ function drawUniversal(x,y,time){
    DRAW FRAME
 ========================= */
 
-function drawFrame(time,sceneIndex,elapsed){
+function drawFrame(elapsed){
 
-  if(!currentPlan) return;
-
-  drawBackground();
-
-  drawGrid(time);
-
-  const scene =
-    currentPlan.scenes[sceneIndex];
-
-  drawTheme(
-    scene.theme,
-    time
-  );
-
-  /* top title */
-
-  ctx.fillStyle="#ffffff";
-
-  ctx.font="bold 24px Arial";
-
-  ctx.textAlign="center";
-
-  ctx.fillText(
-    "AI REEL MAKER",
-    canvas.width/2,
-    55
-  );
-
-  /* topic */
-
-  ctx.fillStyle="#8dcfff";
-
-  ctx.font="bold 22px Arial";
-
-  ctx.fillText(
-    currentPlan.topic,
-    canvas.width/2,
-    95
-  );
+  if(!currentPlan){
+    return;
+  }
 
 
-  /* scene indicator */
+  const scenes =
+    currentPlan.scenes;
 
-  ctx.fillStyle="rgba(0,0,0,.45)";
-
-  roundRect(
-    30,
-    125,
-    480,
-    50,
-    25
-  );
-
-  ctx.fillStyle="#ffffff";
-
-  ctx.font="bold 20px Arial";
-
-  ctx.fillText(
-    "SCENE " + (sceneIndex+1) + " / 6",
-    canvas.width/2,
-    158
-  );
-
-
-  /* caption box */
-
-  const boxY=650;
-
-  const grad =
-    ctx.createLinearGradient(
-      0,
-      boxY,
-      0,
-      900
-    );
-
-  grad.addColorStop(
-    0,
-    "rgba(4,10,18,.15)"
-  );
-
-  grad.addColorStop(
-    .2,
-    "rgba(4,10,18,.85)"
-  );
-
-  grad.addColorStop(
-    1,
-    "rgba(4,10,18,.98)"
-  );
-
-  ctx.fillStyle=grad;
-
-  ctx.fillRect(
-    0,
-    boxY,
-    canvas.width,
-    310
-  );
-
-
-  ctx.textAlign="left";
-
-  ctx.fillStyle="#69bcff";
-
-  ctx.font="bold 19px Arial";
-
-  ctx.fillText(
-    scene.title,
-    35,
-    725
-  );
-
-
-  ctx.fillStyle="#ffffff";
-
-  ctx.font="bold 28px Arial";
-
-  wrapText(
-    scene.text,
-    35,
-    770,
-    470,
-    38
-  );
-
-
-  /* animated progress */
 
   const total =
     currentPlan.duration * 1000;
 
-  const progress =
+
+  const sceneDuration =
+    total / scenes.length;
+
+
+  let sceneIndex =
+    Math.floor(
+      elapsed / sceneDuration
+    );
+
+
+  sceneIndex =
     Math.max(
       0,
       Math.min(
-        1,
-        elapsed / total
+        scenes.length-1,
+        sceneIndex
       )
     );
 
-  ctx.fillStyle="#263a4e";
 
-  roundRect(
-    35,
-    900,
-    470,
-    10,
-    5
-  );
+  const scene =
+    scenes[sceneIndex];
 
-  ctx.fillStyle="#56b4ff";
 
-  roundRect(
-    35,
-    900,
-    470*progress,
-    10,
-    5
+  drawBackground(
+    scene.theme,
+    performance.now()
   );
 
 
-  ctx.textAlign="center";
+  drawThemeVisual(
+    scene.theme,
+    performance.now()
+  );
 
-  ctx.fillStyle="#9ab4cb";
 
-  ctx.font="14px Arial";
-
-  ctx.fillText(
-    currentPlan.duration +
-    " second reel",
-    canvas.width/2,
-    935
+  drawTextOverlay(
+    scene,
+    sceneIndex,
+    scenes.length,
+    performance.now()
   );
 
 }
 
 
 /* =========================
-   CANVAS HELPERS
+   PREVIEW
 ========================= */
 
-function roundRect(
-  x,
-  y,
-  w,
-  h,
-  r
-){
+function startPreview(startSeconds=0,maxSeconds=null){
 
-  ctx.beginPath();
+  if(!currentPlan){
+    return;
+  }
 
-  ctx.roundRect(
-    x,
-    y,
-    w,
-    h,
-    r
+
+  cancelAnimationFrame(
+    animationFrame
   );
 
-  ctx.fill();
 
-}
+  const start =
+    performance.now();
+
+  const limit =
+    maxSeconds === null
+      ? currentPlan.duration
+      : maxSeconds;
 
 
-function wrapText(
-  text,
-  x,
-  y,
-  maxWidth,
-  lineHeight
-){
+  function loop(now){
 
-  const words =
-    text.split(" ");
+    const elapsed =
+      (now-start) +
+      startSeconds*1000;
 
-  let line="";
 
-  for(let n=0;n<words.length;n++){
+    drawFrame(
+      elapsed
+    );
 
-    const testLine =
-      line + words[n] + " ";
 
-    const metrics =
-      ctx.measureText(testLine);
+    setProgress(
+      Math.min(
+        100,
+        (elapsed /
+        (currentPlan.duration*1000))*100
+      )
+    );
+
 
     if(
-      metrics.width > maxWidth &&
-      n > 0
+      elapsed <
+      limit*1000
     ){
 
-      ctx.fillText(
-        line,
-        x,
-        y
-      );
-
-      line =
-        words[n] + " ";
-
-      y += lineHeight;
+      animationFrame =
+        requestAnimationFrame(loop);
 
     }else{
 
-      line=testLine;
+      setProgress(100);
+
+      document.getElementById("status").textContent =
+        "Preview finished.";
 
     }
 
   }
 
-  ctx.fillText(
-    line,
-    x,
-    y
-  );
+
+  animationFrame =
+    requestAnimationFrame(loop);
 
 }
 
-
-/* =========================
-   PREVIEW ENGINE
-========================= */
 
 function previewReel(){
 
   if(!currentPlan){
 
     alert("Generate a reel first.");
-
     return;
-  }
 
-  stopPreview();
-
-  previewRunning=true;
-
-  previewStart=
-    performance.now();
-
-  animatePreview();
-
-}
-
-
-function animatePreview(){
-
-  if(!previewRunning ||
-     !currentPlan){
-
-    return;
-  }
-
-  const now =
-    performance.now();
-
-  const elapsed =
-    now-previewStart;
-
-  const total =
-    currentPlan.duration*1000;
-
-  if(elapsed >= total){
-
-    previewRunning=false;
-
-    const finalScene =
-      currentPlan.scenes.length-1;
-
-    drawFrame(
-      now,
-      finalScene,
-      total
-    );
-
-    document.getElementById("renderStatus")
-      .textContent =
-      "Preview finished.";
-
-    return;
   }
 
 
-  /* IMPORTANT:
-     Exactly 6 equal scene segments.
-  */
+  document.getElementById("status").textContent =
+    "Playing preview...";
 
-  const sceneDuration =
-    total /
-    currentPlan.scenes.length;
 
-  const sceneIndex =
+  startPreview(
+    0,
     Math.min(
-      currentPlan.scenes.length-1,
-      Math.floor(
-        elapsed /
-        sceneDuration
-      )
-    );
-
-  drawFrame(
-    now,
-    sceneIndex,
-    elapsed
+      15,
+      currentPlan.duration
+    )
   );
-
-  previewTimer =
-    requestAnimationFrame(
-      animatePreview
-    );
-}
-
-
-function stopPreview(){
-
-  previewRunning=false;
-
-  if(previewTimer){
-
-    cancelAnimationFrame(
-      previewTimer
-    );
-
-    previewTimer=null;
-
-  }
 
 }
 
@@ -2470,58 +3231,58 @@ function stopPreview(){
 
 function playVoice(){
 
-  if(!currentPlan) return;
+  if(!currentPlan){
 
-  stopVoice();
+    alert("Generate a reel first.");
+    return;
+
+  }
+
+
+  if(!("speechSynthesis" in window)){
+
+    alert(
+      "Speech synthesis is not supported by this browser."
+    );
+
+    return;
+
+  }
+
+
+  speechSynthesis.cancel();
+
 
   const utterance =
     new SpeechSynthesisUtterance(
       currentPlan.script
     );
 
-  currentSpeech=utterance;
 
-  const voiceStyle =
-    currentPlan.voice;
+  const rates = {
 
-  if(voiceStyle === "energetic"){
-    utterance.rate=1.12;
-    utterance.pitch=1.08;
-  }
+    energetic:1.08,
+    professional:.98,
+    calm:.86,
+    dramatic:.92
 
-  else if(voiceStyle === "professional"){
-    utterance.rate=.98;
-    utterance.pitch=1;
-  }
+  };
 
-  else if(voiceStyle === "calm"){
-    utterance.rate=.88;
-    utterance.pitch=.92;
-  }
 
-  else if(voiceStyle === "dramatic"){
-    utterance.rate=.9;
-    utterance.pitch=.82;
-  }
+  utterance.rate =
+    rates[currentPlan.voiceStyle] ||
+    1;
 
-  window.speechSynthesis.speak(
+
+  utterance.pitch =
+    currentPlan.voiceStyle === "dramatic"
+      ? .85
+      : 1;
+
+
+  speechSynthesis.speak(
     utterance
   );
-
-}
-
-
-function stopVoice(){
-
-  if(
-    "speechSynthesis" in window
-  ){
-
-    window.speechSynthesis.cancel();
-
-  }
-
-  currentSpeech=null;
 
 }
 
@@ -2530,144 +3291,60 @@ function stopVoice(){
    MUSIC
 ========================= */
 
-function startMusic(){
+function createMusic(){
 
-  try{
-
-    audioContext =
-      new (
-        window.AudioContext ||
-        window.webkitAudioContext
-      )();
-
-    if(
-      audioContext.state === "suspended"
-    ){
-
-      audioContext.resume();
-
-    }
-
-    const destination =
-      audioContext.createMediaStreamDestination();
-
-    const gain =
-      audioContext.createGain();
-
-    gain.gain.value=.045;
-
-    gain.connect(
-      destination
-    );
-
-    const notes=[
-      220,
-      277.18,
-      329.63,
-      440,
-      329.63,
-      277.18
-    ];
-
-    const start =
-      audioContext.currentTime;
-
-    const duration =
-      currentPlan.duration;
-
-    notes.forEach(function(freq,i){
-
-      const osc =
-        audioContext.createOscillator();
-
-      const g =
-        audioContext.createGain();
-
-      osc.type="sine";
-
-      osc.frequency.value=freq;
-
-      const noteStart =
-        start + i*1.1;
-
-      osc.connect(g);
-
-      g.connect(gain);
-
-      g.gain.setValueAtTime(
-        0.001,
-        noteStart
-      );
-
-      g.gain.linearRampToValueAtTime(
-        .25,
-        noteStart+.08
-      );
-
-      g.gain.exponentialRampToValueAtTime(
-        .001,
-        noteStart+1
-      );
-
-      osc.start(
-        noteStart
-      );
-
-      osc.stop(
-        noteStart+1.05
-      );
-
-      musicNodes.push(
-        osc
-      );
-
-    });
-
-    return destination.stream;
-
-  }catch(error){
-
-    console.log(
-      "Music error:",
-      error
-    );
-
-    return null;
-
-  }
-
-}
+  audioContext =
+    new (
+      window.AudioContext ||
+      window.webkitAudioContext
+    )();
 
 
-function stopMusic(){
+  const destination =
+    audioContext.createMediaStreamDestination();
 
-  musicNodes.forEach(
-    function(node){
 
-      try{
-        node.stop();
-      }catch(e){}
+  const oscillator =
+    audioContext.createOscillator();
 
-    }
+
+  const gain =
+    audioContext.createGain();
+
+
+  oscillator.type =
+    "sine";
+
+
+  oscillator.frequency.value =
+    110;
+
+
+  gain.gain.value =
+    0.025;
+
+
+  oscillator.connect(gain);
+
+  gain.connect(
+    destination
   );
 
-  musicNodes=[];
 
-  if(audioContext){
+  oscillator.start();
 
-    try{
-      audioContext.close();
-    }catch(e){}
 
-    audioContext=null;
-
-  }
+  return {
+    destination,
+    oscillator,
+    gain
+  };
 
 }
 
 
 /* =========================
-   RENDER VIDEO
+   RENDER
 ========================= */
 
 async function renderReel(){
@@ -2675,94 +3352,134 @@ async function renderReel(){
   if(!currentPlan){
 
     alert("Generate a reel first.");
-
     return;
+
   }
 
-  if(renderRunning){
 
-    return;
+  document.getElementById("status").textContent =
+    "Preparing video renderer...";
+
+
+  setProgress(0);
+
+
+  if(audioContext){
+
+    try{
+      await audioContext.close();
+    }catch(e){}
+
   }
 
-  stopPreview();
 
-  stopVoice();
+  const music =
+    createMusic();
 
-  stopMusic();
 
-  renderRunning=true;
+  try{
 
-  const status =
-    document.getElementById(
-      "renderStatus"
-    );
+    await audioContext.resume();
 
-  status.textContent =
-    "Preparing renderer...";
+  }catch(e){}
 
-  const stream =
+
+  const canvasStream =
     canvas.captureStream(30);
 
-  const musicStream =
-    startMusic();
 
-  if(
-    musicStream &&
-    musicStream.getAudioTracks().length
+  const combinedStream =
+    new MediaStream();
+
+
+  canvasStream
+    .getVideoTracks()
+    .forEach(track=>{
+
+      combinedStream.addTrack(
+        track
+      );
+
+    });
+
+
+  music.destination
+    .stream
+    .getAudioTracks()
+    .forEach(track=>{
+
+      combinedStream.addTrack(
+        track
+      );
+
+    });
+
+
+  const mimeTypes = [
+
+    "video/webm;codecs=vp9,opus",
+    "video/webm;codecs=vp8,opus",
+    "video/webm"
+
+  ];
+
+
+  let selectedMime = "";
+
+
+  for(
+    const mime of mimeTypes
   ){
 
-    musicStream
-      .getAudioTracks()
-      .forEach(function(track){
+    if(
+      MediaRecorder.isTypeSupported(
+        mime
+      )
+    ){
 
-        stream.addTrack(track);
+      selectedMime = mime;
+      break;
 
-      });
+    }
 
   }
 
 
-  let mimeType =
-    "video/webm;codecs=vp9,opus";
+  if(!selectedMime){
 
-  if(
-    !MediaRecorder.isTypeSupported(
-      mimeType
-    )
-  ){
+    alert(
+      "This browser cannot create the video format."
+    );
 
-    mimeType =
-      "video/webm;codecs=vp8,opus";
+    try{
+      music.oscillator.stop();
+    }catch(e){}
 
-  }
-
-  if(
-    !MediaRecorder.isTypeSupported(
-      mimeType
-    )
-  ){
-
-    mimeType="video/webm";
+    return;
 
   }
 
 
   const recorder =
     new MediaRecorder(
-      stream,
+      combinedStream,
       {
-        mimeType:mimeType,
-        videoBitsPerSecond:4500000
+        mimeType:selectedMime,
+        videoBitsPerSecond:6000000
       }
     );
 
+
   const chunks=[];
 
-  recorder.ondataavailable =
-    function(event){
 
-      if(event.data &&
-         event.data.size>0){
+  recorder.ondataavailable =
+    event=>{
+
+      if(
+        event.data &&
+        event.data.size > 0
+      ){
 
         chunks.push(
           event.data
@@ -2773,192 +3490,164 @@ async function renderReel(){
     };
 
 
-  recorder.onstop =
-    function(){
+  const videoBlobPromise =
+    new Promise(resolve=>{
 
-      stopMusic();
+      recorder.onstop =
+        ()=>{
 
-      const blob =
-        new Blob(
-          chunks,
-          {
-            type:"video/webm"
-          }
-        );
+          resolve(
+            new Blob(
+              chunks,
+              {
+                type:selectedMime
+              }
+            )
+          );
 
-      const url =
-        URL.createObjectURL(
-          blob
-        );
+        };
 
-      const a =
-        document.createElement("a");
-
-      a.href=url;
-
-      a.download =
-        "ai-reel-" +
-        currentPlan.duration +
-        "s.webm";
-
-      document.body.appendChild(a);
-
-      a.click();
-
-      a.remove();
-
-      setTimeout(
-        function(){
-          URL.revokeObjectURL(url);
-        },
-        5000
-      );
-
-      status.innerHTML =
-        '<span class="success">' +
-        "Render complete. Your " +
-        currentPlan.duration +
-        " second WebM reel was downloaded." +
-        "</span>";
-
-      renderRunning=false;
-
-    };
+    });
 
 
   recorder.start(
-    1000
+    250
   );
 
 
-  const startTime =
+  const start =
     performance.now();
+
 
   const total =
     currentPlan.duration*1000;
 
 
-  function renderFrame(){
-
-    const now =
-      performance.now();
+  function renderFrame(now){
 
     const elapsed =
-      now-startTime;
-
-
-    if(elapsed >= total){
-
-      const lastScene =
-        currentPlan.scenes.length-1;
-
-      drawFrame(
-        now,
-        lastScene,
-        total
-      );
-
-      setTimeout(
-        function(){
-
-          recorder.stop();
-
-        },
-        500
-      );
-
-      return;
-
-    }
-
-
-    const sceneDuration =
-      total /
-      currentPlan.scenes.length;
-
-    const sceneIndex =
-      Math.min(
-        currentPlan.scenes.length-1,
-        Math.floor(
-          elapsed /
-          sceneDuration
-        )
-      );
+      now-start;
 
 
     drawFrame(
-      now,
-      sceneIndex,
       elapsed
     );
 
 
-    const percentage =
-      Math.floor(
-        elapsed/total*100
+    const percent =
+      Math.min(
+        100,
+        (elapsed/total)*100
       );
 
-    status.textContent =
-      "Rendering... " +
-      percentage +
-      "%";
 
-
-    requestAnimationFrame(
-      renderFrame
+    setProgress(
+      percent
     );
+
+
+    document.getElementById("status").textContent =
+      `Rendering ${Math.floor(percent)}%`;
+
+
+    if(
+      elapsed <
+      total
+    ){
+
+      requestAnimationFrame(
+        renderFrame
+      );
+
+    }else{
+
+      setTimeout(()=>{
+
+        recorder.stop();
+
+        try{
+          music.oscillator.stop();
+        }catch(e){}
+
+      },300);
+
+    }
 
   }
 
 
-  renderFrame();
+  requestAnimationFrame(
+    renderFrame
+  );
+
+
+  const blob =
+    await videoBlobPromise;
+
+
+  const url =
+    URL.createObjectURL(
+      blob
+    );
+
+
+  const link =
+    document.createElement("a");
+
+
+  link.href =
+    url;
+
+
+  link.download =
+    `ai-reel-stage-7-7-${currentPlan.duration}s.webm`;
+
+
+  document.body.appendChild(
+    link
+  );
+
+
+  link.click();
+
+
+  link.remove();
+
+
+  setTimeout(
+    ()=>URL.revokeObjectURL(url),
+    5000
+  );
+
+
+  setProgress(100);
+
+
+  document.getElementById("status").textContent =
+    `Done — ${currentPlan.duration}-second reel downloaded.`;
 
 }
 
 
 /* =========================
-   SECURITY / TEXT
+   INITIAL STATE
 ========================= */
 
-function escapeHTML(text){
+document.getElementById("topic")
+  .addEventListener(
+    "keydown",
+    event=>{
 
-  return String(text)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+      if(
+        event.key === "Enter"
+      ){
 
-}
+        generateReel();
 
+      }
 
-/* =========================
-   INITIAL FRAME
-========================= */
-
-drawBackground();
-
-ctx.fillStyle="#ffffff";
-
-ctx.textAlign="center";
-
-ctx.font="bold 30px Arial";
-
-ctx.fillText(
-  "YOUR REEL",
-  canvas.width/2,
-  430
-);
-
-ctx.font="18px Arial";
-
-ctx.fillStyle="#8fb3d1";
-
-ctx.fillText(
-  "Generate a topic to begin",
-  canvas.width/2,
-  475
-);
+    }
+  );
 
 </script>
 
