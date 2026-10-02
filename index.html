@@ -3,217 +3,282 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>AI Reel Maker — Stage 7.10</title>
+
+<title>AI Reel Maker — Stage 7.11</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
   font-family:Arial,Helvetica,sans-serif;
-  background:#06101d;
-  color:#fff;
+  background:#070b14;
+  color:#f4f7ff;
 }
 
 .container{
-  max-width:1100px;
+  width:min(1180px,94%);
   margin:auto;
-  padding:24px;
 }
 
-.header{
-  text-align:center;
-  margin-bottom:24px;
+header{
+  padding:28px 0 20px;
 }
 
-.header h1{
-  margin:0;
-  font-size:32px;
+.logo{
+  font-size:28px;
+  font-weight:800;
 }
 
 .badge{
   display:inline-block;
-  margin-top:9px;
-  padding:7px 15px;
+  margin-top:8px;
+  padding:7px 12px;
   border-radius:20px;
-  background:#142b45;
-  color:#74b9ff;
+  background:#17233d;
+  color:#72aaff;
   font-size:13px;
 }
 
+.hero{
+  margin:20px 0;
+  padding:28px;
+  border:1px solid #202b43;
+  border-radius:24px;
+  background:linear-gradient(145deg,#10182a,#0b101d);
+}
+
+.hero h1{
+  margin:0 0 10px;
+  font-size:34px;
+}
+
+.hero p{
+  margin:0;
+  color:#9ba8c2;
+}
+
 .card{
-  background:#0c1a2b;
-  border:1px solid #1c3855;
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:18px;
+  margin:18px 0;
+  padding:22px;
+  border:1px solid #202b43;
+  border-radius:20px;
+  background:#0d1422;
 }
 
 label{
   display:block;
-  margin-bottom:7px;
-  font-weight:bold;
+  margin-bottom:8px;
+  font-weight:700;
 }
 
-input,select{
+input[type="text"],
+select{
   width:100%;
-  padding:13px;
-  border-radius:10px;
-  border:1px solid #294765;
-  background:#071321;
-  color:#fff;
-  margin-bottom:14px;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid #2b3854;
+  background:#080d18;
+  color:white;
   font-size:15px;
 }
 
-input[type="range"]{
-  padding:0;
-}
-
-.grid{
+.controls{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:15px;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
 }
 
 button{
   border:0;
-  border-radius:10px;
-  padding:12px 17px;
-  margin:5px;
+  border-radius:12px;
+  padding:13px 16px;
+  font-weight:700;
   cursor:pointer;
-  font-weight:bold;
-  background:#258aff;
   color:white;
+  background:#236eff;
+  transition:.2s;
 }
 
 button:hover{
-  opacity:.88;
+  transform:translateY(-1px);
+  filter:brightness(1.08);
 }
 
-button:disabled{
-  opacity:.45;
-  cursor:not-allowed;
+button.secondary{
+  background:#1a263d;
 }
 
-.secondary{background:#20374f}
-.green{background:#159866}
-.red{background:#bd3c50}
-.orange{background:#b96d20}
+button.green{
+  background:#168d62;
+}
 
-.action{
-  text-align:center;
+button.red{
+  background:#b9384e;
+}
+
+button.orange{
+  background:#bd7020;
+}
+
+button.musicOn{
+  background:#148b63;
+  border:2px solid #38e4a4;
+}
+
+button.musicOff{
+  background:#4a1f2a;
+  border:2px solid #d95b70;
+}
+
+.buttonRow{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:16px;
 }
 
 .status{
-  margin-top:12px;
+  margin-top:15px;
   padding:12px;
   border-radius:10px;
-  background:#081729;
-  color:#8fc8ff;
-  text-align:center;
+  background:#09101d;
+  color:#9db0d0;
 }
 
-.hook{
-  font-size:22px;
-  line-height:1.45;
-  font-weight:bold;
+.audioControls{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin-top:15px;
 }
 
-.script{
-  white-space:pre-line;
-  line-height:1.6;
-  color:#d7e5f4;
+.audioBox{
+  padding:16px;
+  border-radius:15px;
+  background:#09111e;
+  border:1px solid #26334e;
+}
+
+.volumeRow{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+input[type="range"]{
+  width:100%;
+}
+
+.sceneGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
 }
 
 .scene{
-  background:#081729;
-  border:1px solid #1a3856;
-  border-radius:12px;
-  padding:15px;
-  margin-bottom:11px;
+  padding:17px;
+  border-radius:15px;
+  background:#101a2b;
+  border:1px solid #273653;
+}
+
+.sceneNumber{
+  color:#63a0ff;
+  font-weight:800;
+  font-size:13px;
 }
 
 .scene h3{
-  margin:0 0 7px;
+  margin:8px 0;
 }
 
 .scene p{
   margin:0;
-  color:#b9cde0;
+  color:#aab6cc;
   line-height:1.5;
 }
 
+.previewWrap{
+  display:flex;
+  justify-content:center;
+}
+
 .phone{
-  width:290px;
+  width:300px;
   padding:10px;
-  background:#000;
-  border:5px solid #263b52;
-  border-radius:28px;
-  margin:auto;
+  border-radius:30px;
+  background:#02040a;
+  border:5px solid #202b43;
 }
 
 canvas{
-  width:270px;
-  height:480px;
   display:block;
+  width:100%;
+  height:auto;
   border-radius:20px;
-  background:#000;
+  background:black;
 }
 
-.preview{
-  text-align:center;
-}
-
-.progress{
-  width:290px;
-  height:8px;
-  background:#172b42;
+.progressOuter{
+  height:12px;
+  background:#151e31;
   border-radius:20px;
   overflow:hidden;
-  margin:12px auto;
+  margin-top:12px;
 }
 
-.progressBar{
-  width:0%;
+.progressInner{
   height:100%;
-  background:#2d91ff;
+  width:0%;
+  background:#3c8cff;
+  transition:width:.1s linear;
 }
 
-.captionBox{
+.copyGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.copyBox{
   padding:15px;
-  background:#081729;
-  border-radius:12px;
-  line-height:1.55;
+  border-radius:15px;
+  background:#09111e;
+  border:1px solid #26334e;
+}
+
+.copyBox p{
+  color:#b6c1d5;
+  line-height:1.5;
 }
 
 .small{
-  color:#8fa8bf;
   font-size:13px;
+  color:#7f8ca5;
 }
 
-.toggle{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  margin:10px 0;
+@media(max-width:800px){
+
+  .controls{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .sceneGrid,
+  .copyGrid,
+  .audioControls{
+    grid-template-columns:1fr;
+  }
+
+  .hero h1{
+    font-size:27px;
+  }
+
 }
 
-.toggle input{
-  width:auto;
-  margin:0;
-}
-
-.value{
-  color:#73baff;
-  font-size:13px;
-}
-
-@media(max-width:700px){
-  .grid{grid-template-columns:1fr}
-  .container{padding:14px}
-  .header h1{font-size:26px}
-}
 </style>
 </head>
 
@@ -221,3257 +286,3627 @@ canvas{
 
 <div class="container">
 
-<div class="header">
-  <h1>🎬 AI Reel Maker</h1>
-  <div class="badge">Stage 7.10 • Creator Engine</div>
-  <p>Build topic-specific cinematic reels directly in your browser.</p>
-</div>
-
+<header>
+  <div class="logo">🎬 AI Reel Maker</div>
+  <div class="badge">Stage 7.11 • Stable Music Engine</div>
+</header>
+
+<section class="hero">
+  <h1>Create a Reel About Exactly What You Enter</h1>
+  <p>
+    Topic-aware scenes • cinematic visuals • animated captions • music • voice preview • WebM rendering
+  </p>
+</section>
+
+<section class="card">
+
+  <label for="topic">Reel Topic</label>
+
+  <input
+    id="topic"
+    type="text"
+    value="Ferrari 488"
+    placeholder="Example: Ferrari 488, Chandrayaan missions, BMW M3 GTR"
+  >
+
+  <div class="controls" style="margin-top:15px">
+
+    <div>
+      <label>Length</label>
+      <select id="duration">
+        <option value="30">30 seconds</option>
+        <option value="45" selected>45 seconds</option>
+        <option value="60">60 seconds</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Content Style</label>
+      <select id="style">
+        <option value="fast">Fast & Viral</option>
+        <option value="news">News Style</option>
+        <option value="educational">Educational</option>
+        <option value="cinematic">Cinematic</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Voice Style</label>
+      <select id="voiceStyle">
+        <option value="energetic">Energetic</option>
+        <option value="professional">Professional</option>
+        <option value="calm">Calm</option>
+        <option value="dramatic">Dramatic</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Transition</label>
+      <select id="transition">
+        <option value="zoom">Cinematic Zoom</option>
+        <option value="fade">Fade</option>
+        <option value="slide">Slide</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="buttonRow">
+
+    <button onclick="generateReel()">
+      ✨ Generate Reel
+    </button>
+
+    <button class="secondary" onclick="newReel()">
+      🆕 New Reel
+    </button>
+
+  </div>
+
+</section>
+
+<section class="card">
+
+  <h2>🎵 Audio Controls</h2>
+
+  <div class="audioControls">
+
+    <div class="audioBox">
+
+      <div style="font-size:18px;font-weight:800;margin-bottom:8px">
+        Background Music
+      </div>
 
-<!-- SETTINGS -->
-<div class="card">
+      <button
+        id="musicToggle"
+        class="musicOn"
+        onclick="toggleMusic()"
+      >
+        🎵 Music: ON
+      </button>
 
-<h2>⚙️ Reel Settings</h2>
+      <div class="small" style="margin-top:10px">
+        Music is recorded directly into the downloaded reel.
+      </div>
 
-<label>Topic</label>
+      <div style="margin-top:16px">
+        <label>Music Volume</label>
 
-<input
- id="topic"
- value="Ferrari 488"
- placeholder="Enter any topic..."
->
+        <div class="volumeRow">
+          <input
+            id="musicVolume"
+            type="range"
+            min="0"
+            max="100"
+            value="35"
+            oninput="updateMusicVolume()"
+          >
 
-<div class="grid">
+          <span id="volumeValue">35%</span>
+        </div>
+      </div>
 
-<div>
-<label>Reel Length</label>
+    </div>
 
-<select id="duration">
-<option value="30">30 seconds</option>
-<option value="45">45 seconds</option>
-<option value="60">60 seconds</option>
-</select>
-</div>
+    <div class="audioBox">
 
-<div>
-<label>Content Style</label>
+      <div style="font-size:18px;font-weight:800;margin-bottom:8px">
+        🎙️ Voice Preview
+      </div>
 
-<select id="style">
-<option value="viral">Fast & Viral</option>
-<option value="news">News Style</option>
-<option value="educational">Educational</option>
-<option value="cinematic">Cinematic</option>
-</select>
-</div>
+      <button onclick="playVoice()">
+        🔊 Play Voice
+      </button>
 
-<div>
-<label>Voice Style</label>
+      <button
+        class="red"
+        onclick="stopVoice()"
+        style="margin-left:6px"
+      >
+        🔇 Stop Voice
+      </button>
 
-<select id="voiceStyle">
-<option value="energetic">Energetic</option>
-<option value="professional">Professional</option>
-<option value="calm">Calm</option>
-<option value="dramatic">Dramatic</option>
-</select>
-</div>
+      <div style="margin-top:10px" class="small">
+        Browser voice is for preview. The generated WebM uses the background music track.
+      </div>
 
-<div>
-<label>Scene Transition</label>
+    </div>
 
-<select id="transition">
-<option value="fade">Cinematic Fade</option>
-<option value="slide">Slide</option>
-<option value="zoom">Zoom</option>
-</select>
-</div>
+  </div>
 
-</div>
+</section>
 
-<div class="grid">
+<section class="card">
 
-<div>
+  <h2>🧠 AI Reel Plan</h2>
 
-<label>🎵 Music</label>
+  <div id="hookBox">
+    Generate a reel to create your hook.
+  </div>
 
-<div class="toggle">
-<input type="checkbox" id="musicEnabled" checked>
-<span>Background music</span>
-</div>
+  <div style="margin-top:18px">
 
-<label>
-Music Volume
-<span id="volumeValue" class="value">20%</span>
-</label>
+    <h3>🎙️ Voiceover Script</h3>
 
-<input
- type="range"
- id="musicVolume"
- min="0"
- max="100"
- value="20"
- oninput="updateVolumeLabel()"
->
+    <div
+      id="scriptBox"
+      class="scene"
+    >
+      Your voiceover script will appear here.
+    </div>
 
-</div>
+  </div>
 
-<div>
+  <div class="buttonRow">
 
-<label>🎙️ Voice</label>
+    <button onclick="playVoice()">
+      🔊 Play Voice
+    </button>
 
-<div class="toggle">
-<input type="checkbox" id="voiceEnabled" checked>
-<span>Voice preview</span>
-</div>
+    <button
+      class="red"
+      onclick="stopVoice()"
+    >
+      🔇 Stop Voice
+    </button>
 
-<p class="small">
-Browser voice is for preview. It is not yet embedded into the downloaded video.
-</p>
+  </div>
 
-</div>
+</section>
 
-</div>
+<section class="card">
 
-<div class="action">
+  <h2>🎬 Scene Planner</h2>
 
-<button onclick="generateReel()">✨ Generate Reel</button>
+  <div id="sceneGrid" class="sceneGrid"></div>
 
-<button class="secondary" onclick="resetReel()">🔄 New Reel</button>
+</section>
 
-</div>
+<section class="card">
 
-<div id="status" class="status">
-Enter a topic and generate your reel.
-</div>
+  <h2>📱 Reel Preview</h2>
 
-</div>
+  <div class="previewWrap">
 
+    <div class="phone">
 
-<!-- HOOK -->
+      <canvas
+        id="canvas"
+        width="540"
+        height="960"
+      ></canvas>
 
-<div class="card">
+    </div>
 
-<h2>🎯 Hook</h2>
+  </div>
 
-<div id="hook" class="hook">
-Your hook will appear here.
-</div>
+  <div class="buttonRow">
 
-</div>
+    <button onclick="previewReel()">
+      ▶ Preview Reel
+    </button>
 
+    <button
+      class="red"
+      onclick="stopPreview()"
+    >
+      ⏹ Stop Preview
+    </button>
 
-<!-- SCRIPT -->
+  </div>
 
-<div class="card">
+  <div class="progressOuter">
+    <div
+      id="previewProgress"
+      class="progressInner"
+    ></div>
+  </div>
 
-<h2>🎙️ Voiceover Script</h2>
+</section>
 
-<div id="script" class="script">
-Your script will appear here.
-</div>
+<section class="card">
 
-<div class="action">
+  <h2>📥 Render Final Reel</h2>
 
-<button onclick="playVoice()">🔊 Play Voice</button>
+  <p class="small">
+    Rendering happens in real time so the browser can capture the animated video and music together.
+  </p>
 
-<button class="red" onclick="stopVoice()">⏹ Stop Voice</button>
+  <div class="buttonRow">
 
-</div>
+    <button
+      class="green"
+      onclick="renderReel()"
+    >
+      🎥 Render & Download Reel
+    </button>
 
-</div>
+    <button
+      class="red"
+      onclick="cancelRender()"
+    >
+      ⛔ Cancel Render
+    </button>
 
+  </div>
 
-<!-- SCENES -->
+  <div class="progressOuter">
 
-<div class="card">
+    <div
+      id="renderProgress"
+      class="progressInner"
+    ></div>
 
-<h2>🎬 Scene Planner</h2>
+  </div>
 
-<div id="scenes">
-Generate a reel to create scenes.
-</div>
+  <div
+    id="renderText"
+    class="status"
+  >
+    Ready to render.
+  </div>
 
-</div>
+</section>
 
+<section class="card">
 
-<!-- PREVIEW -->
+  <h2>📱 Social Media Content</h2>
 
-<div class="card">
+  <div class="copyGrid">
 
-<h2>📱 Reel Preview</h2>
+    <div class="copyBox">
 
-<div class="preview">
+      <h3>Caption</h3>
 
-<div class="phone">
+      <p id="captionBox">
+        Generate a reel first.
+      </p>
 
-<canvas
- id="canvas"
- width="540"
- height="960">
-</canvas>
+      <button onclick="copyCaption()">
+        📋 Copy Caption
+      </button>
 
-</div>
+    </div>
 
-<button onclick="previewReel()">
-▶ Preview Reel
-</button>
+    <div class="copyBox">
 
-<button class="red" onclick="stopPreview()">
-⏹ Stop Preview
-</button>
+      <h3>Hashtags</h3>
 
-<div class="progress">
+      <p id="hashtagsBox">
+        Generate a reel first.
+      </p>
 
-<div
- id="previewProgress"
- class="progressBar">
-</div>
+      <button onclick="copyHashtags()">
+        📋 Copy Hashtags
+      </button>
 
-</div>
+    </div>
 
-</div>
+  </div>
 
-</div>
+</section>
 
+<section class="card">
 
-<!-- RENDER -->
+  <h2>📊 Project Status</h2>
 
-<div class="card">
+  <div
+    id="status"
+    class="status"
+  >
+    Ready. Enter a topic and generate your reel.
+  </div>
 
-<h2>🎥 Render Final Reel</h2>
-
-<p class="small">
-The browser records the 9:16 canvas and background music together into the WebM file.
-Keep this page open during rendering.
-</p>
-
-<div class="action">
-
-<button
- id="renderButton"
- class="green"
- onclick="renderReel()">
-
-⬇️ Render & Download Reel
-
-</button>
-
-</div>
-
-<div id="renderStatus" class="status">
-Ready to render.
-</div>
-
-</div>
-
-
-<!-- SOCIAL -->
-
-<div class="card">
-
-<h2>📲 Social Caption</h2>
-
-<div id="caption" class="captionBox">
-Generate a reel first.
-</div>
-
-<div class="action">
-
-<button class="secondary" onclick="copyCaption()">
-📋 Copy Caption
-</button>
-
-</div>
-
-<h3>Hashtags</h3>
-
-<div id="hashtags" class="captionBox">
-#
-</div>
-
-<div class="action">
-
-<button class="secondary" onclick="copyHashtags()">
-#️⃣ Copy Hashtags
-</button>
-
-</div>
-
-</div>
-
-
-<!-- STATUS -->
-
-<div class="card">
-
-<h2>📊 Project Status</h2>
-
-<p>✅ Topic-aware content engine</p>
-<p>✅ 30 / 45 / 60 second reels</p>
-<p>✅ Cinematic visuals</p>
-<p>✅ Animated captions</p>
-<p>✅ Background music</p>
-<p>✅ Music volume control</p>
-<p>✅ Preview + Stop Preview</p>
-<p>✅ Voice preview + Stop Voice</p>
-<p>✅ Scene transitions</p>
-<p>✅ Intro / Outro</p>
-<p>✅ Render progress</p>
-<p>✅ Copy caption / hashtags</p>
-<p>🔜 Real AI image generation</p>
-<p>🔜 Real AI voice generation</p>
-<p>🔜 MP4 export</p>
-
-</div>
+</section>
 
 </div>
 
 
 <script>
 
-let currentPlan=null;
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
 
-let previewTimer=null;
-let previewStart=0;
-let previewRunning=false;
+let currentPlan = null;
 
-let rendering=false;
+let previewTimer = null;
 
-let audioContext=null;
-let musicNodes=[];
+let previewStart = 0;
 
-const canvas=document.getElementById("canvas");
-const ctx=canvas.getContext("2d");
+let renderRunning = false;
+
+let renderCancelled = false;
+
+let renderAnimation = null;
+
+let voicePlaying = false;
+
+let musicEnabled = true;
+
+let musicVolume = 0.35;
 
 
-/* =========================
-HELPERS
-========================= */
+/* =========================================================
+   DOM HELPERS
+========================================================= */
+
+function el(id){
+  return document.getElementById(id);
+}
 
 function escapeHTML(text){
 
-return String(text)
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
 
-function updateVolumeLabel(){
-
-const value=
-document.getElementById("musicVolume").value;
-
-document.getElementById("volumeValue").textContent=
-value+"%";
-
-}
-
-
-function resetReel(){
-
-stopPreview();
-stopVoice();
-
-currentPlan=null;
-
-document.getElementById("hook").textContent=
-"Your hook will appear here.";
-
-document.getElementById("script").textContent=
-"Your script will appear here.";
-
-document.getElementById("scenes").textContent=
-"Generate a reel to create scenes.";
-
-document.getElementById("caption").textContent=
-"Generate a reel first.";
-
-document.getElementById("hashtags").textContent=
-"#";
-
-document.getElementById("status").textContent=
-"Ready for a new reel.";
-
-document.getElementById("renderStatus").textContent=
-"Ready to render.";
-
-drawEmpty();
-
-}
-
-
-/* =========================
-TOPIC DETECTION
-========================= */
+/* =========================================================
+   TOPIC DETECTION
+========================================================= */
 
 function detectTopic(topic){
 
-const t=topic.toLowerCase().trim();
+  const t = topic.toLowerCase().trim();
 
+  if(
+    t.includes("ferrari 488") ||
+    t.includes("488 gtb") ||
+    t.includes("488 pista")
+  ){
+    return "ferrari488";
+  }
 
-if(
-t.includes("ferrari 488")||
-t.includes("488 gtb")||
-t.includes("488 pista")
-)return "ferrari488";
+  if(
+    t.includes("bmw m3 gtr") ||
+    t.includes("m3 gtr") ||
+    t.includes("m3gtr")
+  ){
+    return "bmwm3gtr";
+  }
 
+  if(
+    t.includes("chandrayaan") ||
+    t.includes("chandra yaan") ||
+    t.includes("vikram lander") ||
+    t.includes("pragyan rover")
+  ){
+    return "chandrayaan";
+  }
 
-if(
-t.includes("bmw m3 gtr")||
-t.includes("m3 gtr")||
-t.includes("m3gtr")
-)return "bmwm3gtr";
+  if(
+    t.includes("space") ||
+    t.includes("nasa") ||
+    t.includes("isro") ||
+    t.includes("moon") ||
+    t.includes("mars") ||
+    t.includes("rocket") ||
+    t.includes("galaxy")
+  ){
+    return "space";
+  }
 
+  if(
+    t.includes("artificial intelligence") ||
+    t.includes(" ai ") ||
+    t.startsWith("ai ") ||
+    t.endsWith(" ai") ||
+    t.includes("technology") ||
+    t.includes("robot") ||
+    t.includes("software")
+  ){
+    return "technology";
+  }
 
-if(
-t.includes("chandrayaan")||
-t.includes("chandra yaan")||
-t.includes("vikram lander")||
-t.includes("pragyan rover")
-)return "chandrayaan";
+  if(
+    t.includes("business") ||
+    t.includes("startup") ||
+    t.includes("stock") ||
+    t.includes("company") ||
+    t.includes("entrepreneur")
+  ){
+    return "business";
+  }
 
+  if(
+    t.includes("history") ||
+    t.includes("historical") ||
+    t.includes("ancient")
+  ){
+    return "history";
+  }
 
-if(
-t.includes("space")||
-t.includes("nasa")||
-t.includes("isro")||
-t.includes("moon")||
-t.includes("mars")||
-t.includes("rocket")||
-t.includes("galaxy")
-)return "space";
+  if(
+    t.includes("india") ||
+    t.includes("indian")
+  ){
+    return "india";
+  }
 
+  if(
+    t.includes("science") ||
+    t.includes("physics") ||
+    t.includes("chemistry") ||
+    t.includes("biology")
+  ){
+    return "science";
+  }
 
-if(
-t.includes("artificial intelligence")||
-t==="ai"||
-t.startsWith("ai ")||
-t.endsWith(" ai")||
-t.includes("technology")||
-t.includes("robot")||
-t.includes("software")
-)return "technology";
+  if(
+    t.includes("lamborghini") ||
+    t.includes("ferrari") ||
+    t.includes("porsche") ||
+    t.includes("bugatti") ||
+    t.includes("koenigsegg") ||
+    t.includes("pagani") ||
+    t.includes("mclaren") ||
+    t.includes("mercedes") ||
+    t.includes("bmw")
+  ){
+    return "cars";
+  }
 
-
-if(
-t.includes("business")||
-t.includes("startup")||
-t.includes("stock")||
-t.includes("company")||
-t.includes("entrepreneur")
-)return "business";
-
-
-if(
-t.includes("history")||
-t.includes("historical")||
-t.includes("ancient")
-)return "history";
-
-
-if(
-t.includes("india")||
-t.includes("indian")
-)return "india";
-
-
-if(
-t.includes("science")||
-t.includes("physics")||
-t.includes("chemistry")||
-t.includes("biology")
-)return "science";
-
-
-if(
-t.includes("ferrari")||
-t.includes("lamborghini")||
-t.includes("porsche")||
-t.includes("bugatti")||
-t.includes("koenigsegg")||
-t.includes("pagani")||
-t.includes("mclaren")||
-t.includes("mercedes")||
-t.includes("bmw")
-)return "cars";
-
-
-return "general";
-
-}
-
-
-/* =========================
-HOOK
-========================= */
-
-function makeHook(topic,type,style){
-
-if(type==="ferrari488")
-return "The Ferrari 488 changed Ferrari's modern performance era. Here's what made it special.";
-
-if(type==="bmwm3gtr")
-return "The BMW M3 GTR became one of the most recognizable performance cars ever. Here's why.";
-
-if(type==="chandrayaan")
-return "India's Chandrayaan missions changed the story of lunar exploration. Here are the key moments.";
-
-if(type==="space")
-return "You probably don't know these surprising facts about space.";
-
-if(type==="technology")
-return "Technology is changing faster than most people realize. Here's what matters.";
-
-if(type==="business")
-return "Behind this business topic is a story most people don't see.";
-
-if(type==="history")
-return "History is full of moments that still shape the world today.";
-
-if(type==="india")
-return "India has some incredible stories that deserve more attention.";
-
-if(type==="science")
-return "Science can explain some of the most surprising things around us.";
-
-if(style==="news")
-return `Here's what you should know about ${topic}.`;
-
-if(style==="educational")
-return `Let's break down ${topic} in a simple way.`;
-
-if(style==="cinematic")
-return `The story of ${topic} is more interesting than you might expect.`;
-
-return `Stop scrolling! Here's something interesting about ${topic}.`;
+  return "general";
 
 }
 
 
-/* =========================
-SCENES
-========================= */
+/* =========================================================
+   HOOK GENERATOR
+========================================================= */
 
-function makeScenes(topic,type){
+function makeHook(topic,category,style){
 
-if(type==="ferrari488"){
+  if(category==="ferrari488"){
 
-return [
+    if(style==="news"){
+      return "The Ferrari 488 changed an important chapter in Ferrari's performance-car history.";
+    }
 
-{
-title:"The Ferrari 488",
-text:"The Ferrari 488 became the successor to Ferrari's 458-era mid-engine sports car family.",
-visual:"car"
-},
+    return "The Ferrari 488 is one of Ferrari's most important modern turbocharged supercars.";
+  }
 
-{
-title:"Twin-Turbo V8",
-text:"One of the defining features of the 488 is its twin-turbocharged V8 engine.",
-visual:"engine"
-},
+  if(category==="bmwm3gtr"){
+    return "The BMW M3 GTR became one of the most recognizable racing-inspired cars ever.";
+  }
 
-{
-title:"Mid-Engine Layout",
-text:"The engine sits behind the driver, helping create the balance and proportions expected from a modern Ferrari sports car.",
-visual:"midengine"
-},
+  if(category==="chandrayaan"){
+    return "India's Chandrayaan missions changed the story of lunar exploration.";
+  }
 
-{
-title:"Aerodynamic Design",
-text:"The 488's bodywork was designed around airflow, cooling and high-speed aerodynamic performance.",
-visual:"aero"
-},
+  if(category==="space"){
+    return "Space is full of discoveries that completely change how we see the universe.";
+  }
 
-{
-title:"Performance Focus",
-text:"Everything from the engine response to the chassis and electronics was developed around high-performance driving.",
-visual:"speed"
-},
+  if(category==="technology"){
+    return topic+" is part of a technology shift that is changing how we live and work.";
+  }
 
-{
-title:"The 488 Legacy",
-text:"The Ferrari 488 became an important chapter in Ferrari's move into a new generation of turbocharged performance cars.",
-visual:"legacy"
-}
+  if(category==="business"){
+    return topic+" has an interesting story behind how it works and why it matters.";
+  }
 
-];
+  if(category==="history"){
+    return topic+" has a history filled with important moments.";
+  }
 
-}
+  if(category==="india"){
+    return "India has a fascinating story behind "+topic+".";
+  }
 
+  if(category==="science"){
+    return topic+" reveals some fascinating ideas about how our world works.";
+  }
 
-if(type==="bmwm3gtr"){
+  if(category==="cars"){
+    return topic+" combines engineering, design and performance in a fascinating way.";
+  }
 
-return [
-
-{
-title:"BMW M3 GTR",
-text:"The BMW M3 GTR became famous for combining the M3 name with serious racing performance.",
-visual:"bmw"
-},
-
-{
-title:"Racing DNA",
-text:"The M3 GTR was developed around motorsport performance and a lightweight racing philosophy.",
-visual:"racing"
-},
-
-{
-title:"The E46 Era",
-text:"The E46 generation gave the M3 GTR one of the most recognizable shapes in BMW performance history.",
-visual:"bmw"
-},
-
-{
-title:"The V8 Connection",
-text:"The racing version became famous for its high-revving V8 engine and distinctive sound.",
-visual:"engine"
-},
-
-{
-title:"A Gaming Icon",
-text:"The M3 GTR became globally recognizable through Need for Speed Most Wanted.",
-visual:"gaming"
-},
-
-{
-title:"Why It Still Matters",
-text:"The M3 GTR remains an iconic combination of racing heritage, aggressive design and pop-culture fame.",
-visual:"legacy"
-}
-
-];
-
+  return "Here is what makes "+topic+" interesting.";
 }
 
 
-if(type==="chandrayaan"){
+/* =========================================================
+   SCENE GENERATOR
+========================================================= */
 
-return [
+function makeScenes(topic,category){
 
-{
-title:"Chandrayaan-1",
-text:"Chandrayaan-1 was India's first mission to the Moon, launched in 2008.",
-visual:"moon"
-},
+  if(category==="ferrari488"){
 
-{
-title:"Studying the Moon",
-text:"The mission carried scientific instruments designed to study the lunar surface and environment.",
-visual:"orbiter"
-},
+    return [
 
-{
-title:"Water Evidence",
-text:"Chandrayaan-1 helped provide important evidence of water-related molecules on the lunar surface.",
-visual:"watermoon"
-},
+      {
+        title:"The Ferrari 488",
+        text:"The Ferrari 488 became the successor to Ferrari's 458-era mid-engine sports car family.",
+        theme:"ferrari"
+      },
 
-{
-title:"Chandrayaan-2",
-text:"Chandrayaan-2 launched in 2019 and included an orbiter, lander and rover.",
-visual:"lander"
-},
+      {
+        title:"Twin-Turbo V8",
+        text:"One of the defining features of the 488 is its twin-turbocharged V8 engine.",
+        theme:"engine"
+      },
 
-{
-title:"Chandrayaan-3",
-text:"Chandrayaan-3 successfully landed near the Moon's south polar region in August 2023.",
-visual:"moon"
-},
+      {
+        title:"Mid-Engine Layout",
+        text:"The engine sits behind the driver, helping create the balance and proportions expected from a modern Ferrari sports car.",
+        theme:"midengine"
+      },
 
-{
-title:"Vikram & Pragyan",
-text:"The Vikram lander and Pragyan rover made Chandrayaan-3 a major milestone in India's lunar exploration program.",
-visual:"rover"
+      {
+        title:"Aerodynamic Design",
+        text:"The 488's bodywork was designed around airflow, cooling and high-speed aerodynamic performance.",
+        theme:"aero"
+      },
+
+      {
+        title:"Performance Focus",
+        text:"Everything from the engine response to the chassis and electronics was developed around high-performance driving.",
+        theme:"performance"
+      },
+
+      {
+        title:"The 488 Legacy",
+        text:"The Ferrari 488 became an important chapter in Ferrari's move into a new generation of turbocharged performance cars.",
+        theme:"legacy"
+      }
+
+    ];
+
+  }
+
+
+  if(category==="bmwm3gtr"){
+
+    return [
+
+      {
+        title:"BMW M3 GTR",
+        text:"The BMW M3 GTR became one of the most famous performance versions of the E46 generation.",
+        theme:"bmw"
+      },
+
+      {
+        title:"Racing DNA",
+        text:"The M3 GTR was created around a serious racing philosophy with aggressive performance engineering.",
+        theme:"race"
+      },
+
+      {
+        title:"The E46 Era",
+        text:"Its E46 proportions and unmistakable silhouette helped make the car instantly recognizable.",
+        theme:"bmw"
+      },
+
+      {
+        title:"The V8 Connection",
+        text:"The racing M3 GTR became famous for its high-revving V8 powertrain.",
+        theme:"engine"
+      },
+
+      {
+        title:"A Gaming Icon",
+        text:"The BMW M3 GTR became a global gaming icon through Need for Speed Most Wanted.",
+        theme:"gaming"
+      },
+
+      {
+        title:"Why It Still Matters",
+        text:"The combination of racing history, design and gaming culture keeps the M3 GTR popular today.",
+        theme:"legacy"
+      }
+
+    ];
+
+  }
+
+
+  if(category==="chandrayaan"){
+
+    return [
+
+      {
+        title:"Chandrayaan-1",
+        text:"Chandrayaan-1 was India's first mission to the Moon and launched in 2008.",
+        theme:"moon"
+      },
+
+      {
+        title:"Studying the Moon",
+        text:"The mission carried scientific instruments designed to study the lunar surface and environment.",
+        theme:"moon"
+      },
+
+      {
+        title:"Water Evidence",
+        text:"Chandrayaan-1 helped provide important evidence of water-related molecules on the lunar surface.",
+        theme:"watermoon"
+      },
+
+      {
+        title:"Chandrayaan-2",
+        text:"Chandrayaan-2 launched in 2019 and included an orbiter, lander and rover.",
+        theme:"orbiter"
+      },
+
+      {
+        title:"Chandrayaan-3",
+        text:"Chandrayaan-3 successfully landed near the Moon's south polar region in August 2023.",
+        theme:"lander"
+      },
+
+      {
+        title:"Vikram & Pragyan",
+        text:"The Vikram lander and Pragyan rover made Chandrayaan-3 a major milestone in India's lunar exploration program.",
+        theme:"rover"
+      }
+
+    ];
+
+  }
+
+
+  if(category==="space"){
+
+    return [
+
+      {
+        title:topic,
+        text:"The story of "+topic+" begins with humanity's effort to understand the universe.",
+        theme:"space"
+      },
+
+      {
+        title:"Exploration",
+        text:topic+" represents another step in humanity's exploration of space.",
+        theme:"rocket"
+      },
+
+      {
+        title:"The Science",
+        text:"Scientists use missions, observations and experiments to understand "+topic+".",
+        theme:"galaxy"
+      },
+
+      {
+        title:"What We Learn",
+        text:"Research connected to "+topic+" can reveal new information about the universe.",
+        theme:"planet"
+      },
+
+      {
+        title:"Technology",
+        text:"Advanced engineering plays a major role in exploring and studying "+topic+".",
+        theme:"tech"
+      },
+
+      {
+        title:"The Bigger Picture",
+        text:topic+" shows how much there is still to discover beyond Earth.",
+        theme:"space"
+      }
+
+    ];
+
+  }
+
+
+  if(category==="technology"){
+
+    return [
+
+      {
+        title:topic,
+        text:topic+" is becoming an important part of modern technology.",
+        theme:"tech"
+      },
+
+      {
+        title:"The Core Idea",
+        text:"The main idea behind "+topic+" is to make technology more capable and useful.",
+        theme:"tech"
+      },
+
+      {
+        title:"How It Works",
+        text:topic+" combines systems, software and engineering to perform useful tasks.",
+        theme:"network"
+      },
+
+      {
+        title:"Why It Matters",
+        text:topic+" could influence the way people work, communicate or create.",
+        theme:"tech"
+      },
+
+      {
+        title:"Rapid Development",
+        text:"Technology around "+topic+" continues to evolve quickly.",
+        theme:"future"
+      },
+
+      {
+        title:"The Future",
+        text:topic+" could become even more important as technology develops.",
+        theme:"future"
+      }
+
+    ];
+
+  }
+
+
+  if(category==="business"){
+
+    return [
+
+      {
+        title:topic,
+        text:topic+" has an interesting story behind its business and market presence.",
+        theme:"business"
+      },
+
+      {
+        title:"The Core Idea",
+        text:"At the centre of "+topic+" is a product, service or idea designed to create value.",
+        theme:"business"
+      },
+
+      {
+        title:"How It Works",
+        text:"Understanding how "+topic+" operates helps explain its business model.",
+        theme:"network"
+      },
+
+      {
+        title:"The Market",
+        text:topic+" operates in a market shaped by customers, competitors and technology.",
+        theme:"business"
+      },
+
+      {
+        title:"Growth",
+        text:"Growth depends on execution, customer demand and the ability to adapt.",
+        theme:"chart"
+      },
+
+      {
+        title:"The Bigger Picture",
+        text:topic+" shows how ideas can become larger businesses over time.",
+        theme:"future"
+      }
+
+    ];
+
+  }
+
+
+  if(category==="history"){
+
+    return [
+
+      {
+        title:topic,
+        text:topic+" is connected to a series of important historical events.",
+        theme:"history"
+      },
+
+      {
+        title:"The Beginning",
+        text:"Understanding the beginning of "+topic+" helps explain what happened later.",
+        theme:"history"
+      },
+
+      {
+        title:"A Turning Point",
+        text:"Important developments changed the course of "+topic+".",
+        theme:"history"
+      },
+
+      {
+        title:"People & Events",
+        text:"People and events played major roles in shaping the story.",
+        theme:"history"
+      },
+
+      {
+        title:"The Impact",
+        text:topic+" left an impact that can still be studied today.",
+        theme:"history"
+      },
+
+      {
+        title:"Why It Matters",
+        text:"History helps us understand why "+topic+" remains important.",
+        theme:"history"
+      }
+
+    ];
+
+  }
+
+
+  if(category==="india"){
+
+    return [
+
+      {
+        title:topic,
+        text:topic+" is connected to an interesting part of India's story.",
+        theme:"india"
+      },
+
+      {
+        title:"The Story",
+        text:"There are several important details behind "+topic+".",
+        theme:"india"
+      },
+
+      {
+        title:"Development",
+        text:topic+" reflects part of India's development and changing landscape.",
+        theme:"city"
+      },
+
+      {
+        title:"People",
+        text:"People have played an important role in the story of "+topic+".",
+        theme:"culture"
+      },
+
+      {
+        title:"Impact",
+        text:topic+" has had an influence beyond its immediate surroundings.",
+        theme:"india"
+      },
+
+      {
+        title:"The Bigger Picture",
+        text:topic+" is one more example of India's diverse and evolving story.",
+        theme:"india"
+      }
+
+    ];
+
+  }
+
+
+  if(category==="science"){
+
+    return [
+
+      {
+        title:topic,
+        text:topic+" reveals interesting principles about the world around us.",
+        theme:"science"
+      },
+
+      {
+        title:"The Core Idea",
+        text:"The science behind "+topic+" begins with understanding its basic principles.",
+        theme:"science"
+      },
+
+      {
+        title:"How It Works",
+        text:"Researchers use observation and experiments to understand "+topic+".",
+        theme:"lab"
+      },
+
+      {
+        title:"What We Learn",
+        text:topic+" can help scientists understand more about nature.",
+        theme:"science"
+      },
+
+      {
+        title:"Research",
+        text:"Continued research can reveal new information about "+topic+".",
+        theme:"lab"
+      },
+
+      {
+        title:"The Bigger Picture",
+        text:topic+" shows how much there is still to discover.",
+        theme:"space"
+      }
+
+    ];
+
+  }
+
+
+  if(category==="cars"){
+
+    return [
+
+      {
+        title:topic,
+        text:topic+" combines engineering, design and performance.",
+        theme:"car"
+      },
+
+      {
+        title:"Engineering",
+        text:"Engineering decisions shape how "+topic+" performs.",
+        theme:"engine"
+      },
+
+      {
+        title:"Performance",
+        text:"Power, weight, aerodynamics and control all influence performance.",
+        theme:"performance"
+      },
+
+      {
+        title:"Design",
+        text:"The design of "+topic+" is built around both function and visual identity.",
+        theme:"aero"
+      },
+
+      {
+        title:"Driving Experience",
+        text:"The final result is a driving experience shaped by many engineering details.",
+        theme:"car"
+      },
+
+      {
+        title:"Legacy",
+        text:topic+" remains interesting because of the combination of design and engineering.",
+        theme:"legacy"
+      }
+
+    ];
+
+  }
+
+
+  return [
+
+    {
+      title:"Introducing "+topic,
+      text:topic+" has several interesting details worth exploring.",
+      theme:"generic"
+    },
+
+    {
+      title:"The Core Idea",
+      text:"The main idea behind "+topic+" is what makes it interesting.",
+      theme:"generic"
+    },
+
+    {
+      title:"How It Works",
+      text:"Understanding how "+topic+" works gives us a clearer picture.",
+      theme:"tech"
+    },
+
+    {
+      title:"Why It Matters",
+      text:topic+" matters because it has an effect beyond its basic function.",
+      theme:"world"
+    },
+
+    {
+      title:"What Makes It Interesting",
+      text:"Several details make "+topic+" worth learning about.",
+      theme:"science"
+    },
+
+    {
+      title:"The Bigger Picture",
+      text:topic+" is part of a much bigger story.",
+      theme:"future"
+    }
+
+  ];
+
 }
 
-];
+
+/* =========================================================
+   HASHTAGS
+========================================================= */
+
+function makeHashtags(topic,category){
+
+  const base = "#AIReel #Reels #Shorts #ContentCreator";
+
+  if(category==="ferrari488"){
+    return base+" #Ferrari #Ferrari488 #Supercar #CarCulture";
+  }
+
+  if(category==="bmwm3gtr"){
+    return base+" #BMW #M3GTR #E46 #NeedForSpeed";
+  }
+
+  if(category==="chandrayaan"){
+    return base+" #Chandrayaan #ISRO #IndiaInSpace #MoonMission #Space";
+  }
+
+  if(category==="space"){
+    return base+" #Space #NASA #ISRO #Astronomy";
+  }
+
+  if(category==="technology"){
+    return base+" #Technology #AI #Innovation #Future";
+  }
+
+  if(category==="business"){
+    return base+" #Business #Startup #Entrepreneur";
+  }
+
+  if(category==="history"){
+    return base+" #History #HistoricalFacts";
+  }
+
+  if(category==="india"){
+    return base+" #India #IndianFacts #IndiaNews";
+  }
+
+  if(category==="science"){
+    return base+" #Science #Facts #Knowledge";
+  }
+
+  if(category==="cars"){
+    return base+" #Cars #Automotive #CarCulture";
+  }
+
+  return base+" #Facts #InterestingFacts";
 
 }
 
 
-if(type==="space"){
-
-return [
-
-{
-title:"The Topic",
-text:`${topic} is connected to humanity's continuing exploration of space.`,
-visual:"space"
-},
-
-{
-title:"Exploration",
-text:`Scientists study ${topic} to better understand our universe.`,
-visual:"galaxy"
-},
-
-{
-title:"The Science",
-text:`Research around ${topic} can reveal how the universe works.`,
-visual:"science"
-},
-
-{
-title:"What We Learn",
-text:`Studying ${topic} helps researchers answer bigger questions.`,
-visual:"star"
-},
-
-{
-title:"Technology",
-text:`Advanced technology plays an important role in exploring ${topic}.`,
-visual:"rocket"
-},
-
-{
-title:"The Bigger Picture",
-text:`${topic} reminds us how much remains to be discovered.`,
-visual:"space"
-}
-
-];
-
-}
-
-
-if(type==="technology"){
-
-return [
-
-{
-title:"The Topic",
-text:`${topic} is becoming an important part of modern life.`,
-visual:"technology"
-},
-
-{
-title:"How It Works",
-text:`The technology behind ${topic} combines software, hardware and data.`,
-visual:"tech"
-},
-
-{
-title:"Why It Matters",
-text:`${topic} can change how people work, communicate or create.`,
-visual:"technology"
-},
-
-{
-title:"Rapid Growth",
-text:`The development of ${topic} continues to move quickly.`,
-visual:"future"
-},
-
-{
-title:"Real World Impact",
-text:`People are already finding practical uses for ${topic}.`,
-visual:"city"
-},
-
-{
-title:"The Future",
-text:`The next generation of ${topic} could be very different from today's version.`,
-visual:"future"
-}
-
-];
-
-}
-
-
-if(type==="business"){
-
-return [
-
-{
-title:"The Topic",
-text:`${topic} is connected to an important part of the modern economy.`,
-visual:"business"
-},
-
-{
-title:"The Core Idea",
-text:`Understanding how ${topic} works starts with its basic business model.`,
-visual:"business"
-},
-
-{
-title:"Growth",
-text:`Growth around ${topic} depends on customers, technology and execution.`,
-visual:"chart"
-},
-
-{
-title:"Competition",
-text:`Competition can strongly influence the future of ${topic}.`,
-visual:"city"
-},
-
-{
-title:"The Challenge",
-text:`Every business connected to ${topic} faces opportunities and risks.`,
-visual:"technology"
-},
-
-{
-title:"The Bigger Picture",
-text:`${topic} shows how quickly markets can change.`,
-visual:"future"
-}
-
-];
-
-}
-
-
-if(type==="history"){
-
-return [
-
-{
-title:"The Beginning",
-text:`The story of ${topic} begins with events that shaped its era.`,
-visual:"history"
-},
-
-{
-title:"A Turning Point",
-text:`Important changes helped shape the development of ${topic}.`,
-visual:"history"
-},
-
-{
-title:"People",
-text:`People played a major role in the story of ${topic}.`,
-visual:"history"
-},
-
-{
-title:"Change",
-text:`Over time, ${topic} developed through major changes.`,
-visual:"history"
-},
-
-{
-title:"Legacy",
-text:`The impact of ${topic} can still be seen today.`,
-visual:"history"
-},
-
-{
-title:"Why It Matters",
-text:`Learning about ${topic} helps us understand the present.`,
-visual:"history"
-}
-
-];
-
-}
-
-
-if(type==="india"){
-
-return [
-
-{
-title:"India",
-text:`${topic} is connected to an interesting part of India's story.`,
-visual:"india"
-},
-
-{
-title:"People",
-text:`Millions of people are connected to stories involving ${topic}.`,
-visual:"culture"
-},
-
-{
-title:"Growth",
-text:`India has changed significantly in areas connected to ${topic}.`,
-visual:"city"
-},
-
-{
-title:"Culture",
-text:`The cultural side of ${topic} adds another layer to the story.`,
-visual:"culture"
-},
-
-{
-title:"Modern India",
-text:`Today, ${topic} continues to evolve with the country.`,
-visual:"india"
-},
-
-{
-title:"The Bigger Picture",
-text:`${topic} is one small part of India's much larger story.`,
-visual:"india"
-}
-
-];
-
-}
-
-
-if(type==="science"){
-
-return [
-
-{
-title:"The Topic",
-text:`${topic} is a fascinating subject studied by scientists.`,
-visual:"science"
-},
-
-{
-title:"The Core Idea",
-text:`Understanding ${topic} starts with its fundamental principles.`,
-visual:"science"
-},
-
-{
-title:"How It Works",
-text:`Scientists use experiments and observations to study ${topic}.`,
-visual:"technology"
-},
-
-{
-title:"Discovery",
-text:`Research into ${topic} continues to produce new knowledge.`,
-visual:"galaxy"
-},
-
-{
-title:"Real World",
-text:`Knowledge about ${topic} can influence real-world technology and decisions.`,
-visual:"city"
-},
-
-{
-title:"The Future",
-text:`There is still much more to discover about ${topic}.`,
-visual:"future"
-}
-
-];
-
-}
-
-
-if(type==="cars"){
-
-return [
-
-{
-title:"The Car",
-text:`${topic} represents a distinctive chapter in automotive engineering.`,
-visual:"car"
-},
-
-{
-title:"Engineering",
-text:`Engineering decisions shape how ${topic} performs.`,
-visual:"engine"
-},
-
-{
-title:"Performance",
-text:`Performance depends on the engine, chassis, aerodynamics and electronics.`,
-visual:"speed"
-},
-
-{
-title:"Design",
-text:`The design of ${topic} combines function with visual identity.`,
-visual:"aero"
-},
-
-{
-title:"Driving Experience",
-text:`The way ${topic} responds to the driver is part of its character.`,
-visual:"car"
-},
-
-{
-title:"Legacy",
-text:`${topic} remains part of the larger story of performance cars.`,
-visual:"legacy"
-}
-
-];
-
-}
-
-
-return [
-
-{
-title:"Introducing It",
-text:`Let's take a closer look at ${topic}.`,
-visual:"general"
-},
-
-{
-title:"The Core Idea",
-text:`The main idea behind ${topic} is what makes it interesting.`,
-visual:"technology"
-},
-
-{
-title:"How It Works",
-text:`Understanding ${topic} starts with looking at how it works.`,
-visual:"science"
-},
-
-{
-title:"Why It Matters",
-text:`${topic} matters because it connects to a bigger story.`,
-visual:"world"
-},
-
-{
-title:"What Makes It Interesting",
-text:`There are several details that make ${topic} worth exploring.`,
-visual:"future"
-},
-
-{
-title:"The Bigger Picture",
-text:`The story of ${topic} is part of something much bigger.`,
-visual:"world"
-}
-
-];
-
-}
-
-
-/* =========================
-GENERATE
-========================= */
+/* =========================================================
+   GENERATE REEL
+========================================================= */
 
 function generateReel(){
 
-stopPreview();
-stopVoice();
+  stopPreview();
 
-const topic=
-document.getElementById("topic").value.trim();
+  stopVoice();
 
-if(!topic){
+  if(renderRunning){
+    el("status").textContent="Please wait for the current render to finish.";
+    return;
+  }
 
-document.getElementById("status").textContent=
-"Please enter a topic first.";
+  const topic = el("topic").value.trim();
 
-return;
+  if(!topic){
 
-}
+    el("status").textContent="Please enter a topic first.";
 
-const duration=
-Number(document.getElementById("duration").value);
+    return;
+  }
 
-const style=
-document.getElementById("style").value;
+  const category = detectTopic(topic);
 
-const voiceStyle=
-document.getElementById("voiceStyle").value;
+  const duration = Number(el("duration").value);
 
-const type=
-detectTopic(topic);
+  const style = el("style").value;
 
-const hook=
-makeHook(topic,type,style);
+  const voiceStyle = el("voiceStyle").value;
 
-const scenes=
-makeScenes(topic,type);
+  const transition = el("transition").value;
 
-const script=
-hook+"\n\n"+
-scenes.map((s,i)=>
-`Scene ${i+1}: ${s.text}`
-).join("\n\n");
+  const hook = makeHook(topic,category,style);
 
-currentPlan={
-topic,
-type,
-duration,
-style,
-voiceStyle,
-hook,
-script,
-scenes
-};
+  const scenes = makeScenes(topic,category);
 
-document.getElementById("hook").textContent=hook;
+  currentPlan = {
 
-document.getElementById("script").textContent=script;
+    topic,
+    category,
+    duration,
+    style,
+    voiceStyle,
+    transition,
+    hook,
+    scenes
 
-document.getElementById("scenes").innerHTML=
-scenes.map((scene,index)=>`
+  };
 
-<div class="scene">
+  const script = scenes
+    .map(s=>s.text)
+    .join(" ");
 
-<h3>
-Scene ${index+1} — ${escapeHTML(scene.title)}
-</h3>
+  currentPlan.script = script;
 
-<p>
-${escapeHTML(scene.text)}
-</p>
+  el("hookBox").innerHTML = `
+    <div class="scene">
+      <div class="sceneNumber">AI HOOK</div>
+      <h3>${escapeHTML(hook)}</h3>
+    </div>
+  `;
 
-</div>
+  el("scriptBox").textContent = script;
 
-`).join("");
+  el("sceneGrid").innerHTML = scenes.map((scene,index)=>`
 
-document.getElementById("caption").textContent=
-`${hook} Follow for more about ${topic}.`;
+    <div class="scene">
 
-document.getElementById("hashtags").textContent=
-createHashtags(topic,type);
+      <div class="sceneNumber">
+        SCENE ${index+1}
+      </div>
 
-document.getElementById("status").textContent=
-`✅ Reel generated for "${topic}" • ${duration}s`;
+      <h3>
+        ${escapeHTML(scene.title)}
+      </h3>
 
-drawFrame(0);
+      <p>
+        ${escapeHTML(scene.text)}
+      </p>
 
-}
+    </div>
 
+  `).join("");
 
-/* =========================
-HASHTAGS
-========================= */
+  const hashtags = makeHashtags(topic,category);
 
-function createHashtags(topic,type){
+  el("captionBox").textContent =
+    hook+" "+script.substring(0,180)+"...";
 
-if(type==="ferrari488")
-return "#Ferrari488 #Ferrari #Supercars #Cars #CarReels #Automotive";
+  el("hashtagsBox").textContent = hashtags;
 
-if(type==="bmwm3gtr")
-return "#BMWM3GTR #BMW #M3GTR #NeedForSpeed #Cars #CarReels";
+  el("status").textContent =
+    "Reel generated for: "+topic+" • 6 topic-specific scenes ready.";
 
-if(type==="chandrayaan")
-return "#Chandrayaan #ISRO #IndiaInSpace #MoonMission #Space #Science";
-
-if(type==="space")
-return "#Space #NASA #ISRO #Science #Universe #Astronomy";
-
-if(type==="technology")
-return "#Technology #Tech #AI #Innovation #Future";
-
-if(type==="business")
-return "#Business #Startup #Entrepreneur #Finance #Innovation";
-
-if(type==="history")
-return "#History #Historical #Facts #Knowledge #Education";
-
-if(type==="india")
-return "#India #Indian #IndiaFacts #Knowledge #Reels";
-
-if(type==="science")
-return "#Science #Physics #Discovery #Knowledge #Education";
-
-return "#Reels #Facts #Interesting #Knowledge #Viral";
+  drawFrame(0);
 
 }
 
 
-/* =========================
-VOICE
-========================= */
+/* =========================================================
+   NEW REEL
+========================================================= */
 
-function playVoice(){
+function newReel(){
 
-if(!currentPlan){
+  stopPreview();
 
-document.getElementById("status").textContent=
-"Generate a reel first.";
+  stopVoice();
 
-return;
+  if(renderRunning){
+    el("status").textContent="Cancel the current render first.";
+    return;
+  }
 
-}
+  currentPlan=null;
 
-if(
-!document.getElementById("voiceEnabled").checked
-){
+  el("topic").value="";
 
-document.getElementById("status").textContent=
-"Voice is turned off.";
+  el("hookBox").textContent="Generate a reel to create your hook.";
 
-return;
+  el("scriptBox").textContent="Your voiceover script will appear here.";
 
-}
+  el("sceneGrid").innerHTML="";
 
-stopVoice();
+  el("captionBox").textContent="Generate a reel first.";
 
-const u=
-new SpeechSynthesisUtterance(
-currentPlan.script
-);
+  el("hashtagsBox").textContent="Generate a reel first.";
 
-const style=
-currentPlan.voiceStyle;
+  el("status").textContent="New reel ready.";
 
-if(style==="energetic"){
-u.rate=1.12;
-u.pitch=1.08;
-}
+  el("renderProgress").style.width="0%";
 
-else if(style==="professional"){
-u.rate=.95;
-u.pitch=1;
-}
+  el("previewProgress").style.width="0%";
 
-else if(style==="calm"){
-u.rate=.82;
-u.pitch=.9;
-}
-
-else{
-u.rate=.88;
-u.pitch=.82;
-}
-
-u.volume=1;
-
-u.onstart=()=>{
-document.getElementById("status").textContent=
-"🔊 Voice playing...";
-};
-
-u.onend=()=>{
-document.getElementById("status").textContent=
-"Voice finished.";
-};
-
-speechSynthesis.speak(u);
+  clearCanvas();
 
 }
 
 
-function stopVoice(){
+/* =========================================================
+   MUSIC CONTROL
+========================================================= */
 
-if("speechSynthesis" in window)
-speechSynthesis.cancel();
+function toggleMusic(){
+
+  musicEnabled = !musicEnabled;
+
+  const button = el("musicToggle");
+
+  if(musicEnabled){
+
+    button.textContent="🎵 Music: ON";
+
+    button.className="musicOn";
+
+    el("status").textContent="Background music enabled.";
+
+  }else{
+
+    button.textContent="🔇 Music: OFF";
+
+    button.className="musicOff";
+
+    el("status").textContent="Background music disabled.";
+
+  }
 
 }
 
 
-/* =========================
-PREVIEW
-========================= */
+function updateMusicVolume(){
+
+  musicVolume =
+    Number(el("musicVolume").value)/100;
+
+  el("volumeValue").textContent =
+    Math.round(musicVolume*100)+"%";
+
+}
+
+
+/* =========================================================
+   PREVIEW
+========================================================= */
 
 function previewReel(){
 
-if(!currentPlan){
+  if(!currentPlan){
 
-document.getElementById("status").textContent=
-"Generate a reel first.";
+    el("status").textContent="Generate a reel first.";
 
-return;
+    return;
+  }
 
-}
+  stopPreview();
 
-stopPreview();
+  previewStart = performance.now();
 
-previewRunning=true;
+  el("status").textContent="▶ Preview playing...";
 
-previewStart=performance.now();
+  function animate(now){
 
-drawFrame(0);
+    if(!previewStart){
+      return;
+    }
 
-document.getElementById("status").textContent=
-"▶ Preview playing...";
+    const elapsed =
+      (now-previewStart)/1000;
 
-previewTimer=setInterval(()=>{
+    if(elapsed >= currentPlan.duration){
 
-if(!previewRunning)return;
+      stopPreview();
 
-const elapsed=
-(performance.now()-previewStart)/1000;
+      drawFrame(0);
 
-if(elapsed>=currentPlan.duration){
+      el("previewProgress").style.width="100%";
 
-stopPreview();
+      el("status").textContent="Preview finished.";
 
-drawFrame(0);
+      return;
 
-document.getElementById("status").textContent=
-"Preview finished.";
+    }
 
-return;
+    drawFrame(elapsed);
 
-}
+    const progress =
+      (elapsed/currentPlan.duration)*100;
 
-drawFrame(elapsed);
+    el("previewProgress").style.width =
+      progress+"%";
 
-document.getElementById("previewProgress").style.width=
-((elapsed/currentPlan.duration)*100)+"%";
+    previewTimer =
+      requestAnimationFrame(animate);
 
-},33);
+  }
+
+  previewTimer =
+    requestAnimationFrame(animate);
 
 }
 
 
 function stopPreview(){
 
-previewRunning=false;
+  if(previewTimer){
 
-if(previewTimer){
+    cancelAnimationFrame(previewTimer);
 
-clearInterval(previewTimer);
-previewTimer=null;
+    previewTimer=null;
+
+  }
+
+  previewStart=0;
+
+  el("previewProgress").style.width="0%";
 
 }
 
-document.getElementById("previewProgress").style.width="0%";
+
+/* =========================================================
+   VOICE
+========================================================= */
+
+function playVoice(){
+
+  if(!currentPlan){
+
+    el("status").textContent="Generate a reel first.";
+
+    return;
+  }
+
+  if(!("speechSynthesis" in window)){
+
+    el("status").textContent=
+      "Speech synthesis is not supported in this browser.";
+
+    return;
+  }
+
+  speechSynthesis.cancel();
+
+  const utterance =
+    new SpeechSynthesisUtterance(
+      currentPlan.hook+" "+currentPlan.script
+    );
+
+  if(currentPlan.voiceStyle==="energetic"){
+    utterance.rate=1.08;
+    utterance.pitch=1.08;
+  }
+
+  if(currentPlan.voiceStyle==="professional"){
+    utterance.rate=0.95;
+    utterance.pitch=1.0;
+  }
+
+  if(currentPlan.voiceStyle==="calm"){
+    utterance.rate=0.85;
+    utterance.pitch=0.95;
+  }
+
+  if(currentPlan.voiceStyle==="dramatic"){
+    utterance.rate=0.90;
+    utterance.pitch=0.88;
+  }
+
+  utterance.onstart=()=>{
+
+    voicePlaying=true;
+
+    el("status").textContent="🔊 Voice playing...";
+
+  };
+
+  utterance.onend=()=>{
+
+    voicePlaying=false;
+
+    el("status").textContent="Voice finished.";
+
+  };
+
+  utterance.onerror=()=>{
+
+    voicePlaying=false;
+
+    el("status").textContent="Voice preview stopped.";
+
+  };
+
+  speechSynthesis.speak(utterance);
 
 }
 
 
-/* =========================
-CANVAS
-========================= */
+function stopVoice(){
+
+  if("speechSynthesis" in window){
+
+    speechSynthesis.cancel();
+
+  }
+
+  voicePlaying=false;
+
+  el("status").textContent="Voice stopped.";
+
+}
+
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+const canvas = el("canvas");
+
+const ctx = canvas.getContext("2d");
+
+const W = canvas.width;
+
+const H = canvas.height;
+
+
+function clearCanvas(){
+
+  ctx.fillStyle="#050812";
+
+  ctx.fillRect(0,0,W,H);
+
+}
+
 
 function drawFrame(elapsed){
 
-if(!currentPlan){
+  if(!currentPlan){
 
-drawEmpty();
-return;
+    clearCanvas();
 
-}
+    return;
 
-const W=canvas.width;
-const H=canvas.height;
+  }
 
-const scenes=currentPlan.scenes;
+  const scenes =
+    currentPlan.scenes;
 
-const sceneDuration=
-currentPlan.duration/scenes.length;
+  const sceneDuration =
+    currentPlan.duration/scenes.length;
 
-let index=
-Math.floor(elapsed/sceneDuration);
+  let index =
+    Math.floor(elapsed/sceneDuration);
 
-if(index<0)index=0;
-if(index>=scenes.length)index=scenes.length-1;
+  if(index<0) index=0;
 
-const scene=scenes[index];
+  if(index>=scenes.length){
+    index=scenes.length-1;
+  }
 
-const local=
-elapsed-index*sceneDuration;
+  const scene =
+    scenes[index];
 
-const progress=
-Math.max(
-0,
-Math.min(1,local/sceneDuration)
-);
+  const local =
+    (elapsed-(index*sceneDuration))/
+    sceneDuration;
 
+  drawBackground(
+    scene.theme,
+    elapsed
+  );
 
-/* BACKGROUND */
+  drawSceneArtwork(
+    scene.theme,
+    elapsed,
+    local
+  );
 
-const gradient=
-ctx.createLinearGradient(0,0,W,H);
-
-gradient.addColorStop(
-0,
-getBackground(scene.visual)
-);
-
-gradient.addColorStop(
-1,
-"#02060c"
-);
-
-ctx.fillStyle=gradient;
-
-ctx.fillRect(0,0,W,H);
-
-
-/* VISUAL */
-
-drawVisual(
-scene.visual,
-elapsed
-);
-
-
-/* TRANSITION */
-
-drawTransition(
-index,
-progress
-);
-
-
-/* HEADER */
-
-ctx.fillStyle="rgba(0,0,0,.38)";
-
-ctx.fillRect(
-30,
-30,
-W-60,
-60
-);
-
-ctx.fillStyle="#fff";
-
-ctx.font="bold 25px Arial";
-
-ctx.fillText(
-"AI REEL MAKER",
-55,
-68
-);
-
-ctx.fillStyle="rgba(255,255,255,.75)";
-
-ctx.font="20px Arial";
-
-ctx.fillText(
-`SCENE ${index+1}/6`,
-55,
-125
-);
-
-
-/* DARK OVERLAY */
-
-const overlay=
-ctx.createLinearGradient(
-0,
-470,
-0,
-H
-);
-
-overlay.addColorStop(
-0,
-"rgba(0,0,0,0)"
-);
-
-overlay.addColorStop(
-.25,
-"rgba(0,0,0,.4)"
-);
-
-overlay.addColorStop(
-1,
-"rgba(0,0,0,.95)"
-);
-
-ctx.fillStyle=overlay;
-
-ctx.fillRect(0,0,W,H);
-
-
-/* CAPTION */
-
-const cy=H-235;
-
-ctx.fillStyle="rgba(0,0,0,.74)";
-
-roundRect(
-35,
-cy,
-W-70,
-145,
-22
-);
-
-ctx.fillStyle="#fff";
-
-ctx.font="bold 34px Arial";
-
-wrapText(
-scene.title,
-60,
-cy+50,
-W-120,
-40
-);
-
-ctx.font="23px Arial";
-
-wrapText(
-scene.text,
-60,
-cy+90,
-W-120,
-30
-);
-
-
-/* PROGRESS */
-
-ctx.fillStyle="rgba(255,255,255,.2)";
-
-ctx.fillRect(
-35,
-H-55,
-W-70,
-7
-);
-
-ctx.fillStyle="#fff";
-
-ctx.fillRect(
-35,
-H-55,
-(W-70)*
-((index+progress)/scenes.length),
-7
-);
-
-
-/* INTRO */
-
-if(elapsed<1.2){
-
-const a=
-Math.max(
-0,
-1-elapsed/1.2
-);
-
-ctx.fillStyle=
-`rgba(0,0,0,${a*.75})`;
-
-ctx.fillRect(
-0,
-0,
-W,
-H
-);
-
-ctx.fillStyle=
-`rgba(255,255,255,${a})`;
-
-ctx.font="bold 44px Arial";
-
-ctx.textAlign="center";
-
-ctx.fillText(
-currentPlan.topic,
-W/2,
-H/2
-);
-
-ctx.textAlign="left";
+  drawCaption(
+    scene,
+    index,
+    elapsed,
+    local
+  );
 
 }
 
 
-/* OUTRO */
+/* =========================================================
+   BACKGROUNDS
+========================================================= */
 
-if(
-elapsed>
-currentPlan.duration-1.3
-){
+function drawBackground(theme,time){
 
-const left=
-currentPlan.duration-elapsed;
+  let g;
 
-const a=
-Math.max(
-0,
-Math.min(1,left/1.3)
-);
+  if(theme==="ferrari" ||
+     theme==="engine" ||
+     theme==="midengine" ||
+     theme==="aero" ||
+     theme==="performance" ||
+     theme==="legacy" ||
+     theme==="car"){
 
-ctx.fillStyle=
-`rgba(0,0,0,${1-a})`;
+    g=ctx.createLinearGradient(0,0,W,H);
 
-ctx.fillRect(
-0,
-0,
-W,
-H
-);
+    g.addColorStop(0,"#17080d");
 
-}
+    g.addColorStop(.5,"#351017");
 
-}
+    g.addColorStop(1,"#08070c");
 
+  }else if(
+    theme==="moon" ||
+    theme==="watermoon" ||
+    theme==="orbiter" ||
+    theme==="lander" ||
+    theme==="rover" ||
+    theme==="space" ||
+    theme==="galaxy" ||
+    theme==="planet" ||
+    theme==="rocket"
+  ){
 
-/* =========================
-TRANSITION
-========================= */
+    g=ctx.createLinearGradient(0,0,W,H);
 
-function drawTransition(index,progress){
+    g.addColorStop(0,"#050819");
 
-if(index===0)return;
+    g.addColorStop(.5,"#101d45");
 
-const mode=
-document.getElementById("transition").value;
+    g.addColorStop(1,"#02030a");
 
-const t=
-Math.max(
-0,
-Math.min(
-1,
-progress/.22
-)
-);
+  }else if(
+    theme==="tech" ||
+    theme==="network" ||
+    theme==="future"
+  ){
 
-const alpha=
-1-t;
+    g=ctx.createLinearGradient(0,0,W,H);
 
-if(mode==="fade"){
+    g.addColorStop(0,"#03131c");
 
-ctx.fillStyle=
-`rgba(0,0,0,${alpha*.55})`;
+    g.addColorStop(.5,"#073b4c");
 
-ctx.fillRect(
-0,
-0,
-canvas.width,
-canvas.height
-);
+    g.addColorStop(1,"#03070c");
 
-}
+  }else if(
+    theme==="india" ||
+    theme==="culture" ||
+    theme==="history"
+  ){
 
-else if(mode==="slide"){
+    g=ctx.createLinearGradient(0,0,W,H);
 
-ctx.fillStyle=
-`rgba(255,255,255,${alpha*.08})`;
+    g.addColorStop(0,"#211104");
 
-ctx.fillRect(
-canvas.width*(1-t),
-0,
-canvas.width*.18,
-canvas.height
-);
+    g.addColorStop(.5,"#513013");
 
-}
+    g.addColorStop(1,"#0a0704");
 
-else{
+  }else{
 
-const W=canvas.width;
-const H=canvas.height;
+    g=ctx.createLinearGradient(0,0,W,H);
 
-ctx.strokeStyle=
-`rgba(255,255,255,${alpha*.35})`;
+    g.addColorStop(0,"#10152c");
 
-ctx.lineWidth=20;
+    g.addColorStop(.5,"#1a2450");
 
-ctx.beginPath();
+    g.addColorStop(1,"#050713");
 
-ctx.arc(
-W/2,
-H/2,
-80+(1-t)*180,
-0,
-Math.PI*2
-);
+  }
 
-ctx.stroke();
+  ctx.fillStyle=g;
 
-}
+  ctx.fillRect(0,0,W,H);
 
-}
+  /* cinematic moving lights */
 
+  for(let i=0;i<7;i++){
 
-/* =========================
-BACKGROUND
-========================= */
+    const x =
+      ((time*35)+(i*110))%(W+200)-100;
 
-function getBackground(type){
+    const y =
+      150+i*120+
+      Math.sin(time*.7+i)*25;
 
-const b={
+    const radius =
+      90+i*12;
 
-car:"#3b0909",
-engine:"#171717",
-midengine:"#321307",
-aero:"#071c34",
-speed:"#250006",
-legacy:"#18052e",
+    const glow =
+      ctx.createRadialGradient(
+        x,y,0,
+        x,y,radius
+      );
 
-bmw:"#07192f",
-racing:"#07131e",
-gaming:"#17102d",
+    glow.addColorStop(
+      0,
+      "rgba(100,160,255,.12)"
+    );
 
-moon:"#11172a",
-orbiter:"#081e35",
-watermoon:"#082a35",
-lander:"#25170b",
-rover:"#18120a",
+    glow.addColorStop(
+      1,
+      "rgba(100,160,255,0)"
+    );
 
-space:"#08051f",
-galaxy:"#12052b",
-science:"#071d2c",
-star:"#0a1230",
-rocket:"#201006",
+    ctx.fillStyle=glow;
 
-technology:"#061e24",
-tech:"#06222d",
-future:"#11132d",
-city:"#0b1724",
+    ctx.beginPath();
 
-business:"#10220e",
-chart:"#081d16",
+    ctx.arc(x,y,radius,0,Math.PI*2);
 
-history:"#24170c",
-india:"#251006",
-culture:"#281009",
+    ctx.fill();
 
-world:"#09182a",
-general:"#11182a"
-
-};
-
-return b[type]||"#11182a";
+  }
 
 }
 
 
-/* =========================
-VISUALS
-========================= */
+/* =========================================================
+   ARTWORK
+========================================================= */
 
-function drawVisual(type,t){
+function drawSceneArtwork(theme,time,local){
 
-if(
-type==="car"||
-type==="bmw"||
-type==="racing"||
-type==="gaming"
-){
+  if(
+    theme==="ferrari" ||
+    theme==="car"
+  ){
 
-drawCar(t,type);
-return;
+    drawSportsCar(time);
 
-}
+  }else if(
+    theme==="engine" ||
+    theme==="midengine"
+  ){
 
-if(type==="engine"){
-drawEngine(t);
-return;
-}
+    drawEngine(time);
 
-if(type==="midengine"){
-drawMidEngine(t);
-return;
-}
+  }else if(
+    theme==="aero"
+  ){
 
-if(type==="aero"){
-drawAero(t);
-return;
-}
+    drawAero(time);
 
-if(type==="speed"){
-drawSpeed(t);
-return;
-}
+  }else if(
+    theme==="performance"
+  ){
 
-if(type==="legacy"){
-drawLegacy(t);
-return;
-}
+    drawSpeed(time);
 
-if(
-type==="moon"||
-type==="watermoon"
-){
+  }else if(
+    theme==="legacy"
+  ){
 
-drawMoon(t,type);
-return;
+    drawLegacy(time);
 
-}
+  }else if(
+    theme==="moon" ||
+    theme==="watermoon"
+  ){
 
-if(type==="orbiter"){
-drawOrbiter(t);
-return;
-}
+    drawMoon(time,theme==="watermoon");
 
-if(type==="lander"){
-drawLander(t);
-return;
-}
+  }else if(
+    theme==="orbiter"
+  ){
 
-if(type==="rover"){
-drawRover(t);
-return;
-}
+    drawOrbiter(time);
 
-if(
-type==="space"||
-type==="galaxy"
-){
+  }else if(
+    theme==="lander"
+  ){
 
-drawGalaxy(t);
-return;
+    drawLander(time);
 
-}
+  }else if(
+    theme==="rover"
+  ){
 
-if(type==="star"){
-drawStars(t);
-return;
-}
+    drawRover(time);
 
-if(type==="rocket"){
-drawRocket(t);
-return;
-}
+  }else if(
+    theme==="rocket"
+  ){
 
-if(
-type==="technology"||
-type==="tech"||
-type==="future"
-){
+    drawRocket(time);
 
-drawTech(t);
-return;
+  }else if(
+    theme==="galaxy"
+  ){
 
-}
+    drawGalaxy(time);
 
-if(
-type==="business"||
-type==="chart"
-){
+  }else if(
+    theme==="tech" ||
+    theme==="network" ||
+    theme==="future"
+  ){
 
-drawBusiness(t);
-return;
+    drawTechnology(time);
 
-}
+  }else if(
+    theme==="india" ||
+    theme==="culture"
+  ){
 
-if(type==="history"){
-drawHistory(t);
-return;
-}
+    drawIndia(time);
 
-if(
-type==="india"||
-type==="culture"
-){
+  }else if(
+    theme==="history"
+  ){
 
-drawIndia(t);
-return;
+    drawHistory(time);
 
-}
+  }else{
 
-drawGeneral(t);
+    drawGeneric(time);
+
+  }
 
 }
 
 
-/* =========================
-CAR VISUAL
-========================= */
+/* =========================================================
+   CAR ART
+========================================================= */
 
-function drawCar(t,type){
+function drawSportsCar(time){
 
-const W=canvas.width;
+  ctx.save();
 
-const y=
-350+
-Math.sin(t*1.4)*12;
+  const y =
+    470+
+    Math.sin(time*2)*8;
 
-ctx.save();
+  ctx.translate(W/2,y);
 
-ctx.translate(W/2,y);
+  ctx.scale(1.15,1.15);
 
-ctx.scale(1.15,1.15);
+  ctx.fillStyle="#d81f3f";
 
-ctx.fillStyle=
-type==="bmw"||
-type==="racing"||
-type==="gaming"
-?"#173a65"
-:"#9d111b";
+  ctx.beginPath();
 
-ctx.beginPath();
+  ctx.moveTo(-190,45);
 
-ctx.moveTo(-190,70);
-ctx.lineTo(-155,5);
-ctx.lineTo(-90,-55);
-ctx.lineTo(65,-55);
-ctx.lineTo(145,5);
-ctx.lineTo(185,60);
-ctx.lineTo(175,100);
-ctx.lineTo(-175,100);
-ctx.closePath();
+  ctx.lineTo(-145,-15);
 
-ctx.fill();
+  ctx.lineTo(-75,-55);
 
-ctx.fillStyle="#09111b";
+  ctx.lineTo(70,-55);
 
-ctx.beginPath();
+  ctx.lineTo(150,-10);
 
-ctx.moveTo(-70,-45);
-ctx.lineTo(55,-45);
-ctx.lineTo(105,0);
-ctx.lineTo(-115,0);
-ctx.closePath();
+  ctx.lineTo(195,35);
 
-ctx.fill();
+  ctx.lineTo(180,65);
 
-ctx.fillStyle="#050505";
+  ctx.lineTo(-180,65);
 
-ctx.beginPath();
-ctx.arc(-115,90,38,0,Math.PI*2);
-ctx.fill();
+  ctx.closePath();
 
-ctx.beginPath();
-ctx.arc(115,90,38,0,Math.PI*2);
-ctx.fill();
+  ctx.fill();
 
-ctx.restore();
+  ctx.fillStyle="#080b12";
 
-}
+  ctx.beginPath();
 
+  ctx.moveTo(-85,-48);
 
-/* =========================
-ENGINE
-========================= */
+  ctx.lineTo(-35,-85);
 
-function drawEngine(t){
+  ctx.lineTo(55,-75);
 
-const W=canvas.width;
+  ctx.lineTo(100,-28);
 
-ctx.strokeStyle="#ff4b30";
-ctx.lineWidth=12;
+  ctx.closePath();
 
-for(let i=0;i<6;i++){
+  ctx.fill();
 
-const x=W/2-150+i*60;
+  ctx.fillStyle="#121a28";
 
-ctx.beginPath();
+  ctx.beginPath();
 
-ctx.moveTo(x,270);
-ctx.lineTo(x+30,440);
+  ctx.arc(-115,65,32,0,Math.PI*2);
 
-ctx.stroke();
+  ctx.arc(125,65,32,0,Math.PI*2);
 
-}
+  ctx.fill();
 
-ctx.strokeStyle="#f2f2f2";
-ctx.lineWidth=5;
+  ctx.fillStyle="#bfc9d9";
 
-ctx.beginPath();
+  ctx.beginPath();
 
-ctx.arc(
-W/2,
-350,
-125+Math.sin(t*2)*5,
-0,
-Math.PI*2
-);
+  ctx.arc(-115,65,14,0,Math.PI*2);
 
-ctx.stroke();
+  ctx.arc(125,65,14,0,Math.PI*2);
+
+  ctx.fill();
+
+  ctx.restore();
 
 }
 
 
-/* =========================
-MID ENGINE
-========================= */
+/* =========================================================
+   ENGINE ART
+========================================================= */
 
-function drawMidEngine(t){
+function drawEngine(time){
 
-const W=canvas.width;
+  ctx.save();
 
-ctx.fillStyle="#1e2b3d";
+  ctx.translate(W/2,470);
 
-ctx.fillRect(
-W/2-130,
-250,
-260,
-190
-);
+  ctx.rotate(Math.sin(time)*.03);
 
-ctx.fillStyle="#d43a24";
+  ctx.strokeStyle="#a8c7ff";
 
-ctx.fillRect(
-W/2-85,
-275,
-170,
-100
-);
+  ctx.lineWidth=10;
 
-ctx.fillStyle="#fff";
+  ctx.beginPath();
 
-ctx.font="bold 25px Arial";
+  ctx.arc(0,0,125,0,Math.PI*2);
 
-ctx.textAlign="center";
+  ctx.stroke();
 
-ctx.fillText(
-"MID ENGINE",
-W/2,
-415
-);
+  ctx.strokeStyle="#ff3e65";
 
-ctx.textAlign="left";
+  ctx.lineWidth=16;
 
-}
+  for(let i=0;i<8;i++){
 
+    const a =
+      time*.7+
+      i*Math.PI/4;
 
-/* =========================
-AERO
-========================= */
+    ctx.beginPath();
 
-function drawAero(t){
+    ctx.moveTo(
+      Math.cos(a)*45,
+      Math.sin(a)*45
+    );
 
-const W=canvas.width;
+    ctx.lineTo(
+      Math.cos(a)*110,
+      Math.sin(a)*110
+    );
 
-ctx.strokeStyle="rgba(90,190,255,.8)";
-ctx.lineWidth=5;
+    ctx.stroke();
 
-for(let i=0;i<9;i++){
+  }
 
-const y=170+i*48;
+  ctx.fillStyle="#151d2d";
 
-const offset=(t*100+i*70)%W;
+  ctx.beginPath();
 
-ctx.beginPath();
+  ctx.arc(0,0,48,0,Math.PI*2);
 
-ctx.moveTo(offset-180,y);
+  ctx.fill();
 
-ctx.quadraticCurveTo(
-offset,
-y-35,
-offset+180,
-y
-);
-
-ctx.stroke();
-
-}
-
-ctx.fillStyle="#fff";
-
-ctx.font="bold 55px Arial";
-
-ctx.textAlign="center";
-
-ctx.fillText(
-"AERO",
-W/2,
-390
-);
-
-ctx.textAlign="left";
+  ctx.restore();
 
 }
 
 
-/* =========================
-SPEED
-========================= */
+/* =========================================================
+   AERO
+========================================================= */
 
-function drawSpeed(t){
+function drawAero(time){
 
-const W=canvas.width;
+  ctx.save();
 
-ctx.strokeStyle="rgba(255,255,255,.75)";
-ctx.lineWidth=4;
+  ctx.translate(W/2,450);
 
-for(let i=0;i<18;i++){
+  ctx.strokeStyle="#70a9ff";
 
-const y=120+i*35;
+  ctx.lineWidth=5;
 
-const length=80+(i%5)*35;
+  for(let i=-3;i<=3;i++){
 
-const x=(i*83+t*500)%W;
+    ctx.beginPath();
 
-ctx.beginPath();
+    ctx.moveTo(-210,i*45);
 
-ctx.moveTo(x,y);
+    ctx.bezierCurveTo(
+      -80,
+      i*45-40,
+      90,
+      i*45+40,
+      220,
+      i*45
+    );
 
-ctx.lineTo(x+length,y);
+    ctx.stroke();
 
-ctx.stroke();
+  }
 
-}
+  ctx.fillStyle="#e22b4b";
 
-}
+  ctx.beginPath();
 
+  ctx.moveTo(-150,80);
 
-/* =========================
-LEGACY
-========================= */
+  ctx.lineTo(150,80);
 
-function drawLegacy(t){
+  ctx.lineTo(100,125);
 
-const W=canvas.width;
+  ctx.lineTo(-100,125);
 
-ctx.strokeStyle="rgba(255,215,100,.7)";
-ctx.lineWidth=6;
+  ctx.closePath();
 
-ctx.beginPath();
+  ctx.fill();
 
-ctx.arc(
-W/2,
-350,
-150+Math.sin(t)*8,
-0,
-Math.PI*2
-);
-
-ctx.stroke();
-
-ctx.fillStyle="#fff";
-
-ctx.font="bold 42px Arial";
-
-ctx.textAlign="center";
-
-ctx.fillText(
-"LEGACY",
-W/2,
-365
-);
-
-ctx.textAlign="left";
+  ctx.restore();
 
 }
 
 
-/* =========================
-MOON
-========================= */
+/* =========================================================
+   SPEED
+========================================================= */
 
-function drawMoon(t,type){
+function drawSpeed(time){
 
-const W=canvas.width;
+  ctx.save();
 
-const x=
-W/2+
-Math.sin(t*.4)*25;
+  for(let i=0;i<15;i++){
 
-const y=330;
+    const y =
+      260+i*45;
 
-const r=145;
+    const x =
+      ((time*400)+(i*100))%700-80;
 
-ctx.fillStyle="#d9d9d9";
+    ctx.strokeStyle=
+      "rgba(255,255,255,"+
+      (.15+(i%3)*.08)+")";
 
-ctx.beginPath();
+    ctx.lineWidth=3+i%4;
 
-ctx.arc(
-x,y,r,
-0,
-Math.PI*2
-);
+    ctx.beginPath();
 
-ctx.fill();
+    ctx.moveTo(x,y);
 
-ctx.fillStyle="rgba(70,70,70,.28)";
+    ctx.lineTo(x+180,y);
 
-for(let i=0;i<12;i++){
+    ctx.stroke();
 
-ctx.beginPath();
+  }
 
-ctx.arc(
-x-80+i*37,
-y-60+(i%4)*42,
-12+(i%3)*7,
-0,
-Math.PI*2
-);
+  ctx.restore();
 
-ctx.fill();
-
-}
-
-if(type==="watermoon"){
-
-ctx.strokeStyle="rgba(80,200,255,.9)";
-ctx.lineWidth=8;
-
-ctx.beginPath();
-
-ctx.arc(
-x,
-y,
-100,
-.2,
-1.4
-);
-
-ctx.stroke();
-
-}
+  drawSportsCar(time);
 
 }
 
 
-/* =========================
-ORBITER
-========================= */
+/* =========================================================
+   LEGACY
+========================================================= */
 
-function drawOrbiter(t){
+function drawLegacy(time){
 
-const W=canvas.width;
+  ctx.save();
 
-const x=
-W/2+
-Math.sin(t)*120;
+  ctx.strokeStyle="#d4b36a";
 
-const y=
-300+
-Math.cos(t*.7)*40;
+  ctx.lineWidth=4;
 
-ctx.fillStyle="#c9d0d8";
+  ctx.beginPath();
 
-ctx.fillRect(
-x-60,
-y-25,
-120,
-50
-);
+  ctx.arc(
+    W/2,
+    430,
+    150,
+    0,
+    Math.PI*2
+  );
 
-ctx.fillStyle="#315c91";
+  ctx.stroke();
 
-ctx.fillRect(
-x-130,
-y-20,
-60,
-40
-);
+  ctx.fillStyle="#d4b36a";
 
-ctx.fillRect(
-x+70,
-y-20,
-60,
-40
-);
+  ctx.font="800 38px Arial";
 
-ctx.fillStyle="#fff";
+  ctx.textAlign="center";
 
-ctx.beginPath();
+  ctx.fillText(
+    "LEGACY",
+    W/2,
+    445
+  );
 
-ctx.arc(
-x,y,18,
-0,
-Math.PI*2
-);
-
-ctx.fill();
+  ctx.restore();
 
 }
 
 
-/* =========================
-LANDER
-========================= */
+/* =========================================================
+   MOON
+========================================================= */
 
-function drawLander(t){
+function drawMoon(time,water){
 
-const W=canvas.width;
+  const x=W/2;
 
-const y=340+Math.sin(t)*15;
+  const y=390;
 
-ctx.fillStyle="#c7a26a";
+  const r=145;
 
-ctx.fillRect(
-W/2-65,
-y-65,
-130,
-100
-);
+  const glow=
+    ctx.createRadialGradient(
+      x,y,20,
+      x,y,220
+    );
 
-ctx.strokeStyle="#ddd";
-ctx.lineWidth=7;
+  glow.addColorStop(
+    0,
+    water
+      ?"rgba(80,190,255,.28)"
+      :"rgba(190,210,255,.22)"
+  );
 
-for(let i=-1;i<=1;i+=2){
+  glow.addColorStop(
+    1,
+    "rgba(0,0,0,0)"
+  );
 
-ctx.beginPath();
+  ctx.fillStyle=glow;
 
-ctx.moveTo(
-W/2+i*45,
-y+35
-);
+  ctx.fillRect(
+    x-220,
+    y-220,
+    440,
+    440
+  );
 
-ctx.lineTo(
-W/2+i*85,
-y+100
-);
+  ctx.fillStyle="#c6cbd5";
 
-ctx.stroke();
+  ctx.beginPath();
 
-}
+  ctx.arc(
+    x,
+    y,
+    r,
+    0,
+    Math.PI*2
+  );
 
-}
+  ctx.fill();
 
+  ctx.fillStyle="#9298a5";
 
-/* =========================
-ROVER
-========================= */
+  for(let i=0;i<18;i++){
 
-function drawRover(t){
+    const a=i*2.7;
 
-const W=canvas.width;
+    const rr=40+(i%5)*20;
 
-const x=
-W/2+
-Math.sin(t*.7)*100;
+    const cx=
+      x+Math.cos(a)*rr;
 
-const y=390;
+    const cy=
+      y+Math.sin(a)*rr;
 
-ctx.fillStyle="#d2c29d";
+    ctx.beginPath();
 
-ctx.fillRect(
-x-90,
-y-50,
-180,
-80
-);
+    ctx.arc(
+      cx,
+      cy,
+      8+(i%4)*4,
+      0,
+      Math.PI*2
+    );
 
-ctx.fillStyle="#222";
+    ctx.fill();
 
-for(let i=-1;i<=1;i+=2){
+  }
 
-ctx.beginPath();
+  if(water){
 
-ctx.arc(
-x+i*65,
-y+45,
-28,
-0,
-Math.PI*2
-);
+    ctx.strokeStyle="#61d8ff";
 
-ctx.fill();
+    ctx.lineWidth=6;
 
-}
+    ctx.beginPath();
 
-}
+    ctx.arc(
+      x,
+      y,
+      r-20,
+      .4,
+      1.8
+    );
 
+    ctx.stroke();
 
-/* =========================
-GALAXY
-========================= */
-
-function drawGalaxy(t){
-
-const W=canvas.width;
-
-for(let i=0;i<90;i++){
-
-const angle=i*.45+t*.15;
-const radius=i*3.5;
-
-const x=
-W/2+
-Math.cos(angle)*radius;
-
-const y=
-330+
-Math.sin(angle)*radius*.45;
-
-ctx.fillStyle="rgba(255,255,255,.8)";
-
-ctx.fillRect(
-x,y,4,4
-);
-
-}
+  }
 
 }
 
 
-/* =========================
-STARS
-========================= */
+/* =========================================================
+   ORBITER
+========================================================= */
 
-function drawStars(t){
+function drawOrbiter(time){
 
-const W=canvas.width;
+  ctx.save();
 
-for(let i=0;i<70;i++){
+  ctx.translate(W/2,400);
 
-const x=(i*91)%W;
-const y=(i*137)%520;
+  ctx.rotate(time*.15);
 
-const a=
-.4+
-.6*((Math.sin(t*2+i)+1)/2);
+  ctx.fillStyle="#d8dce5";
 
-ctx.fillStyle=
-`rgba(255,255,255,${a})`;
+  ctx.fillRect(
+    -50,
+    -30,
+    100,
+    60
+  );
 
-ctx.beginPath();
+  ctx.fillStyle="#426cff";
 
-ctx.arc(
-x,y,3,
-0,
-Math.PI*2
-);
+  ctx.fillRect(
+    -170,
+    -20,
+    110,
+    40
+  );
 
-ctx.fill();
+  ctx.fillRect(
+    60,
+    -20,
+    110,
+    40
+  );
 
-}
+  ctx.strokeStyle="#c7d5ff";
 
-}
+  ctx.lineWidth=3;
 
+  ctx.beginPath();
 
-/* =========================
-ROCKET
-========================= */
+  ctx.moveTo(-60,0);
 
-function drawRocket(t){
+  ctx.lineTo(-190,0);
 
-const W=canvas.width;
+  ctx.moveTo(60,0);
 
-const y=
-350-(t*35%180);
+  ctx.lineTo(190,0);
 
-ctx.save();
+  ctx.stroke();
 
-ctx.translate(W/2,y);
-
-ctx.rotate(-.15);
-
-ctx.fillStyle="#d6dce2";
-
-ctx.beginPath();
-
-ctx.moveTo(0,-110);
-
-ctx.quadraticCurveTo(
-65,-40,
-55,70
-);
-
-ctx.lineTo(-55,70);
-
-ctx.quadraticCurveTo(
--65,-40,
-0,-110
-);
-
-ctx.fill();
-
-ctx.fillStyle="#3e83c9";
-
-ctx.beginPath();
-
-ctx.arc(
-0,-30,
-18,
-0,
-Math.PI*2
-);
-
-ctx.fill();
-
-ctx.fillStyle="#ff8b24";
-
-ctx.beginPath();
-
-ctx.moveTo(-28,65);
-ctx.lineTo(0,150);
-ctx.lineTo(28,65);
-ctx.fill();
-
-ctx.restore();
+  ctx.restore();
 
 }
 
 
-/* =========================
-TECH
-========================= */
+/* =========================================================
+   LANDER
+========================================================= */
 
-function drawTech(t){
+function drawLander(time){
 
-const W=canvas.width;
+  ctx.save();
 
-for(let i=0;i<12;i++){
+  ctx.translate(
+    W/2,
+    430+Math.sin(time*1.5)*12
+  );
 
-const x=50+i*42;
+  ctx.fillStyle="#d5d9e2";
 
-const h=
-80+
-Math.abs(Math.sin(t*2+i))*260;
+  ctx.fillRect(
+    -55,
+    -65,
+    110,
+    90
+  );
 
-ctx.fillStyle="rgba(60,180,255,.55)";
+  ctx.fillStyle="#303849";
 
-ctx.fillRect(
-x,
-500-h,
-25,
-h
-);
+  ctx.fillRect(
+    -30,
+    -35,
+    60,
+    35
+  );
 
-}
+  ctx.strokeStyle="#d5d9e2";
 
-ctx.fillStyle="#fff";
+  ctx.lineWidth=8;
 
-ctx.font="bold 46px Arial";
+  for(let i=-1;i<=1;i+=2){
 
-ctx.textAlign="center";
+    ctx.beginPath();
 
-ctx.fillText(
-"TECH",
-W/2,
-300
-);
+    ctx.moveTo(i*40,15);
 
-ctx.textAlign="left";
+    ctx.lineTo(i*90,80);
 
-}
+    ctx.stroke();
 
+  }
 
-/* =========================
-BUSINESS
-========================= */
-
-function drawBusiness(t){
-
-const W=canvas.width;
-
-ctx.strokeStyle="#69e39b";
-ctx.lineWidth=7;
-
-ctx.beginPath();
-
-ctx.moveTo(70,450);
-
-for(let i=0;i<7;i++){
-
-const x=70+i*70;
-
-const y=
-440-i*35+
-Math.sin(t+i)*10;
-
-ctx.lineTo(x,y);
-
-}
-
-ctx.stroke();
-
-ctx.fillStyle="#fff";
-
-ctx.font="bold 44px Arial";
-
-ctx.textAlign="center";
-
-ctx.fillText(
-"GROWTH",
-W/2,
-280
-);
-
-ctx.textAlign="left";
+  ctx.restore();
 
 }
 
 
-/* =========================
-HISTORY
-========================= */
+/* =========================================================
+   ROVER
+========================================================= */
 
-function drawHistory(t){
+function drawRover(time){
 
-const W=canvas.width;
+  ctx.save();
 
-ctx.strokeStyle="#d9b26f";
-ctx.lineWidth=10;
+  ctx.translate(
+    W/2,
+    480+Math.sin(time)*5
+  );
 
-ctx.beginPath();
+  ctx.fillStyle="#d8dce5";
 
-ctx.moveTo(80,410);
-ctx.lineTo(W-80,410);
+  ctx.fillRect(
+    -90,
+    -50,
+    180,
+    75
+  );
 
-ctx.stroke();
+  ctx.fillStyle="#222b3c";
 
-for(let i=0;i<5;i++){
+  ctx.beginPath();
 
-const x=90+i*90;
+  ctx.arc(-65,35,25,0,Math.PI*2);
 
-ctx.fillStyle="#e7c98b";
+  ctx.arc(65,35,25,0,Math.PI*2);
 
-ctx.beginPath();
+  ctx.fill();
 
-ctx.arc(
-x,410,17,
-0,
-Math.PI*2
-);
+  ctx.strokeStyle="#6aa5ff";
 
-ctx.fill();
+  ctx.lineWidth=6;
 
-}
+  ctx.beginPath();
 
-}
+  ctx.moveTo(0,-50);
 
+  ctx.lineTo(0,-130);
 
-/* =========================
-INDIA
-========================= */
+  ctx.stroke();
 
-function drawIndia(t){
+  ctx.fillStyle="#65a9ff";
 
-const W=canvas.width;
+  ctx.beginPath();
 
-ctx.fillStyle="#e58a3b";
+  ctx.arc(0,-140,12,0,Math.PI*2);
 
-ctx.beginPath();
+  ctx.fill();
 
-ctx.moveTo(W/2-90,190);
-ctx.lineTo(W/2+75,240);
-ctx.lineTo(W/2+55,330);
-ctx.lineTo(W/2+15,390);
-ctx.lineTo(W/2-5,490);
-ctx.lineTo(W/2-50,420);
-ctx.lineTo(W/2-80,320);
-ctx.closePath();
-
-ctx.fill();
-
-ctx.fillStyle="#fff";
-
-ctx.font="bold 45px Arial";
-
-ctx.textAlign="center";
-
-ctx.fillText(
-"INDIA",
-W/2,
-570
-);
-
-ctx.textAlign="left";
+  ctx.restore();
 
 }
 
 
-/* =========================
-GENERAL
-========================= */
+/* =========================================================
+   ROCKET
+========================================================= */
 
-function drawGeneral(t){
+function drawRocket(time){
 
-const W=canvas.width;
+  ctx.save();
 
-for(let i=0;i<9;i++){
+  ctx.translate(
+    W/2,
+    450-Math.sin(time*1.5)*25
+  );
 
-const x=
-W/2+
-Math.cos(t*.5+i)*150;
+  ctx.fillStyle="#dce1ec";
 
-const y=
-330+
-Math.sin(t*.7+i)*150;
+  ctx.beginPath();
 
-ctx.fillStyle=
-`rgba(80,150,255,${.25+i*.04})`;
+  ctx.moveTo(0,-150);
 
-ctx.beginPath();
+  ctx.lineTo(55,20);
 
-ctx.arc(
-x,y,
-18+i*3,
-0,
-Math.PI*2
-);
+  ctx.lineTo(0,80);
 
-ctx.fill();
+  ctx.lineTo(-55,20);
+
+  ctx.closePath();
+
+  ctx.fill();
+
+  ctx.fillStyle="#ea3f55";
+
+  ctx.beginPath();
+
+  ctx.moveTo(-25,55);
+
+  ctx.lineTo(0,140+Math.sin(time*8)*15);
+
+  ctx.lineTo(25,55);
+
+  ctx.closePath();
+
+  ctx.fill();
+
+  ctx.restore();
 
 }
 
+
+/* =========================================================
+   GALAXY
+========================================================= */
+
+function drawGalaxy(time){
+
+  ctx.save();
+
+  ctx.translate(W/2,420);
+
+  ctx.rotate(time*.04);
+
+  for(let i=0;i<90;i++){
+
+    const a=i*.7;
+
+    const r=
+      (i*13)%190;
+
+    const x=Math.cos(a)*r;
+
+    const y=Math.sin(a)*r*.55;
+
+    ctx.fillStyle=
+      "rgba(160,190,255,"+
+      (.2+(i%5)/10)+")";
+
+    ctx.beginPath();
+
+    ctx.arc(
+      x,
+      y,
+      2+(i%3),
+      0,
+      Math.PI*2
+    );
+
+    ctx.fill();
+
+  }
+
+  ctx.restore();
+
 }
 
 
-/* =========================
-TEXT
-========================= */
+/* =========================================================
+   TECHNOLOGY
+========================================================= */
+
+function drawTechnology(time){
+
+  ctx.save();
+
+  ctx.strokeStyle="rgba(75,190,255,.45)";
+
+  ctx.lineWidth=2;
+
+  const spacing=65;
+
+  for(let x=0;x<W;x+=spacing){
+
+    ctx.beginPath();
+
+    ctx.moveTo(x,180);
+
+    ctx.lineTo(
+      x+Math.sin(time+x)*30,
+      700
+    );
+
+    ctx.stroke();
+
+  }
+
+  for(let y=180;y<700;y+=spacing){
+
+    ctx.beginPath();
+
+    ctx.moveTo(50,y);
+
+    ctx.lineTo(W-50,y);
+
+    ctx.stroke();
+
+  }
+
+  ctx.fillStyle="#56d9ff";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    W/2,
+    430,
+    70+Math.sin(time*2)*8,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+  ctx.fillStyle="#07101a";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    W/2,
+    430,
+    35,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+  ctx.restore();
+
+}
+
+
+/* =========================================================
+   INDIA
+========================================================= */
+
+function drawIndia(time){
+
+  ctx.save();
+
+  ctx.translate(W/2,420);
+
+  ctx.fillStyle="#f0a044";
+
+  ctx.beginPath();
+
+  ctx.moveTo(-40,-170);
+
+  ctx.lineTo(60,-100);
+
+  ctx.lineTo(85,10);
+
+  ctx.lineTo(35,100);
+
+  ctx.lineTo(0,190);
+
+  ctx.lineTo(-50,85);
+
+  ctx.lineTo(-80,-20);
+
+  ctx.closePath();
+
+  ctx.fill();
+
+  ctx.strokeStyle="#ffffff";
+
+  ctx.lineWidth=4;
+
+  ctx.stroke();
+
+  ctx.restore();
+
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+function drawHistory(time){
+
+  ctx.save();
+
+  ctx.strokeStyle="#d3b273";
+
+  ctx.lineWidth=5;
+
+  for(let i=0;i<6;i++){
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      100+i*65,
+      280
+    );
+
+    ctx.lineTo(
+      100+i*65,
+      620
+    );
+
+    ctx.stroke();
+
+  }
+
+  ctx.beginPath();
+
+  ctx.moveTo(70,620);
+
+  ctx.lineTo(470,620);
+
+  ctx.stroke();
+
+  ctx.restore();
+
+}
+
+
+/* =========================================================
+   GENERIC
+========================================================= */
+
+function drawGeneric(time){
+
+  ctx.save();
+
+  for(let i=0;i<9;i++){
+
+    const x=
+      W/2+
+      Math.cos(time*.5+i)*150;
+
+    const y=
+      390+
+      Math.sin(time*.7+i)*130;
+
+    ctx.fillStyle=
+      "rgba(90,150,255,.35)";
+
+    ctx.beginPath();
+
+    ctx.arc(
+      x,
+      y,
+      12+(i%4)*5,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fill();
+
+  }
+
+  ctx.restore();
+
+}
+
+
+/* =========================================================
+   CAPTIONS
+========================================================= */
+
+function drawCaption(scene,index,time,local){
+
+  /* top scene label */
+
+  ctx.fillStyle="rgba(0,0,0,.42)";
+
+  ctx.fillRect(
+    25,
+    35,
+    W-50,
+    60
+  );
+
+  ctx.fillStyle="#76aaff";
+
+  ctx.font="700 24px Arial";
+
+  ctx.textAlign="left";
+
+  ctx.fillText(
+    "SCENE "+(index+1)+" / "+currentPlan.scenes.length,
+    45,
+    73
+  );
+
+
+  /* bottom caption */
+
+  const panelY=665;
+
+  ctx.fillStyle="rgba(3,7,14,.84)";
+
+  ctx.fillRect(
+    25,
+    panelY,
+    W-50,
+    245
+  );
+
+  ctx.fillStyle="white";
+
+  ctx.font="800 34px Arial";
+
+  ctx.textAlign="left";
+
+  wrapText(
+    scene.title,
+    50,
+    panelY+55,
+    W-100,
+    40
+  );
+
+  ctx.fillStyle="#b8c5dc";
+
+  ctx.font="500 22px Arial";
+
+  wrapText(
+    scene.text,
+    50,
+    panelY+105,
+    W-100,
+    31
+  );
+
+
+  /* animated progress line */
+
+  ctx.fillStyle="#182238";
+
+  ctx.fillRect(
+    45,
+    920,
+    W-90,
+    7
+  );
+
+  ctx.fillStyle="#55a0ff";
+
+  ctx.fillRect(
+    45,
+    920,
+    (W-90)*local,
+    7
+  );
+
+}
+
+
+/* =========================================================
+   TEXT WRAPPING
+========================================================= */
 
 function wrapText(text,x,y,maxWidth,lineHeight){
 
-const words=text.split(" ");
+  const words=text.split(" ");
 
-let line="";
+  let line="";
 
-for(let n=0;n<words.length;n++){
+  for(let n=0;n<words.length;n++){
 
-const test=line+words[n]+" ";
+    const test=
+      line+
+      words[n]+
+      " ";
 
-const width=ctx.measureText(test).width;
+    const width=
+      ctx.measureText(test).width;
 
-if(width>maxWidth&&n>0){
+    if(width>maxWidth && n>0){
 
-ctx.fillText(line,x,y);
+      ctx.fillText(
+        line,
+        x,
+        y
+      );
 
-line=words[n]+" ";
+      line=
+        words[n]+" ";
 
-y+=lineHeight;
+      y+=lineHeight;
 
-}else{
+    }else{
 
-line=test;
+      line=test;
 
-}
+    }
 
-}
+  }
 
-ctx.fillText(line,x,y);
-
-}
-
-
-/* =========================
-ROUND RECT
-========================= */
-
-function roundRect(x,y,w,h,r){
-
-ctx.beginPath();
-
-ctx.moveTo(x+r,y);
-
-ctx.lineTo(x+w-r,y);
-
-ctx.quadraticCurveTo(
-x+w,y,
-x+w,y+r
-);
-
-ctx.lineTo(
-x+w,
-y+h-r
-);
-
-ctx.quadraticCurveTo(
-x+w,
-y+h,
-x+w-r,
-y+h
-);
-
-ctx.lineTo(
-x+r,
-y+h
-);
-
-ctx.quadraticCurveTo(
-x,
-y+h,
-x,
-y+h-r
-);
-
-ctx.lineTo(
-x,
-y+r
-);
-
-ctx.quadraticCurveTo(
-x,
-y,
-x+r,
-y
-);
-
-ctx.closePath();
-
-ctx.fill();
+  ctx.fillText(
+    line,
+    x,
+    y
+  );
 
 }
 
 
-/* =========================
-EMPTY
-========================= */
+/* =========================================================
+   MUSIC ENGINE
+========================================================= */
 
-function drawEmpty(){
+function createMusic(){
 
-ctx.fillStyle="#050b13";
+  const AudioContext =
+    window.AudioContext ||
+    window.webkitAudioContext;
 
-ctx.fillRect(
-0,0,
-canvas.width,
-canvas.height
-);
+  if(!AudioContext){
 
-ctx.fillStyle="#fff";
+    throw new Error(
+      "Web Audio is not supported by this browser."
+    );
 
-ctx.font="bold 34px Arial";
+  }
 
-ctx.textAlign="center";
+  const audioContext =
+    new AudioContext();
 
-ctx.fillText(
-"Generate a Reel",
-canvas.width/2,
-canvas.height/2
-);
+  const destination =
+    audioContext.createMediaStreamDestination();
 
-ctx.textAlign="left";
+  const master =
+    audioContext.createGain();
+
+  /*
+    IMPORTANT:
+    The master gain connects directly to
+    MediaStreamDestination.
+
+    That stream is later attached to
+    MediaRecorder.
+
+    This is the audio that goes into
+    the downloaded WebM.
+  */
+
+  master.connect(destination);
+
+  master.gain.value =
+    musicEnabled
+      ? musicVolume
+      : 0;
+
+
+  /*
+    A musical chord progression rather than
+    a low-frequency vibration.
+  */
+
+  const notes = [
+
+    261.63, // C4
+    329.63, // E4
+    392.00, // G4
+    523.25, // C5
+
+    293.66, // D4
+    349.23, // F4
+    440.00, // A4
+    587.33, // D5
+
+    329.63, // E4
+    392.00, // G4
+    493.88, // B4
+    659.25  // E5
+
+  ];
+
+  const oscillators=[];
+
+  const gains=[];
+
+  const now =
+    audioContext.currentTime;
+
+
+  notes.forEach((frequency,i)=>{
+
+    const osc =
+      audioContext.createOscillator();
+
+    const gain =
+      audioContext.createGain();
+
+    /*
+      Triangle wave produces a softer
+      musical tone than the previous
+      low sine rumble.
+    */
+
+    osc.type="triangle";
+
+    osc.frequency.value=frequency;
+
+    const start =
+      now+(i*0.42);
+
+    const end =
+      start+0.36;
+
+    gain.gain.setValueAtTime(
+      0,
+      start
+    );
+
+    gain.gain.linearRampToValueAtTime(
+      0.20,
+      start+0.04
+    );
+
+    gain.gain.linearRampToValueAtTime(
+      0.001,
+      end
+    );
+
+    osc.connect(gain);
+
+    gain.connect(master);
+
+    osc.start(start);
+
+    osc.stop(end+0.05);
+
+    oscillators.push(osc);
+
+    gains.push(gain);
+
+  });
+
+
+  /*
+    Repeat the melody continuously.
+    Each group starts every 5.04 seconds.
+  */
+
+  let sequenceTimer=null;
+
+  function scheduleLoop(){
+
+    if(audioContext.state==="closed"){
+      return;
+    }
+
+    const base =
+      audioContext.currentTime;
+
+    notes.forEach((frequency,i)=>{
+
+      const osc =
+        audioContext.createOscillator();
+
+      const gain =
+        audioContext.createGain();
+
+      osc.type="triangle";
+
+      osc.frequency.value=frequency;
+
+      const start =
+        base+(i*0.42);
+
+      const end =
+        start+0.36;
+
+      gain.gain.setValueAtTime(
+        0,
+        start
+      );
+
+      gain.gain.linearRampToValueAtTime(
+        0.20,
+        start+0.04
+      );
+
+      gain.gain.linearRampToValueAtTime(
+        0.001,
+        end
+      );
+
+      osc.connect(gain);
+
+      gain.connect(master);
+
+      osc.start(start);
+
+      osc.stop(end+0.05);
+
+    });
+
+    sequenceTimer =
+      setTimeout(
+        scheduleLoop,
+        4300
+      );
+
+  }
+
+
+  /*
+    Start only after the context is resumed.
+  */
+
+  const resumePromise =
+    audioContext.resume();
+
+
+  function stop(){
+
+    if(sequenceTimer){
+
+      clearTimeout(sequenceTimer);
+
+      sequenceTimer=null;
+
+    }
+
+    try{
+
+      master.gain.cancelScheduledValues(
+        audioContext.currentTime
+      );
+
+      master.gain.setValueAtTime(
+        0,
+        audioContext.currentTime
+      );
+
+    }catch(e){}
+
+    setTimeout(()=>{
+
+      try{
+        audioContext.close();
+      }catch(e){}
+
+    },100);
+
+  }
+
+
+  function setVolume(value){
+
+    musicVolume=value;
+
+    if(audioContext.state!=="closed"){
+
+      master.gain.setTargetAtTime(
+        musicEnabled ? value : 0,
+        audioContext.currentTime,
+        0.03
+      );
+
+    }
+
+  }
+
+
+  function setEnabled(enabled){
+
+    musicEnabled=enabled;
+
+    if(audioContext.state!=="closed"){
+
+      master.gain.setTargetAtTime(
+        enabled ? musicVolume : 0,
+        audioContext.currentTime,
+        0.03
+      );
+
+    }
+
+  }
+
+
+  /*
+    Start loop after resume.
+  */
+
+  resumePromise
+    .then(()=>{
+
+      scheduleLoop();
+
+    })
+    .catch(()=>{
+
+      scheduleLoop();
+
+    });
+
+
+  return {
+
+    audioContext,
+    destination,
+    stop,
+    setVolume,
+    setEnabled
+
+  };
 
 }
 
 
-/* =========================
-MUSIC ENGINE
-========================= */
-
-async function createMusic(){
-
-if(
-!document.getElementById("musicEnabled").checked
-){
-
-return null;
-
-}
-
-audioContext=
-new(
-window.AudioContext||
-window.webkitAudioContext
-)();
-
-if(audioContext.state==="suspended"){
-
-await audioContext.resume();
-
-}
-
-const destination=
-audioContext.createMediaStreamDestination();
-
-const master=
-audioContext.createGain();
-
-const volume=
-Number(
-document.getElementById("musicVolume").value
-)/100;
-
-master.gain.value=
-Math.max(.001,volume*.22);
-
-master.connect(destination);
-
-musicNodes=[];
-
-const notes=[
-110,
-138.59,
-164.81,
-196,
-220
-];
-
-notes.forEach((freq,i)=>{
-
-const osc=
-audioContext.createOscillator();
-
-const gain=
-audioContext.createGain();
-
-osc.type=
-i%2===0?
-"sine":
-"triangle";
-
-osc.frequency.value=freq;
-
-gain.gain.value=.22;
-
-osc.connect(gain);
-
-gain.connect(master);
-
-osc.start();
-
-musicNodes.push({
-osc,
-gain
-});
-
-});
-
-return {
-
-stream:destination.stream,
-
-stop:function(){
-
-musicNodes.forEach(n=>{
-
-try{
-n.osc.stop();
-}catch(e){}
-
-});
-
-musicNodes=[];
-
-try{
-audioContext.close();
-}catch(e){}
-
-}
-
-};
-
-}
-
-
-/* =========================
-RENDER
-========================= */
+/* =========================================================
+   RENDER
+========================================================= */
 
 async function renderReel(){
 
-if(rendering)return;
+  if(!currentPlan){
 
-if(!currentPlan){
+    el("renderText").textContent=
+      "Generate a reel first.";
 
-document.getElementById("renderStatus").textContent=
-"Generate a reel first.";
+    return;
 
-return;
+  }
+
+  if(renderRunning){
+
+    el("renderText").textContent=
+      "A render is already running.";
+
+    return;
+
+  }
+
+  stopPreview();
+
+  stopVoice();
+
+  renderRunning=true;
+
+  renderCancelled=false;
+
+  el("renderProgress").style.width="0%";
+
+  el("renderText").textContent=
+    "Preparing video and music...";
+
+
+  let music=null;
+
+  let recorder=null;
+
+  let videoStream=null;
+
+  let combinedStream=null;
+
+  let chunks=[];
+
+
+  try{
+
+    /*
+      Create canvas video stream.
+    */
+
+    videoStream =
+      canvas.captureStream(30);
+
+
+    /*
+      Create the music stream FIRST.
+      This is important because the MediaRecorder
+      receives the Web Audio MediaStream directly.
+    */
+
+    if(musicEnabled){
+
+      music=createMusic();
+
+      /*
+        Give AudioContext time to start.
+      */
+
+      await new Promise(
+        resolve=>setTimeout(resolve,250)
+      );
+
+    }
+
+
+    const tracks =
+      [
+        ...videoStream.getVideoTracks()
+      ];
+
+
+    if(
+      music &&
+      music.destination &&
+      music.destination.stream
+    ){
+
+      const audioTracks =
+        music.destination.stream
+          .getAudioTracks();
+
+      audioTracks.forEach(track=>{
+        tracks.push(track);
+      });
+
+    }
+
+
+    combinedStream =
+      new MediaStream(tracks);
+
+
+    /*
+      Prefer WebM VP9 + Opus.
+      Fall back to a browser-supported format.
+    */
+
+    let mimeType="";
+
+    const candidates=[
+
+      "video/webm;codecs=vp9,opus",
+
+      "video/webm;codecs=vp8,opus",
+
+      "video/webm"
+
+    ];
+
+
+    for(const type of candidates){
+
+      if(
+        MediaRecorder.isTypeSupported(type)
+      ){
+
+        mimeType=type;
+
+        break;
+
+      }
+
+    }
+
+
+    if(!mimeType){
+
+      throw new Error(
+        "This browser cannot create a WebM recording."
+      );
+
+    }
+
+
+    recorder =
+      new MediaRecorder(
+        combinedStream,
+        {
+          mimeType,
+          videoBitsPerSecond:5500000,
+          audioBitsPerSecond:128000
+        }
+      );
+
+
+    recorder.ondataavailable =
+      event=>{
+
+        if(event.data && event.data.size>0){
+
+          chunks.push(event.data);
+
+        }
+
+      };
+
+
+    const stopped =
+      new Promise((resolve,reject)=>{
+
+        recorder.onstop=resolve;
+
+        recorder.onerror=
+          event=>reject(
+            event.error ||
+            new Error("Recorder error")
+          );
+
+      });
+
+
+    recorder.start(500);
+
+
+    el("renderText").textContent=
+      "🎥 Rendering... Music is being recorded into the video.";
+
+
+    const total =
+      currentPlan.duration;
+
+    const start =
+      performance.now();
+
+
+    function renderLoop(now){
+
+      if(renderCancelled){
+
+        return;
+
+      }
+
+
+      const elapsed =
+        (now-start)/1000;
+
+
+      if(elapsed>=total){
+
+        drawFrame(total-0.001);
+
+        return;
+
+      }
+
+
+      drawFrame(elapsed);
+
+
+      const percent =
+        Math.min(
+          100,
+          (elapsed/total)*100
+        );
+
+
+      el("renderProgress").style.width =
+        percent+"%";
+
+
+      el("renderText").textContent =
+        "🎥 Rendering "+Math.floor(percent)+"%";
+
+
+      renderAnimation =
+        requestAnimationFrame(
+          renderLoop
+        );
+
+    }
+
+
+    renderAnimation =
+      requestAnimationFrame(
+        renderLoop
+      );
+
+
+    /*
+      Wait for exact reel duration.
+    */
+
+    await new Promise(resolve=>{
+
+      const check=()=>{
+
+        if(renderCancelled){
+
+          resolve();
+
+          return;
+
+        }
+
+        const elapsed=
+          (performance.now()-start)/1000;
+
+        if(elapsed>=total){
+
+          resolve();
+
+        }else{
+
+          setTimeout(check,100);
+
+        }
+
+      };
+
+      check();
+
+    });
+
+
+    if(renderAnimation){
+
+      cancelAnimationFrame(
+        renderAnimation
+      );
+
+      renderAnimation=null;
+
+    }
+
+
+    if(renderCancelled){
+
+      if(recorder.state!=="inactive"){
+
+        recorder.stop();
+
+      }
+
+      await stopped.catch(()=>{});
+
+      el("renderText").textContent=
+        "Render cancelled.";
+
+      el("renderProgress").style.width="0%";
+
+      return;
+
+    }
+
+
+    drawFrame(total-0.01);
+
+
+    /*
+      Give MediaRecorder a moment to collect
+      the final video/audio chunk.
+    */
+
+    await new Promise(
+      resolve=>setTimeout(resolve,250)
+    );
+
+
+    if(recorder.state!=="inactive"){
+
+      recorder.stop();
+
+    }
+
+
+    await stopped;
+
+
+    if(!chunks.length){
+
+      throw new Error(
+        "No video data was produced."
+      );
+
+    }
+
+
+    const blob =
+      new Blob(
+        chunks,
+        {
+          type:mimeType
+        }
+      );
+
+
+    if(blob.size<10000){
+
+      throw new Error(
+        "The generated video file is too small."
+      );
+
+    }
+
+
+    const url =
+      URL.createObjectURL(blob);
+
+
+    const safeTopic =
+      currentPlan.topic
+        .replace(/[^a-z0-9]+/gi,"-")
+        .replace(/^-|-$/g,"")
+        .toLowerCase();
+
+
+    const filename =
+      "ai-reel-"+safeTopic+"-"+currentPlan.duration+"s.webm";
+
+
+    const link =
+      document.createElement("a");
+
+    link.href=url;
+
+    link.download=filename;
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+
+
+    setTimeout(
+      ()=>URL.revokeObjectURL(url),
+      5000
+    );
+
+
+    el("renderProgress").style.width="100%";
+
+    el("renderText").textContent=
+      "✅ Render complete. Downloaded "+filename;
+
+
+    el("status").textContent=
+      "Reel downloaded successfully with "+
+      (musicEnabled ? "background music." : "music disabled.");
+
+
+  }catch(error){
+
+    console.error(error);
+
+    el("renderText").textContent=
+      "❌ Render failed: "+error.message;
+
+    el("status").textContent=
+      "Render error. Please try again.";
+
+  }finally{
+
+    renderRunning=false;
+
+    if(renderAnimation){
+
+      cancelAnimationFrame(
+        renderAnimation
+      );
+
+      renderAnimation=null;
+
+    }
+
+
+    if(music){
+
+      music.stop();
+
+    }
+
+
+    if(videoStream){
+
+      videoStream
+        .getTracks()
+        .forEach(track=>track.stop());
+
+    }
+
+
+    if(combinedStream){
+
+      combinedStream
+        .getTracks()
+        .forEach(track=>track.stop());
+
+    }
+
+  }
 
 }
 
-rendering=true;
 
-document.getElementById("renderButton").disabled=true;
+/* =========================================================
+   CANCEL RENDER
+========================================================= */
 
-stopPreview();
-stopVoice();
+function cancelRender(){
 
-const duration=currentPlan.duration;
+  if(!renderRunning){
 
-document.getElementById("renderStatus").textContent=
-`🎥 Preparing ${duration}-second render...`;
+    el("renderText").textContent=
+      "No render is currently running.";
 
+    return;
 
-/* VIDEO */
+  }
 
-const videoStream=
-canvas.captureStream(30);
+  renderCancelled=true;
 
-
-/* AUDIO */
-
-let music=null;
-
-try{
-
-music=
-await createMusic();
-
-}catch(e){
-
-music=null;
+  el("renderText").textContent=
+    "⛔ Cancelling render...";
 
 }
 
 
-/* COMBINED STREAM */
-
-const tracks=[];
-
-videoStream
-.getVideoTracks()
-.forEach(track=>{
-track.enabled=true;
-tracks.push(track);
-});
-
-if(music){
-
-music.stream
-.getAudioTracks()
-.forEach(track=>{
-track.enabled=true;
-tracks.push(track);
-});
-
-}
-
-const combined=
-new MediaStream(tracks);
-
-
-/* MIME TYPE */
-
-let mime="video/webm;codecs=vp8,opus";
-
-if(
-!MediaRecorder.isTypeSupported(mime)
-){
-
-mime="video/webm;codecs=vp9,opus";
-
-}
-
-if(
-!MediaRecorder.isTypeSupported(mime)
-){
-
-mime="video/webm";
-
-}
-
-
-/* RECORDER */
-
-let recorder;
-
-try{
-
-recorder=
-new MediaRecorder(
-combined,
-{
-mimeType:mime,
-videoBitsPerSecond:5000000,
-audioBitsPerSecond:128000
-}
-);
-
-}catch(e){
-
-recorder=
-new MediaRecorder(
-combined,
-{
-mimeType:"video/webm"
-}
-);
-
-}
-
-
-const chunks=[];
-
-recorder.ondataavailable=e=>{
-
-if(
-e.data &&
-e.data.size>0
-){
-
-chunks.push(e.data);
-
-}
-
-};
-
-
-recorder.onerror=()=>{
-
-rendering=false;
-
-document.getElementById("renderButton").disabled=false;
-
-if(music)music.stop();
-
-document.getElementById("renderStatus").textContent=
-"❌ Recording failed.";
-
-};
-
-
-recorder.onstop=()=>{
-
-if(music)music.stop();
-
-const blob=
-new Blob(
-chunks,
-{
-type:"video/webm"
-}
-);
-
-if(blob.size===0){
-
-rendering=false;
-
-document.getElementById("renderButton").disabled=false;
-
-document.getElementById("renderStatus").textContent=
-"❌ Empty video was produced.";
-
-return;
-
-}
-
-const url=
-URL.createObjectURL(blob);
-
-const a=
-document.createElement("a");
-
-const safeName=
-currentPlan.topic
-.replace(/[^a-z0-9]+/gi,"-")
-.replace(/^-|-$/g,"")
-.toLowerCase();
-
-a.href=url;
-
-a.download=
-`${safeName || "ai-reel"}-${duration}s.webm`;
-
-document.body.appendChild(a);
-
-a.click();
-
-a.remove();
-
-setTimeout(
-()=>{
-URL.revokeObjectURL(url);
-},
-5000
-);
-
-rendering=false;
-
-document.getElementById("renderButton").disabled=false;
-
-document.getElementById("renderStatus").textContent=
-`✅ ${duration}-second reel downloaded with video${music?" + music":" (music off)"}.`;
-
-};
-
-
-try{
-
-recorder.start(250);
-
-}catch(e){
-
-rendering=false;
-
-document.getElementById("renderButton").disabled=false;
-
-if(music)music.stop();
-
-document.getElementById("renderStatus").textContent=
-"❌ Could not start recorder.";
-
-return;
-
-}
-
-
-/* FRAME LOOP */
-
-const start=
-performance.now();
-
-function renderFrame(now){
-
-const elapsed=
-(now-start)/1000;
-
-if(
-elapsed>=duration
-){
-
-drawFrame(
-Math.max(
-0,
-duration-.02
-)
-);
-
-setTimeout(
-()=>{
-
-if(
-recorder.state!=="inactive"
-){
-
-recorder.stop();
-
-}
-
-},
-150
-);
-
-return;
-
-}
-
-drawFrame(elapsed);
-
-const percentage=
-Math.floor(
-(elapsed/duration)*100
-);
-
-document.getElementById("renderStatus").textContent=
-`🎥 Rendering... ${percentage}%`;
-
-requestAnimationFrame(renderFrame);
-
-}
-
-drawFrame(0);
-
-requestAnimationFrame(renderFrame);
-
-}
-
-
-/* =========================
-COPY
-========================= */
+/* =========================================================
+   COPY BUTTONS
+========================================================= */
 
 async function copyCaption(){
 
-const text=
-document.getElementById("caption").textContent;
+  if(!currentPlan){
 
-try{
+    return;
 
-await navigator.clipboard.writeText(text);
+  }
 
-document.getElementById("status").textContent=
-"✅ Caption copied.";
+  const text=
+    el("captionBox").textContent;
 
-}catch(e){
+  try{
 
-document.getElementById("status").textContent=
-"Copy is not available in this browser.";
+    await navigator.clipboard.writeText(text);
 
-}
+    el("status").textContent=
+      "Caption copied.";
+
+  }catch(e){
+
+    el("status").textContent=
+      "Could not copy caption.";
+
+  }
 
 }
 
 
 async function copyHashtags(){
 
-const text=
-document.getElementById("hashtags").textContent;
+  if(!currentPlan){
 
-try{
+    return;
 
-await navigator.clipboard.writeText(text);
+  }
 
-document.getElementById("status").textContent=
-"✅ Hashtags copied.";
+  const text=
+    el("hashtagsBox").textContent;
 
-}catch(e){
+  try{
 
-document.getElementById("status").textContent=
-"Copy is not available in this browser.";
+    await navigator.clipboard.writeText(text);
+
+    el("status").textContent=
+      "Hashtags copied.";
+
+  }catch(e){
+
+    el("status").textContent=
+      "Could not copy hashtags.";
+
+  }
 
 }
 
-}
+
+/* =========================================================
+   INITIAL CANVAS
+========================================================= */
+
+clearCanvas();
+
+drawGeneric(0);
 
 
-/* =========================
-START
-========================= */
+/* =========================================================
+   MUSIC UI INITIAL STATE
+========================================================= */
 
-drawEmpty();
-updateVolumeLabel();
+updateMusicVolume();
 
 </script>
 
