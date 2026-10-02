@@ -1,1145 +1,927 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>AI Reel Maker — Stage 4</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f5f7fb;
-      color: #171923;
-      min-height: 100vh;
-    }
-
-    .topbar {
-      background: white;
-      border-bottom: 1px solid #e8eaf0;
-      padding: 18px 7%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
-
-    .brand {
-      font-size: 22px;
-      font-weight: 800;
-    }
-
-    .badge {
-      background: #f0e9ff;
-      color: #7137d9;
-      padding: 8px 14px;
-      border-radius: 30px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .hero {
-      max-width: 1100px;
-      margin: 50px auto 30px;
-      padding: 0 20px;
-      text-align: center;
-    }
-
-    .hero h1 {
-      font-size: 48px;
-      line-height: 1.1;
-      margin-bottom: 15px;
-      background: linear-gradient(90deg, #6d35e8, #e63f91);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero p {
-      color: #656b7b;
-      font-size: 18px;
-      margin-bottom: 30px;
-    }
-
-    .creator-box {
-      max-width: 950px;
-      margin: auto;
-      background: white;
-      padding: 25px;
-      border-radius: 22px;
-      box-shadow: 0 12px 40px rgba(30, 35, 60, 0.08);
-    }
-
-    .input-row {
-      display: flex;
-      gap: 12px;
-    }
-
-    .creator-box input {
-      flex: 1;
-      border: 1px solid #dfe2ea;
-      border-radius: 14px;
-      padding: 17px;
-      font-size: 16px;
-      outline: none;
-    }
-
-    .creator-box input:focus {
-      border-color: #7845ed;
-    }
-
-    button {
-      border: none;
-      border-radius: 14px;
-      padding: 14px 24px;
-      background: linear-gradient(90deg, #7137e8, #dc3e91);
-      color: white;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    button:hover {
-      transform: translateY(-2px);
-    }
-
-    .settings {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 18px;
-      text-align: left;
-    }
-
-    .setting {
-      background: #f8f9fc;
-      padding: 15px;
-      border-radius: 13px;
-    }
-
-    .setting label {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      color: #666d7d;
-      margin-bottom: 7px;
-    }
-
-    .setting select {
-      width: 100%;
-      border: 1px solid #dfe2ea;
-      background: white;
-      padding: 10px;
-      border-radius: 9px;
-    }
-
-    .progress-area {
-      max-width: 950px;
-      margin: 25px auto;
-      padding: 0 20px;
-      display: none;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 10px;
-      background: #e7e9ef;
-      border-radius: 20px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      width: 0%;
-      height: 100%;
-      background: linear-gradient(90deg, #7137e8, #dc3e91);
-      transition: width 0.5s;
-    }
-
-    .progress-text {
-      margin-top: 10px;
-      color: #666d7d;
-      text-align: center;
-      font-size: 14px;
-    }
-
-    .results {
-      max-width: 1100px;
-      margin: 35px auto 80px;
-      padding: 0 20px;
-      display: none;
-    }
-
-    .card {
-      background: white;
-      border-radius: 20px;
-      padding: 25px;
-      margin-bottom: 20px;
-      box-shadow: 0 8px 30px rgba(30, 35, 60, 0.06);
-    }
-
-    .card h2 {
-      font-size: 20px;
-      margin-bottom: 15px;
-    }
-
-    .hook {
-      border-left: 5px solid #7b43eb;
-      background: #faf8ff;
-    }
-
-    .hook-text {
-      font-size: 24px;
-      font-weight: 700;
-      line-height: 1.4;
-    }
-
-    .script {
-      white-space: pre-line;
-      line-height: 1.7;
-      color: #404655;
-    }
-
-    .voice-box {
-      background: #f8f7ff;
-      border-radius: 15px;
-      padding: 20px;
-      margin-top: 20px;
-    }
-
-    .voice-controls {
-      display: flex;
-      gap: 10px;
-      margin-top: 15px;
-      flex-wrap: wrap;
-    }
-
-    .secondary-button {
-      background: #eeeafc;
-      color: #7137e8;
-    }
-
-    .scenes {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-    }
-
-    .scene {
-      border: 1px solid #e5e7ee;
-      border-radius: 17px;
-      padding: 20px;
-      position: relative;
-    }
-
-    .scene-number {
-      color: #7137e8;
-      font-weight: 800;
-      font-size: 13px;
-      margin-bottom: 7px;
-    }
-
-    .scene h3 {
-      margin-bottom: 8px;
-    }
-
-    .scene-time {
-      color: #777e8d;
-      font-size: 13px;
-      margin-bottom: 12px;
-    }
-
-    .scene p {
-      color: #505666;
-      line-height: 1.5;
-      margin-bottom: 9px;
-    }
-
-    .label {
-      font-weight: 700;
-      color: #242735;
-    }
-
-    .scene-buttons {
-      display: flex;
-      gap: 8px;
-      margin-top: 15px;
-      flex-wrap: wrap;
-    }
-
-    .small-button {
-      padding: 10px 14px;
-      font-size: 13px;
-    }
-
-    .visual-preview {
-      display: none;
-      margin-top: 15px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #7137e8, #dc3e91);
-      color: white;
-      min-height: 150px;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 20px;
-      font-weight: 700;
-    }
-
-    .preview-area {
-      background: #11131a;
-      border-radius: 20px;
-      padding: 25px;
-      color: white;
-    }
-
-    .phone {
-      width: 280px;
-      height: 490px;
-      margin: auto;
-      border-radius: 28px;
-      background: linear-gradient(145deg, #242638, #101117);
-      border: 5px solid #292c3b;
-      overflow: hidden;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .phone-content {
-      padding: 25px;
-    }
-
-    .phone-title {
-      font-size: 24px;
-      font-weight: 800;
-      margin-bottom: 15px;
-    }
-
-    .phone-topic {
-      color: #cfc5ff;
-      font-size: 15px;
-    }
-
-    .timeline {
-      margin-top: 25px;
-    }
-
-    .timeline-bar {
-      height: 8px;
-      background: #36394a;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .timeline-progress {
-      height: 100%;
-      width: 35%;
-      background: linear-gradient(90deg, #7137e8, #dc3e91);
-    }
-
-    .export-area {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .caption {
-      line-height: 1.6;
-      color: #505666;
-    }
-
-    .hashtags {
-      margin-top: 15px;
-      color: #7137e8;
-      font-weight: 600;
-      line-height: 1.7;
-    }
-
-    .future-box {
-      border: 2px dashed #d8d1f5;
-      background: #faf9ff;
-      text-align: center;
-      padding: 30px;
-      border-radius: 18px;
-    }
-
-    .future-box h2 {
-      color: #7137e8;
-    }
-
-    .future-box p {
-      color: #707687;
-      line-height: 1.6;
-    }
-
-    .status {
-      display: inline-block;
-      background: #eafaf0;
-      color: #23834a;
-      padding: 7px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 15px;
-    }
-
-    @media (max-width: 700px) {
-
-      .hero h1 {
-        font-size: 36px;
-      }
-
-      .input-row {
-        flex-direction: column;
-      }
-
-      .settings {
-        grid-template-columns: 1fr;
-      }
-
-      .scenes {
-        grid-template-columns: 1fr;
-      }
-
-      .topbar {
-        padding: 15px 20px;
-      }
-
-      .badge {
-        font-size: 11px;
-      }
-
-      .phone {
-        width: 250px;
-        height: 440px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Reel Maker — Stage 5</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f7fb;
+  color: #171923;
+}
+
+header {
+  background: #ffffff;
+  border-bottom: 1px solid #e8eaf0;
+  padding: 18px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.badge {
+  background: #eee8ff;
+  color: #633cff;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.container {
+  width: min(1100px, 92%);
+  margin: auto;
+}
+
+.hero {
+  padding: 55px 0 30px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: clamp(34px, 6vw, 62px);
+  margin: 0;
+  background: linear-gradient(90deg, #673cff, #ff3c9e);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  color: #697080;
+  font-size: 17px;
+}
+
+.card {
+  background: white;
+  border: 1px solid #e8eaf0;
+  border-radius: 22px;
+  padding: 24px;
+  margin: 20px 0;
+  box-shadow: 0 10px 35px rgba(30, 30, 60, 0.06);
+}
+
+label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+input, select {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #dfe2ea;
+  border-radius: 13px;
+  font-size: 16px;
+  outline: none;
+  background: white;
+}
+
+button {
+  border: 0;
+  border-radius: 13px;
+  padding: 14px 18px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+.primary {
+  width: 100%;
+  background: linear-gradient(90deg, #673cff, #ff3c9e);
+  color: white;
+  font-size: 16px;
+}
+
+.secondary {
+  background: #f0edff;
+  color: #5d38e8;
+}
+
+.dark {
+  background: #171923;
+  color: white;
+}
+
+.settings {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.progress {
+  height: 10px;
+  background: #eceef4;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 15px;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #673cff, #ff3c9e);
+  transition: width .4s;
+}
+
+.status {
+  color: #697080;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.hidden {
+  display: none;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.scene {
+  border: 1px solid #e7e8ee;
+  border-radius: 18px;
+  padding: 18px;
+  margin: 14px 0;
+  background: #fbfbfd;
+}
+
+.scene-number {
+  font-weight: 800;
+  color: #633cff;
+}
+
+.scene-title {
+  font-size: 18px;
+  font-weight: 800;
+  margin: 7px 0;
+}
+
+.scene-text {
+  color: #5e6573;
+  line-height: 1.5;
+}
+
+.scene button {
+  margin-right: 6px;
+}
+
+canvas {
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 9 / 16;
+  display: block;
+  margin: auto;
+  border-radius: 24px;
+  background: #111;
+  box-shadow: 0 15px 40px rgba(0,0,0,.2);
+}
+
+.download {
+  width: 100%;
+  background: #171923;
+  color: white;
+  font-size: 16px;
+}
+
+.notice {
+  background: #fff7df;
+  border: 1px solid #f2df9c;
+  padding: 15px;
+  border-radius: 14px;
+  color: #705600;
+  line-height: 1.5;
+}
+
+@media(max-width: 750px) {
+  .settings,
+  .result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  header {
+    padding: 15px 5%;
+  }
+
+  .hero {
+    padding-top: 35px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <div class="topbar">
-    <div class="brand">🎬 AI Reel Maker</div>
-    <div class="badge">Stage 4 • AI Creator Studio</div>
-  </div>
+<header>
+  <div class="logo">🎬 AI Reel Maker</div>
+  <div class="badge">Stage 5 • Reel Engine</div>
+</header>
 
+<main class="container">
 
-  <section class="hero">
+<section class="hero">
+  <h1>Turn an Idea Into a Reel</h1>
+  <p>Create, preview and download an automatically edited vertical Reel.</p>
+</section>
 
-    <h1>Create Your Next Viral Reel</h1>
+<section class="card">
 
-    <p>
-      Build the script, scenes, visuals, voice and reel plan from one idea.
-    </p>
+<label for="topic">What should your Reel be about?</label>
 
+<input
+  id="topic"
+  placeholder="Example: 5 interesting facts about India"
+>
 
-    <div class="creator-box">
+<div class="settings">
 
-      <div class="input-row">
+<div>
+<label>Reel Length</label>
+<select id="length">
+<option value="30">30 seconds</option>
+<option value="45" selected>45 seconds</option>
+<option value="60">60 seconds</option>
+</select>
+</div>
 
-        <input
-          id="topic"
-          type="text"
-          placeholder="Example: 5 interesting facts about India"
-        >
+<div>
+<label>Content Style</label>
+<select id="style">
+<option>Fast & Viral</option>
+<option>News Style</option>
+<option>Educational</option>
+<option>Cinematic</option>
+</select>
+</div>
 
-        <button onclick="generateReel()">
-          ✨ Generate Reel
-        </button>
+<div>
+<label>Voice Style</label>
+<select id="voiceStyle">
+<option>Energetic</option>
+<option>Professional</option>
+<option>Calm</option>
+<option>Dramatic</option>
+</select>
+</div>
 
-      </div>
+</div>
 
+<button class="primary" onclick="generateReel()">
+✨ Generate Reel
+</button>
 
-      <div class="settings">
+<div class="progress">
+<div class="progress-bar" id="progressBar"></div>
+</div>
 
-        <div class="setting">
+<div class="status" id="status">
+Ready to create your Reel.
+</div>
 
-          <label>REEL LENGTH</label>
+</section>
 
-          <select id="length">
-            <option value="35">35 seconds</option>
-            <option value="45">45 seconds</option>
-            <option value="60">60 seconds</option>
-          </select>
+<section id="results" class="hidden">
 
-        </div>
+<div class="card">
 
+<h2>🎯 Hook</h2>
+<div id="hook"></div>
 
-        <div class="setting">
+</div>
 
-          <label>CONTENT STYLE</label>
+<div class="result-grid">
 
-          <select id="style">
-            <option>Fast & Viral</option>
-            <option>News Style</option>
-            <option>Educational</option>
-            <option>Cinematic</option>
-          </select>
+<div class="card">
 
-        </div>
+<h2>🎙️ Voiceover</h2>
 
+<div id="script"></div>
 
-        <div class="setting">
+<button class="secondary" onclick="speakScript()">
+▶ Play Voice
+</button>
 
-          <label>VOICE STYLE</label>
+<button class="secondary" onclick="stopVoice()">
+⏹ Stop
+</button>
 
-          <select id="voiceStyle">
-            <option>Energetic</option>
-            <option>Professional</option>
-            <option>Calm</option>
-            <option>Dramatic</option>
-          </select>
+</div>
 
-        </div>
+<div class="card">
 
-      </div>
+<h2>🎬 Reel Preview</h2>
 
-    </div>
+<canvas id="reelCanvas" width="540" height="960"></canvas>
 
-  </section>
+<button class="dark" style="width:100%" onclick="previewReel()">
+▶ Preview Reel
+</button>
 
+</div>
 
-  <div class="progress-area" id="progressArea">
+</div>
 
-    <div class="progress-bar">
-      <div class="progress-fill" id="progressFill"></div>
-    </div>
+<div class="card">
 
-    <div class="progress-text" id="progressText">
-      Starting...
-    </div>
+<h2>🎞️ Scene Planner</h2>
 
-  </div>
+<div id="scenes"></div>
 
+</div>
 
-  <section class="results" id="results">
+<div class="card">
 
+<h2>📥 Export</h2>
 
-    <div class="card hook">
+<div class="notice">
+Your browser will render the animated Reel and create a downloadable
+WebM video. This free version does not require an API key.
+</div>
 
-      <div class="status">
-        ✓ AI CONTENT PLAN READY
-      </div>
+<button class="download" onclick="renderReel()">
+🎥 Render & Download Reel
+</button>
 
-      <h2>🔥 AI Hook</h2>
+<div class="status" id="renderStatus"></div>
 
-      <div class="hook-text" id="hook"></div>
+</div>
 
-    </div>
+<div class="card">
 
+<h2>📱 Instagram Caption</h2>
 
-    <div class="card">
+<div id="caption"></div>
 
-      <h2>🎙️ AI Voiceover Script</h2>
+<h3>Hashtags</h3>
+<div id="hashtags"></div>
 
-      <div class="script" id="script"></div>
+</div>
 
+</section>
 
-      <div class="voice-box">
-
-        <strong>🔊 Voice Preview</strong>
-
-        <p>
-          Preview your script using your browser's voice system.
-        </p>
-
-
-        <div class="voice-controls">
-
-          <button onclick="speakScript()">
-            ▶ Play Voice
-          </button>
-
-          <button
-            class="secondary-button"
-            onclick="stopVoice()"
-          >
-            ■ Stop
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <h2>🎬 Scene Planner</h2>
-
-      <div class="scenes" id="scenes"></div>
-
-    </div>
-
-
-    <div class="card">
-
-      <h2>📱 Reel Preview</h2>
-
-      <div class="preview-area">
-
-        <div class="phone">
-
-          <div class="phone-content">
-
-            <div class="phone-title">
-              AI REEL
-            </div>
-
-            <div
-              class="phone-topic"
-              id="phoneTopic"
-            >
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="timeline">
-
-          <div class="timeline-bar">
-
-            <div class="timeline-progress"></div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <h2>📤 Export Reel</h2>
-
-      <p style="color:#666d7d; margin-bottom:18px;">
-        The export system is prepared for a future AI video-rendering backend.
-      </p>
-
-
-      <div class="export-area">
-
-        <button onclick="exportPlan()">
-          📄 Export Reel Plan
-        </button>
-
-        <button
-          class="secondary-button"
-          onclick="alert('AI video rendering will be connected in a future stage.')"
-        >
-          🎥 Render Final Video
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <h2>📱 Instagram Caption</h2>
-
-      <div
-        class="caption"
-        id="caption"
-      >
-      </div>
-
-
-      <div
-        class="hashtags"
-        id="hashtags"
-      >
-      </div>
-
-    </div>
-
-
-    <div class="future-box">
-
-      <h2>🤖 Real AI Connection</h2>
-
-      <p>
-        Future upgrade: connect a secure backend to generate
-        real AI scripts, AI images, AI video, AI voice,
-        subtitles, background music and the final MP4 reel.
-      </p>
-
-    </div>
-
-  </section>
-
+</main>
 
 <script>
 
-let currentScript = "";
+let reelScenes = [];
 let currentTopic = "";
+let currentScript = "";
+let rendering = false;
 
+const canvas = document.getElementById("reelCanvas");
+const ctx = canvas.getContext("2d");
 
-function generateReel() {
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-  const topic =
-    document.getElementById("topic").value.trim();
+async function generateReel() {
+
+  const topic = document.getElementById("topic").value.trim();
 
   if (!topic) {
-
-    alert("Please enter a reel topic first.");
-
+    alert("Please enter a Reel topic.");
     return;
-
   }
-
 
   currentTopic = topic;
 
+  const bar = document.getElementById("progressBar");
+  const status = document.getElementById("status");
 
-  const progressArea =
-    document.getElementById("progressArea");
-
-  const progressFill =
-    document.getElementById("progressFill");
-
-  const progressText =
-    document.getElementById("progressText");
-
-  const results =
-    document.getElementById("results");
-
-
-  progressArea.style.display = "block";
-
-  results.style.display = "none";
-
+  document.getElementById("results").classList.remove("hidden");
 
   const steps = [
-
-    {
-      percent: 20,
-      text: "Analyzing your topic..."
-    },
-
-    {
-      percent: 40,
-      text: "Creating a stronger hook..."
-    },
-
-    {
-      percent: 60,
-      text: "Building the AI voiceover..."
-    },
-
-    {
-      percent: 80,
-      text: "Creating visual scene prompts..."
-    },
-
-    {
-      percent: 100,
-      text: "Preparing your reel studio..."
-    }
-
+    "Understanding your topic...",
+    "Creating a strong hook...",
+    "Building the voiceover...",
+    "Designing Reel scenes...",
+    "Preparing captions..."
   ];
 
+  for (let i = 0; i < steps.length; i++) {
 
-  let index = 0;
+    status.textContent = steps[i];
 
+    bar.style.width =
+      ((i + 1) / steps.length * 100) + "%";
 
-  function nextStep() {
+    await wait(550);
+  }
 
-    if (index >= steps.length) {
+  createPlan(topic);
 
-      createReelPlan(topic);
+  status.textContent = "Reel plan ready. You can now preview or render it.";
 
-      return;
+  window.scrollTo({
+    top: document.getElementById("results").offsetTop - 20,
+    behavior: "smooth"
+  });
+}
 
-    }
+function createPlan(topic) {
 
+  const style = document.getElementById("style").value;
 
-    progressFill.style.width =
-      steps[index].percent + "%";
+  const hook =
+    "STOP SCROLLING! Here's something interesting about " +
+    topic + ".";
 
-    progressText.textContent =
-      steps[index].text;
+  const facts = [
+    "This topic has more interesting details than most people realize.",
+    "There is a surprising story behind this subject.",
+    "One detail about this topic can completely change how you see it.",
+    "Another fascinating fact makes this topic even more interesting.",
+    "And there is still more to discover."
+  ];
 
+  reelScenes = [];
 
-    index++;
+  const total = parseInt(document.getElementById("length").value);
 
+  const sceneCount = 6;
+  const sceneDuration = total / sceneCount;
 
-    setTimeout(nextStep, 500);
+  reelScenes.push({
+    title: "Powerful Hook",
+    text: hook
+  });
+
+  for (let i = 0; i < 4; i++) {
+
+    reelScenes.push({
+      title: "Interesting Point " + (i + 1),
+      text: facts[i]
+    });
 
   }
 
+  reelScenes.push({
+    title: "Call To Action",
+    text: "Follow for more interesting videos about " + topic + "."
+  });
 
-  nextStep();
+  currentScript = reelScenes
+    .map(scene => scene.text)
+    .join(" ");
 
-}
-
-
-function createReelPlan(topic) {
-
-  const selectedStyle =
-    document.getElementById("style").value;
-
-  const selectedVoice =
-    document.getElementById("voiceStyle").value;
-
-
-  const hook =
-    "Stop scrolling! Here are some fascinating things about "
-    + topic
-    + " that you probably didn't know.";
-
-
-  document.getElementById("hook").textContent =
-    hook;
-
-
-  currentScript =
-
-`Hook:
-${hook}
-
-Introduction:
-Today we're taking a quick look at ${topic}.
-
-Fact 1:
-Here's the first interesting point about ${topic}.
-
-Fact 2:
-Here's another surprising detail you should know.
-
-Fact 3:
-This is something many people don't know.
-
-Fact 4:
-And here's one more fascinating detail.
-
-Ending:
-Which fact surprised you the most?
-Follow for more content.`;
-
+  document.getElementById("hook").textContent = hook;
 
   document.getElementById("script").textContent =
     currentScript;
 
+  const scenesBox = document.getElementById("scenes");
 
-  document.getElementById("phoneTopic").textContent =
-    topic;
+  scenesBox.innerHTML = "";
 
+  reelScenes.forEach((scene, index) => {
 
-  const scenes = [
-
-    {
-      time: "0–5 seconds",
-      title: "Powerful Hook",
-      voice: hook,
-      visual: "Create an attention-grabbing opening visual for " + topic + ".",
-      text: "STOP SCROLLING!"
-    },
-
-    {
-      time: "5–11 seconds",
-      title: "Fact 1",
-      voice: "Here's the first interesting point about " + topic + ".",
-      visual: "Generate a realistic visual explaining the first fact.",
-      text: "FACT #1"
-    },
-
-    {
-      time: "11–17 seconds",
-      title: "Fact 2",
-      voice: "Here's another surprising detail you should know.",
-      visual: "Generate a dynamic visual for the second fact.",
-      text: "DID YOU KNOW?"
-    },
-
-    {
-      time: "17–23 seconds",
-      title: "Fact 3",
-      voice: "This is something many people don't know.",
-      visual: "Generate a cinematic visual supporting the third fact.",
-      text: "MOST PEOPLE DON'T KNOW THIS"
-    },
-
-    {
-      time: "23–29 seconds",
-      title: "Fact 4",
-      voice: "And here's one more fascinating detail.",
-      visual: "Generate an engaging final information visual.",
-      text: "ONE MORE FACT"
-    },
-
-    {
-      time: "29–35 seconds",
-      title: "Call To Action",
-      voice: "Which fact surprised you the most? Follow for more content.",
-      visual: "Generate a clean social-media ending animation.",
-      text: "FOLLOW FOR MORE"
-    }
-
-  ];
-
-
-  const scenesContainer =
-    document.getElementById("scenes");
-
-
-  scenesContainer.innerHTML = "";
-
-
-  scenes.forEach((scene, index) => {
-
-    const div =
-      document.createElement("div");
+    const div = document.createElement("div");
 
     div.className = "scene";
 
-
     div.innerHTML = `
-
-      <div class="scene-number">
-        SCENE ${index + 1}
-      </div>
-
-      <h3>${scene.title}</h3>
-
-      <div class="scene-time">
-        ${scene.time}
-      </div>
-
-      <p>
-        <span class="label">🎙️ Voice:</span>
-        ${scene.voice}
-      </p>
-
-      <p>
-        <span class="label">🎨 AI Visual Prompt:</span>
-        ${scene.visual}
-      </p>
-
-      <p>
-        <span class="label">📝 On-screen text:</span>
-        ${scene.text}
-      </p>
-
-      <div class="scene-buttons">
-
-        <button
-          class="small-button"
-          onclick="generateVisual(${index + 1})"
-        >
-          🖼️ Generate Visual
-        </button>
-
-        <button
-          class="small-button secondary-button"
-          onclick="previewScene(${index + 1})"
-        >
-          👁️ Preview
-        </button>
-
-      </div>
-
-      <div
-        class="visual-preview"
-        id="visual-${index + 1}"
-      >
-      </div>
-
+      <div class="scene-number">SCENE ${index + 1}</div>
+      <div class="scene-title">${scene.title}</div>
+      <div class="scene-text">${scene.text}</div>
+      <button class="secondary" onclick="previewScene(${index})">
+        👁️ Preview
+      </button>
     `;
 
-
-    scenesContainer.appendChild(div);
+    scenesBox.appendChild(div);
 
   });
-
 
   document.getElementById("caption").textContent =
-
-    `Discover something interesting about ${topic}! 🚀
-
-Save this reel and share it with someone who would enjoy it.`;
-
+    "Discover something interesting about " +
+    topic +
+    " 👀 Follow for more!";
 
   document.getElementById("hashtags").textContent =
+    "#AIReelMaker #InstagramReels #Reels #ViralReels #Facts #Shorts";
 
-    `#AIReelMaker #Reels #InstagramReels #Facts #DidYouKnow #ViralReels #ContentCreator #AI`;
+}
 
+function previewScene(index) {
 
-  results.style.display =
-    "block";
+  const scene = reelScenes[index];
 
+  drawScene(scene, index, 0);
 
-  window.scrollTo({
+  document.getElementById("reelCanvas")
+    .scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+}
 
-    top: results.offsetTop - 80,
+function drawBackground(index, progress) {
 
-    behavior: "smooth"
+  const gradients = [
+    ["#673cff", "#ff3c9e"],
+    ["#111827", "#4338ca"],
+    ["#0f766e", "#06b6d4"],
+    ["#7c2d12", "#ea580c"],
+    ["#581c87", "#db2777"],
+    ["#172554", "#2563eb"]
+  ];
+
+  const colors = gradients[index % gradients.length];
+
+  const gradient = ctx.createLinearGradient(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+  gradient.addColorStop(0, colors[0]);
+  gradient.addColorStop(1, colors[1]);
+
+  ctx.fillStyle = gradient;
+  ctx.fillRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+  // animated circles
+
+  for (let i = 0; i < 7; i++) {
+
+    const x =
+      (Math.sin(progress * 0.004 + i) * 120)
+      + canvas.width / 2;
+
+    const y =
+      (Math.cos(progress * 0.003 + i) * 180)
+      + canvas.height / 2;
+
+    ctx.beginPath();
+
+    ctx.arc(
+      x,
+      y,
+      35 + i * 6,
+      0,
+      Math.PI * 2
+    );
+
+    ctx.fillStyle =
+      "rgba(255,255,255,0.08)";
+
+    ctx.fill();
+
+  }
+
+}
+
+function drawScene(scene, index, progress) {
+
+  drawBackground(index, progress);
+
+  ctx.textAlign = "center";
+
+  ctx.fillStyle = "rgba(255,255,255,.75)";
+  ctx.font = "bold 24px Arial";
+
+  ctx.fillText(
+    "AI REEL MAKER",
+    canvas.width / 2,
+    90
+  );
+
+  ctx.fillStyle = "#ffffff";
+
+  ctx.font = "bold 50px Arial";
+
+  wrapText(
+    scene.text,
+    canvas.width / 2,
+    390,
+    430,
+    62
+  );
+
+  ctx.font = "bold 24px Arial";
+
+  ctx.fillStyle = "rgba(255,255,255,.8)";
+
+  ctx.fillText(
+    "@" + "AIReelMaker",
+    canvas.width / 2,
+    875
+  );
+
+  // progress line
+
+  ctx.fillStyle = "rgba(255,255,255,.3)";
+
+  ctx.fillRect(
+    55,
+    915,
+    canvas.width - 110,
+    8
+  );
+
+  ctx.fillStyle = "#ffffff";
+
+  ctx.fillRect(
+    55,
+    915,
+    (canvas.width - 110) *
+    (progress / 100),
+    8
+  );
+
+}
+
+function wrapText(text, x, y, maxWidth, lineHeight) {
+
+  const words = text.split(" ");
+
+  let line = "";
+  const lines = [];
+
+  for (let i = 0; i < words.length; i++) {
+
+    const testLine =
+      line + words[i] + " ";
+
+    const width =
+      ctx.measureText(testLine).width;
+
+    if (width > maxWidth && i > 0) {
+
+      lines.push(line);
+      line = words[i] + " ";
+
+    } else {
+
+      line = testLine;
+
+    }
+
+  }
+
+  lines.push(line);
+
+  const startY =
+    y - ((lines.length - 1) *
+    lineHeight) / 2;
+
+  lines.forEach((line, i) => {
+
+    ctx.fillText(
+      line,
+      x,
+      startY + i * lineHeight
+    );
 
   });
 
 }
 
+function previewReel() {
 
-function generateVisual(sceneNumber) {
+  if (!reelScenes.length) {
+    alert("Generate a Reel first.");
+    return;
+  }
 
-  const box =
-    document.getElementById("visual-" + sceneNumber);
+  let start = Date.now();
 
+  const duration = 10000;
 
-  box.style.display = "flex";
+  function animate() {
 
-  box.innerHTML =
+    const elapsed =
+      Date.now() - start;
 
-    `🖼️ Visual concept generated for Scene ${sceneNumber}<br><br>
-     <small>
-     Real AI image generation will be connected in the next AI integration stage.
-     </small>`;
+    const percent =
+      Math.min(100, elapsed / duration * 100);
 
+    const sceneIndex =
+      Math.min(
+        reelScenes.length - 1,
+        Math.floor(
+          percent / 100 * reelScenes.length
+        )
+      );
+
+    drawScene(
+      reelScenes[sceneIndex],
+      sceneIndex,
+      percent
+    );
+
+    if (percent < 100) {
+      requestAnimationFrame(animate);
+    }
+
+  }
+
+  animate();
 }
 
+async function renderReel() {
 
-function previewScene(sceneNumber) {
+  if (rendering) return;
 
-  const box =
-    document.getElementById("visual-" + sceneNumber);
+  if (!reelScenes.length) {
+    alert("Generate a Reel first.");
+    return;
+  }
 
+  rendering = true;
 
-  box.style.display = "flex";
+  const status =
+    document.getElementById("renderStatus");
 
-  box.innerHTML =
+  status.textContent =
+    "Rendering your Reel... please wait.";
 
-    `🎬 Scene ${sceneNumber} Preview<br><br>
-     <small>
-     ${currentTopic}
-     </small>`;
+  const stream =
+    canvas.captureStream(30);
 
+  const recorder =
+    new MediaRecorder(
+      stream,
+      {
+        mimeType: "video/webm;codecs=vp9"
+      }
+    );
+
+  const chunks = [];
+
+  recorder.ondataavailable = event => {
+
+    if (event.data.size > 0) {
+      chunks.push(event.data);
+    }
+
+  };
+
+  const finished =
+    new Promise(resolve => {
+
+      recorder.onstop = resolve;
+
+    });
+
+  recorder.start();
+
+  const totalSeconds =
+    parseInt(
+      document.getElementById("length").value
+    );
+
+  const sceneDuration =
+    totalSeconds * 1000 /
+    reelScenes.length;
+
+  const startTime = Date.now();
+
+  for (
+    let sceneIndex = 0;
+    sceneIndex < reelScenes.length;
+    sceneIndex++
+  ) {
+
+    const sceneStart =
+      Date.now();
+
+    while (
+      Date.now() - sceneStart <
+      sceneDuration
+    ) {
+
+      const sceneElapsed =
+        Date.now() - sceneStart;
+
+      const progress =
+        Math.min(
+          100,
+          sceneElapsed /
+          sceneDuration *
+          100
+        );
+
+      drawScene(
+        reelScenes[sceneIndex],
+        sceneIndex,
+        progress
+      );
+
+      await new Promise(
+        requestAnimationFrame
+      );
+
+    }
+
+  }
+
+  recorder.stop();
+
+  await finished;
+
+  const blob =
+    new Blob(
+      chunks,
+      { type: "video/webm" }
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const link =
+    document.createElement("a");
+
+  link.href = url;
+
+  link.download =
+    "ai-reel-maker-" +
+    Date.now() +
+    ".webm";
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  link.remove();
+
+  URL.revokeObjectURL(url);
+
+  status.textContent =
+    "✅ Reel rendered successfully. Check your downloaded file.";
+
+  rendering = false;
 }
-
 
 function speakScript() {
 
   if (!("speechSynthesis" in window)) {
 
     alert(
-      "Voice preview is not supported by this browser."
+      "Voice playback is not supported in this browser."
     );
 
     return;
-
   }
 
+  stopVoice();
 
-  window.speechSynthesis.cancel();
+  const voice =
+    new SpeechSynthesisUtterance(
+      currentScript
+    );
 
-
-  const speech =
-    new SpeechSynthesisUtterance(currentScript);
-
-
-  const voiceStyle =
+  const style =
     document.getElementById("voiceStyle").value;
 
-
-  if (voiceStyle === "Energetic") {
-
-    speech.rate = 1.05;
-    speech.pitch = 1.05;
-
+  if (style === "Energetic") {
+    voice.rate = 1.15;
+    voice.pitch = 1.15;
   }
 
-  else if (voiceStyle === "Calm") {
-
-    speech.rate = 0.85;
-    speech.pitch = 0.95;
-
+  if (style === "Professional") {
+    voice.rate = 0.95;
+    voice.pitch = 1;
   }
 
-  else if (voiceStyle === "Dramatic") {
-
-    speech.rate = 0.9;
-    speech.pitch = 0.85;
-
+  if (style === "Calm") {
+    voice.rate = 0.85;
+    voice.pitch = 0.9;
   }
 
-  else {
-
-    speech.rate = 0.95;
-    speech.pitch = 1;
-
+  if (style === "Dramatic") {
+    voice.rate = 0.9;
+    voice.pitch = 0.8;
   }
 
-
-  window.speechSynthesis.speak(speech);
-
+  speechSynthesis.speak(voice);
 }
-
 
 function stopVoice() {
 
   if ("speechSynthesis" in window) {
-
-    window.speechSynthesis.cancel();
-
+    speechSynthesis.cancel();
   }
-
-}
-
-
-function exportPlan() {
-
-  const content =
-
-`AI REEL MAKER — STAGE 4
-
-Topic:
-${currentTopic}
-
-Voiceover:
-${currentScript}
-
-Generated by AI Reel Maker Stage 4 prototype.`;
-
-
-  const blob =
-    new Blob([content], { type: "text/plain" });
-
-
-  const url =
-    URL.createObjectURL(blob);
-
-
-  const link =
-    document.createElement("a");
-
-
-  link.href = url;
-
-  link.download =
-    "ai-reel-plan.txt";
-
-
-  link.click();
-
-
-  URL.revokeObjectURL(url);
 
 }
 
