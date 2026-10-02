@@ -2,153 +2,148 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>AI Reel Maker</title>
 
 <style>
 *{box-sizing:border-box}
 
 body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f4f7fb;
-  color:#172033;
+margin:0;
+font-family:Arial,Helvetica,sans-serif;
+background:#f4f7fb;
+color:#172033
 }
 
 header{
-  background:linear-gradient(135deg,#111827,#2563eb);
-  color:white;
-  padding:35px 20px;
-  text-align:center;
+background:linear-gradient(135deg,#111827,#2563eb);
+color:white;
+padding:35px 20px;
+text-align:center
 }
 
 header h1{
-  margin:0 0 8px;
-  font-size:34px;
+margin:0 0 8px;
+font-size:34px
 }
 
 header p{
-  margin:0;
-  opacity:.85;
+margin:0;
+opacity:.85
 }
 
 .container{
-  max-width:1100px;
-  margin:30px auto;
-  padding:0 18px;
+max-width:1100px;
+margin:30px auto;
+padding:0 18px
 }
 
 .card{
-  background:white;
-  border-radius:18px;
-  padding:22px;
-  margin-bottom:20px;
-  box-shadow:0 8px 25px rgba(0,0,0,.07);
+background:white;
+border-radius:18px;
+padding:22px;
+margin-bottom:20px;
+box-shadow:0 8px 25px rgba(0,0,0,.07)
 }
 
 label{
-  display:block;
-  font-weight:bold;
-  margin-bottom:8px;
+display:block;
+font-weight:bold;
+margin-bottom:8px
 }
 
 input,select{
-  width:100%;
-  padding:14px;
-  border:1px solid #d7dce5;
-  border-radius:10px;
-  font-size:16px;
-  margin-bottom:15px;
+width:100%;
+padding:14px;
+border:1px solid #d7dce5;
+border-radius:10px;
+font-size:16px;
+margin-bottom:15px
 }
 
 button{
-  border:0;
-  border-radius:10px;
-  padding:13px 18px;
-  font-size:15px;
-  font-weight:bold;
-  cursor:pointer;
-  margin:5px;
+border:0;
+border-radius:10px;
+padding:13px 18px;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
+margin:5px
 }
 
 .primary{
-  background:#2563eb;
-  color:white;
+background:#2563eb;
+color:white
 }
 
 .secondary{
-  background:#e8eefc;
-  color:#1e40af;
+background:#e8eefc;
+color:#1e40af
 }
 
 button:disabled{
-  opacity:.55;
-  cursor:not-allowed;
+opacity:.55;
+cursor:not-allowed
 }
 
 .progress{
-  height:10px;
-  background:#e5e7eb;
-  border-radius:20px;
-  overflow:hidden;
-  margin-top:15px;
+height:10px;
+background:#e5e7eb;
+border-radius:20px;
+overflow:hidden;
+margin-top:15px
 }
 
 .progressBar{
-  height:100%;
-  width:0%;
-  background:#2563eb;
-  transition:width .2s;
+height:100%;
+width:0%;
+background:#2563eb;
+transition:width .2s
 }
 
 .grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:15px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:15px
 }
 
 .scene{
-  border:1px solid #e2e8f0;
-  border-radius:14px;
-  padding:16px;
-  background:#fafcff;
+border:1px solid #e2e8f0;
+border-radius:14px;
+padding:16px;
+background:#fafcff
 }
 
 .scene h3{
-  margin-top:0;
-  color:#2563eb;
+margin-top:0;
+color:#2563eb
 }
 
 #preview{
-  width:270px;
-  max-width:100%;
-  display:block;
-  margin:auto;
-  background:#111;
-  border-radius:20px;
-  box-shadow:0 12px 35px rgba(0,0,0,.25);
+width:270px;
+max-width:100%;
+display:block;
+margin:auto;
+background:#111;
+border-radius:20px;
+box-shadow:0 12px 35px rgba(0,0,0,.25)
 }
 
 .status{
-  padding:12px;
-  border-radius:10px;
-  background:#f1f5f9;
-  margin-top:12px;
+padding:12px;
+border-radius:10px;
+background:#f1f5f9;
+margin-top:12px
 }
 
 .success{
-  background:#dcfce7;
-  color:#166534;
-}
-
-.warning{
-  background:#fef3c7;
-  color:#92400e;
+background:#dcfce7;
+color:#166534
 }
 
 .small{
-  color:#64748b;
-  font-size:13px;
+color:#64748b;
+font-size:13px
 }
 </style>
 </head>
@@ -156,8 +151,8 @@ button:disabled{
 <body>
 
 <header>
-  <h1>🎬 AI Reel Maker</h1>
-  <p>Stage 7 • Smart Reel Studio</p>
+<h1>🎬 AI Reel Maker</h1>
+<p>Stage 7.1 • Captions + Music Studio</p>
 </header>
 
 <div class="container">
@@ -169,166 +164,112 @@ button:disabled{
 <label>What should your reel be about?</label>
 
 <input
-  id="topic"
-  placeholder="Example: 5 interesting facts about India"
+id="topic"
+placeholder="Example: 5 interesting facts about India"
 >
 
 <label>Reel length</label>
 
 <select id="duration">
-  <option value="30">30 seconds</option>
-  <option value="45" selected>45 seconds</option>
-  <option value="60">60 seconds</option>
+<option value="30">30 seconds</option>
+<option value="45" selected>45 seconds</option>
+<option value="60">60 seconds</option>
 </select>
 
 <label>Content style</label>
 
 <select id="style">
-  <option value="viral">Fast & Viral</option>
-  <option value="news">News Style</option>
-  <option value="education">Educational</option>
-  <option value="cinematic">Cinematic</option>
+<option value="viral">Fast & Viral</option>
+<option value="news">News Style</option>
+<option value="education">Educational</option>
+<option value="cinematic">Cinematic</option>
 </select>
 
 <label>Voice style</label>
 
 <select id="voiceStyle">
-  <option>Energetic</option>
-  <option>Professional</option>
-  <option>Calm</option>
-  <option>Dramatic</option>
+<option>Energetic</option>
+<option>Professional</option>
+<option>Calm</option>
+<option>Dramatic</option>
 </select>
 
-<button
-  class="primary"
-  id="generateButton"
-  onclick="generateReel()"
->
-✨ Generate Stage 7 Reel
+<button class="primary" onclick="generateReel()">
+✨ Generate Stage 7.1 Reel
 </button>
 
 <div class="progress">
-  <div
-    class="progressBar"
-    id="generationBar"
-  ></div>
+<div class="progressBar" id="generationBar"></div>
 </div>
 
-<div
-  class="status"
-  id="generationStatus"
->
+<div class="status" id="generationStatus">
 Ready to create your reel.
 </div>
 
 </div>
 
 
-<div
-  class="card"
-  id="resultCard"
-  style="display:none"
->
+<div class="card" id="resultCard" style="display:none">
 
 <h2>🔥 AI Hook</h2>
-
 <p id="hook"></p>
 
 <h2>🎙️ Voiceover Script</h2>
-
 <p id="script"></p>
 
-<button
-  class="secondary"
-  onclick="speakScript()"
->
+<button class="secondary" onclick="speakScript()">
 🔊 Play Voice
 </button>
 
 </div>
 
 
-<div
-  class="card"
-  id="sceneCard"
-  style="display:none"
->
+<div class="card" id="sceneCard" style="display:none">
 
 <h2>🎬 Scene Planner</h2>
 
-<div
-  class="grid"
-  id="scenes"
-></div>
+<div class="grid" id="scenes"></div>
 
 </div>
 
 
-<div
-  class="card"
-  id="videoCard"
-  style="display:none"
->
+<div class="card" id="videoCard" style="display:none">
 
 <h2>📱 Reel Preview</h2>
 
-<canvas
-  id="preview"
-  width="540"
-  height="960"
-></canvas>
+<canvas id="preview" width="540" height="960"></canvas>
 
 <br>
 
-<button
-  class="secondary"
-  onclick="startPreview()"
->
+<button class="secondary" onclick="startPreview()">
 ▶️ Preview Reel
 </button>
 
-<button
-  class="primary"
-  id="renderButton"
-  onclick="renderReel()"
->
+<button class="primary" id="renderButton" onclick="renderReel()">
 🎥 Render & Download Reel
 </button>
 
-<div
-  class="status"
-  id="renderStatus"
->
+<div class="status" id="renderStatus">
 Ready to render.
 </div>
 
 <div class="progress">
-  <div
-    class="progressBar"
-    id="renderBar"
-  ></div>
+<div class="progressBar" id="renderBar"></div>
 </div>
 
 <p class="small">
-Stage 7 supports 30, 45 and 60 second browser rendering.
-The exported video is WebM format.
+Stage 7.1 • Animated captions + background music • 30/45/60 seconds
 </p>
 
 </div>
 
 
-<div
-  class="card"
-  id="captionCard"
-  style="display:none"
->
+<div class="card" id="captionCard" style="display:none">
 
 <h2>📝 Caption</h2>
-
 <p id="caption"></p>
 
 <h2>#️⃣ Hashtags</h2>
-
 <p id="hashtags"></p>
 
 </div>
@@ -342,1068 +283,1105 @@ let currentPlan=null;
 let animationTimer=null;
 
 
-/* -----------------------------
+/* =========================
    SMART HOOK
------------------------------ */
+========================= */
 
 function makeHook(topic,style){
 
-  const lower=topic.toLowerCase();
+const lower=topic.toLowerCase();
 
-  if(lower.includes("india")){
-    return "Stop scrolling! These facts about India might actually surprise you.";
-  }
+if(lower.includes("india")){
+return "Stop scrolling! These facts about India might actually surprise you.";
+}
 
-  if(lower.includes("space")){
-    return "You probably don't know these surprising facts about space.";
-  }
+if(lower.includes("space")){
+return "You probably don't know these surprising facts about space.";
+}
 
-  if(style==="news"){
-    return "Here's what you need to know about this story.";
-  }
+if(style==="news"){
+return "Here's what you need to know about this story.";
+}
 
-  if(style==="education"){
-    return "Before you scroll, here's something worth learning.";
-  }
+if(style==="education"){
+return "Before you scroll, here's something worth learning.";
+}
 
-  if(style==="cinematic"){
-    return "One story. Six moments. And details you probably never noticed.";
-  }
+if(style==="cinematic"){
+return "One story. Six moments. And details you probably never noticed.";
+}
 
-  return "Stop scrolling! Here's something interesting you should know.";
+return "Stop scrolling! Here's something interesting you should know.";
 }
 
 
-/* -----------------------------
+/* =========================
    SCENES
------------------------------ */
+========================= */
 
 function makeScenes(topic){
 
-  const lower=topic.toLowerCase();
+const lower=topic.toLowerCase();
 
-  if(lower.includes("india")){
+if(lower.includes("india")){
 
-    return [
-      "India is one of the world's most diverse countries.",
-      "India has one of the world's largest railway networks.",
-      "The Himalayas form a natural northern boundary.",
-      "India has hundreds of languages and dialects.",
-      "India has one of the world's largest film industries.",
-      "India's history spans thousands of years."
-    ];
+return [
+"India is one of the world's most diverse countries.",
+"India has one of the world's largest railway networks.",
+"The Himalayas form a natural northern boundary.",
+"India has hundreds of languages and dialects.",
+"India has one of the world's largest film industries.",
+"India's history spans thousands of years."
+];
 
-  }
+}
 
-  if(lower.includes("space")){
+if(lower.includes("space")){
 
-    return [
-      "Space is almost completely silent.",
-      "A day on Venus is longer than its year.",
-      "Neutron stars are incredibly dense.",
-      "There are billions of galaxies in the observable universe.",
-      "Some stars are much larger than our Sun.",
-      "Space exploration continues to reveal new mysteries."
-    ];
+return [
+"Space is almost completely silent.",
+"A day on Venus is longer than its year.",
+"Neutron stars are incredibly dense.",
+"There are billions of galaxies in the observable universe.",
+"Some stars are much larger than our Sun.",
+"Space exploration continues to reveal new mysteries."
+];
 
-  }
+}
 
-  return [
-    "This topic has more interesting details than most people realize.",
-    "One important fact is often overlooked.",
-    "Another surprising detail changes the way we see the topic.",
-    "Experts continue to study this subject.",
-    "There are several real-world examples worth knowing.",
-    "And that's why this topic is worth exploring."
-  ];
+return [
+"This topic has more interesting details than most people realize.",
+"One important fact is often overlooked.",
+"Another surprising detail changes the way we see the topic.",
+"Experts continue to study this subject.",
+"There are several real-world examples worth knowing.",
+"And that's why this topic is worth exploring."
+];
+
 }
 
 
-/* -----------------------------
+/* =========================
    GENERATE
------------------------------ */
+========================= */
 
 function generateReel(){
 
-  const topic=
-    document.getElementById("topic").value.trim();
+const topic=document.getElementById("topic").value.trim();
+const style=document.getElementById("style").value;
+const duration=Number(document.getElementById("duration").value);
 
-  const style=
-    document.getElementById("style").value;
+if(!topic){
+alert("Please enter a reel topic.");
+return;
+}
 
-  const duration=
-    Number(
-      document.getElementById("duration").value
-    );
+const bar=document.getElementById("generationBar");
+const status=document.getElementById("generationStatus");
 
-  if(!topic){
+bar.style.width="10%";
+status.textContent="Creating your hook...";
 
-    alert("Please enter a reel topic.");
+setTimeout(()=>{
 
-    return;
-  }
+bar.style.width="30%";
+status.textContent="Writing your voiceover...";
 
-  const bar=
-    document.getElementById("generationBar");
+},300);
 
-  const status=
-    document.getElementById("generationStatus");
+setTimeout(()=>{
 
-  bar.style.width="10%";
+bar.style.width="55%";
+status.textContent="Planning scenes...";
 
-  status.textContent=
-    "Creating your hook...";
+},600);
 
+setTimeout(()=>{
 
-  setTimeout(()=>{
+const hook=makeHook(topic,style);
+const sceneList=makeScenes(topic);
 
-    bar.style.width="30%";
+const script=
+hook+" "+
+sceneList.join(" ")+
+" Follow for more.";
 
-    status.textContent=
-      "Writing your voiceover...";
+currentPlan={
+topic:topic,
+hook:hook,
+script:script,
+scenes:sceneList,
+duration:duration
+};
 
-  },300);
+document.getElementById("hook").textContent=hook;
+document.getElementById("script").textContent=script;
 
+const scenesBox=document.getElementById("scenes");
 
-  setTimeout(()=>{
+scenesBox.innerHTML="";
 
-    bar.style.width="55%";
+sceneList.forEach((text,index)=>{
 
-    status.textContent=
-      "Planning scenes...";
+const div=document.createElement("div");
 
-  },600);
+div.className="scene";
 
+div.innerHTML=`
+<h3>Scene ${index+1}</h3>
+<p>${text}</p>
+<p class="small">Visual concept: ${topic}</p>
+`;
 
-  setTimeout(()=>{
+scenesBox.appendChild(div);
 
-    const hook=
-      makeHook(topic,style);
+});
 
-    const sceneList=
-      makeScenes(topic);
+document.getElementById("caption").textContent=
+hook+" #India #Facts #InterestingFacts #Reels";
 
-    const script=
-      hook+" "+
-      sceneList.join(" ") +
-      " Follow for more.";
+document.getElementById("hashtags").textContent=
+"#India #Facts #InterestingFacts #Knowledge #Reels #Viral";
 
+document.getElementById("resultCard").style.display="block";
+document.getElementById("sceneCard").style.display="block";
+document.getElementById("videoCard").style.display="block";
+document.getElementById("captionCard").style.display="block";
 
-    currentPlan={
-      topic:topic,
-      hook:hook,
-      script:script,
-      scenes:sceneList,
-      duration:duration
-    };
+bar.style.width="100%";
 
+status.textContent=
+"Reel generated successfully! "+
+duration+
+"-second reel selected.";
 
-    document.getElementById("hook")
-      .textContent=hook;
+status.className="status success";
 
-    document.getElementById("script")
-      .textContent=script;
+drawScene(0,0);
 
-
-    const scenesBox=
-      document.getElementById("scenes");
-
-    scenesBox.innerHTML="";
-
-
-    sceneList.forEach((text,index)=>{
-
-      const div=
-        document.createElement("div");
-
-      div.className="scene";
-
-      div.innerHTML=`
-        <h3>Scene ${index+1}</h3>
-        <p>${text}</p>
-        <p class="small">
-          Visual concept: ${topic}
-        </p>
-      `;
-
-      scenesBox.appendChild(div);
-
-    });
-
-
-    document.getElementById("caption")
-      .textContent=
-      hook+
-      " #India #Facts #InterestingFacts #Reels";
-
-
-    document.getElementById("hashtags")
-      .textContent=
-      "#India #Facts #InterestingFacts #Knowledge #Reels #Viral";
-
-
-    document.getElementById("resultCard")
-      .style.display="block";
-
-    document.getElementById("sceneCard")
-      .style.display="block";
-
-    document.getElementById("videoCard")
-      .style.display="block";
-
-    document.getElementById("captionCard")
-      .style.display="block";
-
-
-    bar.style.width="100%";
-
-    status.textContent=
-      "Reel generated successfully! "+
-      duration+
-      "-second render selected.";
-
-    status.className=
-      "status success";
-
-
-    drawScene(0,0);
-
-  },900);
+},900);
 
 }
 
 
-/* -----------------------------
+/* =========================
    CANVAS
------------------------------ */
+========================= */
 
-const canvas=
-  document.getElementById("preview");
-
-const ctx=
-  canvas.getContext("2d");
+const canvas=document.getElementById("preview");
+const ctx=canvas.getContext("2d");
 
 
 function drawScene(index,progress){
 
-  if(!currentPlan) return;
+if(!currentPlan)return;
 
-  const scene=
-    currentPlan.scenes[index];
+const scene=currentPlan.scenes[index];
 
-  const hue=
-    (index*55)%360;
+const hue=(index*55)%360;
 
+const gradient=ctx.createLinearGradient(
+0,0,canvas.width,canvas.height
+);
 
-  const gradient=
-    ctx.createLinearGradient(
-      0,
-      0,
-      canvas.width,
-      canvas.height
-    );
+gradient.addColorStop(
+0,
+`hsl(${hue},75%,25%)`
+);
 
+gradient.addColorStop(
+1,
+`hsl(${(hue+70)%360},80%,45%)`
+);
 
-  gradient.addColorStop(
-    0,
-    `hsl(${hue},75%,25%)`
-  );
+ctx.fillStyle=gradient;
 
-  gradient.addColorStop(
-    1,
-    `hsl(${(hue+70)%360},80%,45%)`
-  );
+ctx.fillRect(
+0,0,canvas.width,canvas.height
+);
 
 
-  ctx.fillStyle=gradient;
+/* Decorative circles */
 
-  ctx.fillRect(
-    0,
-    0,
-    canvas.width,
-    canvas.height
-  );
+ctx.globalAlpha=.18;
+ctx.fillStyle="white";
 
+ctx.beginPath();
 
-  /* decorative circles */
+ctx.arc(
+100+progress*80,
+170,
+120,
+0,
+Math.PI*2
+);
 
-  ctx.globalAlpha=.18;
+ctx.fill();
 
-  ctx.fillStyle="white";
+ctx.beginPath();
 
+ctx.arc(
+440-progress*70,
+760,
+170,
+0,
+Math.PI*2
+);
 
-  ctx.beginPath();
+ctx.fill();
 
-  ctx.arc(
-    100+progress*80,
-    170,
-    120,
-    0,
-    Math.PI*2
-  );
-
-  ctx.fill();
-
-
-  ctx.beginPath();
-
-  ctx.arc(
-    440-progress*70,
-    760,
-    170,
-    0,
-    Math.PI*2
-  );
-
-  ctx.fill();
+ctx.globalAlpha=1;
 
 
-  ctx.globalAlpha=1;
+/* Scene number */
+
+ctx.fillStyle="white";
+
+ctx.font="bold 28px Arial";
+
+ctx.fillText(
+`SCENE ${index+1}`,
+40,
+75
+);
 
 
-  /* scene number */
+/* Topic */
 
-  ctx.fillStyle="white";
+ctx.font="bold 25px Arial";
 
-  ctx.font=
-    "bold 28px Arial";
-
-  ctx.fillText(
-    `SCENE ${index+1}`,
-    40,
-    75
-  );
-
-
-  /* topic */
-
-  ctx.font=
-    "bold 25px Arial";
-
-  wrapText(
-    currentPlan.topic,
-    40,
-    150,
-    460,
-    35
-  );
+wrapText(
+currentPlan.topic,
+40,
+150,
+460,
+35
+);
 
 
-  /* main text */
+/* Main scene text */
 
-  ctx.font=
-    "bold 38px Arial";
+ctx.font="bold 38px Arial";
 
-  wrapText(
-    scene,
-    40,
-    390,
-    460,
-    52
-  );
-
-
-  /* duration */
-
-  ctx.font=
-    "bold 22px Arial";
-
-  ctx.fillText(
-    `${currentPlan.duration}s`,
-    40,
-    825
-  );
+wrapText(
+scene,
+40,
+380,
+460,
+52
+);
 
 
-  /* progress */
+/* Animated caption */
 
-  ctx.fillStyle=
-    "rgba(255,255,255,.35)";
+const captionProgress=progress;
 
-  ctx.fillRect(
-    40,
-    875,
-    460,
-    8
-  );
+const captionY=
+760+
+Math.sin(captionProgress*Math.PI)*-25;
+
+ctx.fillStyle="rgba(0,0,0,.65)";
+
+roundRect(
+35,
+captionY-55,
+470,
+120,
+22
+);
+
+ctx.fill();
+
+ctx.fillStyle="white";
+
+ctx.font="bold 27px Arial";
+
+wrapText(
+scene,
+60,
+captionY-5,
+420,
+38
+);
 
 
-  ctx.fillStyle="white";
+/* Caption highlight line */
 
-  ctx.fillRect(
-    40,
-    875,
-    460*progress,
-    8
-  );
+ctx.fillStyle="rgba(255,255,255,.75)";
+
+ctx.fillRect(
+60,
+captionY+55,
+420*progress,
+6
+);
+
+
+/* Duration */
+
+ctx.font="bold 20px Arial";
+
+ctx.fillStyle="white";
+
+ctx.fillText(
+`${currentPlan.duration}s`,
+40,
+860
+);
+
+
+/* Bottom progress */
+
+ctx.fillStyle="rgba(255,255,255,.3)";
+
+ctx.fillRect(
+40,
+900,
+460,
+8
+);
+
+ctx.fillStyle="white";
+
+ctx.fillRect(
+40,
+900,
+460*progress,
+8
+);
 
 }
 
 
-/* -----------------------------
+/* =========================
+   ROUNDED RECTANGLE
+========================= */
+
+function roundRect(x,y,w,h,r){
+
+ctx.beginPath();
+
+ctx.moveTo(x+r,y);
+
+ctx.lineTo(x+w-r,y);
+
+ctx.quadraticCurveTo(
+x+w,y,
+x+w,y+r
+);
+
+ctx.lineTo(x+w,y+h-r);
+
+ctx.quadraticCurveTo(
+x+w,y+h,
+x+w-r,y+h
+);
+
+ctx.lineTo(x+r,y+h);
+
+ctx.quadraticCurveTo(
+x,y+h,
+x,y+h-r
+);
+
+ctx.lineTo(x,y+r);
+
+ctx.quadraticCurveTo(
+x,y,
+x+r,y
+);
+
+ctx.closePath();
+
+}
+
+
+/* =========================
    TEXT WRAP
------------------------------ */
+========================= */
 
 function wrapText(
-  text,
-  x,
-  y,
-  maxWidth,
-  lineHeight
+text,x,y,maxWidth,lineHeight
 ){
 
-  const words=
-    text.split(" ");
+const words=text.split(" ");
 
-  let line="";
+let line="";
+let yy=y;
 
-  let yy=y;
+for(let i=0;i<words.length;i++){
 
+const test=line+words[i]+" ";
 
-  for(let i=0;i<words.length;i++){
+const width=ctx.measureText(test).width;
 
-    const test=
-      line+
-      words[i]+
-      " ";
+if(width>maxWidth && i>0){
 
+ctx.fillText(line,x,yy);
 
-    const width=
-      ctx.measureText(test).width;
+line=words[i]+" ";
 
+yy+=lineHeight;
 
-    if(
-      width>maxWidth &&
-      i>0
-    ){
+}else{
 
-      ctx.fillText(
-        line,
-        x,
-        yy
-      );
+line=test;
 
-      line=
-        words[i]+
-        " ";
+}
 
-      yy+=lineHeight;
+}
 
-    }else{
-
-      line=test;
-
-    }
-
-  }
-
-
-  ctx.fillText(
-    line,
-    x,
-    yy
-  );
+ctx.fillText(line,x,yy);
 
 }
 
 
-/* -----------------------------
+/* =========================
    PREVIEW
------------------------------ */
+========================= */
 
 function startPreview(){
 
-  if(!currentPlan){
+if(!currentPlan){
 
-    alert("Generate a reel first.");
+alert("Generate a reel first.");
+return;
 
-    return;
-  }
+}
 
+if(animationTimer){
 
-  if(animationTimer){
+clearInterval(animationTimer);
 
-    clearInterval(animationTimer);
+}
 
-  }
+let frame=0;
 
+const fps=30;
 
-  let frame=0;
+const previewSeconds=
+Math.min(
+currentPlan.duration,
+15
+);
 
-  const fps=30;
+const totalFrames=
+previewSeconds*fps;
 
-  const previewSeconds=
-    Math.min(
-      currentPlan.duration,
-      15
-    );
+const framesPerScene=
+totalFrames/
+currentPlan.scenes.length;
 
+animationTimer=setInterval(()=>{
 
-  const totalFrames=
-    previewSeconds*fps;
+const sceneIndex=
+Math.min(
+currentPlan.scenes.length-1,
+Math.floor(frame/framesPerScene)
+);
 
+const localFrame=
+frame%framesPerScene;
 
-  const framesPerScene=
-    totalFrames/
-    currentPlan.scenes.length;
+const progress=
+localFrame/framesPerScene;
 
+drawScene(
+sceneIndex,
+progress
+);
 
-  animationTimer=
-    setInterval(()=>{
+frame++;
 
-      const sceneIndex=
-        Math.min(
-          currentPlan.scenes.length-1,
-          Math.floor(
-            frame/framesPerScene
-          )
-        );
+if(frame>=totalFrames){
 
+clearInterval(animationTimer);
 
-      const localFrame=
-        frame%framesPerScene;
+animationTimer=null;
 
+}
 
-      const progress=
-        localFrame/
-        framesPerScene;
-
-
-      drawScene(
-        sceneIndex,
-        progress
-      );
-
-
-      frame++;
-
-
-      if(
-        frame>=totalFrames
-      ){
-
-        clearInterval(
-          animationTimer
-        );
-
-        animationTimer=null;
-
-      }
-
-    },33);
+},33);
 
 }
 
 
-/* -----------------------------
-   VOICE
------------------------------ */
+/* =========================
+   BROWSER VOICE
+========================= */
 
 function speakScript(){
 
-  if(!currentPlan) return;
+if(!currentPlan)return;
 
+if(!("speechSynthesis" in window)){
 
-  if(
-    !("speechSynthesis" in window)
-  ){
+alert("Speech synthesis is not supported.");
 
-    alert(
-      "Speech synthesis is not supported."
-    );
+return;
 
-    return;
+}
 
-  }
+speechSynthesis.cancel();
 
+const utterance=
+new SpeechSynthesisUtterance(
+currentPlan.script
+);
 
-  speechSynthesis.cancel();
+const voiceStyle=
+document.getElementById("voiceStyle").value;
 
+if(voiceStyle==="Energetic"){
+utterance.rate=1.08;
+utterance.pitch=1.1;
+}
 
-  const utterance=
-    new SpeechSynthesisUtterance(
-      currentPlan.script
-    );
+if(voiceStyle==="Professional"){
+utterance.rate=.95;
+utterance.pitch=1;
+}
 
+if(voiceStyle==="Calm"){
+utterance.rate=.85;
+utterance.pitch=.9;
+}
 
-  const voiceStyle=
-    document.getElementById(
-      "voiceStyle"
-    ).value;
+if(voiceStyle==="Dramatic"){
+utterance.rate=.9;
+utterance.pitch=.8;
+}
 
-
-  if(
-    voiceStyle==="Energetic"
-  ){
-
-    utterance.rate=1.08;
-    utterance.pitch=1.1;
-
-  }
-
-
-  if(
-    voiceStyle==="Professional"
-  ){
-
-    utterance.rate=.95;
-    utterance.pitch=1;
-
-  }
-
-
-  if(
-    voiceStyle==="Calm"
-  ){
-
-    utterance.rate=.85;
-    utterance.pitch=.9;
-
-  }
-
-
-  if(
-    voiceStyle==="Dramatic"
-  ){
-
-    utterance.rate=.9;
-    utterance.pitch=.8;
-
-  }
-
-
-  speechSynthesis.speak(
-    utterance
-  );
+speechSynthesis.speak(utterance);
 
 }
 
 
-/* -----------------------------
-   VIDEO FORMAT
------------------------------ */
+/* =========================
+   MIME TYPE
+========================= */
 
 function getMimeType(){
 
-  const types=[
-    "video/webm;codecs=vp8",
-    "video/webm",
-    ""
-  ];
+const types=[
+"video/webm;codecs=vp8",
+"video/webm",
+""
+];
 
+for(const type of types){
 
-  for(
-    const type of types
-  ){
+if(
+type==="" ||
+MediaRecorder.isTypeSupported(type)
+){
 
-    if(
-      type==="" ||
-      MediaRecorder.isTypeSupported(
-        type
-      )
-    ){
+return type;
 
-      return type;
+}
 
-    }
+}
 
-  }
-
-
-  return "";
+return "";
 
 }
 
 
-/* -----------------------------
+/* =========================
+   BACKGROUND MUSIC
+========================= */
+
+function createMusic(){
+
+const AudioContext=
+window.AudioContext||
+window.webkitAudioContext;
+
+if(!AudioContext){
+
+return null;
+
+}
+
+const audioCtx=
+new AudioContext();
+
+const destination=
+audioCtx.createMediaStreamDestination();
+
+const master=
+audioCtx.createGain();
+
+master.gain.value=.055;
+
+master.connect(destination);
+
+master.connect(audioCtx.destination);
+
+
+/* Soft repeating synth music */
+
+const notes=[
+261.63,
+329.63,
+392.00,
+329.63,
+293.66,
+349.23,
+440.00,
+349.23
+];
+
+let stopped=false;
+
+const startTime=
+audioCtx.currentTime;
+
+function playNote(index){
+
+if(stopped)return;
+
+const osc=
+audioCtx.createOscillator();
+
+const gain=
+audioCtx.createGain();
+
+osc.type="sine";
+
+osc.frequency.value=
+notes[index%notes.length];
+
+gain.gain.setValueAtTime(
+0,
+audioCtx.currentTime
+);
+
+gain.gain.linearRampToValueAtTime(
+.7,
+audioCtx.currentTime+.05
+);
+
+gain.gain.linearRampToValueAtTime(
+0,
+audioCtx.currentTime+.45
+);
+
+osc.connect(gain);
+gain.connect(master);
+
+osc.start();
+
+osc.stop(
+audioCtx.currentTime+.5
+);
+
+setTimeout(
+()=>playNote(index+1),
+500
+);
+
+}
+
+playNote(0);
+
+return {
+stream:destination.stream,
+stop:function(){
+
+stopped=true;
+
+audioCtx.close();
+
+}
+};
+
+}
+
+
+/* =========================
    RENDER REEL
------------------------------ */
+========================= */
 
 function renderReel(){
 
-  if(!currentPlan){
+if(!currentPlan){
 
-    alert(
-      "Generate a reel first."
-    );
+alert("Generate a reel first.");
+return;
 
-    return;
+}
 
-  }
+if(!window.MediaRecorder){
 
+alert(
+"Your browser does not support video recording."
+);
 
-  if(!window.MediaRecorder){
+return;
 
-    alert(
-      "Your browser does not support video recording."
-    );
+}
 
-    return;
+if(!canvas.captureStream){
 
-  }
+alert(
+"Your browser does not support canvas video."
+);
 
+return;
 
-  if(!canvas.captureStream){
+}
 
-    alert(
-      "Your browser does not support canvas video."
-    );
+const button=
+document.getElementById("renderButton");
 
-    return;
+const status=
+document.getElementById("renderStatus");
 
-  }
+const bar=
+document.getElementById("renderBar");
 
+button.disabled=true;
 
-  const button=
-    document.getElementById(
-      "renderButton"
-    );
+button.textContent="⏳ Rendering...";
 
+status.className="status";
 
-  const status=
-    document.getElementById(
-      "renderStatus"
-    );
+status.textContent=
+`Preparing ${currentPlan.duration}-second video...`;
 
+bar.style.width="0%";
 
-  const bar=
-    document.getElementById(
-      "renderBar"
-    );
 
+if(animationTimer){
 
-  button.disabled=true;
+clearInterval(animationTimer);
 
-  button.textContent=
-    "⏳ Rendering...";
+animationTimer=null;
 
+}
 
-  status.className="status";
 
-  status.textContent=
-    `Preparing ${currentPlan.duration}-second video...`;
+/* Canvas video */
 
+const canvasStream=
+canvas.captureStream(30);
 
-  bar.style.width="0%";
 
+/* Music audio */
 
-  if(animationTimer){
+let music=null;
 
-    clearInterval(
-      animationTimer
-    );
+try{
 
-    animationTimer=null;
+music=createMusic();
 
-  }
+}catch(error){
 
+music=null;
 
-  /* Capture canvas at 30 FPS */
+}
 
-  const stream=
-    canvas.captureStream(30);
 
+/* Combine video + music */
 
-  const mime=
-    getMimeType();
+let combinedStream;
 
+if(
+music &&
+music.stream
+){
 
-  let recorder;
+combinedStream=
+new MediaStream([
+...canvasStream.getVideoTracks(),
+...music.stream.getAudioTracks()
+]);
 
+}else{
 
-  try{
+combinedStream=
+canvasStream;
 
-    recorder=
-      mime
-      ? new MediaRecorder(
-          stream,
-          {
-            mimeType:mime
-          }
-        )
-      : new MediaRecorder(
-          stream
-        );
+}
 
-  }catch(error){
 
-    button.disabled=false;
+/* Recorder */
 
-    button.textContent=
-      "🎥 Render & Download Reel";
+const mime=
+getMimeType();
 
-    status.textContent=
-      "Could not start video recorder.";
+let recorder;
 
-    stream.getTracks().forEach(
-      track=>track.stop()
-    );
+try{
 
-    return;
+recorder=
+mime
+?new MediaRecorder(
+combinedStream,
+{mimeType:mime}
+)
+:new MediaRecorder(
+combinedStream
+);
 
-  }
+}catch(error){
 
+button.disabled=false;
 
-  const chunks=[];
+button.textContent=
+"🎥 Render & Download Reel";
 
+status.textContent=
+"Could not start video recorder.";
 
-  recorder.ondataavailable=
-    function(event){
+canvasStream.getTracks().forEach(
+track=>track.stop()
+);
 
-      if(
-        event.data &&
-        event.data.size>0
-      ){
+if(music)music.stop();
 
-        chunks.push(
-          event.data
-        );
+return;
 
-      }
+}
 
-    };
 
+const chunks=[];
 
-  recorder.onerror=function(){
 
-    button.disabled=false;
+recorder.ondataavailable=
+function(event){
 
-    button.textContent=
-      "🎥 Render & Download Reel";
+if(
+event.data &&
+event.data.size>0
+){
 
-    status.textContent=
-      "Video recording failed. Please try again.";
+chunks.push(event.data);
 
-    stream.getTracks().forEach(
-      track=>track.stop()
-    );
+}
 
-  };
+};
 
 
-  recorder.onstop=function(){
+recorder.onerror=function(){
 
-    stream.getTracks().forEach(
-      track=>track.stop()
-    );
+button.disabled=false;
 
+button.textContent=
+"🎥 Render & Download Reel";
 
-    if(chunks.length===0){
+status.textContent=
+"Video recording failed. Please try again.";
 
-      button.disabled=false;
+canvasStream.getTracks().forEach(
+track=>track.stop()
+);
 
-      button.textContent=
-        "🎥 Render & Download Reel";
+if(music)music.stop();
 
-      status.textContent=
-        "No video data was produced.";
+};
 
-      return;
 
-    }
+recorder.onstop=function(){
 
+canvasStream.getTracks().forEach(
+track=>track.stop()
+);
 
-    const blob=
-      new Blob(
-        chunks,
-        {
-          type:
-            recorder.mimeType ||
-            "video/webm"
-        }
-      );
+if(music){
 
+music.stop();
 
-    const url=
-      URL.createObjectURL(
-        blob
-      );
+}
 
 
-    const link=
-      document.createElement("a");
+if(chunks.length===0){
 
+button.disabled=false;
 
-    link.href=url;
+button.textContent=
+"🎥 Render & Download Reel";
 
+status.textContent=
+"No video data was produced.";
 
-    link.download=
-      `ai-reel-stage-7-${currentPlan.duration}s.webm`;
+return;
 
+}
 
-    document.body.appendChild(
-      link
-    );
 
+const blob=
+new Blob(
+chunks,
+{
+type:
+recorder.mimeType||
+"video/webm"
+}
+);
 
-    link.click();
 
-    link.remove();
+const url=
+URL.createObjectURL(blob);
 
 
-    setTimeout(()=>{
+const link=
+document.createElement("a");
 
-      URL.revokeObjectURL(
-        url
-      );
+link.href=url;
 
-    },3000);
+link.download=
+`ai-reel-stage-7-1-${currentPlan.duration}s.webm`;
 
+document.body.appendChild(link);
 
-    bar.style.width="100%";
+link.click();
 
+link.remove();
 
-    status.className=
-      "status success";
 
+setTimeout(()=>{
 
-    status.textContent=
-      `✅ ${currentPlan.duration}-second reel downloaded successfully! Check your Downloads folder.`;
+URL.revokeObjectURL(url);
 
+},3000);
 
-    button.disabled=false;
 
-    button.textContent=
-      "🎥 Render & Download Reel";
+bar.style.width="100%";
 
-  };
+status.className="status success";
 
+status.textContent=
+`✅ ${currentPlan.duration}-second reel downloaded with animated captions and background music!`;
 
-  /* First frame */
+button.disabled=false;
 
-  drawScene(0,0);
+button.textContent=
+"🎥 Render & Download Reel";
 
+};
 
-  try{
 
-    recorder.start(1000);
+/* First frame */
 
-  }catch(error){
+drawScene(0,0);
 
-    button.disabled=false;
 
-    button.textContent=
-      "🎥 Render & Download Reel";
+/* Start recorder */
 
-    status.textContent=
-      "Could not start recording.";
+try{
 
-    stream.getTracks().forEach(
-      track=>track.stop()
-    );
+recorder.start(1000);
 
-    return;
+}catch(error){
 
-  }
+button.disabled=false;
 
+button.textContent=
+"🎥 Render & Download Reel";
 
-  /*
-    Stage 7 duration.
-    30 / 45 / 60 seconds.
-  */
+status.textContent=
+"Could not start recording.";
 
-  const duration=
-    currentPlan.duration*1000;
+canvasStream.getTracks().forEach(
+track=>track.stop()
+);
 
+if(music)music.stop();
 
-  const start=
-    performance.now();
+return;
 
+}
 
-  function renderFrame(){
 
-    const elapsed=
-      performance.now()-
-      start;
+/* Duration */
 
+const duration=
+currentPlan.duration*1000;
 
-    const sceneDuration=
-      duration/
-      currentPlan.scenes.length;
+const start=
+performance.now();
 
 
-    const sceneIndex=
-      Math.min(
-        currentPlan.scenes.length-1,
-        Math.floor(
-          elapsed/
-          sceneDuration
-        )
-      );
+function renderFrame(){
 
+const elapsed=
+performance.now()-start;
 
-    const local=
-      elapsed%
-      sceneDuration;
+const sceneDuration=
+duration/
+currentPlan.scenes.length;
 
+const sceneIndex=
+Math.min(
+currentPlan.scenes.length-1,
+Math.floor(
+elapsed/sceneDuration
+)
+);
 
-    const progress=
-      local/
-      sceneDuration;
+const local=
+elapsed%sceneDuration;
 
+const progress=
+local/sceneDuration;
 
-    drawScene(
-      sceneIndex,
-      progress
-    );
 
+drawScene(
+sceneIndex,
+progress
+);
 
-    const percent=
-      Math.min(
-        100,
-        Math.floor(
-          elapsed/
-          duration*
-          100
-        )
-      );
 
+const percent=
+Math.min(
+100,
+Math.floor(
+elapsed/duration*100
+)
+);
 
-    bar.style.width=
-      percent+"%";
 
+bar.style.width=
+percent+"%";
 
-    status.textContent=
-      `Rendering ${currentPlan.duration}-second reel... ${percent}%`;
+status.textContent=
+`Rendering ${currentPlan.duration}-second reel... ${percent}%`;
 
 
-    if(
-      elapsed<duration
-    ){
+if(elapsed<duration){
 
-      requestAnimationFrame(
-        renderFrame
-      );
+requestAnimationFrame(
+renderFrame
+);
 
-    }
+}
 
-  }
+}
 
 
-  requestAnimationFrame(
-    renderFrame
-  );
+requestAnimationFrame(
+renderFrame
+);
 
 
-  /*
-    Give the recorder
-    one extra second to finish.
-  */
+/* Finish */
 
-  setTimeout(()=>{
+setTimeout(()=>{
 
-    if(
-      recorder.state==="recording"
-    ){
+if(
+recorder.state==="recording"
+){
 
-      status.textContent=
-        "Finishing video...";
+status.textContent=
+"Finishing video...";
 
-      recorder.stop();
+recorder.stop();
 
-    }
+}
 
-  },duration+1000);
+},duration+1000);
 
 }
 
