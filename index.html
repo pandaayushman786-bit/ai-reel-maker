@@ -3,11 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
-<title>AI Reel Maker — Stage 7.11</title>
+<title>AI Reel Maker — Stage 7.12</title>
 
 <style>
-
 *{
   box-sizing:border-box;
 }
@@ -15,152 +13,139 @@
 body{
   margin:0;
   font-family:Arial,Helvetica,sans-serif;
-  background:#070b14;
-  color:#f4f7ff;
+  background:#07101f;
+  color:#fff;
 }
 
 .container{
-  width:min(1180px,94%);
+  width:min(1150px,94%);
   margin:auto;
+  padding:28px 0 60px;
 }
 
 header{
-  padding:28px 0 20px;
+  margin-bottom:25px;
 }
 
 .logo{
-  font-size:28px;
+  font-size:30px;
   font-weight:800;
 }
 
-.badge{
+.stage{
   display:inline-block;
   margin-top:8px;
   padding:7px 12px;
   border-radius:20px;
-  background:#17233d;
-  color:#72aaff;
+  background:#152a48;
+  color:#70b7ff;
   font-size:13px;
+  font-weight:bold;
 }
 
-.hero{
-  margin:20px 0;
-  padding:28px;
-  border:1px solid #202b43;
-  border-radius:24px;
-  background:linear-gradient(145deg,#10182a,#0b101d);
-}
-
-.hero h1{
-  margin:0 0 10px;
-  font-size:34px;
-}
-
-.hero p{
-  margin:0;
-  color:#9ba8c2;
+.subtitle{
+  color:#9fb0c8;
+  margin-top:10px;
 }
 
 .card{
-  margin:18px 0;
-  padding:22px;
-  border:1px solid #202b43;
-  border-radius:20px;
-  background:#0d1422;
+  background:#0d1a2d;
+  border:1px solid #203552;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 10px 35px rgba(0,0,0,.18);
+}
+
+h2{
+  margin-top:0;
 }
 
 label{
   display:block;
-  margin-bottom:8px;
-  font-weight:700;
+  color:#aebdd2;
+  font-size:13px;
+  margin-bottom:7px;
 }
 
-input[type="text"],
+input,
 select{
   width:100%;
-  padding:14px;
-  border-radius:12px;
-  border:1px solid #2b3854;
-  background:#080d18;
+  padding:13px;
+  border-radius:10px;
+  border:1px solid #2a4263;
+  background:#081426;
   color:white;
-  font-size:15px;
+  outline:none;
 }
 
-.controls{
+input:focus,
+select:focus{
+  border-color:#3c9cff;
+}
+
+.grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+@media(max-width:700px){
+  .grid{
+    grid-template-columns:1fr;
+  }
 }
 
 button{
   border:0;
-  border-radius:12px;
-  padding:13px 16px;
-  font-weight:700;
-  cursor:pointer;
+  border-radius:11px;
+  padding:12px 16px;
+  margin:5px 5px 5px 0;
+  background:#238cff;
   color:white;
-  background:#236eff;
-  transition:.2s;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 button:hover{
-  transform:translateY(-1px);
-  filter:brightness(1.08);
+  filter:brightness(1.1);
 }
 
 button.secondary{
-  background:#1a263d;
+  background:#1a2b43;
+}
+
+button.danger{
+  background:#b8334a;
 }
 
 button.green{
-  background:#168d62;
+  background:#159c6b;
 }
 
-button.red{
-  background:#b9384e;
+button.music{
+  background:#7b4cff;
 }
 
-button.orange{
-  background:#bd7020;
-}
-
-button.musicOn{
-  background:#148b63;
-  border:2px solid #38e4a4;
-}
-
-button.musicOff{
-  background:#4a1f2a;
-  border:2px solid #d95b70;
-}
-
-.buttonRow{
+.controls{
   display:flex;
   flex-wrap:wrap;
-  gap:10px;
-  margin-top:16px;
-}
-
-.status{
-  margin-top:15px;
-  padding:12px;
-  border-radius:10px;
-  background:#09101d;
-  color:#9db0d0;
-}
-
-.audioControls{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
+  gap:5px;
   margin-top:15px;
 }
 
-.audioBox{
+.musicBox{
+  background:#101e34;
+  border:1px solid #294467;
+  border-radius:14px;
   padding:16px;
-  border-radius:15px;
-  background:#09111e;
-  border:1px solid #26334e;
+  margin-top:15px;
+}
+
+.musicTitle{
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:12px;
 }
 
 .volumeRow{
@@ -169,37 +154,74 @@ button.musicOff{
   gap:12px;
 }
 
-input[type="range"]{
-  width:100%;
+.volumeRow input{
+  padding:0;
 }
 
-.sceneGrid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
+.status{
+  padding:13px;
+  border-radius:10px;
+  background:#081426;
+  color:#9ecbff;
+  margin-top:12px;
+  min-height:44px;
 }
 
-.scene{
-  padding:17px;
-  border-radius:15px;
-  background:#101a2b;
-  border:1px solid #273653;
+.progressBox{
+  margin-top:12px;
+  display:none;
 }
 
-.sceneNumber{
-  color:#63a0ff;
-  font-weight:800;
+.progressOuter{
+  height:12px;
+  background:#081426;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.progressInner{
+  height:100%;
+  width:0%;
+  background:#238cff;
+  transition:width .1s linear;
+}
+
+.progressText{
+  margin-top:7px;
+  color:#aebdd2;
   font-size:13px;
 }
 
-.scene h3{
-  margin:8px 0;
+.hook{
+  font-size:22px;
+  line-height:1.4;
+  font-weight:bold;
+  color:#75bbff;
 }
 
-.scene p{
-  margin:0;
-  color:#aab6cc;
+.script{
+  white-space:pre-line;
+  line-height:1.6;
+  color:#dce7f5;
+}
+
+.scene{
+  background:#081426;
+  border:1px solid #1e3655;
+  border-radius:13px;
+  padding:15px;
+  margin-top:10px;
+}
+
+.sceneTitle{
+  font-weight:bold;
+  color:#65b2ff;
+}
+
+.sceneText{
+  color:#c7d3e2;
   line-height:1.5;
+  margin-top:7px;
 }
 
 .previewWrap{
@@ -210,75 +232,46 @@ input[type="range"]{
 .phone{
   width:300px;
   padding:10px;
-  border-radius:30px;
-  background:#02040a;
-  border:5px solid #202b43;
+  background:#000;
+  border-radius:28px;
+  border:4px solid #28384d;
 }
 
 canvas{
-  display:block;
   width:100%;
-  height:auto;
-  border-radius:20px;
-  background:black;
-}
-
-.progressOuter{
-  height:12px;
-  background:#151e31;
-  border-radius:20px;
-  overflow:hidden;
-  margin-top:12px;
-}
-
-.progressInner{
-  height:100%;
-  width:0%;
-  background:#3c8cff;
-  transition:width:.1s linear;
-}
-
-.copyGrid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
-}
-
-.copyBox{
-  padding:15px;
-  border-radius:15px;
-  background:#09111e;
-  border:1px solid #26334e;
-}
-
-.copyBox p{
-  color:#b6c1d5;
-  line-height:1.5;
+  display:block;
+  border-radius:19px;
+  background:#000;
 }
 
 .small{
-  font-size:13px;
-  color:#7f8ca5;
+  font-size:12px;
+  color:#8193aa;
 }
 
-@media(max-width:800px){
-
-  .controls{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .sceneGrid,
-  .copyGrid,
-  .audioControls{
-    grid-template-columns:1fr;
-  }
-
-  .hero h1{
-    font-size:27px;
-  }
-
+.copyButtons{
+  margin-top:10px;
 }
 
+textarea{
+  width:100%;
+  min-height:100px;
+  resize:vertical;
+  padding:13px;
+  border-radius:10px;
+  background:#081426;
+  border:1px solid #2a4263;
+  color:#fff;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  background:#153253;
+  color:#76baff;
+  font-size:12px;
+}
 </style>
 </head>
 
@@ -288,31 +281,25 @@ canvas{
 
 <header>
   <div class="logo">🎬 AI Reel Maker</div>
-  <div class="badge">Stage 7.11 • Stable Music Engine</div>
+  <div class="stage">Stage 7.12 • Stable Audio Preview Engine</div>
+  <div class="subtitle">
+    Create topic-specific cinematic reels with animated captions, browser music and voice preview.
+  </div>
 </header>
 
-<section class="hero">
-  <h1>Create a Reel About Exactly What You Enter</h1>
-  <p>
-    Topic-aware scenes • cinematic visuals • animated captions • music • voice preview • WebM rendering
-  </p>
-</section>
+<div class="card">
 
-<section class="card">
+  <h2>Create Your Reel</h2>
 
-  <label for="topic">Reel Topic</label>
-
-  <input
-    id="topic"
-    type="text"
-    value="Ferrari 488"
-    placeholder="Example: Ferrari 488, Chandrayaan missions, BMW M3 GTR"
-  >
-
-  <div class="controls" style="margin-top:15px">
+  <div class="grid">
 
     <div>
-      <label>Length</label>
+      <label>Topic</label>
+      <input id="topic" value="Ferrari 488" placeholder="Enter any topic">
+    </div>
+
+    <div>
+      <label>Reel Length</label>
       <select id="duration">
         <option value="30">30 seconds</option>
         <option value="45" selected>45 seconds</option>
@@ -322,358 +309,261 @@ canvas{
 
     <div>
       <label>Content Style</label>
-      <select id="style">
-        <option value="fast">Fast & Viral</option>
-        <option value="news">News Style</option>
-        <option value="educational">Educational</option>
-        <option value="cinematic">Cinematic</option>
+      <select id="contentStyle">
+        <option>Fast & Viral</option>
+        <option>News Style</option>
+        <option>Educational</option>
+        <option>Cinematic</option>
       </select>
     </div>
 
     <div>
       <label>Voice Style</label>
       <select id="voiceStyle">
-        <option value="energetic">Energetic</option>
-        <option value="professional">Professional</option>
-        <option value="calm">Calm</option>
-        <option value="dramatic">Dramatic</option>
+        <option>Energetic</option>
+        <option>Professional</option>
+        <option>Calm</option>
+        <option>Dramatic</option>
       </select>
     </div>
 
     <div>
-      <label>Transition</label>
+      <label>Scene Transition</label>
       <select id="transition">
-        <option value="zoom">Cinematic Zoom</option>
-        <option value="fade">Fade</option>
-        <option value="slide">Slide</option>
+        <option>Fade</option>
+        <option>Zoom</option>
+        <option>Slide</option>
       </select>
     </div>
 
   </div>
 
-  <div class="buttonRow">
-
-    <button onclick="generateReel()">
-      ✨ Generate Reel
-    </button>
-
-    <button class="secondary" onclick="newReel()">
-      🆕 New Reel
-    </button>
-
+  <div class="controls">
+    <button onclick="generateReel()">✨ Generate Reel</button>
+    <button class="secondary" onclick="newReel()">🆕 New Reel</button>
   </div>
 
-</section>
+  <div class="musicBox">
 
-<section class="card">
+    <div class="musicTitle">🎵 Background Music</div>
 
-  <h2>🎵 Audio Controls</h2>
+    <button id="musicToggle" class="music" onclick="toggleMusicSetting()">
+      🎵 Music: ON
+    </button>
 
-  <div class="audioControls">
+    <button class="green" onclick="playMusic()">
+      ▶️ Play Music
+    </button>
 
-    <div class="audioBox">
+    <button class="danger" onclick="stopMusic()">
+      ⏹️ Stop Music
+    </button>
 
-      <div style="font-size:18px;font-weight:800;margin-bottom:8px">
-        Background Music
-      </div>
-
-      <button
-        id="musicToggle"
-        class="musicOn"
-        onclick="toggleMusic()"
+    <div class="volumeRow">
+      <span>🔊</span>
+      <input
+        id="musicVolume"
+        type="range"
+        min="0"
+        max="100"
+        value="35"
+        oninput="changeMusicVolume()"
       >
-        🎵 Music: ON
-      </button>
-
-      <div class="small" style="margin-top:10px">
-        Music is recorded directly into the downloaded reel.
-      </div>
-
-      <div style="margin-top:16px">
-        <label>Music Volume</label>
-
-        <div class="volumeRow">
-          <input
-            id="musicVolume"
-            type="range"
-            min="0"
-            max="100"
-            value="35"
-            oninput="updateMusicVolume()"
-          >
-
-          <span id="volumeValue">35%</span>
-        </div>
-      </div>
-
+      <span id="volumeValue">35%</span>
     </div>
 
-    <div class="audioBox">
-
-      <div style="font-size:18px;font-weight:800;margin-bottom:8px">
-        🎙️ Voice Preview
-      </div>
-
-      <button onclick="playVoice()">
-        🔊 Play Voice
-      </button>
-
-      <button
-        class="red"
-        onclick="stopVoice()"
-        style="margin-left:6px"
-      >
-        🔇 Stop Voice
-      </button>
-
-      <div style="margin-top:10px" class="small">
-        Browser voice is for preview. The generated WebM uses the background music track.
-      </div>
-
+    <div class="small">
+      Play Music controls the live preview separately.
+      Music ON/OFF controls whether music is included in the downloaded reel.
     </div>
 
   </div>
 
-</section>
+  <div class="status" id="status">
+    Ready. Enter a topic and generate your reel.
+  </div>
 
-<section class="card">
+</div>
 
-  <h2>🧠 AI Reel Plan</h2>
 
-  <div id="hookBox">
+<div class="card">
+
+  <h2>🔥 Hook</h2>
+
+  <div class="hook" id="hook">
     Generate a reel to create your hook.
   </div>
 
-  <div style="margin-top:18px">
+</div>
 
-    <h3>🎙️ Voiceover Script</h3>
 
-    <div
-      id="scriptBox"
-      class="scene"
-    >
-      Your voiceover script will appear here.
-    </div>
+<div class="card">
 
+  <h2>🎙️ Voiceover Script</h2>
+
+  <div class="script" id="script">
+    Generate a reel to create your script.
   </div>
 
-  <div class="buttonRow">
-
-    <button onclick="playVoice()">
-      🔊 Play Voice
-    </button>
-
-    <button
-      class="red"
-      onclick="stopVoice()"
-    >
-      🔇 Stop Voice
-    </button>
-
+  <div class="controls">
+    <button onclick="playVoice()">🔊 Play Voice</button>
+    <button class="danger" onclick="stopVoice()">⏹️ Stop Voice</button>
   </div>
 
-</section>
+</div>
 
-<section class="card">
+
+<div class="card">
 
   <h2>🎬 Scene Planner</h2>
 
-  <div id="sceneGrid" class="sceneGrid"></div>
+  <div id="scenes">
+    Generate a reel to create scenes.
+  </div>
 
-</section>
+</div>
 
-<section class="card">
+
+<div class="card">
 
   <h2>📱 Reel Preview</h2>
 
   <div class="previewWrap">
 
     <div class="phone">
-
-      <canvas
-        id="canvas"
-        width="540"
-        height="960"
-      ></canvas>
-
+      <canvas id="canvas" width="540" height="960"></canvas>
     </div>
 
   </div>
 
-  <div class="buttonRow">
+  <div class="controls">
+    <button onclick="previewReel()">▶️ Preview Reel</button>
+    <button class="danger" onclick="stopPreview()">⏹️ Stop Preview</button>
+  </div>
 
-    <button onclick="previewReel()">
-      ▶ Preview Reel
-    </button>
+</div>
 
-    <button
-      class="red"
-      onclick="stopPreview()"
-    >
-      ⏹ Stop Preview
-    </button>
+
+<div class="card">
+
+  <h2>📥 Export</h2>
+
+  <button class="green" id="renderButton" onclick="renderReel()">
+    🎥 Render & Download
+  </button>
+
+  <button class="danger" onclick="cancelRender()">
+    ⏹️ Cancel Render
+  </button>
+
+  <div class="progressBox" id="progressBox">
+
+    <div class="progressOuter">
+      <div class="progressInner" id="progressInner"></div>
+    </div>
+
+    <div class="progressText" id="progressText">
+      0%
+    </div>
 
   </div>
 
-  <div class="progressOuter">
-    <div
-      id="previewProgress"
-      class="progressInner"
-    ></div>
+</div>
+
+
+<div class="card">
+
+  <h2>📲 Social Caption</h2>
+
+  <textarea id="caption" readonly></textarea>
+
+  <div class="copyButtons">
+    <button onclick="copyCaption()">📋 Copy Caption</button>
   </div>
 
-</section>
+</div>
 
-<section class="card">
 
-  <h2>📥 Render Final Reel</h2>
+<div class="card">
+
+  <h2>#️⃣ Hashtags</h2>
+
+  <textarea id="hashtags" readonly></textarea>
+
+  <div class="copyButtons">
+    <button onclick="copyHashtags()">📋 Copy Hashtags</button>
+  </div>
+
+</div>
+
+
+<div class="card">
+
+  <h2>⚙️ Project Status</h2>
+
+  <span class="badge">Stage 7.12</span>
 
   <p class="small">
-    Rendering happens in real time so the browser can capture the animated video and music together.
+    Browser-based reel engine • Topic-aware content • Animated captions •
+    Browser voice • Generated music • WebM rendering
   </p>
 
-  <div class="buttonRow">
+  <p class="small">
+    Note: the music is browser-generated synth music, not commercial/licensed music.
+    Real AI voice, AI images and MP4 export can be connected in later stages.
+  </p>
 
-    <button
-      class="green"
-      onclick="renderReel()"
-    >
-      🎥 Render & Download Reel
-    </button>
-
-    <button
-      class="red"
-      onclick="cancelRender()"
-    >
-      ⛔ Cancel Render
-    </button>
-
-  </div>
-
-  <div class="progressOuter">
-
-    <div
-      id="renderProgress"
-      class="progressInner"
-    ></div>
-
-  </div>
-
-  <div
-    id="renderText"
-    class="status"
-  >
-    Ready to render.
-  </div>
-
-</section>
-
-<section class="card">
-
-  <h2>📱 Social Media Content</h2>
-
-  <div class="copyGrid">
-
-    <div class="copyBox">
-
-      <h3>Caption</h3>
-
-      <p id="captionBox">
-        Generate a reel first.
-      </p>
-
-      <button onclick="copyCaption()">
-        📋 Copy Caption
-      </button>
-
-    </div>
-
-    <div class="copyBox">
-
-      <h3>Hashtags</h3>
-
-      <p id="hashtagsBox">
-        Generate a reel first.
-      </p>
-
-      <button onclick="copyHashtags()">
-        📋 Copy Hashtags
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
-
-<section class="card">
-
-  <h2>📊 Project Status</h2>
-
-  <div
-    id="status"
-    class="status"
-  >
-    Ready. Enter a topic and generate your reel.
-  </div>
-
-</section>
+</div>
 
 </div>
 
 
 <script>
 
-/* =========================================================
-   GLOBAL STATE
-========================================================= */
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
 
-let currentPlan = null;
+let currentPlan=null;
 
-let previewTimer = null;
+let previewAnimation=null;
+let previewRunning=false;
+let previewStart=0;
 
-let previewStart = 0;
+let voiceActive=false;
 
-let renderRunning = false;
+let musicEnabled=true;
+let liveMusic=null;
 
-let renderCancelled = false;
-
-let renderAnimation = null;
-
-let voicePlaying = false;
-
-let musicEnabled = true;
-
-let musicVolume = 0.35;
+let renderCancelled=false;
+let rendering=false;
 
 
-/* =========================================================
-   DOM HELPERS
-========================================================= */
+/* =========================
+   BASIC HELPERS
+========================= */
 
-function el(id){
-  return document.getElementById(id);
-}
-
-function escapeHTML(text){
-
-  return String(text)
+function escapeHTML(value){
+  return String(value)
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
-
 }
 
 
-/* =========================================================
+function setStatus(text){
+  document.getElementById("status").textContent=text;
+}
+
+
+/* =========================
    TOPIC DETECTION
-========================================================= */
+========================= */
 
 function detectTopic(topic){
 
-  const t = topic.toLowerCase().trim();
+  const t=topic.toLowerCase();
 
   if(
     t.includes("ferrari 488") ||
@@ -698,6 +588,21 @@ function detectTopic(topic){
     t.includes("pragyan rover")
   ){
     return "chandrayaan";
+  }
+
+  if(
+    t.includes("lamborghini") ||
+    t.includes("ferrari") ||
+    t.includes("porsche") ||
+    t.includes("bugatti") ||
+    t.includes("koenigsegg") ||
+    t.includes("pagani") ||
+    t.includes("mclaren") ||
+    t.includes("mercedes") ||
+    t.includes("bmw") ||
+    t.includes("car")
+  ){
+    return "cars";
   }
 
   if(
@@ -758,124 +663,91 @@ function detectTopic(topic){
     return "science";
   }
 
-  if(
-    t.includes("lamborghini") ||
-    t.includes("ferrari") ||
-    t.includes("porsche") ||
-    t.includes("bugatti") ||
-    t.includes("koenigsegg") ||
-    t.includes("pagani") ||
-    t.includes("mclaren") ||
-    t.includes("mercedes") ||
-    t.includes("bmw")
-  ){
-    return "cars";
-  }
-
   return "general";
-
 }
 
 
-/* =========================================================
-   HOOK GENERATOR
-========================================================= */
+/* =========================
+   HOOK
+========================= */
 
-function makeHook(topic,category,style){
+function makeHook(topic,type,style){
 
-  if(category==="ferrari488"){
+  if(type==="ferrari488")
+    return "The Ferrari 488 changed an important chapter of Ferrari's modern performance-car story.";
 
-    if(style==="news"){
-      return "The Ferrari 488 changed an important chapter in Ferrari's performance-car history.";
-    }
+  if(type==="bmwm3gtr")
+    return "The BMW M3 GTR became one of the most recognizable performance cars of its era.";
 
-    return "The Ferrari 488 is one of Ferrari's most important modern turbocharged supercars.";
-  }
+  if(type==="chandrayaan")
+    return "India's Chandrayaan missions created major milestones in lunar exploration.";
 
-  if(category==="bmwm3gtr"){
-    return "The BMW M3 GTR became one of the most recognizable racing-inspired cars ever.";
-  }
+  if(type==="space")
+    return "Space is full of discoveries that completely change how we understand the universe.";
 
-  if(category==="chandrayaan"){
-    return "India's Chandrayaan missions changed the story of lunar exploration.";
-  }
+  if(type==="technology")
+    return `${topic} is changing the way technology works and how people use it.`;
 
-  if(category==="space"){
-    return "Space is full of discoveries that completely change how we see the universe.";
-  }
+  if(type==="business")
+    return `${topic} has an interesting story behind its business and growth.`;
 
-  if(category==="technology"){
-    return topic+" is part of a technology shift that is changing how we live and work.";
-  }
+  if(type==="history")
+    return `${topic} has a history filled with events that are still worth understanding today.`;
 
-  if(category==="business"){
-    return topic+" has an interesting story behind how it works and why it matters.";
-  }
+  if(type==="india")
+    return `${topic} has a fascinating story that many people may not know.`;
 
-  if(category==="history"){
-    return topic+" has a history filled with important moments.";
-  }
+  if(type==="science")
+    return `${topic} reveals a fascinating part of how the world around us works.`;
 
-  if(category==="india"){
-    return "India has a fascinating story behind "+topic+".";
-  }
-
-  if(category==="science"){
-    return topic+" reveals some fascinating ideas about how our world works.";
-  }
-
-  if(category==="cars"){
-    return topic+" combines engineering, design and performance in a fascinating way.";
-  }
-
-  return "Here is what makes "+topic+" interesting.";
+  return `Here is something interesting about ${topic} that you should know.`;
 }
 
 
-/* =========================================================
-   SCENE GENERATOR
-========================================================= */
+/* =========================
+   SCENES
+========================= */
 
-function makeScenes(topic,category){
+function makeScenes(topic,type){
 
-  if(category==="ferrari488"){
+  if(type==="ferrari488"){
 
     return [
 
       {
         title:"The Ferrari 488",
         text:"The Ferrari 488 became the successor to Ferrari's 458-era mid-engine sports car family.",
-        theme:"ferrari"
+        visual:"ferrari"
       },
 
       {
         title:"Twin-Turbo V8",
         text:"One of the defining features of the 488 is its twin-turbocharged V8 engine.",
-        theme:"engine"
+        visual:"engine"
       },
 
       {
         title:"Mid-Engine Layout",
         text:"The engine sits behind the driver, helping create the balance and proportions expected from a modern Ferrari sports car.",
-        theme:"midengine"
+        visual:"midengine"
       },
 
       {
         title:"Aerodynamic Design",
         text:"The 488's bodywork was designed around airflow, cooling and high-speed aerodynamic performance.",
-        theme:"aero"
+        visual:"aero"
       },
 
       {
         title:"Performance Focus",
         text:"Everything from the engine response to the chassis and electronics was developed around high-performance driving.",
-        theme:"performance"
+        visual:"speed"
       },
 
       {
         title:"The 488 Legacy",
         text:"The Ferrari 488 became an important chapter in Ferrari's move into a new generation of turbocharged performance cars.",
-        theme:"legacy"
+        visual:"ferrari"
       }
 
     ];
@@ -883,44 +755,44 @@ function makeScenes(topic,category){
   }
 
 
-  if(category==="bmwm3gtr"){
+  if(type==="bmwm3gtr"){
 
     return [
 
       {
         title:"BMW M3 GTR",
-        text:"The BMW M3 GTR became one of the most famous performance versions of the E46 generation.",
-        theme:"bmw"
+        text:"The BMW M3 GTR became one of the most famous versions of the E46 M3 story.",
+        visual:"bmw"
       },
 
       {
         title:"Racing DNA",
-        text:"The M3 GTR was created around a serious racing philosophy with aggressive performance engineering.",
-        theme:"race"
+        text:"The M3 GTR was developed with serious motorsport performance in mind.",
+        visual:"racing"
       },
 
       {
         title:"The E46 Era",
-        text:"Its E46 proportions and unmistakable silhouette helped make the car instantly recognizable.",
-        theme:"bmw"
+        text:"The E46 generation became one of the most recognizable chapters in BMW M history.",
+        visual:"bmw"
       },
 
       {
         title:"The V8 Connection",
-        text:"The racing M3 GTR became famous for its high-revving V8 powertrain.",
-        theme:"engine"
+        text:"The racing M3 GTR became famous for its V8-powered competition identity.",
+        visual:"engine"
       },
 
       {
         title:"A Gaming Icon",
-        text:"The BMW M3 GTR became a global gaming icon through Need for Speed Most Wanted.",
-        theme:"gaming"
+        text:"The BMW M3 GTR became even more recognizable through Need for Speed Most Wanted.",
+        visual:"gaming"
       },
 
       {
         title:"Why It Still Matters",
-        text:"The combination of racing history, design and gaming culture keeps the M3 GTR popular today.",
-        theme:"legacy"
+        text:"The combination of racing history, design and gaming culture made the M3 GTR an enduring icon.",
+        visual:"bmw"
       }
 
     ];
@@ -928,44 +800,44 @@ function makeScenes(topic,category){
   }
 
 
-  if(category==="chandrayaan"){
+  if(type==="chandrayaan"){
 
     return [
 
       {
         title:"Chandrayaan-1",
         text:"Chandrayaan-1 was India's first mission to the Moon and launched in 2008.",
-        theme:"moon"
+        visual:"moon"
       },
 
       {
         title:"Studying the Moon",
-        text:"The mission carried scientific instruments designed to study the lunar surface and environment.",
-        theme:"moon"
+        text:"The mission carried scientific instruments designed to study the lunar surface.",
+        visual:"orbiter"
       },
 
       {
         title:"Water Evidence",
-        text:"Chandrayaan-1 helped provide important evidence of water-related molecules on the lunar surface.",
-        theme:"watermoon"
+        text:"Chandrayaan-1 helped provide important evidence related to water molecules on the lunar surface.",
+        visual:"watermoon"
       },
 
       {
         title:"Chandrayaan-2",
-        text:"Chandrayaan-2 launched in 2019 and included an orbiter, lander and rover.",
-        theme:"orbiter"
+        text:"Chandrayaan-2 launched in 2019 with an orbiter, lander and rover.",
+        visual:"orbiter"
       },
 
       {
         title:"Chandrayaan-3",
         text:"Chandrayaan-3 successfully landed near the Moon's south polar region in August 2023.",
-        theme:"lander"
+        visual:"lander"
       },
 
       {
         title:"Vikram & Pragyan",
-        text:"The Vikram lander and Pragyan rover made Chandrayaan-3 a major milestone in India's lunar exploration program.",
-        theme:"rover"
+        text:"The Vikram lander and Pragyan rover became major parts of India's lunar exploration program.",
+        visual:"rover"
       }
 
     ];
@@ -973,44 +845,44 @@ function makeScenes(topic,category){
   }
 
 
-  if(category==="space"){
+  if(type==="space"){
 
     return [
 
       {
-        title:topic,
-        text:"The story of "+topic+" begins with humanity's effort to understand the universe.",
-        theme:"space"
+        title:"The Topic",
+        text:`${topic} connects to one of the biggest questions in space exploration.`,
+        visual:"galaxy"
       },
 
       {
         title:"Exploration",
-        text:topic+" represents another step in humanity's exploration of space.",
-        theme:"rocket"
+        text:`Scientists study ${topic} using increasingly advanced instruments and missions.`,
+        visual:"rocket"
       },
 
       {
         title:"The Science",
-        text:"Scientists use missions, observations and experiments to understand "+topic+".",
-        theme:"galaxy"
+        text:`Understanding ${topic} can reveal more about how the universe works.`,
+        visual:"star"
       },
 
       {
         title:"What We Learn",
-        text:"Research connected to "+topic+" can reveal new information about the universe.",
-        theme:"planet"
+        text:`Research into ${topic} can change what scientists previously believed.`,
+        visual:"galaxy"
       },
 
       {
         title:"Technology",
-        text:"Advanced engineering plays a major role in exploring and studying "+topic+".",
-        theme:"tech"
+        text:`Exploring ${topic} requires advanced engineering and scientific technology.`,
+        visual:"rocket"
       },
 
       {
         title:"The Bigger Picture",
-        text:topic+" shows how much there is still to discover beyond Earth.",
-        theme:"space"
+        text:`${topic} is part of humanity's continuing effort to understand space.`,
+        visual:"earth"
       }
 
     ];
@@ -1018,44 +890,44 @@ function makeScenes(topic,category){
   }
 
 
-  if(category==="technology"){
+  if(type==="technology"){
 
     return [
 
       {
-        title:topic,
-        text:topic+" is becoming an important part of modern technology.",
-        theme:"tech"
-      },
-
-      {
-        title:"The Core Idea",
-        text:"The main idea behind "+topic+" is to make technology more capable and useful.",
-        theme:"tech"
+        title:"The Idea",
+        text:`${topic} is becoming an important part of modern technology.`,
+        visual:"technology"
       },
 
       {
         title:"How It Works",
-        text:topic+" combines systems, software and engineering to perform useful tasks.",
-        theme:"network"
+        text:`At its core, ${topic} depends on systems designed to process information and perform useful tasks.`,
+        visual:"technology"
+      },
+
+      {
+        title:"Real-World Use",
+        text:`People are finding new ways to use ${topic} in everyday life and business.`,
+        visual:"city"
       },
 
       {
         title:"Why It Matters",
-        text:topic+" could influence the way people work, communicate or create.",
-        theme:"tech"
+        text:`The development of ${topic} could influence how future products and services are created.`,
+        visual:"technology"
       },
 
       {
-        title:"Rapid Development",
-        text:"Technology around "+topic+" continues to evolve quickly.",
-        theme:"future"
+        title:"The Challenge",
+        text:`Like any technology, ${topic} also brings engineering and practical challenges.`,
+        visual:"future"
       },
 
       {
         title:"The Future",
-        text:topic+" could become even more important as technology develops.",
-        theme:"future"
+        text:`The next stage of ${topic} will depend on how quickly the technology develops and how people use it.`,
+        visual:"future"
       }
 
     ];
@@ -1063,44 +935,44 @@ function makeScenes(topic,category){
   }
 
 
-  if(category==="business"){
+  if(type==="business"){
 
     return [
 
       {
-        title:topic,
-        text:topic+" has an interesting story behind its business and market presence.",
-        theme:"business"
+        title:"The Business",
+        text:`${topic} has an interesting story behind its business model.`,
+        visual:"business"
       },
 
       {
-        title:"The Core Idea",
-        text:"At the centre of "+topic+" is a product, service or idea designed to create value.",
-        theme:"business"
-      },
-
-      {
-        title:"How It Works",
-        text:"Understanding how "+topic+" operates helps explain its business model.",
-        theme:"network"
-      },
-
-      {
-        title:"The Market",
-        text:topic+" operates in a market shaped by customers, competitors and technology.",
-        theme:"business"
+        title:"The Idea",
+        text:`The core idea behind ${topic} is built around solving a particular problem or creating value.`,
+        visual:"business"
       },
 
       {
         title:"Growth",
-        text:"Growth depends on execution, customer demand and the ability to adapt.",
-        theme:"chart"
+        text:`Growth depends on customers, execution, competition and changing market conditions.`,
+        visual:"city"
+      },
+
+      {
+        title:"The Challenge",
+        text:`Every business faces challenges involving costs, customers and competition.`,
+        visual:"business"
+      },
+
+      {
+        title:"Innovation",
+        text:`Innovation can help businesses adapt when markets and customer expectations change.`,
+        visual:"technology"
       },
 
       {
         title:"The Bigger Picture",
-        text:topic+" shows how ideas can become larger businesses over time.",
-        theme:"future"
+        text:`${topic} shows how ideas can develop into larger businesses and products.`,
+        visual:"future"
       }
 
     ];
@@ -1108,44 +980,44 @@ function makeScenes(topic,category){
   }
 
 
-  if(category==="history"){
+  if(type==="history"){
 
     return [
 
       {
-        title:topic,
-        text:topic+" is connected to a series of important historical events.",
-        theme:"history"
-      },
-
-      {
         title:"The Beginning",
-        text:"Understanding the beginning of "+topic+" helps explain what happened later.",
-        theme:"history"
+        text:`${topic} has roots in events and people from the past.`,
+        visual:"history"
       },
 
       {
         title:"A Turning Point",
-        text:"Important developments changed the course of "+topic+".",
-        theme:"history"
+        text:`Important events helped shape the story surrounding ${topic}.`,
+        visual:"history"
       },
 
       {
-        title:"People & Events",
-        text:"People and events played major roles in shaping the story.",
-        theme:"history"
+        title:"The People",
+        text:`The history of ${topic} was influenced by people, decisions and circumstances.`,
+        visual:"history"
       },
 
       {
-        title:"The Impact",
-        text:topic+" left an impact that can still be studied today.",
-        theme:"history"
+        title:"What Changed",
+        text:`The events surrounding ${topic} created changes that continued beyond their original period.`,
+        visual:"city"
+      },
+
+      {
+        title:"The Legacy",
+        text:`The effects of ${topic} can still be seen in the world today.`,
+        visual:"history"
       },
 
       {
         title:"Why It Matters",
-        text:"History helps us understand why "+topic+" remains important.",
-        theme:"history"
+        text:`Understanding ${topic} helps explain how the present was shaped by the past.`,
+        visual:"future"
       }
 
     ];
@@ -1153,44 +1025,44 @@ function makeScenes(topic,category){
   }
 
 
-  if(category==="india"){
+  if(type==="india"){
 
     return [
 
       {
-        title:topic,
-        text:topic+" is connected to an interesting part of India's story.",
-        theme:"india"
-      },
-
-      {
         title:"The Story",
-        text:"There are several important details behind "+topic+".",
-        theme:"india"
+        text:`${topic} is connected to an interesting part of India's story.`,
+        visual:"india"
       },
 
       {
-        title:"Development",
-        text:topic+" reflects part of India's development and changing landscape.",
-        theme:"city"
+        title:"The People",
+        text:`People and communities have played an important role in the development of ${topic}.`,
+        visual:"india"
       },
 
       {
-        title:"People",
-        text:"People have played an important role in the story of "+topic+".",
-        theme:"culture"
+        title:"The Development",
+        text:`Over time, ${topic} has changed as India has developed.`,
+        visual:"city"
       },
 
       {
-        title:"Impact",
-        text:topic+" has had an influence beyond its immediate surroundings.",
-        theme:"india"
+        title:"Why It Matters",
+        text:`${topic} is connected to a wider part of India's culture, economy or development.`,
+        visual:"india"
+      },
+
+      {
+        title:"Today",
+        text:`The modern story of ${topic} continues to evolve.`,
+        visual:"city"
       },
 
       {
         title:"The Bigger Picture",
-        text:topic+" is one more example of India's diverse and evolving story.",
-        theme:"india"
+        text:`${topic} is one small part of the much larger story of India.`,
+        visual:"future"
       }
 
     ];
@@ -1198,44 +1070,44 @@ function makeScenes(topic,category){
   }
 
 
-  if(category==="science"){
+  if(type==="science"){
 
     return [
 
       {
-        title:topic,
-        text:topic+" reveals interesting principles about the world around us.",
-        theme:"science"
-      },
-
-      {
-        title:"The Core Idea",
-        text:"The science behind "+topic+" begins with understanding its basic principles.",
-        theme:"science"
+        title:"The Concept",
+        text:`${topic} is connected to an important scientific idea.`,
+        visual:"science"
       },
 
       {
         title:"How It Works",
-        text:"Researchers use observation and experiments to understand "+topic+".",
-        theme:"lab"
+        text:`Scientists study ${topic} by observing evidence and testing explanations.`,
+        visual:"science"
       },
 
       {
-        title:"What We Learn",
-        text:topic+" can help scientists understand more about nature.",
-        theme:"science"
+        title:"The Evidence",
+        text:`Experiments and observations help researchers understand ${topic}.`,
+        visual:"technology"
       },
 
       {
-        title:"Research",
-        text:"Continued research can reveal new information about "+topic+".",
-        theme:"lab"
+        title:"Why It Matters",
+        text:`Understanding ${topic} can improve our knowledge of the natural world.`,
+        visual:"galaxy"
+      },
+
+      {
+        title:"Applications",
+        text:`Scientific knowledge about ${topic} can sometimes lead to useful technologies and discoveries.`,
+        visual:"technology"
       },
 
       {
         title:"The Bigger Picture",
-        text:topic+" shows how much there is still to discover.",
-        theme:"space"
+        text:`${topic} is another example of how science helps explain the world around us.`,
+        visual:"future"
       }
 
     ];
@@ -1243,44 +1115,44 @@ function makeScenes(topic,category){
   }
 
 
-  if(category==="cars"){
+  if(type==="cars"){
 
     return [
 
       {
-        title:topic,
-        text:topic+" combines engineering, design and performance.",
-        theme:"car"
+        title:"The Car",
+        text:`${topic} has a design and engineering story worth exploring.`,
+        visual:"car"
       },
 
       {
         title:"Engineering",
-        text:"Engineering decisions shape how "+topic+" performs.",
-        theme:"engine"
+        text:`The engineering behind ${topic} focuses on performance, efficiency or usability.`,
+        visual:"engine"
       },
 
       {
         title:"Performance",
-        text:"Power, weight, aerodynamics and control all influence performance.",
-        theme:"performance"
+        text:`Performance depends on the engine, chassis, aerodynamics and electronics.`,
+        visual:"speed"
       },
 
       {
         title:"Design",
-        text:"The design of "+topic+" is built around both function and visual identity.",
-        theme:"aero"
+        text:`The design of ${topic} combines appearance with functional engineering.`,
+        visual:"aero"
       },
 
       {
         title:"Driving Experience",
-        text:"The final result is a driving experience shaped by many engineering details.",
-        theme:"car"
+        text:`The final result is a vehicle designed around a particular driving character.`,
+        visual:"car"
       },
 
       {
         title:"Legacy",
-        text:topic+" remains interesting because of the combination of design and engineering.",
-        theme:"legacy"
+        text:`${topic} represents one chapter in the continuing evolution of automotive engineering.`,
+        visual:"future"
       }
 
     ];
@@ -1291,2622 +1163,1601 @@ function makeScenes(topic,category){
   return [
 
     {
-      title:"Introducing "+topic,
-      text:topic+" has several interesting details worth exploring.",
-      theme:"generic"
+      title:"Introducing It",
+      text:`${topic} has an interesting story worth exploring.`,
+      visual:"generic"
     },
 
     {
       title:"The Core Idea",
-      text:"The main idea behind "+topic+" is what makes it interesting.",
-      theme:"generic"
+      text:`At the center of ${topic} is an idea, system or development that makes it interesting.`,
+      visual:"technology"
     },
 
     {
       title:"How It Works",
-      text:"Understanding how "+topic+" works gives us a clearer picture.",
-      theme:"tech"
+      text:`Understanding how ${topic} works helps explain why it matters.`,
+      visual:"science"
     },
 
     {
       title:"Why It Matters",
-      text:topic+" matters because it has an effect beyond its basic function.",
-      theme:"world"
+      text:`${topic} has qualities that make it relevant to people today.`,
+      visual:"city"
     },
 
     {
       title:"What Makes It Interesting",
-      text:"Several details make "+topic+" worth learning about.",
-      theme:"science"
+      text:`There are several details about ${topic} that make it worth learning about.`,
+      visual:"generic"
     },
 
     {
       title:"The Bigger Picture",
-      text:topic+" is part of a much bigger story.",
-      theme:"future"
+      text:`${topic} is part of a much larger story that continues to develop.`,
+      visual:"future"
     }
 
   ];
-
 }
 
 
-/* =========================================================
-   HASHTAGS
-========================================================= */
-
-function makeHashtags(topic,category){
-
-  const base = "#AIReel #Reels #Shorts #ContentCreator";
-
-  if(category==="ferrari488"){
-    return base+" #Ferrari #Ferrari488 #Supercar #CarCulture";
-  }
-
-  if(category==="bmwm3gtr"){
-    return base+" #BMW #M3GTR #E46 #NeedForSpeed";
-  }
-
-  if(category==="chandrayaan"){
-    return base+" #Chandrayaan #ISRO #IndiaInSpace #MoonMission #Space";
-  }
-
-  if(category==="space"){
-    return base+" #Space #NASA #ISRO #Astronomy";
-  }
-
-  if(category==="technology"){
-    return base+" #Technology #AI #Innovation #Future";
-  }
-
-  if(category==="business"){
-    return base+" #Business #Startup #Entrepreneur";
-  }
-
-  if(category==="history"){
-    return base+" #History #HistoricalFacts";
-  }
-
-  if(category==="india"){
-    return base+" #India #IndianFacts #IndiaNews";
-  }
-
-  if(category==="science"){
-    return base+" #Science #Facts #Knowledge";
-  }
-
-  if(category==="cars"){
-    return base+" #Cars #Automotive #CarCulture";
-  }
-
-  return base+" #Facts #InterestingFacts";
-
-}
-
-
-/* =========================================================
+/* =========================
    GENERATE REEL
-========================================================= */
+========================= */
 
 function generateReel(){
 
   stopPreview();
-
   stopVoice();
 
-  if(renderRunning){
-    el("status").textContent="Please wait for the current render to finish.";
-    return;
-  }
-
-  const topic = el("topic").value.trim();
+  const topic=document.getElementById("topic").value.trim();
 
   if(!topic){
-
-    el("status").textContent="Please enter a topic first.";
-
+    setStatus("Please enter a topic first.");
     return;
   }
 
-  const category = detectTopic(topic);
+  const duration=Number(document.getElementById("duration").value);
+  const style=document.getElementById("contentStyle").value;
+  const voiceStyle=document.getElementById("voiceStyle").value;
+  const type=detectTopic(topic);
 
-  const duration = Number(el("duration").value);
+  const hook=makeHook(topic,type,style);
+  const scenes=makeScenes(topic,type);
 
-  const style = el("style").value;
-
-  const voiceStyle = el("voiceStyle").value;
-
-  const transition = el("transition").value;
-
-  const hook = makeHook(topic,category,style);
-
-  const scenes = makeScenes(topic,category);
-
-  currentPlan = {
-
+  currentPlan={
     topic,
-    category,
     duration,
     style,
     voiceStyle,
-    transition,
+    type,
     hook,
     scenes
-
   };
 
-  const script = scenes
-    .map(s=>s.text)
-    .join(" ");
+  document.getElementById("hook").textContent=hook;
 
-  currentPlan.script = script;
+  let script=hook+"\n\n";
 
-  el("hookBox").innerHTML = `
-    <div class="scene">
-      <div class="sceneNumber">AI HOOK</div>
-      <h3>${escapeHTML(hook)}</h3>
-    </div>
-  `;
+  scenes.forEach((scene,index)=>{
+    script+=`Scene ${index+1}: ${scene.text}\n\n`;
+  });
 
-  el("scriptBox").textContent = script;
+  document.getElementById("script").textContent=script;
 
-  el("sceneGrid").innerHTML = scenes.map((scene,index)=>`
+  const sceneHTML=scenes.map((scene,index)=>{
 
-    <div class="scene">
-
-      <div class="sceneNumber">
-        SCENE ${index+1}
+    return `
+      <div class="scene">
+        <div class="sceneTitle">
+          Scene ${index+1} — ${escapeHTML(scene.title)}
+        </div>
+        <div class="sceneText">
+          ${escapeHTML(scene.text)}
+        </div>
       </div>
+    `;
 
-      <h3>
-        ${escapeHTML(scene.title)}
-      </h3>
+  }).join("");
 
-      <p>
-        ${escapeHTML(scene.text)}
-      </p>
+  document.getElementById("scenes").innerHTML=sceneHTML;
 
-    </div>
+  const caption=
+    `${topic} — here's a quick look at what makes this topic interesting.`;
 
-  `).join("");
+  const hashtags=
+    `#${topic.replace(/[^a-zA-Z0-9]/g,"")} #reels #shorts #facts #viral #explore`;
 
-  const hashtags = makeHashtags(topic,category);
-
-  el("captionBox").textContent =
-    hook+" "+script.substring(0,180)+"...";
-
-  el("hashtagsBox").textContent = hashtags;
-
-  el("status").textContent =
-    "Reel generated for: "+topic+" • 6 topic-specific scenes ready.";
+  document.getElementById("caption").value=caption;
+  document.getElementById("hashtags").value=hashtags;
 
   drawFrame(0);
 
+  setStatus(
+    `Reel generated for "${topic}". ${duration}-second timeline ready.`
+  );
 }
 
 
-/* =========================================================
+/* =========================
    NEW REEL
-========================================================= */
+========================= */
 
 function newReel(){
 
   stopPreview();
-
   stopVoice();
-
-  if(renderRunning){
-    el("status").textContent="Cancel the current render first.";
-    return;
-  }
+  stopMusic();
 
   currentPlan=null;
 
-  el("topic").value="";
+  document.getElementById("topic").value="";
+  document.getElementById("hook").textContent=
+    "Generate a reel to create your hook.";
 
-  el("hookBox").textContent="Generate a reel to create your hook.";
+  document.getElementById("script").textContent=
+    "Generate a reel to create your script.";
 
-  el("scriptBox").textContent="Your voiceover script will appear here.";
+  document.getElementById("scenes").textContent=
+    "Generate a reel to create scenes.";
 
-  el("sceneGrid").innerHTML="";
+  document.getElementById("caption").value="";
+  document.getElementById("hashtags").value="";
 
-  el("captionBox").textContent="Generate a reel first.";
+  ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  el("hashtagsBox").textContent="Generate a reel first.";
-
-  el("status").textContent="New reel ready.";
-
-  el("renderProgress").style.width="0%";
-
-  el("previewProgress").style.width="0%";
-
-  clearCanvas();
-
+  setStatus("New reel ready.");
 }
 
 
-/* =========================================================
-   MUSIC CONTROL
-========================================================= */
+/* =========================
+   CANVAS BACKGROUND
+========================= */
 
-function toggleMusic(){
+function background(){
 
-  musicEnabled = !musicEnabled;
+  const g=ctx.createLinearGradient(0,0,0,960);
 
-  const button = el("musicToggle");
+  g.addColorStop(0,"#050b18");
+  g.addColorStop(.5,"#0a1d38");
+  g.addColorStop(1,"#02050c");
 
-  if(musicEnabled){
+  ctx.fillStyle=g;
+  ctx.fillRect(0,0,540,960);
 
-    button.textContent="🎵 Music: ON";
+  for(let i=0;i<20;i++){
 
-    button.className="musicOn";
+    const x=(i*89)%540;
+    const y=(i*157)%960;
 
-    el("status").textContent="Background music enabled.";
+    ctx.fillStyle="rgba(255,255,255,.05)";
+    ctx.beginPath();
+    ctx.arc(x,y,2+(i%3),0,Math.PI*2);
+    ctx.fill();
 
-  }else{
+  }
+}
 
-    button.textContent="🔇 Music: OFF";
 
-    button.className="musicOff";
+/* =========================
+   VISUALS
+========================= */
 
-    el("status").textContent="Background music disabled.";
+function drawCarVisual(type,t){
+
+  const x=270;
+  const y=470;
+
+  ctx.save();
+
+  ctx.translate(Math.sin(t*.8)*15,0);
+
+  ctx.fillStyle="rgba(20,120,255,.14)";
+  ctx.beginPath();
+  ctx.ellipse(x,y+80,210,55,0,0,Math.PI*2);
+  ctx.fill();
+
+  ctx.fillStyle="#d72638";
+
+  ctx.beginPath();
+  ctx.moveTo(100,520);
+  ctx.lineTo(150,465);
+  ctx.lineTo(220,430);
+  ctx.lineTo(340,430);
+  ctx.lineTo(430,475);
+  ctx.lineTo(475,520);
+  ctx.lineTo(450,565);
+  ctx.lineTo(110,565);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle="#101b2c";
+
+  ctx.beginPath();
+  ctx.moveTo(205,430);
+  ctx.lineTo(245,385);
+  ctx.lineTo(325,385);
+  ctx.lineTo(365,430);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle="#05070c";
+
+  ctx.beginPath();
+  ctx.arc(170,565,38,0,Math.PI*2);
+  ctx.arc(390,565,38,0,Math.PI*2);
+  ctx.fill();
+
+  ctx.fillStyle="#ddd";
+
+  ctx.beginPath();
+  ctx.arc(170,565,15,0,Math.PI*2);
+  ctx.arc(390,565,15,0,Math.PI*2);
+  ctx.fill();
+
+  ctx.restore();
+}
+
+
+function drawEngine(t){
+
+  ctx.save();
+
+  ctx.translate(270,450);
+
+  ctx.rotate(Math.sin(t*.5)*.03);
+
+  ctx.fillStyle="#9aa7b7";
+  ctx.fillRect(-125,-100,250,200);
+
+  ctx.fillStyle="#202d40";
+
+  for(let i=-90;i<=90;i+=45){
+    ctx.fillRect(i,-120,28,240);
+  }
+
+  ctx.fillStyle="#e63c48";
+  ctx.fillRect(-80,-150,160,30);
+
+  ctx.fillStyle="#56b8ff";
+  ctx.beginPath();
+  ctx.arc(0,0,65,0,Math.PI*2);
+  ctx.fill();
+
+  ctx.fillStyle="#09111e";
+  ctx.beginPath();
+  ctx.arc(0,0,25,0,Math.PI*2);
+  ctx.fill();
+
+  ctx.restore();
+}
+
+
+function drawMoon(t,water=false){
+
+  const x=270;
+  const y=420;
+
+  const r=145;
+
+  const g=ctx.createRadialGradient(
+    x-45,y-55,10,
+    x,y,r
+  );
+
+  g.addColorStop(0,water?"#bdefff":"#eeeeee");
+  g.addColorStop(1,water?"#315d9b":"#6c7180");
+
+  ctx.fillStyle=g;
+  ctx.beginPath();
+  ctx.arc(x,y,r,0,Math.PI*2);
+  ctx.fill();
+
+  for(let i=0;i<18;i++){
+
+    const a=i*1.9;
+    const cx=x+Math.cos(a)*100;
+    const cy=y+Math.sin(a)*100;
+
+    ctx.fillStyle=water
+      ?"rgba(90,210,255,.25)"
+      :"rgba(30,30,40,.20)";
+
+    ctx.beginPath();
+    ctx.arc(cx,cy,8+(i%5),0,Math.PI*2);
+    ctx.fill();
+  }
+
+  ctx.strokeStyle="rgba(255,255,255,.18)";
+  ctx.lineWidth=2;
+
+  ctx.beginPath();
+  ctx.arc(x,y,r+5,0,Math.PI*2);
+  ctx.stroke();
+
+  if(water){
+
+    ctx.fillStyle="#62d8ff";
+    ctx.font="bold 25px Arial";
+    ctx.textAlign="center";
+    ctx.fillText("WATER",270,650);
+
+  }
+}
+
+
+function drawRocket(t){
+
+  ctx.save();
+
+  ctx.translate(270,430+Math.sin(t*2)*15);
+
+  ctx.fillStyle="#e7edf5";
+
+  ctx.beginPath();
+  ctx.moveTo(0,-150);
+  ctx.quadraticCurveTo(70,-80,55,100);
+  ctx.lineTo(0,150);
+  ctx.lineTo(-55,100);
+  ctx.quadraticCurveTo(-70,-80,0,-150);
+  ctx.fill();
+
+  ctx.fillStyle="#263a55";
+
+  ctx.beginPath();
+  ctx.arc(0,-45,28,0,Math.PI*2);
+  ctx.fill();
+
+  ctx.fillStyle="#ff8b3d";
+
+  ctx.beginPath();
+  ctx.moveTo(-28,130);
+  ctx.lineTo(0,220+Math.sin(t*8)*20);
+  ctx.lineTo(28,130);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.restore();
+}
+
+
+function drawGalaxy(t){
+
+  const x=270;
+  const y=430;
+
+  for(let i=0;i<100;i++){
+
+    const a=i*.7+t*.25;
+    const r=(i*11)%220;
+
+    const px=x+Math.cos(a)*r;
+    const py=y+Math.sin(a)*r*.55;
+
+    ctx.fillStyle="rgba(110,180,255,.5)";
+
+    ctx.beginPath();
+    ctx.arc(px,py,1+(i%3),0,Math.PI*2);
+    ctx.fill();
+  }
+
+  ctx.fillStyle="#fff";
+
+  for(let i=0;i<35;i++){
+
+    const px=(i*97)%540;
+    const py=(i*131)%500;
+
+    ctx.fillRect(px,py,2,2);
+  }
+}
+
+
+function drawTechnology(t){
+
+  ctx.save();
+
+  ctx.translate(270,430);
+
+  ctx.rotate(Math.sin(t*.6)*.03);
+
+  ctx.strokeStyle="#48aaff";
+  ctx.lineWidth=5;
+
+  for(let i=0;i<6;i++){
+
+    ctx.beginPath();
+    ctx.rect(
+      -130+i*45,
+      -100+i%2*40,
+      70,
+      70
+    );
+    ctx.stroke();
 
   }
 
+  ctx.fillStyle="#35d6ff";
+
+  for(let i=0;i<12;i++){
+
+    ctx.beginPath();
+
+    const a=i*Math.PI/6+t;
+    const x=Math.cos(a)*155;
+    const y=Math.sin(a)*155;
+
+    ctx.arc(x,y,6,0,Math.PI*2);
+    ctx.fill();
+  }
+
+  ctx.restore();
 }
 
 
-function updateMusicVolume(){
+function drawCity(t){
 
-  musicVolume =
-    Number(el("musicVolume").value)/100;
+  ctx.fillStyle="#101f34";
 
-  el("volumeValue").textContent =
-    Math.round(musicVolume*100)+"%";
+  for(let i=0;i<12;i++){
 
+    const h=120+(i%5)*55;
+
+    ctx.fillRect(
+      i*50,
+      700-h,
+      38,
+      h
+    );
+
+  }
+
+  ctx.fillStyle="#4cb6ff";
+
+  for(let i=0;i<30;i++){
+
+    ctx.fillRect(
+      (i*73)%520,
+      600+(i%6)*35,
+      4,
+      8
+    );
+
+  }
 }
 
 
-/* =========================================================
+function drawHistory(t){
+
+  ctx.fillStyle="#b88952";
+
+  ctx.fillRect(120,280,300,350);
+
+  ctx.fillStyle="#62452c";
+
+  for(let i=0;i<5;i++){
+
+    ctx.fillRect(
+      145+i*55,
+      330,
+      28,
+      250
+    );
+
+  }
+
+  ctx.fillStyle="#e1bd79";
+
+  ctx.beginPath();
+  ctx.arc(270,270,110,Math.PI,Math.PI*2);
+  ctx.fill();
+}
+
+
+function drawBusiness(t){
+
+  ctx.strokeStyle="#47d69b";
+  ctx.lineWidth=7;
+
+  ctx.beginPath();
+
+  ctx.moveTo(90,650);
+  ctx.lineTo(180,570);
+  ctx.lineTo(250,610);
+  ctx.lineTo(350,470);
+  ctx.lineTo(450,360);
+
+  ctx.stroke();
+
+  ctx.fillStyle="#47d69b";
+
+  ctx.beginPath();
+  ctx.arc(450,360,15,0,Math.PI*2);
+  ctx.fill();
+
+  ctx.font="bold 80px Arial";
+  ctx.textAlign="center";
+  ctx.fillText("↗",270,270);
+}
+
+
+function drawGeneric(t){
+
+  const r=110+Math.sin(t*2)*15;
+
+  ctx.strokeStyle="#3b9dff";
+  ctx.lineWidth=6;
+
+  ctx.beginPath();
+  ctx.arc(270,430,r,0,Math.PI*2);
+  ctx.stroke();
+
+  ctx.strokeStyle="#6d5cff";
+
+  ctx.beginPath();
+  ctx.arc(270,430,r+40,0,Math.PI*2);
+  ctx.stroke();
+
+  for(let i=0;i<6;i++){
+
+    const a=i*Math.PI/3+t;
+
+    const x=270+Math.cos(a)*210;
+    const y=430+Math.sin(a)*210;
+
+    ctx.fillStyle="#4eb4ff";
+
+    ctx.beginPath();
+    ctx.arc(x,y,9,0,Math.PI*2);
+    ctx.fill();
+
+  }
+}
+
+
+/* =========================
+   VISUAL SELECTOR
+========================= */
+
+function drawVisual(visual,t){
+
+  if(
+    visual==="ferrari" ||
+    visual==="car" ||
+    visual==="midengine" ||
+    visual==="aero" ||
+    visual==="speed"
+  ){
+    drawCarVisual(visual,t);
+    return;
+  }
+
+  if(visual==="engine" || visual==="racing"){
+    drawEngine(t);
+    return;
+  }
+
+  if(visual==="moon"){
+    drawMoon(t,false);
+    return;
+  }
+
+  if(visual==="watermoon"){
+    drawMoon(t,true);
+    return;
+  }
+
+  if(visual==="rocket"){
+    drawRocket(t);
+    return;
+  }
+
+  if(
+    visual==="galaxy" ||
+    visual==="star" ||
+    visual==="earth"
+  ){
+    drawGalaxy(t);
+    return;
+  }
+
+  if(visual==="orbiter"){
+
+    drawMoon(t,false);
+
+    ctx.strokeStyle="#69baff";
+    ctx.lineWidth=6;
+
+    ctx.strokeRect(
+      110,
+      680,
+      320,
+      35
+    );
+
+    ctx.beginPath();
+    ctx.arc(270,695,20,0,Math.PI*2);
+    ctx.stroke();
+
+    return;
+  }
+
+  if(visual==="lander"){
+
+    drawMoon(t,false);
+
+    ctx.fillStyle="#d6dbe4";
+    ctx.fillRect(205,590,130,80);
+
+    ctx.strokeStyle="#b4c1d2";
+    ctx.lineWidth=6;
+
+    ctx.beginPath();
+    ctx.moveTo(220,670);
+    ctx.lineTo(180,740);
+    ctx.moveTo(320,670);
+    ctx.lineTo(360,740);
+    ctx.stroke();
+
+    return;
+  }
+
+  if(visual==="rover"){
+
+    drawMoon(t,false);
+
+    ctx.fillStyle="#e5a640";
+    ctx.fillRect(200,600,140,65);
+
+    ctx.fillStyle="#222";
+
+    ctx.beginPath();
+    ctx.arc(220,670,25,0,Math.PI*2);
+    ctx.arc(320,670,25,0,Math.PI*2);
+    ctx.fill();
+
+    return;
+  }
+
+  if(visual==="technology" || visual==="future"){
+    drawTechnology(t);
+    return;
+  }
+
+  if(visual==="city"){
+    drawCity(t);
+    return;
+  }
+
+  if(visual==="business"){
+    drawBusiness(t);
+    return;
+  }
+
+  if(visual==="history"){
+    drawHistory(t);
+    return;
+  }
+
+  if(visual==="india"){
+
+    ctx.fillStyle="#ff9933";
+    ctx.font="bold 110px Arial";
+    ctx.textAlign="center";
+    ctx.fillText("INDIA",270,470);
+
+    ctx.fillStyle="#fff";
+    ctx.fillRect(130,500,280,8);
+
+    ctx.fillStyle="#138808";
+    ctx.fillRect(130,510,280,8);
+
+    return;
+  }
+
+  if(visual==="science"){
+    drawTechnology(t);
+    return;
+  }
+
+  drawGeneric(t);
+}
+
+
+/* =========================
+   FRAME DRAWING
+========================= */
+
+function drawFrame(elapsed){
+
+  if(!currentPlan){
+    background();
+
+    ctx.fillStyle="#fff";
+    ctx.font="bold 34px Arial";
+    ctx.textAlign="center";
+    ctx.fillText("AI REEL MAKER",270,450);
+
+    return;
+  }
+
+  background();
+
+  const scenes=currentPlan.scenes;
+  const sceneDuration=
+    currentPlan.duration/scenes.length;
+
+  let index=
+    Math.floor(elapsed/sceneDuration);
+
+  if(index<0) index=0;
+  if(index>=scenes.length) index=scenes.length-1;
+
+  const scene=scenes[index];
+
+  const sceneTime=
+    elapsed-index*sceneDuration;
+
+  const progress=
+    sceneTime/sceneDuration;
+
+  drawVisual(scene.visual,elapsed);
+
+  /* cinematic overlay */
+
+  const overlay=ctx.createLinearGradient(
+    0,420,
+    0,960
+  );
+
+  overlay.addColorStop(0,"rgba(0,0,0,0)");
+  overlay.addColorStop(.55,"rgba(0,0,0,.35)");
+  overlay.addColorStop(1,"rgba(0,0,0,.92)");
+
+  ctx.fillStyle=overlay;
+  ctx.fillRect(0,0,540,960);
+
+  /* scene title */
+
+  ctx.fillStyle="#ffffff";
+  ctx.font="bold 34px Arial";
+  ctx.textAlign="left";
+
+  wrapText(
+    scene.title,
+    35,
+    690,
+    470,
+    42
+  );
+
+  /* caption */
+
+  ctx.fillStyle="rgba(5,12,25,.85)";
+  ctx.fillRect(28,750,484,130);
+
+  ctx.fillStyle="#ffffff";
+  ctx.font="23px Arial";
+
+  wrapText(
+    scene.text,
+    45,
+    785,
+    450,
+    32
+  );
+
+  /* scene indicator */
+
+  ctx.fillStyle="rgba(255,255,255,.15)";
+  ctx.fillRect(35,70,470,6);
+
+  ctx.fillStyle="#48aaff";
+  ctx.fillRect(35,70,470*progress,6);
+
+  ctx.fillStyle="#9fc7ec";
+  ctx.font="bold 15px Arial";
+  ctx.textAlign="right";
+
+  ctx.fillText(
+    `SCENE ${index+1}/${scenes.length}`,
+    505,
+    55
+  );
+
+  /* intro */
+
+  if(elapsed<1.2){
+
+    const a=Math.max(
+      0,
+      1-elapsed/1.2
+    );
+
+    ctx.fillStyle=`rgba(0,0,0,${a})`;
+    ctx.fillRect(0,0,540,960);
+
+  }
+
+  /* outro */
+
+  const remaining=
+    currentPlan.duration-elapsed;
+
+  if(remaining<1){
+
+    const a=Math.max(
+      0,
+      1-remaining
+    );
+
+    ctx.fillStyle=`rgba(0,0,0,${a})`;
+    ctx.fillRect(0,0,540,960);
+
+  }
+}
+
+
+function wrapText(text,x,y,maxWidth,lineHeight){
+
+  const words=text.split(" ");
+  let line="";
+
+  for(let n=0;n<words.length;n++){
+
+    const testLine=line+words[n]+" ";
+    const metrics=ctx.measureText(testLine);
+
+    if(
+      metrics.width>maxWidth &&
+      n>0
+    ){
+
+      ctx.fillText(line,x,y);
+      line=words[n]+" ";
+      y+=lineHeight;
+
+    }else{
+
+      line=testLine;
+
+    }
+
+  }
+
+  ctx.fillText(line,x,y);
+}
+
+
+/* =========================
    PREVIEW
-========================================================= */
+========================= */
 
 function previewReel(){
 
   if(!currentPlan){
 
-    el("status").textContent="Generate a reel first.";
-
+    setStatus("Generate a reel first.");
     return;
   }
 
   stopPreview();
 
-  previewStart = performance.now();
+  previewRunning=true;
+  previewStart=performance.now();
 
-  el("status").textContent="▶ Preview playing...";
+  setStatus("▶ Preview playing...");
 
   function animate(now){
 
-    if(!previewStart){
-      return;
-    }
+    if(!previewRunning) return;
 
-    const elapsed =
+    const elapsed=
       (now-previewStart)/1000;
 
-    if(elapsed >= currentPlan.duration){
+    if(elapsed>=currentPlan.duration){
 
       stopPreview();
-
       drawFrame(0);
 
-      el("previewProgress").style.width="100%";
-
-      el("status").textContent="Preview finished.";
+      setStatus("Preview finished.");
 
       return;
-
     }
 
     drawFrame(elapsed);
 
-    const progress =
-      (elapsed/currentPlan.duration)*100;
-
-    el("previewProgress").style.width =
-      progress+"%";
-
-    previewTimer =
+    previewAnimation=
       requestAnimationFrame(animate);
-
   }
 
-  previewTimer =
+  previewAnimation=
     requestAnimationFrame(animate);
-
 }
 
 
 function stopPreview(){
 
-  if(previewTimer){
+  previewRunning=false;
 
-    cancelAnimationFrame(previewTimer);
+  if(previewAnimation){
 
-    previewTimer=null;
+    cancelAnimationFrame(previewAnimation);
+    previewAnimation=null;
 
   }
 
-  previewStart=0;
-
-  el("previewProgress").style.width="0%";
-
+  if(currentPlan){
+    drawFrame(0);
+  }
 }
 
 
-/* =========================================================
+/* =========================
    VOICE
-========================================================= */
+========================= */
 
 function playVoice(){
 
   if(!currentPlan){
 
-    el("status").textContent="Generate a reel first.";
-
+    setStatus("Generate a reel first.");
     return;
   }
+
+  stopVoice();
 
   if(!("speechSynthesis" in window)){
 
-    el("status").textContent=
-      "Speech synthesis is not supported in this browser.";
-
+    setStatus("Browser speech synthesis is not available.");
     return;
   }
 
-  speechSynthesis.cancel();
+  let text=
+    currentPlan.hook+
+    ". "+
+    currentPlan.scenes
+      .map(s=>s.text)
+      .join(". ");
 
-  const utterance =
-    new SpeechSynthesisUtterance(
-      currentPlan.hook+" "+currentPlan.script
-    );
+  const utterance=
+    new SpeechSynthesisUtterance(text);
 
-  if(currentPlan.voiceStyle==="energetic"){
+  const style=currentPlan.voiceStyle;
+
+  if(style==="Energetic"){
     utterance.rate=1.08;
-    utterance.pitch=1.08;
+    utterance.pitch=1.05;
   }
 
-  if(currentPlan.voiceStyle==="professional"){
-    utterance.rate=0.95;
-    utterance.pitch=1.0;
+  if(style==="Professional"){
+    utterance.rate=.95;
+    utterance.pitch=1;
   }
 
-  if(currentPlan.voiceStyle==="calm"){
-    utterance.rate=0.85;
-    utterance.pitch=0.95;
+  if(style==="Calm"){
+    utterance.rate=.86;
+    utterance.pitch=.95;
   }
 
-  if(currentPlan.voiceStyle==="dramatic"){
-    utterance.rate=0.90;
-    utterance.pitch=0.88;
+  if(style==="Dramatic"){
+    utterance.rate=.88;
+    utterance.pitch=.8;
   }
 
   utterance.onstart=()=>{
-
-    voicePlaying=true;
-
-    el("status").textContent="🔊 Voice playing...";
-
+    voiceActive=true;
+    setStatus("🔊 Voice playing...");
   };
 
   utterance.onend=()=>{
-
-    voicePlaying=false;
-
-    el("status").textContent="Voice finished.";
-
+    voiceActive=false;
+    setStatus("Voice finished.");
   };
 
   utterance.onerror=()=>{
-
-    voicePlaying=false;
-
-    el("status").textContent="Voice preview stopped.";
-
+    voiceActive=false;
+    setStatus("Voice playback stopped.");
   };
 
   speechSynthesis.speak(utterance);
-
 }
 
 
 function stopVoice(){
 
   if("speechSynthesis" in window){
-
     speechSynthesis.cancel();
-
   }
 
-  voicePlaying=false;
-
-  el("status").textContent="Voice stopped.";
-
+  voiceActive=false;
 }
 
 
-/* =========================================================
-   CANVAS
-========================================================= */
-
-const canvas = el("canvas");
-
-const ctx = canvas.getContext("2d");
-
-const W = canvas.width;
-
-const H = canvas.height;
-
-
-function clearCanvas(){
-
-  ctx.fillStyle="#050812";
-
-  ctx.fillRect(0,0,W,H);
-
-}
-
-
-function drawFrame(elapsed){
-
-  if(!currentPlan){
-
-    clearCanvas();
-
-    return;
-
-  }
-
-  const scenes =
-    currentPlan.scenes;
-
-  const sceneDuration =
-    currentPlan.duration/scenes.length;
-
-  let index =
-    Math.floor(elapsed/sceneDuration);
-
-  if(index<0) index=0;
-
-  if(index>=scenes.length){
-    index=scenes.length-1;
-  }
-
-  const scene =
-    scenes[index];
-
-  const local =
-    (elapsed-(index*sceneDuration))/
-    sceneDuration;
-
-  drawBackground(
-    scene.theme,
-    elapsed
-  );
-
-  drawSceneArtwork(
-    scene.theme,
-    elapsed,
-    local
-  );
-
-  drawCaption(
-    scene,
-    index,
-    elapsed,
-    local
-  );
-
-}
-
-
-/* =========================================================
-   BACKGROUNDS
-========================================================= */
-
-function drawBackground(theme,time){
-
-  let g;
-
-  if(theme==="ferrari" ||
-     theme==="engine" ||
-     theme==="midengine" ||
-     theme==="aero" ||
-     theme==="performance" ||
-     theme==="legacy" ||
-     theme==="car"){
-
-    g=ctx.createLinearGradient(0,0,W,H);
-
-    g.addColorStop(0,"#17080d");
-
-    g.addColorStop(.5,"#351017");
-
-    g.addColorStop(1,"#08070c");
-
-  }else if(
-    theme==="moon" ||
-    theme==="watermoon" ||
-    theme==="orbiter" ||
-    theme==="lander" ||
-    theme==="rover" ||
-    theme==="space" ||
-    theme==="galaxy" ||
-    theme==="planet" ||
-    theme==="rocket"
-  ){
-
-    g=ctx.createLinearGradient(0,0,W,H);
-
-    g.addColorStop(0,"#050819");
-
-    g.addColorStop(.5,"#101d45");
-
-    g.addColorStop(1,"#02030a");
-
-  }else if(
-    theme==="tech" ||
-    theme==="network" ||
-    theme==="future"
-  ){
-
-    g=ctx.createLinearGradient(0,0,W,H);
-
-    g.addColorStop(0,"#03131c");
-
-    g.addColorStop(.5,"#073b4c");
-
-    g.addColorStop(1,"#03070c");
-
-  }else if(
-    theme==="india" ||
-    theme==="culture" ||
-    theme==="history"
-  ){
-
-    g=ctx.createLinearGradient(0,0,W,H);
-
-    g.addColorStop(0,"#211104");
-
-    g.addColorStop(.5,"#513013");
-
-    g.addColorStop(1,"#0a0704");
-
-  }else{
-
-    g=ctx.createLinearGradient(0,0,W,H);
-
-    g.addColorStop(0,"#10152c");
-
-    g.addColorStop(.5,"#1a2450");
-
-    g.addColorStop(1,"#050713");
-
-  }
-
-  ctx.fillStyle=g;
-
-  ctx.fillRect(0,0,W,H);
-
-  /* cinematic moving lights */
-
-  for(let i=0;i<7;i++){
-
-    const x =
-      ((time*35)+(i*110))%(W+200)-100;
-
-    const y =
-      150+i*120+
-      Math.sin(time*.7+i)*25;
-
-    const radius =
-      90+i*12;
-
-    const glow =
-      ctx.createRadialGradient(
-        x,y,0,
-        x,y,radius
-      );
-
-    glow.addColorStop(
-      0,
-      "rgba(100,160,255,.12)"
-    );
-
-    glow.addColorStop(
-      1,
-      "rgba(100,160,255,0)"
-    );
-
-    ctx.fillStyle=glow;
-
-    ctx.beginPath();
-
-    ctx.arc(x,y,radius,0,Math.PI*2);
-
-    ctx.fill();
-
-  }
-
-}
-
-
-/* =========================================================
-   ARTWORK
-========================================================= */
-
-function drawSceneArtwork(theme,time,local){
-
-  if(
-    theme==="ferrari" ||
-    theme==="car"
-  ){
-
-    drawSportsCar(time);
-
-  }else if(
-    theme==="engine" ||
-    theme==="midengine"
-  ){
-
-    drawEngine(time);
-
-  }else if(
-    theme==="aero"
-  ){
-
-    drawAero(time);
-
-  }else if(
-    theme==="performance"
-  ){
-
-    drawSpeed(time);
-
-  }else if(
-    theme==="legacy"
-  ){
-
-    drawLegacy(time);
-
-  }else if(
-    theme==="moon" ||
-    theme==="watermoon"
-  ){
-
-    drawMoon(time,theme==="watermoon");
-
-  }else if(
-    theme==="orbiter"
-  ){
-
-    drawOrbiter(time);
-
-  }else if(
-    theme==="lander"
-  ){
-
-    drawLander(time);
-
-  }else if(
-    theme==="rover"
-  ){
-
-    drawRover(time);
-
-  }else if(
-    theme==="rocket"
-  ){
-
-    drawRocket(time);
-
-  }else if(
-    theme==="galaxy"
-  ){
-
-    drawGalaxy(time);
-
-  }else if(
-    theme==="tech" ||
-    theme==="network" ||
-    theme==="future"
-  ){
-
-    drawTechnology(time);
-
-  }else if(
-    theme==="india" ||
-    theme==="culture"
-  ){
-
-    drawIndia(time);
-
-  }else if(
-    theme==="history"
-  ){
-
-    drawHistory(time);
-
-  }else{
-
-    drawGeneric(time);
-
-  }
-
-}
-
-
-/* =========================================================
-   CAR ART
-========================================================= */
-
-function drawSportsCar(time){
-
-  ctx.save();
-
-  const y =
-    470+
-    Math.sin(time*2)*8;
-
-  ctx.translate(W/2,y);
-
-  ctx.scale(1.15,1.15);
-
-  ctx.fillStyle="#d81f3f";
-
-  ctx.beginPath();
-
-  ctx.moveTo(-190,45);
-
-  ctx.lineTo(-145,-15);
-
-  ctx.lineTo(-75,-55);
-
-  ctx.lineTo(70,-55);
-
-  ctx.lineTo(150,-10);
-
-  ctx.lineTo(195,35);
-
-  ctx.lineTo(180,65);
-
-  ctx.lineTo(-180,65);
-
-  ctx.closePath();
-
-  ctx.fill();
-
-  ctx.fillStyle="#080b12";
-
-  ctx.beginPath();
-
-  ctx.moveTo(-85,-48);
-
-  ctx.lineTo(-35,-85);
-
-  ctx.lineTo(55,-75);
-
-  ctx.lineTo(100,-28);
-
-  ctx.closePath();
-
-  ctx.fill();
-
-  ctx.fillStyle="#121a28";
-
-  ctx.beginPath();
-
-  ctx.arc(-115,65,32,0,Math.PI*2);
-
-  ctx.arc(125,65,32,0,Math.PI*2);
-
-  ctx.fill();
-
-  ctx.fillStyle="#bfc9d9";
-
-  ctx.beginPath();
-
-  ctx.arc(-115,65,14,0,Math.PI*2);
-
-  ctx.arc(125,65,14,0,Math.PI*2);
-
-  ctx.fill();
-
-  ctx.restore();
-
-}
-
-
-/* =========================================================
-   ENGINE ART
-========================================================= */
-
-function drawEngine(time){
-
-  ctx.save();
-
-  ctx.translate(W/2,470);
-
-  ctx.rotate(Math.sin(time)*.03);
-
-  ctx.strokeStyle="#a8c7ff";
-
-  ctx.lineWidth=10;
-
-  ctx.beginPath();
-
-  ctx.arc(0,0,125,0,Math.PI*2);
-
-  ctx.stroke();
-
-  ctx.strokeStyle="#ff3e65";
-
-  ctx.lineWidth=16;
-
-  for(let i=0;i<8;i++){
-
-    const a =
-      time*.7+
-      i*Math.PI/4;
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-      Math.cos(a)*45,
-      Math.sin(a)*45
-    );
-
-    ctx.lineTo(
-      Math.cos(a)*110,
-      Math.sin(a)*110
-    );
-
-    ctx.stroke();
-
-  }
-
-  ctx.fillStyle="#151d2d";
-
-  ctx.beginPath();
-
-  ctx.arc(0,0,48,0,Math.PI*2);
-
-  ctx.fill();
-
-  ctx.restore();
-
-}
-
-
-/* =========================================================
-   AERO
-========================================================= */
-
-function drawAero(time){
-
-  ctx.save();
-
-  ctx.translate(W/2,450);
-
-  ctx.strokeStyle="#70a9ff";
-
-  ctx.lineWidth=5;
-
-  for(let i=-3;i<=3;i++){
-
-    ctx.beginPath();
-
-    ctx.moveTo(-210,i*45);
-
-    ctx.bezierCurveTo(
-      -80,
-      i*45-40,
-      90,
-      i*45+40,
-      220,
-      i*45
-    );
-
-    ctx.stroke();
-
-  }
-
-  ctx.fillStyle="#e22b4b";
-
-  ctx.beginPath();
-
-  ctx.moveTo(-150,80);
-
-  ctx.lineTo(150,80);
-
-  ctx.lineTo(100,125);
-
-  ctx.lineTo(-100,125);
-
-  ctx.closePath();
-
-  ctx.fill();
-
-  ctx.restore();
-
-}
-
-
-/* =========================================================
-   SPEED
-========================================================= */
-
-function drawSpeed(time){
-
-  ctx.save();
-
-  for(let i=0;i<15;i++){
-
-    const y =
-      260+i*45;
-
-    const x =
-      ((time*400)+(i*100))%700-80;
-
-    ctx.strokeStyle=
-      "rgba(255,255,255,"+
-      (.15+(i%3)*.08)+")";
-
-    ctx.lineWidth=3+i%4;
-
-    ctx.beginPath();
-
-    ctx.moveTo(x,y);
-
-    ctx.lineTo(x+180,y);
-
-    ctx.stroke();
-
-  }
-
-  ctx.restore();
-
-  drawSportsCar(time);
-
-}
-
-
-/* =========================================================
-   LEGACY
-========================================================= */
-
-function drawLegacy(time){
-
-  ctx.save();
-
-  ctx.strokeStyle="#d4b36a";
-
-  ctx.lineWidth=4;
-
-  ctx.beginPath();
-
-  ctx.arc(
-    W/2,
-    430,
-    150,
-    0,
-    Math.PI*2
-  );
-
-  ctx.stroke();
-
-  ctx.fillStyle="#d4b36a";
-
-  ctx.font="800 38px Arial";
-
-  ctx.textAlign="center";
-
-  ctx.fillText(
-    "LEGACY",
-    W/2,
-    445
-  );
-
-  ctx.restore();
-
-}
-
-
-/* =========================================================
-   MOON
-========================================================= */
-
-function drawMoon(time,water){
-
-  const x=W/2;
-
-  const y=390;
-
-  const r=145;
-
-  const glow=
-    ctx.createRadialGradient(
-      x,y,20,
-      x,y,220
-    );
-
-  glow.addColorStop(
-    0,
-    water
-      ?"rgba(80,190,255,.28)"
-      :"rgba(190,210,255,.22)"
-  );
-
-  glow.addColorStop(
-    1,
-    "rgba(0,0,0,0)"
-  );
-
-  ctx.fillStyle=glow;
-
-  ctx.fillRect(
-    x-220,
-    y-220,
-    440,
-    440
-  );
-
-  ctx.fillStyle="#c6cbd5";
-
-  ctx.beginPath();
-
-  ctx.arc(
-    x,
-    y,
-    r,
-    0,
-    Math.PI*2
-  );
-
-  ctx.fill();
-
-  ctx.fillStyle="#9298a5";
-
-  for(let i=0;i<18;i++){
-
-    const a=i*2.7;
-
-    const rr=40+(i%5)*20;
-
-    const cx=
-      x+Math.cos(a)*rr;
-
-    const cy=
-      y+Math.sin(a)*rr;
-
-    ctx.beginPath();
-
-    ctx.arc(
-      cx,
-      cy,
-      8+(i%4)*4,
-      0,
-      Math.PI*2
-    );
-
-    ctx.fill();
-
-  }
-
-  if(water){
-
-    ctx.strokeStyle="#61d8ff";
-
-    ctx.lineWidth=6;
-
-    ctx.beginPath();
-
-    ctx.arc(
-      x,
-      y,
-      r-20,
-      .4,
-      1.8
-    );
-
-    ctx.stroke();
-
-  }
-
-}
-
-
-/* =========================================================
-   ORBITER
-========================================================= */
-
-function drawOrbiter(time){
-
-  ctx.save();
-
-  ctx.translate(W/2,400);
-
-  ctx.rotate(time*.15);
-
-  ctx.fillStyle="#d8dce5";
-
-  ctx.fillRect(
-    -50,
-    -30,
-    100,
-    60
-  );
-
-  ctx.fillStyle="#426cff";
-
-  ctx.fillRect(
-    -170,
-    -20,
-    110,
-    40
-  );
-
-  ctx.fillRect(
-    60,
-    -20,
-    110,
-    40
-  );
-
-  ctx.strokeStyle="#c7d5ff";
-
-  ctx.lineWidth=3;
-
-  ctx.beginPath();
-
-  ctx.moveTo(-60,0);
-
-  ctx.lineTo(-190,0);
-
-  ctx.moveTo(60,0);
-
-  ctx.lineTo(190,0);
-
-  ctx.stroke();
-
-  ctx.restore();
-
-}
-
-
-/* =========================================================
-   LANDER
-========================================================= */
-
-function drawLander(time){
-
-  ctx.save();
-
-  ctx.translate(
-    W/2,
-    430+Math.sin(time*1.5)*12
-  );
-
-  ctx.fillStyle="#d5d9e2";
-
-  ctx.fillRect(
-    -55,
-    -65,
-    110,
-    90
-  );
-
-  ctx.fillStyle="#303849";
-
-  ctx.fillRect(
-    -30,
-    -35,
-    60,
-    35
-  );
-
-  ctx.strokeStyle="#d5d9e2";
-
-  ctx.lineWidth=8;
-
-  for(let i=-1;i<=1;i+=2){
-
-    ctx.beginPath();
-
-    ctx.moveTo(i*40,15);
-
-    ctx.lineTo(i*90,80);
-
-    ctx.stroke();
-
-  }
-
-  ctx.restore();
-
-}
-
-
-/* =========================================================
-   ROVER
-========================================================= */
-
-function drawRover(time){
-
-  ctx.save();
-
-  ctx.translate(
-    W/2,
-    480+Math.sin(time)*5
-  );
-
-  ctx.fillStyle="#d8dce5";
-
-  ctx.fillRect(
-    -90,
-    -50,
-    180,
-    75
-  );
-
-  ctx.fillStyle="#222b3c";
-
-  ctx.beginPath();
-
-  ctx.arc(-65,35,25,0,Math.PI*2);
-
-  ctx.arc(65,35,25,0,Math.PI*2);
-
-  ctx.fill();
-
-  ctx.strokeStyle="#6aa5ff";
-
-  ctx.lineWidth=6;
-
-  ctx.beginPath();
-
-  ctx.moveTo(0,-50);
-
-  ctx.lineTo(0,-130);
-
-  ctx.stroke();
-
-  ctx.fillStyle="#65a9ff";
-
-  ctx.beginPath();
-
-  ctx.arc(0,-140,12,0,Math.PI*2);
-
-  ctx.fill();
-
-  ctx.restore();
-
-}
-
-
-/* =========================================================
-   ROCKET
-========================================================= */
-
-function drawRocket(time){
-
-  ctx.save();
-
-  ctx.translate(
-    W/2,
-    450-Math.sin(time*1.5)*25
-  );
-
-  ctx.fillStyle="#dce1ec";
-
-  ctx.beginPath();
-
-  ctx.moveTo(0,-150);
-
-  ctx.lineTo(55,20);
-
-  ctx.lineTo(0,80);
-
-  ctx.lineTo(-55,20);
-
-  ctx.closePath();
-
-  ctx.fill();
-
-  ctx.fillStyle="#ea3f55";
-
-  ctx.beginPath();
-
-  ctx.moveTo(-25,55);
-
-  ctx.lineTo(0,140+Math.sin(time*8)*15);
-
-  ctx.lineTo(25,55);
-
-  ctx.closePath();
-
-  ctx.fill();
-
-  ctx.restore();
-
-}
-
-
-/* =========================================================
-   GALAXY
-========================================================= */
-
-function drawGalaxy(time){
-
-  ctx.save();
-
-  ctx.translate(W/2,420);
-
-  ctx.rotate(time*.04);
-
-  for(let i=0;i<90;i++){
-
-    const a=i*.7;
-
-    const r=
-      (i*13)%190;
-
-    const x=Math.cos(a)*r;
-
-    const y=Math.sin(a)*r*.55;
-
-    ctx.fillStyle=
-      "rgba(160,190,255,"+
-      (.2+(i%5)/10)+")";
-
-    ctx.beginPath();
-
-    ctx.arc(
-      x,
-      y,
-      2+(i%3),
-      0,
-      Math.PI*2
-    );
-
-    ctx.fill();
-
-  }
-
-  ctx.restore();
-
-}
-
-
-/* =========================================================
-   TECHNOLOGY
-========================================================= */
-
-function drawTechnology(time){
-
-  ctx.save();
-
-  ctx.strokeStyle="rgba(75,190,255,.45)";
-
-  ctx.lineWidth=2;
-
-  const spacing=65;
-
-  for(let x=0;x<W;x+=spacing){
-
-    ctx.beginPath();
-
-    ctx.moveTo(x,180);
-
-    ctx.lineTo(
-      x+Math.sin(time+x)*30,
-      700
-    );
-
-    ctx.stroke();
-
-  }
-
-  for(let y=180;y<700;y+=spacing){
-
-    ctx.beginPath();
-
-    ctx.moveTo(50,y);
-
-    ctx.lineTo(W-50,y);
-
-    ctx.stroke();
-
-  }
-
-  ctx.fillStyle="#56d9ff";
-
-  ctx.beginPath();
-
-  ctx.arc(
-    W/2,
-    430,
-    70+Math.sin(time*2)*8,
-    0,
-    Math.PI*2
-  );
-
-  ctx.fill();
-
-  ctx.fillStyle="#07101a";
-
-  ctx.beginPath();
-
-  ctx.arc(
-    W/2,
-    430,
-    35,
-    0,
-    Math.PI*2
-  );
-
-  ctx.fill();
-
-  ctx.restore();
-
-}
-
-
-/* =========================================================
-   INDIA
-========================================================= */
-
-function drawIndia(time){
-
-  ctx.save();
-
-  ctx.translate(W/2,420);
-
-  ctx.fillStyle="#f0a044";
-
-  ctx.beginPath();
-
-  ctx.moveTo(-40,-170);
-
-  ctx.lineTo(60,-100);
-
-  ctx.lineTo(85,10);
-
-  ctx.lineTo(35,100);
-
-  ctx.lineTo(0,190);
-
-  ctx.lineTo(-50,85);
-
-  ctx.lineTo(-80,-20);
-
-  ctx.closePath();
-
-  ctx.fill();
-
-  ctx.strokeStyle="#ffffff";
-
-  ctx.lineWidth=4;
-
-  ctx.stroke();
-
-  ctx.restore();
-
-}
-
-
-/* =========================================================
-   HISTORY
-========================================================= */
-
-function drawHistory(time){
-
-  ctx.save();
-
-  ctx.strokeStyle="#d3b273";
-
-  ctx.lineWidth=5;
-
-  for(let i=0;i<6;i++){
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-      100+i*65,
-      280
-    );
-
-    ctx.lineTo(
-      100+i*65,
-      620
-    );
-
-    ctx.stroke();
-
-  }
-
-  ctx.beginPath();
-
-  ctx.moveTo(70,620);
-
-  ctx.lineTo(470,620);
-
-  ctx.stroke();
-
-  ctx.restore();
-
-}
-
-
-/* =========================================================
-   GENERIC
-========================================================= */
-
-function drawGeneric(time){
-
-  ctx.save();
-
-  for(let i=0;i<9;i++){
-
-    const x=
-      W/2+
-      Math.cos(time*.5+i)*150;
-
-    const y=
-      390+
-      Math.sin(time*.7+i)*130;
-
-    ctx.fillStyle=
-      "rgba(90,150,255,.35)";
-
-    ctx.beginPath();
-
-    ctx.arc(
-      x,
-      y,
-      12+(i%4)*5,
-      0,
-      Math.PI*2
-    );
-
-    ctx.fill();
-
-  }
-
-  ctx.restore();
-
-}
-
-
-/* =========================================================
-   CAPTIONS
-========================================================= */
-
-function drawCaption(scene,index,time,local){
-
-  /* top scene label */
-
-  ctx.fillStyle="rgba(0,0,0,.42)";
-
-  ctx.fillRect(
-    25,
-    35,
-    W-50,
-    60
-  );
-
-  ctx.fillStyle="#76aaff";
-
-  ctx.font="700 24px Arial";
-
-  ctx.textAlign="left";
-
-  ctx.fillText(
-    "SCENE "+(index+1)+" / "+currentPlan.scenes.length,
-    45,
-    73
-  );
-
-
-  /* bottom caption */
-
-  const panelY=665;
-
-  ctx.fillStyle="rgba(3,7,14,.84)";
-
-  ctx.fillRect(
-    25,
-    panelY,
-    W-50,
-    245
-  );
-
-  ctx.fillStyle="white";
-
-  ctx.font="800 34px Arial";
-
-  ctx.textAlign="left";
-
-  wrapText(
-    scene.title,
-    50,
-    panelY+55,
-    W-100,
-    40
-  );
-
-  ctx.fillStyle="#b8c5dc";
-
-  ctx.font="500 22px Arial";
-
-  wrapText(
-    scene.text,
-    50,
-    panelY+105,
-    W-100,
-    31
-  );
-
-
-  /* animated progress line */
-
-  ctx.fillStyle="#182238";
-
-  ctx.fillRect(
-    45,
-    920,
-    W-90,
-    7
-  );
-
-  ctx.fillStyle="#55a0ff";
-
-  ctx.fillRect(
-    45,
-    920,
-    (W-90)*local,
-    7
-  );
-
-}
-
-
-/* =========================================================
-   TEXT WRAPPING
-========================================================= */
-
-function wrapText(text,x,y,maxWidth,lineHeight){
-
-  const words=text.split(" ");
-
-  let line="";
-
-  for(let n=0;n<words.length;n++){
-
-    const test=
-      line+
-      words[n]+
-      " ";
-
-    const width=
-      ctx.measureText(test).width;
-
-    if(width>maxWidth && n>0){
-
-      ctx.fillText(
-        line,
-        x,
-        y
-      );
-
-      line=
-        words[n]+" ";
-
-      y+=lineHeight;
-
-    }else{
-
-      line=test;
-
-    }
-
-  }
-
-  ctx.fillText(
-    line,
-    x,
-    y
-  );
-
-}
-
-
-/* =========================================================
+/* =========================
    MUSIC ENGINE
-========================================================= */
+========================= */
 
-function createMusic(){
+const melody=[
+  261.63,
+  329.63,
+  392.00,
+  329.63,
+  293.66,
+  349.23,
+  440.00,
+  349.23
+];
 
-  const AudioContext =
+function createMusicSession(liveOutput,recordOutput){
+
+  const AudioCtx=
     window.AudioContext ||
     window.webkitAudioContext;
 
-  if(!AudioContext){
+  if(!AudioCtx){
+    throw new Error("Web Audio is not supported.");
+  }
 
-    throw new Error(
-      "Web Audio is not supported by this browser."
+  const audioContext=
+    new AudioCtx();
+
+  const master=
+    audioContext.createGain();
+
+  master.gain.value=
+    Number(document.getElementById("musicVolume").value)/100;
+
+  let mediaDestination=null;
+
+  if(recordOutput){
+
+    mediaDestination=
+      audioContext.createMediaStreamDestination();
+
+    master.connect(mediaDestination);
+
+  }
+
+  if(liveOutput){
+
+    master.connect(
+      audioContext.destination
     );
 
   }
 
-  const audioContext =
-    new AudioContext();
+  let running=true;
+  let step=0;
+  let timer=null;
+  const activeNodes=[];
 
-  const destination =
-    audioContext.createMediaStreamDestination();
+  function playNote(){
 
-  const master =
-    audioContext.createGain();
+    if(!running) return;
 
-  /*
-    IMPORTANT:
-    The master gain connects directly to
-    MediaStreamDestination.
+    const frequency=
+      melody[step%melody.length];
 
-    That stream is later attached to
-    MediaRecorder.
+    step++;
 
-    This is the audio that goes into
-    the downloaded WebM.
-  */
-
-  master.connect(destination);
-
-  master.gain.value =
-    musicEnabled
-      ? musicVolume
-      : 0;
-
-
-  /*
-    A musical chord progression rather than
-    a low-frequency vibration.
-  */
-
-  const notes = [
-
-    261.63, // C4
-    329.63, // E4
-    392.00, // G4
-    523.25, // C5
-
-    293.66, // D4
-    349.23, // F4
-    440.00, // A4
-    587.33, // D5
-
-    329.63, // E4
-    392.00, // G4
-    493.88, // B4
-    659.25  // E5
-
-  ];
-
-  const oscillators=[];
-
-  const gains=[];
-
-  const now =
-    audioContext.currentTime;
-
-
-  notes.forEach((frequency,i)=>{
-
-    const osc =
+    const oscillator=
       audioContext.createOscillator();
 
-    const gain =
+    const gain=
       audioContext.createGain();
 
-    /*
-      Triangle wave produces a softer
-      musical tone than the previous
-      low sine rumble.
-    */
+    oscillator.type="triangle";
+    oscillator.frequency.value=
+      frequency;
 
-    osc.type="triangle";
-
-    osc.frequency.value=frequency;
-
-    const start =
-      now+(i*0.42);
-
-    const end =
-      start+0.36;
+    const now=
+      audioContext.currentTime;
 
     gain.gain.setValueAtTime(
       0,
-      start
+      now
     );
 
     gain.gain.linearRampToValueAtTime(
-      0.20,
-      start+0.04
+      .18,
+      now+.04
     );
 
-    gain.gain.linearRampToValueAtTime(
-      0.001,
-      end
+    gain.gain.exponentialRampToValueAtTime(
+      .001,
+      now+.75
     );
 
-    osc.connect(gain);
-
+    oscillator.connect(gain);
     gain.connect(master);
 
-    osc.start(start);
+    oscillator.start(now);
+    oscillator.stop(now+.8);
 
-    osc.stop(end+0.05);
+    activeNodes.push(
+      oscillator,
+      gain
+    );
 
-    oscillators.push(osc);
-
-    gains.push(gain);
-
-  });
-
-
-  /*
-    Repeat the melody continuously.
-    Each group starts every 5.04 seconds.
-  */
-
-  let sequenceTimer=null;
-
-  function scheduleLoop(){
-
-    if(audioContext.state==="closed"){
-      return;
-    }
-
-    const base =
-      audioContext.currentTime;
-
-    notes.forEach((frequency,i)=>{
-
-      const osc =
-        audioContext.createOscillator();
-
-      const gain =
-        audioContext.createGain();
-
-      osc.type="triangle";
-
-      osc.frequency.value=frequency;
-
-      const start =
-        base+(i*0.42);
-
-      const end =
-        start+0.36;
-
-      gain.gain.setValueAtTime(
-        0,
-        start
-      );
-
-      gain.gain.linearRampToValueAtTime(
-        0.20,
-        start+0.04
-      );
-
-      gain.gain.linearRampToValueAtTime(
-        0.001,
-        end
-      );
-
-      osc.connect(gain);
-
-      gain.connect(master);
-
-      osc.start(start);
-
-      osc.stop(end+0.05);
-
-    });
-
-    sequenceTimer =
-      setTimeout(
-        scheduleLoop,
-        4300
-      );
-
+    timer=setTimeout(
+      playNote,
+      430
+    );
   }
 
+  async function start(){
 
-  /*
-    Start only after the context is resumed.
-  */
+    await audioContext.resume();
 
-  const resumePromise =
-    audioContext.resume();
-
+    running=true;
+    playNote();
+  }
 
   function stop(){
 
-    if(sequenceTimer){
+    running=false;
 
-      clearTimeout(sequenceTimer);
-
-      sequenceTimer=null;
-
+    if(timer){
+      clearTimeout(timer);
+      timer=null;
     }
 
-    try{
-
-      master.gain.cancelScheduledValues(
-        audioContext.currentTime
-      );
-
-      master.gain.setValueAtTime(
-        0,
-        audioContext.currentTime
-      );
-
-    }catch(e){}
-
-    setTimeout(()=>{
+    activeNodes.forEach(node=>{
 
       try{
-        audioContext.close();
+
+        if(node.stop){
+          node.stop();
+        }
+
       }catch(e){}
 
-    },100);
-
-  }
-
-
-  function setVolume(value){
-
-    musicVolume=value;
-
-    if(audioContext.state!=="closed"){
-
-      master.gain.setTargetAtTime(
-        musicEnabled ? value : 0,
-        audioContext.currentTime,
-        0.03
-      );
-
-    }
-
-  }
-
-
-  function setEnabled(enabled){
-
-    musicEnabled=enabled;
-
-    if(audioContext.state!=="closed"){
-
-      master.gain.setTargetAtTime(
-        enabled ? musicVolume : 0,
-        audioContext.currentTime,
-        0.03
-      );
-
-    }
-
-  }
-
-
-  /*
-    Start loop after resume.
-  */
-
-  resumePromise
-    .then(()=>{
-
-      scheduleLoop();
-
-    })
-    .catch(()=>{
-
-      scheduleLoop();
+      try{
+        node.disconnect();
+      }catch(e){}
 
     });
 
+    activeNodes.length=0;
+
+    try{
+      master.disconnect();
+    }catch(e){}
+
+    try{
+      audioContext.close();
+    }catch(e){}
+
+  }
 
   return {
-
     audioContext,
-    destination,
-    stop,
-    setVolume,
-    setEnabled
-
+    master,
+    mediaDestination,
+    start,
+    stop
   };
-
 }
 
 
-/* =========================================================
-   RENDER
-========================================================= */
+/* =========================
+   LIVE MUSIC
+========================= */
 
-async function renderReel(){
+async function playMusic(){
 
-  if(!currentPlan){
+  if(!musicEnabled){
 
-    el("renderText").textContent=
-      "Generate a reel first.";
-
-    return;
-
-  }
-
-  if(renderRunning){
-
-    el("renderText").textContent=
-      "A render is already running.";
+    setStatus(
+      "Music is OFF. Turn Music ON first."
+    );
 
     return;
-
   }
 
-  stopPreview();
-
-  stopVoice();
-
-  renderRunning=true;
-
-  renderCancelled=false;
-
-  el("renderProgress").style.width="0%";
-
-  el("renderText").textContent=
-    "Preparing video and music...";
-
-
-  let music=null;
-
-  let recorder=null;
-
-  let videoStream=null;
-
-  let combinedStream=null;
-
-  let chunks=[];
-
+  stopMusic();
 
   try{
 
-    /*
-      Create canvas video stream.
-    */
+    liveMusic=
+      createMusicSession(true,false);
 
-    videoStream =
-      canvas.captureStream(30);
+    await liveMusic.start();
 
-
-    /*
-      Create the music stream FIRST.
-      This is important because the MediaRecorder
-      receives the Web Audio MediaStream directly.
-    */
-
-    if(musicEnabled){
-
-      music=createMusic();
-
-      /*
-        Give AudioContext time to start.
-      */
-
-      await new Promise(
-        resolve=>setTimeout(resolve,250)
-      );
-
-    }
-
-
-    const tracks =
-      [
-        ...videoStream.getVideoTracks()
-      ];
-
-
-    if(
-      music &&
-      music.destination &&
-      music.destination.stream
-    ){
-
-      const audioTracks =
-        music.destination.stream
-          .getAudioTracks();
-
-      audioTracks.forEach(track=>{
-        tracks.push(track);
-      });
-
-    }
-
-
-    combinedStream =
-      new MediaStream(tracks);
-
-
-    /*
-      Prefer WebM VP9 + Opus.
-      Fall back to a browser-supported format.
-    */
-
-    let mimeType="";
-
-    const candidates=[
-
-      "video/webm;codecs=vp9,opus",
-
-      "video/webm;codecs=vp8,opus",
-
-      "video/webm"
-
-    ];
-
-
-    for(const type of candidates){
-
-      if(
-        MediaRecorder.isTypeSupported(type)
-      ){
-
-        mimeType=type;
-
-        break;
-
-      }
-
-    }
-
-
-    if(!mimeType){
-
-      throw new Error(
-        "This browser cannot create a WebM recording."
-      );
-
-    }
-
-
-    recorder =
-      new MediaRecorder(
-        combinedStream,
-        {
-          mimeType,
-          videoBitsPerSecond:5500000,
-          audioBitsPerSecond:128000
-        }
-      );
-
-
-    recorder.ondataavailable =
-      event=>{
-
-        if(event.data && event.data.size>0){
-
-          chunks.push(event.data);
-
-        }
-
-      };
-
-
-    const stopped =
-      new Promise((resolve,reject)=>{
-
-        recorder.onstop=resolve;
-
-        recorder.onerror=
-          event=>reject(
-            event.error ||
-            new Error("Recorder error")
-          );
-
-      });
-
-
-    recorder.start(500);
-
-
-    el("renderText").textContent=
-      "🎥 Rendering... Music is being recorded into the video.";
-
-
-    const total =
-      currentPlan.duration;
-
-    const start =
-      performance.now();
-
-
-    function renderLoop(now){
-
-      if(renderCancelled){
-
-        return;
-
-      }
-
-
-      const elapsed =
-        (now-start)/1000;
-
-
-      if(elapsed>=total){
-
-        drawFrame(total-0.001);
-
-        return;
-
-      }
-
-
-      drawFrame(elapsed);
-
-
-      const percent =
-        Math.min(
-          100,
-          (elapsed/total)*100
-        );
-
-
-      el("renderProgress").style.width =
-        percent+"%";
-
-
-      el("renderText").textContent =
-        "🎥 Rendering "+Math.floor(percent)+"%";
-
-
-      renderAnimation =
-        requestAnimationFrame(
-          renderLoop
-        );
-
-    }
-
-
-    renderAnimation =
-      requestAnimationFrame(
-        renderLoop
-      );
-
-
-    /*
-      Wait for exact reel duration.
-    */
-
-    await new Promise(resolve=>{
-
-      const check=()=>{
-
-        if(renderCancelled){
-
-          resolve();
-
-          return;
-
-        }
-
-        const elapsed=
-          (performance.now()-start)/1000;
-
-        if(elapsed>=total){
-
-          resolve();
-
-        }else{
-
-          setTimeout(check,100);
-
-        }
-
-      };
-
-      check();
-
-    });
-
-
-    if(renderAnimation){
-
-      cancelAnimationFrame(
-        renderAnimation
-      );
-
-      renderAnimation=null;
-
-    }
-
-
-    if(renderCancelled){
-
-      if(recorder.state!=="inactive"){
-
-        recorder.stop();
-
-      }
-
-      await stopped.catch(()=>{});
-
-      el("renderText").textContent=
-        "Render cancelled.";
-
-      el("renderProgress").style.width="0%";
-
-      return;
-
-    }
-
-
-    drawFrame(total-0.01);
-
-
-    /*
-      Give MediaRecorder a moment to collect
-      the final video/audio chunk.
-    */
-
-    await new Promise(
-      resolve=>setTimeout(resolve,250)
+    setStatus(
+      "🎵 Music playing. Press Stop Music to stop it."
     );
-
-
-    if(recorder.state!=="inactive"){
-
-      recorder.stop();
-
-    }
-
-
-    await stopped;
-
-
-    if(!chunks.length){
-
-      throw new Error(
-        "No video data was produced."
-      );
-
-    }
-
-
-    const blob =
-      new Blob(
-        chunks,
-        {
-          type:mimeType
-        }
-      );
-
-
-    if(blob.size<10000){
-
-      throw new Error(
-        "The generated video file is too small."
-      );
-
-    }
-
-
-    const url =
-      URL.createObjectURL(blob);
-
-
-    const safeTopic =
-      currentPlan.topic
-        .replace(/[^a-z0-9]+/gi,"-")
-        .replace(/^-|-$/g,"")
-        .toLowerCase();
-
-
-    const filename =
-      "ai-reel-"+safeTopic+"-"+currentPlan.duration+"s.webm";
-
-
-    const link =
-      document.createElement("a");
-
-    link.href=url;
-
-    link.download=filename;
-
-    document.body.appendChild(link);
-
-    link.click();
-
-    link.remove();
-
-
-    setTimeout(
-      ()=>URL.revokeObjectURL(url),
-      5000
-    );
-
-
-    el("renderProgress").style.width="100%";
-
-    el("renderText").textContent=
-      "✅ Render complete. Downloaded "+filename;
-
-
-    el("status").textContent=
-      "Reel downloaded successfully with "+
-      (musicEnabled ? "background music." : "music disabled.");
-
 
   }catch(error){
 
     console.error(error);
 
-    el("renderText").textContent=
-      "❌ Render failed: "+error.message;
+    liveMusic=null;
 
-    el("status").textContent=
-      "Render error. Please try again.";
-
-  }finally{
-
-    renderRunning=false;
-
-    if(renderAnimation){
-
-      cancelAnimationFrame(
-        renderAnimation
-      );
-
-      renderAnimation=null;
-
-    }
-
-
-    if(music){
-
-      music.stop();
-
-    }
-
-
-    if(videoStream){
-
-      videoStream
-        .getTracks()
-        .forEach(track=>track.stop());
-
-    }
-
-
-    if(combinedStream){
-
-      combinedStream
-        .getTracks()
-        .forEach(track=>track.stop());
-
-    }
-
+    setStatus(
+      "Music could not start in this browser."
+    );
   }
-
 }
 
 
-/* =========================================================
-   CANCEL RENDER
-========================================================= */
+function stopMusic(){
+
+  if(liveMusic){
+
+    liveMusic.stop();
+    liveMusic=null;
+
+  }
+}
+
+
+function toggleMusicSetting(){
+
+  musicEnabled=!musicEnabled;
+
+  const button=
+    document.getElementById("musicToggle");
+
+  if(musicEnabled){
+
+    button.textContent="🎵 Music: ON";
+
+    setStatus(
+      "Music is ON for the downloaded reel."
+    );
+
+  }else{
+
+    button.textContent="🔇 Music: OFF";
+
+    stopMusic();
+
+    setStatus(
+      "Music is OFF. Downloaded reels will not contain music."
+    );
+  }
+}
+
+
+function changeMusicVolume(){
+
+  const value=
+    document.getElementById("musicVolume").value;
+
+  document.getElementById("volumeValue").textContent=
+    value+"%";
+
+  if(liveMusic){
+
+    liveMusic.master.gain.value=
+      Number(value)/100;
+  }
+}
+
+
+/* =========================
+   RENDER
+========================= */
+
+async function renderReel(){
+
+  if(rendering){
+    return;
+  }
+
+  if(!currentPlan){
+
+    setStatus("Generate a reel first.");
+    return;
+  }
+
+  rendering=true;
+  renderCancelled=false;
+
+  const button=
+    document.getElementById("renderButton");
+
+  button.disabled=true;
+  button.textContent="⏳ Rendering...";
+
+  const progressBox=
+    document.getElementById("progressBox");
+
+  const progressInner=
+    document.getElementById("progressInner");
+
+  const progressText=
+    document.getElementById("progressText");
+
+  progressBox.style.display="block";
+
+  progressInner.style.width="0%";
+  progressText.textContent="0%";
+
+  stopPreview();
+  stopVoice();
+
+  let musicSession=null;
+  let recorder=null;
+  let animation=null;
+
+  try{
+
+    const stream=
+      canvas.captureStream(30);
+
+    if(musicEnabled){
+
+      musicSession=
+        createMusicSession(false,true);
+
+      await musicSession.audioContext.resume();
+
+      const audioTracks=
+        musicSession.mediaDestination
+          .stream
+          .getAudioTracks();
+
+      audioTracks.forEach(track=>{
+        stream.addTrack(track);
+      });
+
+    }
+
+    let mimeType="video/webm;codecs=vp9,opus";
+
+    if(!MediaRecorder.isTypeSupported(mimeType)){
+
+      mimeType="video/webm;codecs=vp8,opus";
+
+    }
+
+    if(!MediaRecorder.isTypeSupported(mimeType)){
+
+      mimeType="video/webm";
+
+    }
+
+    recorder=
+      new MediaRecorder(
+        stream,
+        {
+          mimeType,
+          videoBitsPerSecond:5000000
+        }
+      );
+
+    const chunks=[];
+
+    recorder.ondataavailable=(event)=>{
+
+      if(event.data.size>0){
+        chunks.push(event.data);
+      }
+
+    };
+
+    const finished=
+      new Promise((resolve,reject)=>{
+
+        recorder.onstop=resolve;
+        recorder.onerror=reject;
+
+      });
+
+    recorder.start(250);
+
+    if(musicSession){
+      await musicSession.start();
+    }
+
+    const start=
+      performance.now();
+
+    const duration=
+      currentPlan.duration;
+
+    function renderFrame(now){
+
+      if(renderCancelled){
+
+        try{
+          recorder.stop();
+        }catch(e){}
+
+        return;
+      }
+
+      const elapsed=
+        (now-start)/1000;
+
+      const percentage=
+        Math.min(
+          100,
+          (elapsed/duration)*100
+        );
+
+      progressInner.style.width=
+        percentage+"%";
+
+      progressText.textContent=
+        Math.floor(percentage)+"%";
+
+      drawFrame(
+        Math.min(elapsed,duration)
+      );
+
+      if(elapsed>=duration){
+
+        try{
+          recorder.stop();
+        }catch(e){}
+
+        return;
+      }
+
+      animation=
+        requestAnimationFrame(
+          renderFrame
+        );
+    }
+
+    animation=
+      requestAnimationFrame(
+        renderFrame
+      );
+
+    await finished;
+
+    if(animation){
+      cancelAnimationFrame(animation);
+    }
+
+    if(renderCancelled){
+
+      setStatus("Render cancelled.");
+
+      return;
+    }
+
+    const blob=
+      new Blob(
+        chunks,
+        {
+          type:recorder.mimeType
+        }
+      );
+
+    const url=
+      URL.createObjectURL(blob);
+
+    const a=
+      document.createElement("a");
+
+    const safeName=
+      currentPlan.topic
+        .replace(/[^a-z0-9]+/gi,"-")
+        .replace(/^-|-$/g,"")
+        .toLowerCase();
+
+    a.href=url;
+
+    a.download=
+      `ai-reel-${safeName}-${currentPlan.duration}s.webm`;
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    a.remove();
+
+    setTimeout(
+      ()=>URL.revokeObjectURL(url),
+      3000
+    );
+
+    progressInner.style.width="100%";
+    progressText.textContent="100%";
+
+    setStatus(
+      "✅ Reel rendered and downloaded successfully."
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    setStatus(
+      "Render failed: "+error.message
+    );
+
+  }finally{
+
+    if(animation){
+      cancelAnimationFrame(animation);
+    }
+
+    if(musicSession){
+      musicSession.stop();
+    }
+
+    rendering=false;
+
+    button.disabled=false;
+    button.textContent="🎥 Render & Download";
+
+  }
+}
+
 
 function cancelRender(){
 
-  if(!renderRunning){
-
-    el("renderText").textContent=
-      "No render is currently running.";
-
+  if(!rendering){
     return;
-
   }
 
   renderCancelled=true;
 
-  el("renderText").textContent=
-    "⛔ Cancelling render...";
-
+  setStatus(
+    "⏹️ Cancelling render..."
+  );
 }
 
 
-/* =========================================================
-   COPY BUTTONS
-========================================================= */
+/* =========================
+   COPY
+========================= */
 
 async function copyCaption(){
 
-  if(!currentPlan){
+  const value=
+    document.getElementById("caption").value;
 
-    return;
-
-  }
-
-  const text=
-    el("captionBox").textContent;
+  if(!value) return;
 
   try{
 
-    await navigator.clipboard.writeText(text);
+    await navigator.clipboard.writeText(value);
 
-    el("status").textContent=
-      "Caption copied.";
+    setStatus("Caption copied.");
 
   }catch(e){
 
-    el("status").textContent=
-      "Could not copy caption.";
+    setStatus("Could not copy caption.");
 
   }
-
 }
 
 
 async function copyHashtags(){
 
-  if(!currentPlan){
+  const value=
+    document.getElementById("hashtags").value;
 
-    return;
-
-  }
-
-  const text=
-    el("hashtagsBox").textContent;
+  if(!value) return;
 
   try{
 
-    await navigator.clipboard.writeText(text);
+    await navigator.clipboard.writeText(value);
 
-    el("status").textContent=
-      "Hashtags copied.";
+    setStatus("Hashtags copied.");
 
   }catch(e){
 
-    el("status").textContent=
-      "Could not copy hashtags.";
+    setStatus("Could not copy hashtags.");
 
   }
-
 }
 
 
-/* =========================================================
-   INITIAL CANVAS
-========================================================= */
+/* =========================
+   INITIAL FRAME
+========================= */
 
-clearCanvas();
-
-drawGeneric(0);
-
-
-/* =========================================================
-   MUSIC UI INITIAL STATE
-========================================================= */
-
-updateMusicVolume();
+drawFrame(0);
 
 </script>
 
