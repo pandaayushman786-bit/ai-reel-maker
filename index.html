@@ -16,7 +16,7 @@ color:#172033
 }
 
 header{
-background:linear-gradient(135deg,#111827,#2563eb);
+background:linear-gradient(135deg,#111827,#2563eb,#7c3aed);
 color:white;
 padding:35px 20px;
 text-align:center
@@ -152,7 +152,7 @@ font-size:13px
 
 <header>
 <h1>🎬 AI Reel Maker</h1>
-<p>Stage 7.1 • Captions + Music Studio</p>
+<p>Stage 7.2 • Cinematic Visual Studio</p>
 </header>
 
 <div class="container">
@@ -163,10 +163,7 @@ font-size:13px
 
 <label>What should your reel be about?</label>
 
-<input
-id="topic"
-placeholder="Example: 5 interesting facts about India"
->
+<input id="topic" placeholder="Example: 5 interesting facts about India">
 
 <label>Reel length</label>
 
@@ -195,7 +192,7 @@ placeholder="Example: 5 interesting facts about India"
 </select>
 
 <button class="primary" onclick="generateReel()">
-✨ Generate Stage 7.1 Reel
+✨ Generate Stage 7.2 Reel
 </button>
 
 <div class="progress">
@@ -226,7 +223,7 @@ Ready to create your reel.
 
 <div class="card" id="sceneCard" style="display:none">
 
-<h2>🎬 Scene Planner</h2>
+<h2>🎬 Cinematic Scene Planner</h2>
 
 <div class="grid" id="scenes"></div>
 
@@ -235,7 +232,7 @@ Ready to create your reel.
 
 <div class="card" id="videoCard" style="display:none">
 
-<h2>📱 Reel Preview</h2>
+<h2>📱 Cinematic Reel Preview</h2>
 
 <canvas id="preview" width="540" height="960"></canvas>
 
@@ -258,7 +255,7 @@ Ready to render.
 </div>
 
 <p class="small">
-Stage 7.1 • Animated captions + background music • 30/45/60 seconds
+Stage 7.2 • Cinematic visuals + animated captions + music • 30/45/60 seconds
 </p>
 
 </div>
@@ -281,6 +278,9 @@ Stage 7.1 • Animated captions + background music • 30/45/60 seconds
 
 let currentPlan=null;
 let animationTimer=null;
+
+const canvas=document.getElementById("preview");
+const ctx=canvas.getContext("2d");
 
 
 /* =========================
@@ -362,156 +362,164 @@ return [
 
 
 /* =========================
-   GENERATE
+   VISUAL TYPE
 ========================= */
 
-function generateReel(){
+function getVisualType(topic,index){
 
-const topic=document.getElementById("topic").value.trim();
-const style=document.getElementById("style").value;
-const duration=Number(document.getElementById("duration").value);
+const lower=topic.toLowerCase();
 
-if(!topic){
-alert("Please enter a reel topic.");
-return;
+if(lower.includes("india")){
+
+const types=[
+"taj",
+"railway",
+"himalaya",
+"culture",
+"cinema",
+"history"
+];
+
+return types[index%types.length];
+
 }
 
-const bar=document.getElementById("generationBar");
-const status=document.getElementById("generationStatus");
+if(lower.includes("space")){
 
-bar.style.width="10%";
-status.textContent="Creating your hook...";
+const types=[
+"earth",
+"planet",
+"star",
+"galaxy",
+"universe",
+"rocket"
+];
 
-setTimeout(()=>{
+return types[index%types.length];
 
-bar.style.width="30%";
-status.textContent="Writing your voiceover...";
+}
 
-},300);
+const types=[
+"city",
+"technology",
+"world",
+"nature",
+"abstract",
+"future"
+];
 
-setTimeout(()=>{
-
-bar.style.width="55%";
-status.textContent="Planning scenes...";
-
-},600);
-
-setTimeout(()=>{
-
-const hook=makeHook(topic,style);
-const sceneList=makeScenes(topic);
-
-const script=
-hook+" "+
-sceneList.join(" ")+
-" Follow for more.";
-
-currentPlan={
-topic:topic,
-hook:hook,
-script:script,
-scenes:sceneList,
-duration:duration
-};
-
-document.getElementById("hook").textContent=hook;
-document.getElementById("script").textContent=script;
-
-const scenesBox=document.getElementById("scenes");
-
-scenesBox.innerHTML="";
-
-sceneList.forEach((text,index)=>{
-
-const div=document.createElement("div");
-
-div.className="scene";
-
-div.innerHTML=`
-<h3>Scene ${index+1}</h3>
-<p>${text}</p>
-<p class="small">Visual concept: ${topic}</p>
-`;
-
-scenesBox.appendChild(div);
-
-});
-
-document.getElementById("caption").textContent=
-hook+" #India #Facts #InterestingFacts #Reels";
-
-document.getElementById("hashtags").textContent=
-"#India #Facts #InterestingFacts #Knowledge #Reels #Viral";
-
-document.getElementById("resultCard").style.display="block";
-document.getElementById("sceneCard").style.display="block";
-document.getElementById("videoCard").style.display="block";
-document.getElementById("captionCard").style.display="block";
-
-bar.style.width="100%";
-
-status.textContent=
-"Reel generated successfully! "+
-duration+
-"-second reel selected.";
-
-status.className="status success";
-
-drawScene(0,0);
-
-},900);
+return types[index%types.length];
 
 }
 
 
 /* =========================
-   CANVAS
+   VISUAL COLORS
 ========================= */
 
-const canvas=document.getElementById("preview");
-const ctx=canvas.getContext("2d");
+function visualColors(type){
+
+const map={
+
+taj:["#102a43","#d97706"],
+railway:["#172554","#2563eb"],
+himalaya:["#0f172a","#64748b"],
+culture:["#581c87","#db2777"],
+cinema:["#111827","#dc2626"],
+history:["#292524","#a16207"],
+
+earth:["#082f49","#0284c7"],
+planet:["#312e81","#7c3aed"],
+star:["#172554","#f59e0b"],
+galaxy:["#1e1b4b","#9333ea"],
+universe:["#020617","#2563eb"],
+rocket:["#0f172a","#64748b"],
+
+city:["#111827","#2563eb"],
+technology:["#172554","#06b6d4"],
+world:["#064e3b","#10b981"],
+nature:["#14532d","#16a34a"],
+abstract:["#4c1d95","#ec4899"],
+future:["#111827","#0891b2"]
+
+};
+
+return map[type]||["#111827","#2563eb"];
+
+}
 
 
-function drawScene(index,progress){
+/* =========================
+   DRAW CINEMATIC BACKGROUND
+========================= */
 
-if(!currentPlan)return;
+function drawBackground(type,progress){
 
-const scene=currentPlan.scenes[index];
-
-const hue=(index*55)%360;
+const colors=visualColors(type);
 
 const gradient=ctx.createLinearGradient(
-0,0,canvas.width,canvas.height
-);
-
-gradient.addColorStop(
 0,
-`hsl(${hue},75%,25%)`
+0,
+canvas.width,
+canvas.height
 );
 
-gradient.addColorStop(
-1,
-`hsl(${(hue+70)%360},80%,45%)`
-);
+gradient.addColorStop(0,colors[0]);
+gradient.addColorStop(1,colors[1]);
 
 ctx.fillStyle=gradient;
+ctx.fillRect(0,0,canvas.width,canvas.height);
 
+
+/* Cinematic light */
+
+const lightX=
+canvas.width*(0.15+progress*.7);
+
+const lightY=
+canvas.height*(0.15+Math.sin(progress*Math.PI)*.3);
+
+const glow=
+ctx.createRadialGradient(
+lightX,
+lightY,
+10,
+lightX,
+lightY,
+430
+);
+
+glow.addColorStop(
+0,
+"rgba(255,255,255,.24)"
+);
+
+glow.addColorStop(
+1,
+"rgba(255,255,255,0)"
+);
+
+ctx.fillStyle=glow;
 ctx.fillRect(
-0,0,canvas.width,canvas.height
+0,
+0,
+canvas.width,
+canvas.height
 );
 
 
-/* Decorative circles */
+/* Moving cinematic circles */
 
-ctx.globalAlpha=.18;
+ctx.globalAlpha=.12;
+
 ctx.fillStyle="white";
 
 ctx.beginPath();
 
 ctx.arc(
-100+progress*80,
-170,
-120,
+80+progress*300,
+180+Math.sin(progress*Math.PI)*80,
+150,
 0,
 Math.PI*2
 );
@@ -521,9 +529,9 @@ ctx.fill();
 ctx.beginPath();
 
 ctx.arc(
-440-progress*70,
-760,
-170,
+470-progress*260,
+750-Math.sin(progress*Math.PI)*90,
+210,
 0,
 Math.PI*2
 );
@@ -533,128 +541,260 @@ ctx.fill();
 ctx.globalAlpha=1;
 
 
-/* Scene number */
+/* Film grain style dots */
+
+ctx.globalAlpha=.08;
+
+for(let i=0;i<35;i++){
+
+const x=(i*83)%540;
+const y=(i*137)%960;
 
 ctx.fillStyle="white";
 
-ctx.font="bold 28px Arial";
+ctx.fillRect(
+x,
+y,
+2,
+2
+);
+
+}
+
+ctx.globalAlpha=1;
+
+}
+
+
+/* =========================
+   ICON VISUALS
+========================= */
+
+function drawVisualIcon(type,progress){
+
+const icons={
+
+taj:"🏛️",
+railway:"🚆",
+himalaya:"🏔️",
+culture:"🌏",
+cinema:"🎬",
+history:"📜",
+
+earth:"🌍",
+planet:"🪐",
+star:"⭐",
+galaxy:"🌌",
+universe:"✨",
+rocket:"🚀",
+
+city:"🏙️",
+technology:"🤖",
+world:"🌎",
+nature:"🌿",
+abstract:"✦",
+future:"🚀"
+
+};
+
+const icon=icons[type]||"✨";
+
+ctx.save();
+
+const scale=
+1+
+Math.sin(progress*Math.PI)*.12;
+
+ctx.translate(
+270,
+300
+);
+
+ctx.scale(
+scale,
+scale
+);
+
+ctx.textAlign="center";
+ctx.textBaseline="middle";
+
+ctx.font="150px Arial";
+
+ctx.globalAlpha=.92;
+
+ctx.fillText(
+icon,
+0,
+0
+);
+
+ctx.restore();
+
+}
+
+
+/* =========================
+   SCENE DRAWING
+========================= */
+
+function drawScene(index,progress){
+
+if(!currentPlan)return;
+
+const scene=currentPlan.scenes[index];
+
+const type=
+currentPlan.visualTypes[index];
+
+drawBackground(
+type,
+progress
+);
+
+drawVisualIcon(
+type,
+progress
+);
+
+
+/* Dark cinematic overlay */
+
+const overlay=
+ctx.createLinearGradient(
+0,
+450,
+0,
+960
+);
+
+overlay.addColorStop(
+0,
+"rgba(0,0,0,0)"
+);
+
+overlay.addColorStop(
+1,
+"rgba(0,0,0,.82)"
+);
+
+ctx.fillStyle=overlay;
+
+ctx.fillRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+
+/* Scene label */
+
+ctx.fillStyle="rgba(255,255,255,.85)";
+
+ctx.font="bold 24px Arial";
 
 ctx.fillText(
 `SCENE ${index+1}`,
 40,
-75
+70
 );
 
 
 /* Topic */
 
-ctx.font="bold 25px Arial";
+ctx.font="bold 24px Arial";
 
 wrapText(
 currentPlan.topic,
 40,
-150,
+125,
 460,
-35
+32
 );
 
 
-/* Main scene text */
-
-ctx.font="bold 38px Arial";
-
-wrapText(
-scene,
-40,
-380,
-460,
-52
-);
-
-
-/* Animated caption */
-
-const captionProgress=progress;
+/* Main cinematic caption */
 
 const captionY=
-760+
-Math.sin(captionProgress*Math.PI)*-25;
+730+
+Math.sin(progress*Math.PI)*-20;
 
-ctx.fillStyle="rgba(0,0,0,.65)";
+ctx.fillStyle="rgba(0,0,0,.72)";
 
 roundRect(
-35,
-captionY-55,
-470,
-120,
+28,
+captionY-90,
+484,
+190,
 22
 );
 
 ctx.fill();
 
+
 ctx.fillStyle="white";
 
-ctx.font="bold 27px Arial";
+ctx.font="bold 32px Arial";
 
 wrapText(
 scene,
-60,
-captionY-5,
-420,
-38
+52,
+captionY-35,
+430,
+43
 );
 
 
-/* Caption highlight line */
+/* Animated highlight */
 
-ctx.fillStyle="rgba(255,255,255,.75)";
+ctx.fillStyle="#60a5fa";
 
 ctx.fillRect(
-60,
-captionY+55,
-420*progress,
-6
+52,
+captionY+62,
+426*progress,
+7
 );
 
 
-/* Duration */
+/* Bottom information */
 
-ctx.font="bold 20px Arial";
+ctx.font="bold 19px Arial";
 
-ctx.fillStyle="white";
+ctx.fillStyle="rgba(255,255,255,.8)";
 
 ctx.fillText(
-`${currentPlan.duration}s`,
+`${currentPlan.duration}s • AI REEL MAKER`,
 40,
-860
+900
 );
 
 
-/* Bottom progress */
+/* Timeline */
 
-ctx.fillStyle="rgba(255,255,255,.3)";
+ctx.fillStyle="rgba(255,255,255,.25)";
 
 ctx.fillRect(
 40,
-900,
+925,
 460,
-8
+7
 );
 
 ctx.fillStyle="white";
 
 ctx.fillRect(
 40,
-900,
+925,
 460*progress,
-8
+7
 );
 
 }
 
 
 /* =========================
-   ROUNDED RECTANGLE
+   ROUNDED RECT
 ========================= */
 
 function roundRect(x,y,w,h,r){
@@ -701,7 +841,11 @@ ctx.closePath();
 ========================= */
 
 function wrapText(
-text,x,y,maxWidth,lineHeight
+text,
+x,
+y,
+maxWidth,
+lineHeight
 ){
 
 const words=text.split(" ");
@@ -713,11 +857,19 @@ for(let i=0;i<words.length;i++){
 
 const test=line+words[i]+" ";
 
-const width=ctx.measureText(test).width;
+const width=
+ctx.measureText(test).width;
 
-if(width>maxWidth && i>0){
+if(
+width>maxWidth &&
+i>0
+){
 
-ctx.fillText(line,x,yy);
+ctx.fillText(
+line,
+x,
+yy
+);
 
 line=words[i]+" ";
 
@@ -731,7 +883,180 @@ line=test;
 
 }
 
-ctx.fillText(line,x,yy);
+ctx.fillText(
+line,
+x,
+yy
+);
+
+}
+
+
+/* =========================
+   GENERATE
+========================= */
+
+function generateReel(){
+
+const topic=
+document.getElementById("topic")
+.value
+.trim();
+
+const style=
+document.getElementById("style")
+.value;
+
+const duration=
+Number(
+document.getElementById("duration")
+.value
+);
+
+if(!topic){
+
+alert("Please enter a reel topic.");
+
+return;
+
+}
+
+const bar=
+document.getElementById("generationBar");
+
+const status=
+document.getElementById("generationStatus");
+
+bar.style.width="10%";
+
+status.textContent=
+"Creating cinematic hook...";
+
+setTimeout(()=>{
+
+bar.style.width="30%";
+
+status.textContent=
+"Writing voiceover...";
+
+},300);
+
+setTimeout(()=>{
+
+bar.style.width="55%";
+
+status.textContent=
+"Designing visual scenes...";
+
+},600);
+
+setTimeout(()=>{
+
+const hook=
+makeHook(topic,style);
+
+const sceneList=
+makeScenes(topic);
+
+const visualTypes=
+sceneList.map(
+(_,index)=>
+getVisualType(topic,index)
+);
+
+const script=
+hook+" "+
+sceneList.join(" ")+
+" Follow for more.";
+
+currentPlan={
+
+topic:topic,
+
+hook:hook,
+
+script:script,
+
+scenes:sceneList,
+
+visualTypes:visualTypes,
+
+duration:duration
+
+};
+
+document.getElementById("hook")
+.textContent=hook;
+
+document.getElementById("script")
+.textContent=script;
+
+
+const scenesBox=
+document.getElementById("scenes");
+
+scenesBox.innerHTML="";
+
+
+sceneList.forEach(
+(text,index)=>{
+
+const div=
+document.createElement("div");
+
+div.className="scene";
+
+div.innerHTML=`
+
+<h3>Scene ${index+1}</h3>
+
+<p>${text}</p>
+
+<p class="small">
+Visual: ${visualTypes[index]}
+</p>
+
+`;
+
+scenesBox.appendChild(div);
+
+});
+
+
+document.getElementById("caption")
+.textContent=
+hook+
+" #India #Facts #Knowledge #Reels";
+
+document.getElementById("hashtags")
+.textContent=
+"#India #Facts #Knowledge #InterestingFacts #Reels #Viral";
+
+
+document.getElementById("resultCard")
+.style.display="block";
+
+document.getElementById("sceneCard")
+.style.display="block";
+
+document.getElementById("videoCard")
+.style.display="block";
+
+document.getElementById("captionCard")
+.style.display="block";
+
+
+bar.style.width="100%";
+
+status.textContent=
+"Stage 7.2 reel created successfully!";
+
+status.className=
+"status success";
+
+drawScene(0,0);
+
+},900);
 
 }
 
@@ -745,6 +1070,7 @@ function startPreview(){
 if(!currentPlan){
 
 alert("Generate a reel first.");
+
 return;
 
 }
@@ -772,19 +1098,23 @@ const framesPerScene=
 totalFrames/
 currentPlan.scenes.length;
 
-animationTimer=setInterval(()=>{
+animationTimer=
+setInterval(()=>{
 
 const sceneIndex=
 Math.min(
 currentPlan.scenes.length-1,
-Math.floor(frame/framesPerScene)
+Math.floor(
+frame/framesPerScene
+)
 );
 
 const localFrame=
 frame%framesPerScene;
 
 const progress=
-localFrame/framesPerScene;
+localFrame/
+framesPerScene;
 
 drawScene(
 sceneIndex,
@@ -795,7 +1125,9 @@ frame++;
 
 if(frame>=totalFrames){
 
-clearInterval(animationTimer);
+clearInterval(
+animationTimer
+);
 
 animationTimer=null;
 
@@ -807,7 +1139,7 @@ animationTimer=null;
 
 
 /* =========================
-   BROWSER VOICE
+   VOICE
 ========================= */
 
 function speakScript(){
@@ -816,7 +1148,9 @@ if(!currentPlan)return;
 
 if(!("speechSynthesis" in window)){
 
-alert("Speech synthesis is not supported.");
+alert(
+"Speech synthesis is not supported."
+);
 
 return;
 
@@ -830,46 +1164,64 @@ currentPlan.script
 );
 
 const voiceStyle=
-document.getElementById("voiceStyle").value;
+document.getElementById(
+"voiceStyle"
+).value;
 
 if(voiceStyle==="Energetic"){
+
 utterance.rate=1.08;
 utterance.pitch=1.1;
+
 }
 
 if(voiceStyle==="Professional"){
+
 utterance.rate=.95;
 utterance.pitch=1;
+
 }
 
 if(voiceStyle==="Calm"){
+
 utterance.rate=.85;
 utterance.pitch=.9;
+
 }
 
 if(voiceStyle==="Dramatic"){
+
 utterance.rate=.9;
 utterance.pitch=.8;
+
 }
 
-speechSynthesis.speak(utterance);
+speechSynthesis.speak(
+utterance
+);
 
 }
 
 
 /* =========================
-   MIME TYPE
+   MIME
 ========================= */
 
 function getMimeType(){
 
 const types=[
+
 "video/webm;codecs=vp8",
+
 "video/webm",
+
 ""
+
 ];
 
-for(const type of types){
+for(
+const type of types
+){
 
 if(
 type==="" ||
@@ -888,7 +1240,7 @@ return "";
 
 
 /* =========================
-   BACKGROUND MUSIC
+   MUSIC
 ========================= */
 
 function createMusic(){
@@ -906,6 +1258,8 @@ return null;
 const audioCtx=
 new AudioContext();
 
+audioCtx.resume();
+
 const destination=
 audioCtx.createMediaStreamDestination();
 
@@ -916,12 +1270,12 @@ master.gain.value=.055;
 
 master.connect(destination);
 
-master.connect(audioCtx.destination);
-
-
-/* Soft repeating synth music */
+master.connect(
+audioCtx.destination
+);
 
 const notes=[
+
 261.63,
 329.63,
 392.00,
@@ -930,12 +1284,10 @@ const notes=[
 349.23,
 440.00,
 349.23
+
 ];
 
 let stopped=false;
-
-const startTime=
-audioCtx.currentTime;
 
 function playNote(index){
 
@@ -950,7 +1302,9 @@ audioCtx.createGain();
 osc.type="sine";
 
 osc.frequency.value=
-notes[index%notes.length];
+notes[
+index%notes.length
+];
 
 gain.gain.setValueAtTime(
 0,
@@ -968,6 +1322,7 @@ audioCtx.currentTime+.45
 );
 
 osc.connect(gain);
+
 gain.connect(master);
 
 osc.start();
@@ -985,8 +1340,11 @@ setTimeout(
 
 playNote(0);
 
-return {
-stream:destination.stream,
+return{
+
+stream:
+destination.stream,
+
 stop:function(){
 
 stopped=true;
@@ -994,20 +1352,24 @@ stopped=true;
 audioCtx.close();
 
 }
+
 };
 
 }
 
 
 /* =========================
-   RENDER REEL
+   RENDER
 ========================= */
 
 function renderReel(){
 
 if(!currentPlan){
 
-alert("Generate a reel first.");
+alert(
+"Generate a reel first."
+);
+
 return;
 
 }
@@ -1032,43 +1394,53 @@ return;
 
 }
 
+
 const button=
-document.getElementById("renderButton");
+document.getElementById(
+"renderButton"
+);
 
 const status=
-document.getElementById("renderStatus");
+document.getElementById(
+"renderStatus"
+);
 
 const bar=
-document.getElementById("renderBar");
+document.getElementById(
+"renderBar"
+);
 
 button.disabled=true;
 
-button.textContent="⏳ Rendering...";
+button.textContent=
+"⏳ Rendering...";
 
 status.className="status";
 
 status.textContent=
-`Preparing ${currentPlan.duration}-second video...`;
+`Preparing ${currentPlan.duration}-second cinematic video...`;
 
 bar.style.width="0%";
 
 
 if(animationTimer){
 
-clearInterval(animationTimer);
+clearInterval(
+animationTimer
+);
 
 animationTimer=null;
 
 }
 
 
-/* Canvas video */
+/* Canvas */
 
 const canvasStream=
 canvas.captureStream(30);
 
 
-/* Music audio */
+/* Music */
 
 let music=null;
 
@@ -1083,7 +1455,7 @@ music=null;
 }
 
 
-/* Combine video + music */
+/* Combine */
 
 let combinedStream;
 
@@ -1094,8 +1466,13 @@ music.stream
 
 combinedStream=
 new MediaStream([
-...canvasStream.getVideoTracks(),
-...music.stream.getAudioTracks()
+
+...canvasStream
+.getVideoTracks(),
+
+...music.stream
+.getAudioTracks()
+
 ]);
 
 }else{
@@ -1117,11 +1494,13 @@ try{
 
 recorder=
 mime
-?new MediaRecorder(
+?
+new MediaRecorder(
 combinedStream,
 {mimeType:mime}
 )
-:new MediaRecorder(
+:
+new MediaRecorder(
 combinedStream
 );
 
@@ -1135,7 +1514,9 @@ button.textContent=
 status.textContent=
 "Could not start video recorder.";
 
-canvasStream.getTracks().forEach(
+canvasStream
+.getTracks()
+.forEach(
 track=>track.stop()
 );
 
@@ -1157,14 +1538,17 @@ event.data &&
 event.data.size>0
 ){
 
-chunks.push(event.data);
+chunks.push(
+event.data
+);
 
 }
 
 };
 
 
-recorder.onerror=function(){
+recorder.onerror=
+function(){
 
 button.disabled=false;
 
@@ -1174,7 +1558,9 @@ button.textContent=
 status.textContent=
 "Video recording failed. Please try again.";
 
-canvasStream.getTracks().forEach(
+canvasStream
+.getTracks()
+.forEach(
 track=>track.stop()
 );
 
@@ -1183,9 +1569,12 @@ if(music)music.stop();
 };
 
 
-recorder.onstop=function(){
+recorder.onstop=
+function(){
 
-canvasStream.getTracks().forEach(
+canvasStream
+.getTracks()
+.forEach(
 track=>track.stop()
 );
 
@@ -1232,7 +1621,7 @@ document.createElement("a");
 link.href=url;
 
 link.download=
-`ai-reel-stage-7-1-${currentPlan.duration}s.webm`;
+`ai-reel-stage-7-2-${currentPlan.duration}s.webm`;
 
 document.body.appendChild(link);
 
@@ -1241,19 +1630,19 @@ link.click();
 link.remove();
 
 
-setTimeout(()=>{
-
-URL.revokeObjectURL(url);
-
-},3000);
+setTimeout(
+()=>URL.revokeObjectURL(url),
+3000
+);
 
 
 bar.style.width="100%";
 
-status.className="status success";
+status.className=
+"status success";
 
 status.textContent=
-`✅ ${currentPlan.duration}-second reel downloaded with animated captions and background music!`;
+`✅ ${currentPlan.duration}-second cinematic reel downloaded with music and animated captions!`;
 
 button.disabled=false;
 
@@ -1268,7 +1657,7 @@ button.textContent=
 drawScene(0,0);
 
 
-/* Start recorder */
+/* Start */
 
 try{
 
@@ -1284,7 +1673,9 @@ button.textContent=
 status.textContent=
 "Could not start recording.";
 
-canvasStream.getTracks().forEach(
+canvasStream
+.getTracks()
+.forEach(
 track=>track.stop()
 );
 
@@ -1322,7 +1713,8 @@ elapsed/sceneDuration
 );
 
 const local=
-elapsed%sceneDuration;
+elapsed%
+sceneDuration;
 
 const progress=
 local/sceneDuration;
@@ -1342,12 +1734,11 @@ elapsed/duration*100
 )
 );
 
-
 bar.style.width=
 percent+"%";
 
 status.textContent=
-`Rendering ${currentPlan.duration}-second reel... ${percent}%`;
+`Rendering cinematic reel... ${percent}%`;
 
 
 if(elapsed<duration){
@@ -1381,7 +1772,9 @@ recorder.stop();
 
 }
 
-},duration+1000);
+},
+duration+1000
+);
 
 }
 
