@@ -3,221 +3,300 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Reel Maker — Stage 5</title>
+<title>AI Reel Maker — Stage 6</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f5f7fb;
-  color: #171923;
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f6fb;
+  color:#171827;
 }
 
-header {
-  background: #ffffff;
-  border-bottom: 1px solid #e8eaf0;
-  padding: 18px 7%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.topbar{
+  background:white;
+  border-bottom:1px solid #e8e9f0;
+  padding:18px 7%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-.logo {
-  font-size: 20px;
-  font-weight: 800;
+.logo{
+  font-size:21px;
+  font-weight:800;
 }
 
-.badge {
-  background: #eee8ff;
-  color: #633cff;
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
+.badge{
+  background:#eee9ff;
+  color:#7047e8;
+  padding:8px 13px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:700;
 }
 
-.container {
-  width: min(1100px, 92%);
-  margin: auto;
+.container{
+  width:min(1100px,92%);
+  margin:auto;
 }
 
-.hero {
-  padding: 55px 0 30px;
-  text-align: center;
+.hero{
+  text-align:center;
+  padding:55px 10px 30px;
 }
 
-.hero h1 {
-  font-size: clamp(34px, 6vw, 62px);
-  margin: 0;
-  background: linear-gradient(90deg, #673cff, #ff3c9e);
-  -webkit-background-clip: text;
-  color: transparent;
+.hero h1{
+  font-size:42px;
+  line-height:1.1;
+  margin-bottom:14px;
 }
 
-.hero p {
-  color: #697080;
-  font-size: 17px;
+.hero p{
+  color:#656779;
+  font-size:17px;
 }
 
-.card {
-  background: white;
-  border: 1px solid #e8eaf0;
-  border-radius: 22px;
-  padding: 24px;
-  margin: 20px 0;
-  box-shadow: 0 10px 35px rgba(30, 30, 60, 0.06);
+.generator{
+  background:white;
+  border-radius:22px;
+  padding:25px;
+  box-shadow:0 12px 35px rgba(30,35,70,.08);
 }
 
-label {
-  display: block;
-  font-weight: 700;
-  margin-bottom: 8px;
+label{
+  display:block;
+  font-weight:700;
+  margin-bottom:8px;
 }
 
-input, select {
-  width: 100%;
-  padding: 15px;
-  border: 1px solid #dfe2ea;
-  border-radius: 13px;
-  font-size: 16px;
-  outline: none;
-  background: white;
+input,select{
+  width:100%;
+  border:1px solid #dddfea;
+  padding:15px;
+  border-radius:12px;
+  font-size:15px;
+  outline:none;
+  background:white;
 }
 
-button {
-  border: 0;
-  border-radius: 13px;
-  padding: 14px 18px;
-  font-weight: 700;
-  cursor: pointer;
-  margin-top: 12px;
+input:focus,select:focus{
+  border-color:#7652ed;
 }
 
-.primary {
-  width: 100%;
-  background: linear-gradient(90deg, #673cff, #ff3c9e);
-  color: white;
-  font-size: 16px;
+.settings{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-top:18px;
 }
 
-.secondary {
-  background: #f0edff;
-  color: #5d38e8;
+button{
+  border:0;
+  cursor:pointer;
+  border-radius:12px;
+  font-weight:700;
 }
 
-.dark {
-  background: #171923;
-  color: white;
+.generate{
+  width:100%;
+  margin-top:20px;
+  padding:16px;
+  color:white;
+  font-size:16px;
+  background:linear-gradient(135deg,#7351ee,#e4499b);
 }
 
-.settings {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
+.generate:hover{
+  opacity:.92;
 }
 
-.progress {
-  height: 10px;
-  background: #eceef4;
-  border-radius: 999px;
-  overflow: hidden;
-  margin-top: 15px;
+.progress-box{
+  display:none;
+  margin-top:22px;
 }
 
-.progress-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #673cff, #ff3c9e);
-  transition: width .4s;
+.progress{
+  height:10px;
+  background:#ececf4;
+  border-radius:20px;
+  overflow:hidden;
 }
 
-.status {
-  color: #697080;
-  margin-top: 10px;
-  font-size: 14px;
+.progress-bar{
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,#7351ee,#e4499b);
+  transition:.35s;
 }
 
-.hidden {
-  display: none;
+.status{
+  text-align:center;
+  color:#68697b;
+  margin-top:10px;
+  font-size:14px;
 }
 
-.result-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+.results{
+  display:none;
+  margin-top:25px;
 }
 
-.scene {
-  border: 1px solid #e7e8ee;
-  border-radius: 18px;
-  padding: 18px;
-  margin: 14px 0;
-  background: #fbfbfd;
+.card{
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  margin-bottom:18px;
+  box-shadow:0 8px 25px rgba(30,35,70,.06);
 }
 
-.scene-number {
-  font-weight: 800;
-  color: #633cff;
+.card h2{
+  font-size:19px;
+  margin-bottom:15px;
 }
 
-.scene-title {
-  font-size: 18px;
-  font-weight: 800;
-  margin: 7px 0;
+.hook{
+  font-size:25px;
+  font-weight:800;
+  line-height:1.25;
+  background:linear-gradient(135deg,#f0eaff,#fff0f7);
+  padding:22px;
+  border-radius:16px;
 }
 
-.scene-text {
-  color: #5e6573;
-  line-height: 1.5;
+.script{
+  line-height:1.7;
+  color:#4f5060;
+  white-space:pre-line;
 }
 
-.scene button {
-  margin-right: 6px;
+.voice-buttons{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
 }
 
-canvas {
-  width: 100%;
-  max-width: 360px;
-  aspect-ratio: 9 / 16;
-  display: block;
-  margin: auto;
-  border-radius: 24px;
-  background: #111;
-  box-shadow: 0 15px 40px rgba(0,0,0,.2);
+.voice-buttons button{
+  padding:11px 16px;
+  background:#171827;
+  color:white;
 }
 
-.download {
-  width: 100%;
-  background: #171923;
-  color: white;
-  font-size: 16px;
+.scene-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
 }
 
-.notice {
-  background: #fff7df;
-  border: 1px solid #f2df9c;
-  padding: 15px;
-  border-radius: 14px;
-  color: #705600;
-  line-height: 1.5;
+.scene{
+  border:1px solid #e7e7ef;
+  border-radius:16px;
+  overflow:hidden;
+  background:#fafaff;
 }
 
-@media(max-width: 750px) {
-  .settings,
-  .result-grid {
-    grid-template-columns: 1fr;
+.scene-visual{
+  height:190px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  font-size:42px;
+  font-weight:900;
+  text-align:center;
+  padding:20px;
+  background:linear-gradient(135deg,#6046d8,#e44c99);
+}
+
+.scene-content{
+  padding:17px;
+}
+
+.scene-content h3{
+  margin-bottom:7px;
+}
+
+.scene-content p{
+  color:#666879;
+  font-size:14px;
+  line-height:1.5;
+}
+
+.scene-time{
+  color:#7652ed;
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+.caption{
+  line-height:1.6;
+  color:#505160;
+  white-space:pre-line;
+}
+
+.hashtags{
+  color:#7047e8;
+  margin-top:15px;
+  line-height:1.7;
+}
+
+.preview-wrap{
+  display:flex;
+  justify-content:center;
+}
+
+.phone{
+  width:300px;
+  height:533px;
+  background:#101018;
+  border-radius:30px;
+  padding:8px;
+  box-shadow:0 18px 45px rgba(0,0,0,.2);
+}
+
+canvas{
+  width:100%;
+  height:100%;
+  border-radius:24px;
+  display:block;
+  background:#111;
+}
+
+.export{
+  text-align:center;
+}
+
+.export button{
+  padding:15px 22px;
+  background:linear-gradient(135deg,#7351ee,#e4499b);
+  color:white;
+  font-size:16px;
+}
+
+.note{
+  margin-top:14px;
+  color:#77798a;
+  font-size:13px;
+  line-height:1.5;
+}
+
+@media(max-width:700px){
+  .hero h1{
+    font-size:32px;
   }
 
-  header {
-    padding: 15px 5%;
+  .settings{
+    grid-template-columns:1fr;
   }
 
-  .hero {
-    padding-top: 35px;
+  .scene-grid{
+    grid-template-columns:1fr;
   }
 }
 </style>
@@ -225,31 +304,31 @@ canvas {
 
 <body>
 
-<header>
+<header class="topbar">
   <div class="logo">🎬 AI Reel Maker</div>
-  <div class="badge">Stage 5 • Reel Engine</div>
+  <div class="badge">Stage 6 • Smart Reel Studio</div>
 </header>
 
 <main class="container">
 
 <section class="hero">
-  <h1>Turn an Idea Into a Reel</h1>
-  <p>Create, preview and download an automatically edited vertical Reel.</p>
+  <h1>Create Better Reels From One Idea</h1>
+  <p>Turn a simple topic into a structured, animated Instagram-style reel.</p>
 </section>
 
-<section class="card">
+<section class="generator">
 
-<label for="topic">What should your Reel be about?</label>
-
+<label for="topic">What should your reel be about?</label>
 <input
   id="topic"
+  type="text"
   placeholder="Example: 5 interesting facts about India"
 >
 
 <div class="settings">
 
 <div>
-<label>Reel Length</label>
+<label for="length">Reel Length</label>
 <select id="length">
 <option value="30">30 seconds</option>
 <option value="45" selected>45 seconds</option>
@@ -258,116 +337,88 @@ canvas {
 </div>
 
 <div>
-<label>Content Style</label>
+<label for="style">Content Style</label>
 <select id="style">
-<option>Fast & Viral</option>
-<option>News Style</option>
-<option>Educational</option>
-<option>Cinematic</option>
+<option value="viral">Fast & Viral</option>
+<option value="news">News Style</option>
+<option value="education">Educational</option>
+<option value="cinematic">Cinematic</option>
 </select>
 </div>
 
 <div>
-<label>Voice Style</label>
-<select id="voiceStyle">
-<option>Energetic</option>
-<option>Professional</option>
-<option>Calm</option>
-<option>Dramatic</option>
+<label for="voice">Voice Style</label>
+<select id="voice">
+<option value="energetic">Energetic</option>
+<option value="professional">Professional</option>
+<option value="calm">Calm</option>
+<option value="dramatic">Dramatic</option>
 </select>
 </div>
 
 </div>
 
-<button class="primary" onclick="generateReel()">
-✨ Generate Reel
+<button class="generate" onclick="generateReel()">
+✨ Generate Stage 6 Reel
 </button>
 
+<div class="progress-box" id="progressBox">
 <div class="progress">
 <div class="progress-bar" id="progressBar"></div>
 </div>
-
-<div class="status" id="status">
-Ready to create your Reel.
+<div class="status" id="status">Starting...</div>
 </div>
 
 </section>
 
-<section id="results" class="hidden">
+<section class="results" id="results">
 
 <div class="card">
-
-<h2>🎯 Hook</h2>
-<div id="hook"></div>
-
-</div>
-
-<div class="result-grid">
-
-<div class="card">
-
-<h2>🎙️ Voiceover</h2>
-
-<div id="script"></div>
-
-<button class="secondary" onclick="speakScript()">
-▶ Play Voice
-</button>
-
-<button class="secondary" onclick="stopVoice()">
-⏹ Stop
-</button>
-
+<h2>🎯 Smart Hook</h2>
+<div class="hook" id="hook"></div>
 </div>
 
 <div class="card">
+<h2>🎙️ Voiceover Script</h2>
+<div class="script" id="script"></div>
 
-<h2>🎬 Reel Preview</h2>
+<div class="voice-buttons">
+<button onclick="speakScript()">▶ Play Voice</button>
+<button onclick="stopVoice()">■ Stop</button>
+</div>
+</div>
 
+<div class="card">
+<h2>📱 Reel Preview</h2>
+
+<div class="preview-wrap">
+<div class="phone">
 <canvas id="reelCanvas" width="540" height="960"></canvas>
-
-<button class="dark" style="width:100%" onclick="previewReel()">
-▶ Preview Reel
-</button>
-
 </div>
-
+</div>
 </div>
 
 <div class="card">
-
-<h2>🎞️ Scene Planner</h2>
-
-<div id="scenes"></div>
-
+<h2>🎬 Scene Planner</h2>
+<div class="scene-grid" id="sceneGrid"></div>
 </div>
 
-<div class="card">
+<div class="card export">
+<h2>🚀 Create Your Video</h2>
 
-<h2>📥 Export</h2>
-
-<div class="notice">
-Your browser will render the animated Reel and create a downloadable
-WebM video. This free version does not require an API key.
-</div>
-
-<button class="download" onclick="renderReel()">
+<button onclick="renderReel()">
 🎥 Render & Download Reel
 </button>
 
-<div class="status" id="renderStatus"></div>
-
+<div class="note">
+The browser creates the video locally. No paid API or API key is required for this Stage 6 version.
+</div>
 </div>
 
 <div class="card">
-
-<h2>📱 Instagram Caption</h2>
-
-<div id="caption"></div>
-
-<h3>Hashtags</h3>
-<div id="hashtags"></div>
-
+<h2>📲 Instagram Caption</h2>
+<div class="caption" id="caption"></div>
+<div class="hashtags" id="hashtags"></div>
 </div>
 
 </section>
@@ -376,553 +427,510 @@ WebM video. This free version does not require an API key.
 
 <script>
 
-let reelScenes = [];
-let currentTopic = "";
-let currentScript = "";
-let rendering = false;
+let currentPlan = null;
+let animationId = null;
+let previewStart = 0;
 
 const canvas = document.getElementById("reelCanvas");
 const ctx = canvas.getContext("2d");
 
-function wait(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+function setProgress(percent,text){
+  document.getElementById("progressBar").style.width = percent + "%";
+  document.getElementById("status").textContent = text;
 }
 
-async function generateReel() {
+function smartHook(topic,style){
+
+  const lower = topic.toLowerCase();
+
+  if(lower.includes("fact") || lower.includes("facts")){
+    if(style === "news"){
+      return "Here are the facts you need to know about " + topic.replace(/5 interesting facts about /i,"") + ".";
+    }
+
+    return "Stop scrolling! These facts about " +
+      topic.replace(/5 interesting facts about /i,"") +
+      " might actually surprise you.";
+  }
+
+  if(lower.includes("news")){
+    return "Here's what you need to know about this developing story.";
+  }
+
+  if(lower.includes("india")){
+    return "You probably know India — but you may not know these surprising details.";
+  }
+
+  if(style === "cinematic"){
+    return "One idea. One story. And a few details you probably never noticed.";
+  }
+
+  if(style === "education"){
+    return "Before you scroll, here's something worth learning about " + topic + ".";
+  }
+
+  return "Stop scrolling! Here's something interesting you should know about " + topic + ".";
+}
+
+function createContent(topic,style,length){
+
+  const hook = smartHook(topic,style);
+
+  let points = [
+    "First, let's understand what makes this topic interesting.",
+    "The second detail gives us a different perspective.",
+    "Another part of the story is often overlooked.",
+    "And here's the detail that makes it even more interesting.",
+    "So the next time you hear about this topic, you'll know more than before."
+  ];
+
+  if(topic.toLowerCase().includes("india")){
+    points = [
+      "India is home to an enormous variety of cultures, languages and traditions.",
+      "Its history stretches across thousands of years and includes some of the world's oldest civilizations.",
+      "India has one of the largest populations on Earth and some of the world's busiest cities.",
+      "From technology to space exploration, modern India has built a major global presence.",
+      "And that combination of history, culture and modern innovation makes India incredibly fascinating."
+    ];
+  }
+
+  if(topic.toLowerCase().includes("space")){
+    points = [
+      "Space is far bigger than anything we experience on Earth.",
+      "Even nearby planets can have environments completely different from ours.",
+      "Scientists use telescopes and spacecraft to study objects billions of kilometres away.",
+      "Every mission can reveal something we didn't know before.",
+      "And that is why space exploration continues to change what we understand about the universe."
+    ];
+  }
+
+  const scenes = [
+    {
+      title:"HOOK",
+      time:"0–5 sec",
+      text:hook,
+      visual:"STOP\nSCROLL"
+    },
+    {
+      title:"POINT 1",
+      time:"5–13 sec",
+      text:points[0],
+      visual:"01"
+    },
+    {
+      title:"POINT 2",
+      time:"13–21 sec",
+      text:points[1],
+      visual:"02"
+    },
+    {
+      title:"POINT 3",
+      time:"21–29 sec",
+      text:points[2],
+      visual:"03"
+    },
+    {
+      title:"POINT 4",
+      time:"29–37 sec",
+      text:points[3],
+      visual:"04"
+    },
+    {
+      title:"ENDING",
+      time:"37–45 sec",
+      text:points[4] + " Follow for more.",
+      visual:"FOLLOW"
+    }
+  ];
+
+  const script = scenes.map(s => s.text).join("\n\n");
+
+  return {
+    hook,
+    script,
+    scenes,
+    caption:"A quick reel about " + topic + ". Which part surprised you the most? 👀\n\nFollow for more interesting content.",
+    hashtags:"#AIReelMaker #InstagramReels #Shorts #Facts #DidYouKnow #InterestingFacts"
+  };
+}
+
+function generateReel(){
 
   const topic = document.getElementById("topic").value.trim();
 
-  if (!topic) {
-    alert("Please enter a Reel topic.");
+  if(!topic){
+    alert("Please enter a reel topic first.");
     return;
   }
-
-  currentTopic = topic;
-
-  const bar = document.getElementById("progressBar");
-  const status = document.getElementById("status");
-
-  document.getElementById("results").classList.remove("hidden");
-
-  const steps = [
-    "Understanding your topic...",
-    "Creating a strong hook...",
-    "Building the voiceover...",
-    "Designing Reel scenes...",
-    "Preparing captions..."
-  ];
-
-  for (let i = 0; i < steps.length; i++) {
-
-    status.textContent = steps[i];
-
-    bar.style.width =
-      ((i + 1) / steps.length * 100) + "%";
-
-    await wait(550);
-  }
-
-  createPlan(topic);
-
-  status.textContent = "Reel plan ready. You can now preview or render it.";
-
-  window.scrollTo({
-    top: document.getElementById("results").offsetTop - 20,
-    behavior: "smooth"
-  });
-}
-
-function createPlan(topic) {
 
   const style = document.getElementById("style").value;
+  const length = document.getElementById("length").value;
 
-  const hook =
-    "STOP SCROLLING! Here's something interesting about " +
-    topic + ".";
+  document.getElementById("progressBox").style.display="block";
+  document.getElementById("results").style.display="none";
 
-  const facts = [
-    "This topic has more interesting details than most people realize.",
-    "There is a surprising story behind this subject.",
-    "One detail about this topic can completely change how you see it.",
-    "Another fascinating fact makes this topic even more interesting.",
-    "And there is still more to discover."
-  ];
+  setProgress(15,"Understanding your topic...");
 
-  reelScenes = [];
+  setTimeout(()=>{
 
-  const total = parseInt(document.getElementById("length").value);
+    setProgress(35,"Creating a stronger hook...");
 
-  const sceneCount = 6;
-  const sceneDuration = total / sceneCount;
+    setTimeout(()=>{
 
-  reelScenes.push({
-    title: "Powerful Hook",
-    text: hook
-  });
+      setProgress(55,"Building the voiceover...");
 
-  for (let i = 0; i < 4; i++) {
+      setTimeout(()=>{
 
-    reelScenes.push({
-      title: "Interesting Point " + (i + 1),
-      text: facts[i]
-    });
+        setProgress(75,"Designing animated scenes...");
 
-  }
+        setTimeout(()=>{
 
-  reelScenes.push({
-    title: "Call To Action",
-    text: "Follow for more interesting videos about " + topic + "."
-  });
+          currentPlan = createContent(topic,style,length);
 
-  currentScript = reelScenes
-    .map(scene => scene.text)
-    .join(" ");
+          document.getElementById("hook").textContent=currentPlan.hook;
+          document.getElementById("script").textContent=currentPlan.script;
+          document.getElementById("caption").textContent=currentPlan.caption;
+          document.getElementById("hashtags").textContent=currentPlan.hashtags;
 
-  document.getElementById("hook").textContent = hook;
+          buildScenes();
 
-  document.getElementById("script").textContent =
-    currentScript;
+          document.getElementById("results").style.display="block";
 
-  const scenesBox = document.getElementById("scenes");
+          setProgress(100,"Your Stage 6 reel is ready!");
 
-  scenesBox.innerHTML = "";
+          startPreview();
 
-  reelScenes.forEach((scene, index) => {
+        },500);
 
-    const div = document.createElement("div");
+      },500);
 
-    div.className = "scene";
+    },500);
 
-    div.innerHTML = `
-      <div class="scene-number">SCENE ${index + 1}</div>
-      <div class="scene-title">${scene.title}</div>
-      <div class="scene-text">${scene.text}</div>
-      <button class="secondary" onclick="previewScene(${index})">
-        👁️ Preview
-      </button>
+  },500);
+}
+
+function buildScenes(){
+
+  const grid=document.getElementById("sceneGrid");
+  grid.innerHTML="";
+
+  currentPlan.scenes.forEach((scene,index)=>{
+
+    const div=document.createElement("div");
+    div.className="scene";
+
+    div.innerHTML=`
+      <div class="scene-visual">${scene.visual.replace("\n","<br>")}</div>
+      <div class="scene-content">
+        <div class="scene-time">${scene.time}</div>
+        <h3>${scene.title}</h3>
+        <p>${scene.text}</p>
+      </div>
     `;
 
-    scenesBox.appendChild(div);
-
+    grid.appendChild(div);
   });
-
-  document.getElementById("caption").textContent =
-    "Discover something interesting about " +
-    topic +
-    " 👀 Follow for more!";
-
-  document.getElementById("hashtags").textContent =
-    "#AIReelMaker #InstagramReels #Reels #ViralReels #Facts #Shorts";
-
 }
 
-function previewScene(index) {
+function wrapText(text,maxWidth){
 
-  const scene = reelScenes[index];
+  const words=text.split(" ");
+  const lines=[];
+  let line="";
 
-  drawScene(scene, index, 0);
+  for(const word of words){
 
-  document.getElementById("reelCanvas")
-    .scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
+    const test=line ? line+" "+word : word;
+
+    if(ctx.measureText(test).width > maxWidth){
+      lines.push(line);
+      line=word;
+    }else{
+      line=test;
+    }
+  }
+
+  if(line) lines.push(line);
+
+  return lines;
 }
 
-function drawBackground(index, progress) {
+function drawBackground(sceneIndex,progress){
 
-  const gradients = [
-    ["#673cff", "#ff3c9e"],
-    ["#111827", "#4338ca"],
-    ["#0f766e", "#06b6d4"],
-    ["#7c2d12", "#ea580c"],
-    ["#581c87", "#db2777"],
-    ["#172554", "#2563eb"]
+  const gradients=[
+    ["#17145c","#8e2de2"],
+    ["#071b3a","#1976d2"],
+    ["#24103f","#d83f87"],
+    ["#102d25","#00a884"],
+    ["#35140c","#ef6c00"],
+    ["#151515","#6a42d8"]
   ];
 
-  const colors = gradients[index % gradients.length];
+  const colors=gradients[sceneIndex%gradients.length];
 
-  const gradient = ctx.createLinearGradient(
+  const g=ctx.createLinearGradient(
     0,
     0,
     canvas.width,
     canvas.height
   );
 
-  gradient.addColorStop(0, colors[0]);
-  gradient.addColorStop(1, colors[1]);
+  g.addColorStop(0,colors[0]);
+  g.addColorStop(1,colors[1]);
 
-  ctx.fillStyle = gradient;
-  ctx.fillRect(
-    0,
-    0,
-    canvas.width,
-    canvas.height
-  );
+  ctx.fillStyle=g;
+  ctx.fillRect(0,0,canvas.width,canvas.height);
 
   // animated circles
+  for(let i=0;i<5;i++){
 
-  for (let i = 0; i < 7; i++) {
-
-    const x =
-      (Math.sin(progress * 0.004 + i) * 120)
-      + canvas.width / 2;
-
-    const y =
-      (Math.cos(progress * 0.003 + i) * 180)
-      + canvas.height / 2;
+    const x=(i*140+progress*180)%700-80;
+    const y=170+i*150;
 
     ctx.beginPath();
+    ctx.arc(x,y,70,0,Math.PI*2);
 
-    ctx.arc(
-      x,
-      y,
-      35 + i * 6,
-      0,
-      Math.PI * 2
-    );
-
-    ctx.fillStyle =
-      "rgba(255,255,255,0.08)";
-
+    ctx.fillStyle="rgba(255,255,255,.06)";
     ctx.fill();
-
   }
-
 }
 
-function drawScene(scene, index, progress) {
+function drawScene(scene,index,progress){
 
-  drawBackground(index, progress);
+  drawBackground(index,progress);
 
-  ctx.textAlign = "center";
+  ctx.textAlign="center";
 
-  ctx.fillStyle = "rgba(255,255,255,.75)";
-  ctx.font = "bold 24px Arial";
+  // top label
+  ctx.font="bold 22px Arial";
+  ctx.fillStyle="rgba(255,255,255,.75)";
+  ctx.fillText("AI REEL MAKER",270,70);
 
-  ctx.fillText(
-    "AI REEL MAKER",
-    canvas.width / 2,
-    90
-  );
+  // scene number
+  ctx.font="bold 120px Arial";
+  ctx.fillStyle="rgba(255,255,255,.08)";
+  ctx.fillText(String(index+1).padStart(2,"0"),270,310);
 
-  ctx.fillStyle = "#ffffff";
+  // visual word
+  ctx.font="900 62px Arial";
+  ctx.fillStyle="white";
 
-  ctx.font = "bold 50px Arial";
+  const visualLines=scene.visual.split("\n");
 
-  wrapText(
-    scene.text,
-    canvas.width / 2,
-    390,
-    430,
-    62
-  );
-
-  ctx.font = "bold 24px Arial";
-
-  ctx.fillStyle = "rgba(255,255,255,.8)";
-
-  ctx.fillText(
-    "@" + "AIReelMaker",
-    canvas.width / 2,
-    875
-  );
-
-  // progress line
-
-  ctx.fillStyle = "rgba(255,255,255,.3)";
-
-  ctx.fillRect(
-    55,
-    915,
-    canvas.width - 110,
-    8
-  );
-
-  ctx.fillStyle = "#ffffff";
-
-  ctx.fillRect(
-    55,
-    915,
-    (canvas.width - 110) *
-    (progress / 100),
-    8
-  );
-
-}
-
-function wrapText(text, x, y, maxWidth, lineHeight) {
-
-  const words = text.split(" ");
-
-  let line = "";
-  const lines = [];
-
-  for (let i = 0; i < words.length; i++) {
-
-    const testLine =
-      line + words[i] + " ";
-
-    const width =
-      ctx.measureText(testLine).width;
-
-    if (width > maxWidth && i > 0) {
-
-      lines.push(line);
-      line = words[i] + " ";
-
-    } else {
-
-      line = testLine;
-
-    }
-
-  }
-
-  lines.push(line);
-
-  const startY =
-    y - ((lines.length - 1) *
-    lineHeight) / 2;
-
-  lines.forEach((line, i) => {
-
-    ctx.fillText(
-      line,
-      x,
-      startY + i * lineHeight
-    );
-
+  visualLines.forEach((line,i)=>{
+    ctx.fillText(line,270,390+i*75);
   });
 
+  // caption background
+  ctx.fillStyle="rgba(0,0,0,.55)";
+  roundRect(35,575,470,250,25);
+  ctx.fill();
+
+  // animated caption
+  ctx.font="bold 31px Arial";
+  ctx.fillStyle="white";
+
+  const lines=wrapText(scene.text,410);
+
+  lines.slice(0,5).forEach((line,i)=>{
+    ctx.fillText(line,270,635+i*45);
+  });
+
+  // progress line
+  ctx.fillStyle="rgba(255,255,255,.25)";
+  ctx.fillRect(35,875,470,6);
+
+  ctx.fillStyle="white";
+  ctx.fillRect(35,875,470*progress,6);
+
+  ctx.font="18px Arial";
+  ctx.fillStyle="rgba(255,255,255,.75)";
+  ctx.fillText("Follow for more",270,915);
 }
 
-function previewReel() {
+function roundRect(x,y,w,h,r){
 
-  if (!reelScenes.length) {
-    alert("Generate a Reel first.");
-    return;
+  ctx.beginPath();
+
+  ctx.moveTo(x+r,y);
+  ctx.lineTo(x+w-r,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r);
+  ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h);
+  ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r);
+  ctx.quadraticCurveTo(x,y,x+r,y);
+  ctx.closePath();
+}
+
+function startPreview(){
+
+  if(animationId){
+    cancelAnimationFrame(animationId);
   }
 
-  let start = Date.now();
+  previewStart=performance.now();
 
-  const duration = 10000;
+  function animate(now){
 
-  function animate() {
+    const elapsed=(now-previewStart)/1000;
+    const sceneDuration=7.5;
 
-    const elapsed =
-      Date.now() - start;
+    const totalScenes=currentPlan.scenes.length;
+    const totalDuration=sceneDuration*totalScenes;
 
-    const percent =
-      Math.min(100, elapsed / duration * 100);
+    const time=elapsed%totalDuration;
 
-    const sceneIndex =
-      Math.min(
-        reelScenes.length - 1,
-        Math.floor(
-          percent / 100 * reelScenes.length
-        )
-      );
+    const index=Math.min(
+      totalScenes-1,
+      Math.floor(time/sceneDuration)
+    );
+
+    const progress=(time%sceneDuration)/sceneDuration;
 
     drawScene(
-      reelScenes[sceneIndex],
-      sceneIndex,
-      percent
+      currentPlan.scenes[index],
+      index,
+      progress
     );
 
-    if (percent < 100) {
-      requestAnimationFrame(animate);
-    }
-
+    animationId=requestAnimationFrame(animate);
   }
 
-  animate();
+  animationId=requestAnimationFrame(animate);
 }
 
-async function renderReel() {
+function speakScript(){
 
-  if (rendering) return;
+  if(!currentPlan) return;
 
-  if (!reelScenes.length) {
-    alert("Generate a Reel first.");
+  speechSynthesis.cancel();
+
+  const voiceStyle=document.getElementById("voice").value;
+
+  const utterance=new SpeechSynthesisUtterance(currentPlan.script);
+
+  if(voiceStyle==="energetic"){
+    utterance.rate=1.12;
+    utterance.pitch=1.12;
+  }
+
+  if(voiceStyle==="professional"){
+    utterance.rate=.95;
+    utterance.pitch=1;
+  }
+
+  if(voiceStyle==="calm"){
+    utterance.rate=.82;
+    utterance.pitch=.92;
+  }
+
+  if(voiceStyle==="dramatic"){
+    utterance.rate=.88;
+    utterance.pitch=.82;
+  }
+
+  speechSynthesis.speak(utterance);
+}
+
+function stopVoice(){
+  speechSynthesis.cancel();
+}
+
+async function renderReel(){
+
+  if(!currentPlan){
+    alert("Generate a reel first.");
     return;
   }
 
-  rendering = true;
+  const button=document.querySelector(".export button");
 
-  const status =
-    document.getElementById("renderStatus");
+  button.disabled=true;
+  button.textContent="⏳ Rendering your reel...";
 
-  status.textContent =
-    "Rendering your Reel... please wait.";
+  const stream=canvas.captureStream(30);
 
-  const stream =
-    canvas.captureStream(30);
+  let mime="video/webm;codecs=vp9";
 
-  const recorder =
-    new MediaRecorder(
-      stream,
-      {
-        mimeType: "video/webm;codecs=vp9"
-      }
-    );
+  if(!MediaRecorder.isTypeSupported(mime)){
+    mime="video/webm";
+  }
 
-  const chunks = [];
+  const recorder=new MediaRecorder(stream,{
+    mimeType:mime
+  });
 
-  recorder.ondataavailable = event => {
+  const chunks=[];
 
-    if (event.data.size > 0) {
-      chunks.push(event.data);
+  recorder.ondataavailable=e=>{
+    if(e.data.size>0){
+      chunks.push(e.data);
     }
-
   };
 
-  const finished =
-    new Promise(resolve => {
+  recorder.onstop=()=>{
 
-      recorder.onstop = resolve;
-
+    const blob=new Blob(chunks,{
+      type:mime
     });
+
+    const url=URL.createObjectURL(blob);
+
+    const a=document.createElement("a");
+
+    a.href=url;
+    a.download="ai-reel-stage-6.webm";
+
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    URL.revokeObjectURL(url);
+
+    button.disabled=false;
+    button.textContent="🎥 Render & Download Reel";
+
+    alert("Reel rendered successfully! Check your Downloads folder.");
+  };
 
   recorder.start();
 
-  const totalSeconds =
-    parseInt(
-      document.getElementById("length").value
+  const duration=45;
+  const start=performance.now();
+
+  function renderFrame(now){
+
+    const elapsed=(now-start)/1000;
+
+    const sceneDuration=duration/currentPlan.scenes.length;
+
+    const index=Math.min(
+      currentPlan.scenes.length-1,
+      Math.floor(elapsed/sceneDuration)
     );
 
-  const sceneDuration =
-    totalSeconds * 1000 /
-    reelScenes.length;
+    const progress=
+      (elapsed%sceneDuration)/sceneDuration;
 
-  const startTime = Date.now();
+    drawScene(
+      currentPlan.scenes[index],
+      index,
+      progress
+    );
 
-  for (
-    let sceneIndex = 0;
-    sceneIndex < reelScenes.length;
-    sceneIndex++
-  ) {
+    if(elapsed<duration){
 
-    const sceneStart =
-      Date.now();
+      requestAnimationFrame(renderFrame);
 
-    while (
-      Date.now() - sceneStart <
-      sceneDuration
-    ) {
+    }else{
 
-      const sceneElapsed =
-        Date.now() - sceneStart;
-
-      const progress =
-        Math.min(
-          100,
-          sceneElapsed /
-          sceneDuration *
-          100
-        );
-
-      drawScene(
-        reelScenes[sceneIndex],
-        sceneIndex,
-        progress
-      );
-
-      await new Promise(
-        requestAnimationFrame
-      );
-
+      recorder.stop();
     }
-
   }
 
-  recorder.stop();
-
-  await finished;
-
-  const blob =
-    new Blob(
-      chunks,
-      { type: "video/webm" }
-    );
-
-  const url =
-    URL.createObjectURL(blob);
-
-  const link =
-    document.createElement("a");
-
-  link.href = url;
-
-  link.download =
-    "ai-reel-maker-" +
-    Date.now() +
-    ".webm";
-
-  document.body.appendChild(link);
-
-  link.click();
-
-  link.remove();
-
-  URL.revokeObjectURL(url);
-
-  status.textContent =
-    "✅ Reel rendered successfully. Check your downloaded file.";
-
-  rendering = false;
-}
-
-function speakScript() {
-
-  if (!("speechSynthesis" in window)) {
-
-    alert(
-      "Voice playback is not supported in this browser."
-    );
-
-    return;
-  }
-
-  stopVoice();
-
-  const voice =
-    new SpeechSynthesisUtterance(
-      currentScript
-    );
-
-  const style =
-    document.getElementById("voiceStyle").value;
-
-  if (style === "Energetic") {
-    voice.rate = 1.15;
-    voice.pitch = 1.15;
-  }
-
-  if (style === "Professional") {
-    voice.rate = 0.95;
-    voice.pitch = 1;
-  }
-
-  if (style === "Calm") {
-    voice.rate = 0.85;
-    voice.pitch = 0.9;
-  }
-
-  if (style === "Dramatic") {
-    voice.rate = 0.9;
-    voice.pitch = 0.8;
-  }
-
-  speechSynthesis.speak(voice);
-}
-
-function stopVoice() {
-
-  if ("speechSynthesis" in window) {
-    speechSynthesis.cancel();
-  }
-
+  requestAnimationFrame(renderFrame);
 }
 
 </script>
