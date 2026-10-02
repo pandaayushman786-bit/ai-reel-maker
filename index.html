@@ -6,9 +6,7 @@
 <title>AI Reel Maker</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -159,147 +157,181 @@ button:disabled{
 
 <header>
   <h1>🎬 AI Reel Maker</h1>
-  <p>Stage 6 • Smart Reel Studio</p>
+  <p>Stage 7 • Smart Reel Studio</p>
 </header>
 
 <div class="container">
 
-  <div class="card">
+<div class="card">
 
-    <h2>Create Your Reel</h2>
+<h2>Create Your Reel</h2>
 
-    <label>What should your reel be about?</label>
+<label>What should your reel be about?</label>
 
-    <input
-      id="topic"
-      placeholder="Example: 5 interesting facts about India"
-    >
+<input
+  id="topic"
+  placeholder="Example: 5 interesting facts about India"
+>
 
-    <label>Content style</label>
+<label>Reel length</label>
 
-    <select id="style">
-      <option value="viral">Fast & Viral</option>
-      <option value="news">News Style</option>
-      <option value="education">Educational</option>
-      <option value="cinematic">Cinematic</option>
-    </select>
+<select id="duration">
+  <option value="30">30 seconds</option>
+  <option value="45" selected>45 seconds</option>
+  <option value="60">60 seconds</option>
+</select>
 
-    <label>Voice style</label>
+<label>Content style</label>
 
-    <select id="voiceStyle">
-      <option>Energetic</option>
-      <option>Professional</option>
-      <option>Calm</option>
-      <option>Dramatic</option>
-    </select>
+<select id="style">
+  <option value="viral">Fast & Viral</option>
+  <option value="news">News Style</option>
+  <option value="education">Educational</option>
+  <option value="cinematic">Cinematic</option>
+</select>
 
-    <button
-      class="primary"
-      id="generateButton"
-      onclick="generateReel()"
-    >
-      ✨ Generate Stage 6 Reel
-    </button>
+<label>Voice style</label>
 
-    <div class="progress">
-      <div class="progressBar" id="generationBar"></div>
-    </div>
+<select id="voiceStyle">
+  <option>Energetic</option>
+  <option>Professional</option>
+  <option>Calm</option>
+  <option>Dramatic</option>
+</select>
 
-    <div class="status" id="generationStatus">
-      Ready to create your reel.
-    </div>
+<button
+  class="primary"
+  id="generateButton"
+  onclick="generateReel()"
+>
+✨ Generate Stage 7 Reel
+</button>
 
-  </div>
+<div class="progress">
+  <div
+    class="progressBar"
+    id="generationBar"
+  ></div>
+</div>
 
+<div
+  class="status"
+  id="generationStatus"
+>
+Ready to create your reel.
+</div>
 
-  <div class="card" id="resultCard" style="display:none">
-
-    <h2>🔥 AI Hook</h2>
-
-    <p id="hook"></p>
-
-    <h2>🎙️ Voiceover Script</h2>
-
-    <p id="script"></p>
-
-    <button
-      class="secondary"
-      onclick="speakScript()"
-    >
-      🔊 Play Voice
-    </button>
-
-  </div>
+</div>
 
 
-  <div class="card" id="sceneCard" style="display:none">
+<div
+  class="card"
+  id="resultCard"
+  style="display:none"
+>
 
-    <h2>🎬 Scene Planner</h2>
+<h2>🔥 AI Hook</h2>
 
-    <div class="grid" id="scenes"></div>
+<p id="hook"></p>
 
-  </div>
+<h2>🎙️ Voiceover Script</h2>
 
+<p id="script"></p>
 
-  <div class="card" id="videoCard" style="display:none">
+<button
+  class="secondary"
+  onclick="speakScript()"
+>
+🔊 Play Voice
+</button>
 
-    <h2>📱 Reel Preview</h2>
-
-    <canvas
-      id="preview"
-      width="540"
-      height="960"
-    ></canvas>
-
-    <br>
-
-    <button
-      class="secondary"
-      onclick="startPreview()"
-    >
-      ▶️ Preview Reel
-    </button>
-
-    <button
-      class="primary"
-      id="renderButton"
-      onclick="renderReel()"
-    >
-      🎥 Render & Download Reel
-    </button>
-
-    <div
-      class="status"
-      id="renderStatus"
-    >
-      Ready to render.
-    </div>
-
-    <div class="progress">
-      <div
-        class="progressBar"
-        id="renderBar"
-      ></div>
-    </div>
-
-    <p class="small">
-      The free browser renderer creates a WebM video.
-    </p>
-
-  </div>
+</div>
 
 
-  <div class="card" id="captionCard" style="display:none">
+<div
+  class="card"
+  id="sceneCard"
+  style="display:none"
+>
 
-    <h2>📝 Caption</h2>
+<h2>🎬 Scene Planner</h2>
 
-    <p id="caption"></p>
+<div
+  class="grid"
+  id="scenes"
+></div>
 
-    <h2>#️⃣ Hashtags</h2>
+</div>
 
-    <p id="hashtags"></p>
 
-  </div>
+<div
+  class="card"
+  id="videoCard"
+  style="display:none"
+>
+
+<h2>📱 Reel Preview</h2>
+
+<canvas
+  id="preview"
+  width="540"
+  height="960"
+></canvas>
+
+<br>
+
+<button
+  class="secondary"
+  onclick="startPreview()"
+>
+▶️ Preview Reel
+</button>
+
+<button
+  class="primary"
+  id="renderButton"
+  onclick="renderReel()"
+>
+🎥 Render & Download Reel
+</button>
+
+<div
+  class="status"
+  id="renderStatus"
+>
+Ready to render.
+</div>
+
+<div class="progress">
+  <div
+    class="progressBar"
+    id="renderBar"
+  ></div>
+</div>
+
+<p class="small">
+Stage 7 supports 30, 45 and 60 second browser rendering.
+The exported video is WebM format.
+</p>
+
+</div>
+
+
+<div
+  class="card"
+  id="captionCard"
+  style="display:none"
+>
+
+<h2>📝 Caption</h2>
+
+<p id="caption"></p>
+
+<h2>#️⃣ Hashtags</h2>
+
+<p id="hashtags"></p>
+
+</div>
 
 </div>
 
@@ -343,7 +375,7 @@ function makeHook(topic,style){
 
 
 /* -----------------------------
-   CONTENT
+   SCENES
 ----------------------------- */
 
 function makeScenes(topic){
@@ -393,69 +425,105 @@ function makeScenes(topic){
 
 function generateReel(){
 
-  const topic=document.getElementById("topic").value.trim();
-  const style=document.getElementById("style").value;
+  const topic=
+    document.getElementById("topic").value.trim();
+
+  const style=
+    document.getElementById("style").value;
+
+  const duration=
+    Number(
+      document.getElementById("duration").value
+    );
 
   if(!topic){
+
     alert("Please enter a reel topic.");
+
     return;
   }
 
-  const bar=document.getElementById("generationBar");
-  const status=document.getElementById("generationStatus");
+  const bar=
+    document.getElementById("generationBar");
+
+  const status=
+    document.getElementById("generationStatus");
 
   bar.style.width="10%";
-  status.textContent="Creating your hook...";
+
+  status.textContent=
+    "Creating your hook...";
+
 
   setTimeout(()=>{
 
     bar.style.width="30%";
-    status.textContent="Writing your voiceover...";
+
+    status.textContent=
+      "Writing your voiceover...";
 
   },300);
+
 
   setTimeout(()=>{
 
     bar.style.width="55%";
-    status.textContent="Planning scenes...";
+
+    status.textContent=
+      "Planning scenes...";
 
   },600);
 
+
   setTimeout(()=>{
 
-    const hook=makeHook(topic,style);
-    const sceneList=makeScenes(topic);
+    const hook=
+      makeHook(topic,style);
+
+    const sceneList=
+      makeScenes(topic);
 
     const script=
       hook+" "+
       sceneList.join(" ") +
       " Follow for more.";
 
+
     currentPlan={
       topic:topic,
       hook:hook,
       script:script,
-      scenes:sceneList
+      scenes:sceneList,
+      duration:duration
     };
 
-    document.getElementById("hook").textContent=hook;
 
-    document.getElementById("script").textContent=script;
+    document.getElementById("hook")
+      .textContent=hook;
 
-    const scenesBox=document.getElementById("scenes");
+    document.getElementById("script")
+      .textContent=script;
+
+
+    const scenesBox=
+      document.getElementById("scenes");
 
     scenesBox.innerHTML="";
 
+
     sceneList.forEach((text,index)=>{
 
-      const div=document.createElement("div");
+      const div=
+        document.createElement("div");
 
       div.className="scene";
 
       div.innerHTML=`
         <h3>Scene ${index+1}</h3>
         <p>${text}</p>
-        <p class="small">Visual concept: ${topic}</p>
+        <p class="small">
+          Visual concept: ${topic}
+        </p>
       `;
 
       scenesBox.appendChild(div);
@@ -463,20 +531,40 @@ function generateReel(){
     });
 
 
-    document.getElementById("caption").textContent=
-      hook+" #India #Facts #InterestingFacts #Reels";
+    document.getElementById("caption")
+      .textContent=
+      hook+
+      " #India #Facts #InterestingFacts #Reels";
 
-    document.getElementById("hashtags").textContent=
+
+    document.getElementById("hashtags")
+      .textContent=
       "#India #Facts #InterestingFacts #Knowledge #Reels #Viral";
 
-    document.getElementById("resultCard").style.display="block";
-    document.getElementById("sceneCard").style.display="block";
-    document.getElementById("videoCard").style.display="block";
-    document.getElementById("captionCard").style.display="block";
+
+    document.getElementById("resultCard")
+      .style.display="block";
+
+    document.getElementById("sceneCard")
+      .style.display="block";
+
+    document.getElementById("videoCard")
+      .style.display="block";
+
+    document.getElementById("captionCard")
+      .style.display="block";
+
 
     bar.style.width="100%";
-    status.textContent="Reel generated successfully!";
-    status.className="status success";
+
+    status.textContent=
+      "Reel generated successfully! "+
+      duration+
+      "-second render selected.";
+
+    status.className=
+      "status success";
+
 
     drawScene(0,0);
 
@@ -489,24 +577,32 @@ function generateReel(){
    CANVAS
 ----------------------------- */
 
-const canvas=document.getElementById("preview");
-const ctx=canvas.getContext("2d");
+const canvas=
+  document.getElementById("preview");
+
+const ctx=
+  canvas.getContext("2d");
 
 
 function drawScene(index,progress){
 
   if(!currentPlan) return;
 
-  const scene=currentPlan.scenes[index];
+  const scene=
+    currentPlan.scenes[index];
 
-  const hue=(index*55)%360;
+  const hue=
+    (index*55)%360;
 
-  const gradient=ctx.createLinearGradient(
-    0,
-    0,
-    canvas.width,
-    canvas.height
-  );
+
+  const gradient=
+    ctx.createLinearGradient(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
 
   gradient.addColorStop(
     0,
@@ -518,7 +614,9 @@ function drawScene(index,progress){
     `hsl(${(hue+70)%360},80%,45%)`
   );
 
+
   ctx.fillStyle=gradient;
+
   ctx.fillRect(
     0,
     0,
@@ -533,7 +631,9 @@ function drawScene(index,progress){
 
   ctx.fillStyle="white";
 
+
   ctx.beginPath();
+
   ctx.arc(
     100+progress*80,
     170,
@@ -541,9 +641,12 @@ function drawScene(index,progress){
     0,
     Math.PI*2
   );
+
   ctx.fill();
 
+
   ctx.beginPath();
+
   ctx.arc(
     440-progress*70,
     760,
@@ -551,7 +654,9 @@ function drawScene(index,progress){
     0,
     Math.PI*2
   );
+
   ctx.fill();
+
 
   ctx.globalAlpha=1;
 
@@ -560,7 +665,8 @@ function drawScene(index,progress){
 
   ctx.fillStyle="white";
 
-  ctx.font="bold 28px Arial";
+  ctx.font=
+    "bold 28px Arial";
 
   ctx.fillText(
     `SCENE ${index+1}`,
@@ -571,7 +677,8 @@ function drawScene(index,progress){
 
   /* topic */
 
-  ctx.font="bold 25px Arial";
+  ctx.font=
+    "bold 25px Arial";
 
   wrapText(
     currentPlan.topic,
@@ -584,7 +691,8 @@ function drawScene(index,progress){
 
   /* main text */
 
-  ctx.font="bold 38px Arial";
+  ctx.font=
+    "bold 38px Arial";
 
   wrapText(
     scene,
@@ -595,9 +703,22 @@ function drawScene(index,progress){
   );
 
 
+  /* duration */
+
+  ctx.font=
+    "bold 22px Arial";
+
+  ctx.fillText(
+    `${currentPlan.duration}s`,
+    40,
+    825
+  );
+
+
   /* progress */
 
-  ctx.fillStyle="rgba(255,255,255,.35)";
+  ctx.fillStyle=
+    "rgba(255,255,255,.35)";
 
   ctx.fillRect(
     40,
@@ -605,6 +726,7 @@ function drawScene(index,progress){
     460,
     8
   );
+
 
   ctx.fillStyle="white";
 
@@ -622,20 +744,38 @@ function drawScene(index,progress){
    TEXT WRAP
 ----------------------------- */
 
-function wrapText(text,x,y,maxWidth,lineHeight){
+function wrapText(
+  text,
+  x,
+  y,
+  maxWidth,
+  lineHeight
+){
 
-  const words=text.split(" ");
+  const words=
+    text.split(" ");
 
   let line="";
+
   let yy=y;
+
 
   for(let i=0;i<words.length;i++){
 
-    const test=line+words[i]+" ";
+    const test=
+      line+
+      words[i]+
+      " ";
 
-    const width=ctx.measureText(test).width;
 
-    if(width>maxWidth && i>0){
+    const width=
+      ctx.measureText(test).width;
+
+
+    if(
+      width>maxWidth &&
+      i>0
+    ){
 
       ctx.fillText(
         line,
@@ -643,7 +783,10 @@ function wrapText(text,x,y,maxWidth,lineHeight){
         yy
       );
 
-      line=words[i]+" ";
+      line=
+        words[i]+
+        " ";
+
       yy+=lineHeight;
 
     }else{
@@ -653,6 +796,7 @@ function wrapText(text,x,y,maxWidth,lineHeight){
     }
 
   }
+
 
   ctx.fillText(
     line,
@@ -670,45 +814,83 @@ function wrapText(text,x,y,maxWidth,lineHeight){
 function startPreview(){
 
   if(!currentPlan){
+
     alert("Generate a reel first.");
+
     return;
   }
 
+
   if(animationTimer){
+
     clearInterval(animationTimer);
+
   }
+
 
   let frame=0;
 
-  const totalFrames=900;
+  const fps=30;
 
-  animationTimer=setInterval(()=>{
-
-    const sceneIndex=
-      Math.min(
-        currentPlan.scenes.length-1,
-        Math.floor(frame/150)
-      );
-
-    const localFrame=frame%150;
-
-    const progress=localFrame/150;
-
-    drawScene(
-      sceneIndex,
-      progress
+  const previewSeconds=
+    Math.min(
+      currentPlan.duration,
+      15
     );
 
-    frame++;
 
-    if(frame>=totalFrames){
+  const totalFrames=
+    previewSeconds*fps;
 
-      clearInterval(animationTimer);
-      animationTimer=null;
 
-    }
+  const framesPerScene=
+    totalFrames/
+    currentPlan.scenes.length;
 
-  },33);
+
+  animationTimer=
+    setInterval(()=>{
+
+      const sceneIndex=
+        Math.min(
+          currentPlan.scenes.length-1,
+          Math.floor(
+            frame/framesPerScene
+          )
+        );
+
+
+      const localFrame=
+        frame%framesPerScene;
+
+
+      const progress=
+        localFrame/
+        framesPerScene;
+
+
+      drawScene(
+        sceneIndex,
+        progress
+      );
+
+
+      frame++;
+
+
+      if(
+        frame>=totalFrames
+      ){
+
+        clearInterval(
+          animationTimer
+        );
+
+        animationTimer=null;
+
+      }
+
+    },33);
 
 }
 
@@ -721,50 +903,84 @@ function speakScript(){
 
   if(!currentPlan) return;
 
-  if(!("speechSynthesis" in window)){
 
-    alert("Speech synthesis is not supported.");
+  if(
+    !("speechSynthesis" in window)
+  ){
+
+    alert(
+      "Speech synthesis is not supported."
+    );
+
     return;
 
   }
 
+
   speechSynthesis.cancel();
+
 
   const utterance=
     new SpeechSynthesisUtterance(
       currentPlan.script
     );
 
-  const voiceStyle=
-    document.getElementById("voiceStyle").value;
 
-  if(voiceStyle==="Energetic"){
+  const voiceStyle=
+    document.getElementById(
+      "voiceStyle"
+    ).value;
+
+
+  if(
+    voiceStyle==="Energetic"
+  ){
+
     utterance.rate=1.08;
     utterance.pitch=1.1;
+
   }
 
-  if(voiceStyle==="Professional"){
+
+  if(
+    voiceStyle==="Professional"
+  ){
+
     utterance.rate=.95;
     utterance.pitch=1;
+
   }
 
-  if(voiceStyle==="Calm"){
+
+  if(
+    voiceStyle==="Calm"
+  ){
+
     utterance.rate=.85;
     utterance.pitch=.9;
+
   }
 
-  if(voiceStyle==="Dramatic"){
+
+  if(
+    voiceStyle==="Dramatic"
+  ){
+
     utterance.rate=.9;
     utterance.pitch=.8;
+
   }
 
-  speechSynthesis.speak(utterance);
+
+  speechSynthesis.speak(
+    utterance
+  );
 
 }
 
 
 /* -----------------------------
-   VIDEO RENDERER
+   VIDEO FORMAT
 ----------------------------- */
 
 function getMimeType(){
@@ -775,11 +991,16 @@ function getMimeType(){
     ""
   ];
 
-  for(const type of types){
+
+  for(
+    const type of types
+  ){
 
     if(
       type==="" ||
-      MediaRecorder.isTypeSupported(type)
+      MediaRecorder.isTypeSupported(
+        type
+      )
     ){
 
       return type;
@@ -788,19 +1009,28 @@ function getMimeType(){
 
   }
 
+
   return "";
 
 }
 
 
+/* -----------------------------
+   RENDER REEL
+----------------------------- */
+
 function renderReel(){
 
   if(!currentPlan){
 
-    alert("Generate a reel first.");
+    alert(
+      "Generate a reel first."
+    );
+
     return;
 
   }
+
 
   if(!window.MediaRecorder){
 
@@ -811,6 +1041,7 @@ function renderReel(){
     return;
 
   }
+
 
   if(!canvas.captureStream){
 
@@ -824,13 +1055,21 @@ function renderReel(){
 
 
   const button=
-    document.getElementById("renderButton");
+    document.getElementById(
+      "renderButton"
+    );
+
 
   const status=
-    document.getElementById("renderStatus");
+    document.getElementById(
+      "renderStatus"
+    );
+
 
   const bar=
-    document.getElementById("renderBar");
+    document.getElementById(
+      "renderBar"
+    );
 
 
   button.disabled=true;
@@ -838,32 +1077,36 @@ function renderReel(){
   button.textContent=
     "⏳ Rendering...";
 
+
   status.className="status";
 
   status.textContent=
-    "Preparing video...";
+    `Preparing ${currentPlan.duration}-second video...`;
+
 
   bar.style.width="0%";
 
 
   if(animationTimer){
 
-    clearInterval(animationTimer);
+    clearInterval(
+      animationTimer
+    );
+
     animationTimer=null;
 
   }
 
 
-  /*
-    IMPORTANT:
-    Capture the canvas at 30 FPS.
-  */
+  /* Capture canvas at 30 FPS */
 
   const stream=
     canvas.captureStream(30);
 
 
-  let mime=getMimeType();
+  const mime=
+    getMimeType();
+
 
   let recorder;
 
@@ -874,9 +1117,13 @@ function renderReel(){
       mime
       ? new MediaRecorder(
           stream,
-          {mimeType:mime}
+          {
+            mimeType:mime
+          }
         )
-      : new MediaRecorder(stream);
+      : new MediaRecorder(
+          stream
+        );
 
   }catch(error){
 
@@ -899,18 +1146,22 @@ function renderReel(){
 
   const chunks=[];
 
-  recorder.ondataavailable=function(event){
 
-    if(
-      event.data &&
-      event.data.size>0
-    ){
+  recorder.ondataavailable=
+    function(event){
 
-      chunks.push(event.data);
+      if(
+        event.data &&
+        event.data.size>0
+      ){
 
-    }
+        chunks.push(
+          event.data
+        );
 
-  };
+      }
+
+    };
 
 
   recorder.onerror=function(){
@@ -964,18 +1215,26 @@ function renderReel(){
 
 
     const url=
-      URL.createObjectURL(blob);
+      URL.createObjectURL(
+        blob
+      );
 
 
     const link=
       document.createElement("a");
 
+
     link.href=url;
 
-    link.download=
-      "ai-reel-stage-6.webm";
 
-    document.body.appendChild(link);
+    link.download=
+      `ai-reel-stage-7-${currentPlan.duration}s.webm`;
+
+
+    document.body.appendChild(
+      link
+    );
+
 
     link.click();
 
@@ -984,18 +1243,23 @@ function renderReel(){
 
     setTimeout(()=>{
 
-      URL.revokeObjectURL(url);
+      URL.revokeObjectURL(
+        url
+      );
 
     },3000);
 
 
     bar.style.width="100%";
 
+
     status.className=
       "status success";
 
+
     status.textContent=
-      "✅ Reel downloaded successfully! Check your Downloads folder.";
+      `✅ ${currentPlan.duration}-second reel downloaded successfully! Check your Downloads folder.`;
+
 
     button.disabled=false;
 
@@ -1005,9 +1269,7 @@ function renderReel(){
   };
 
 
-  /*
-    Draw the first frame BEFORE recording.
-  */
+  /* First frame */
 
   drawScene(0,0);
 
@@ -1036,42 +1298,48 @@ function renderReel(){
 
 
   /*
-    15 second test render.
-
-    Once this works reliably,
-    we can increase it to 30/45/60 seconds.
+    Stage 7 duration.
+    30 / 45 / 60 seconds.
   */
 
-  const duration=15000;
+  const duration=
+    currentPlan.duration*1000;
 
-  const start=performance.now();
+
+  const start=
+    performance.now();
 
 
   function renderFrame(){
 
     const elapsed=
-      performance.now()-start;
+      performance.now()-
+      start;
 
 
     const sceneDuration=
-      duration/currentPlan.scenes.length;
+      duration/
+      currentPlan.scenes.length;
 
 
     const sceneIndex=
       Math.min(
         currentPlan.scenes.length-1,
         Math.floor(
-          elapsed/sceneDuration
+          elapsed/
+          sceneDuration
         )
       );
 
 
     const local=
-      elapsed%sceneDuration;
+      elapsed%
+      sceneDuration;
 
 
     const progress=
-      local/sceneDuration;
+      local/
+      sceneDuration;
 
 
     drawScene(
@@ -1084,7 +1352,9 @@ function renderReel(){
       Math.min(
         100,
         Math.floor(
-          elapsed/duration*100
+          elapsed/
+          duration*
+          100
         )
       );
 
@@ -1094,11 +1364,12 @@ function renderReel(){
 
 
     status.textContent=
-      "Rendering your reel... "+
-      percent+"%";
+      `Rendering ${currentPlan.duration}-second reel... ${percent}%`;
 
 
-    if(elapsed<duration){
+    if(
+      elapsed<duration
+    ){
 
       requestAnimationFrame(
         renderFrame
@@ -1114,9 +1385,16 @@ function renderReel(){
   );
 
 
+  /*
+    Give the recorder
+    one extra second to finish.
+  */
+
   setTimeout(()=>{
 
-    if(recorder.state==="recording"){
+    if(
+      recorder.state==="recording"
+    ){
 
       status.textContent=
         "Finishing video...";
@@ -1125,7 +1403,7 @@ function renderReel(){
 
     }
 
-  },16000);
+  },duration+1000);
 
 }
 
