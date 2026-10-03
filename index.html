@@ -2,290 +2,278 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Reel Maker — Stage 8.3</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Reel Maker — Stage 8.5</title>
 
 <style>
 *{box-sizing:border-box}
 
 body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#090b10;
-  color:#fff;
-}
-
-button,select,input{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
+margin:0;
+background:#080a0f;
+color:#fff;
+font-family:Arial,Helvetica,sans-serif
 }
 
 .app{
-  max-width:1250px;
-  margin:auto;
-  padding:22px;
+max-width:1250px;
+margin:auto;
+padding:22px
 }
 
 header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  margin-bottom:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px
 }
 
 .logo{
-  font-size:25px;
-  font-weight:800;
+font-size:26px;
+font-weight:800
 }
 
 .badge{
-  padding:7px 12px;
-  border:1px solid #303746;
-  border-radius:20px;
-  color:#9fb2ff;
-  font-size:13px;
+padding:7px 12px;
+border:1px solid #303747;
+border-radius:20px;
+color:#9eacff;
+font-size:12px
 }
 
 .grid{
-  display:grid;
-  grid-template-columns:370px 1fr;
-  gap:20px;
+display:grid;
+grid-template-columns:370px 1fr;
+gap:20px
 }
 
 .panel{
-  background:#11151d;
-  border:1px solid #252c38;
-  border-radius:18px;
-  padding:18px;
+background:#11151d;
+border:1px solid #252c38;
+border-radius:18px;
+padding:18px
 }
 
 .section{
-  margin-bottom:20px;
+margin-bottom:20px
 }
 
 .section h3{
-  margin:0 0 12px;
-  font-size:15px;
+font-size:15px;
+margin:0 0 12px
 }
 
 label{
-  display:block;
-  font-size:12px;
-  color:#9ca7b8;
-  margin-bottom:6px;
+display:block;
+font-size:12px;
+color:#9da8b9;
+margin-bottom:6px
 }
 
 input,select{
-  width:100%;
-  padding:11px 12px;
-  border-radius:10px;
-  border:1px solid #303746;
-  background:#0b0e14;
-  color:white;
-  outline:none;
+width:100%;
+padding:11px;
+background:#0a0d13;
+color:white;
+border:1px solid #303746;
+border-radius:10px;
+outline:none
 }
 
 input:focus,select:focus{
-  border-color:#6f83ff;
+border-color:#7180ff
 }
 
 .row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px
 }
 
 .setting{
-  margin-bottom:12px;
+margin-bottom:12px
 }
 
 .check{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  margin:9px 0;
-  color:#dbe0ea;
-  font-size:13px;
+display:flex;
+align-items:center;
+gap:8px;
+font-size:13px;
+color:#dce2eb;
+margin:9px 0
 }
 
 .check input{
-  width:auto;
+width:auto
+}
+
+button{
+font:inherit;
+cursor:pointer
 }
 
 .primary{
-  width:100%;
-  border:0;
-  padding:14px;
-  border-radius:12px;
-  background:#6d7cff;
-  color:white;
-  font-weight:800;
-  margin-top:4px;
-}
-
-.primary:hover{
-  background:#8290ff;
+width:100%;
+padding:14px;
+border:0;
+border-radius:12px;
+background:#6878ff;
+color:white;
+font-weight:800
 }
 
 .secondary{
-  border:1px solid #353d4d;
-  background:#171c25;
-  color:white;
-  padding:11px 13px;
-  border-radius:10px;
-}
-
-.secondary:hover{
-  background:#202734;
+padding:11px;
+border-radius:10px;
+border:1px solid #343d4d;
+background:#171c25;
+color:#fff
 }
 
 .danger{
-  border:1px solid #693b43;
-  background:#25161a;
-  color:#ffb6c0;
+border-color:#653a42;
+background:#24161a;
+color:#ffb6c0
 }
 
 .actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:10px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-top:10px
 }
 
 .status{
-  margin-top:13px;
-  padding:11px;
-  border-radius:10px;
-  background:#0b0f16;
-  border:1px solid #242b37;
-  color:#aeb9ca;
-  font-size:13px;
+margin-top:13px;
+padding:11px;
+background:#0b0f16;
+border:1px solid #242b37;
+border-radius:10px;
+color:#adb8c9;
+font-size:13px
 }
 
 .progress{
-  height:7px;
-  background:#252b36;
-  border-radius:10px;
-  overflow:hidden;
-  margin-top:9px;
+height:7px;
+background:#252b36;
+border-radius:10px;
+overflow:hidden;
+margin-top:9px
 }
 
 .progressBar{
-  height:100%;
-  width:0%;
-  background:#7381ff;
-  transition:.2s;
+height:100%;
+width:0;
+background:#7280ff;
+transition:.2s
 }
 
 .previewArea{
-  display:grid;
-  grid-template-columns:minmax(250px,390px) 1fr;
-  gap:20px;
+display:grid;
+grid-template-columns:minmax(250px,390px) 1fr;
+gap:20px
 }
 
 .phone{
-  width:100%;
-  max-width:390px;
-  aspect-ratio:9/16;
-  background:#050609;
-  border:1px solid #303744;
-  border-radius:22px;
-  overflow:hidden;
-  position:relative;
-  margin:auto;
+width:100%;
+max-width:390px;
+aspect-ratio:9/16;
+background:#050609;
+border:1px solid #303744;
+border-radius:22px;
+overflow:hidden;
+margin:auto
 }
 
 canvas{
-  width:100%;
-  height:100%;
-  display:block;
+width:100%;
+height:100%;
+display:block
 }
 
 .info{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
+display:flex;
+flex-direction:column;
+gap:12px
 }
 
 .card{
-  background:#0c1017;
-  border:1px solid #252d3a;
-  border-radius:14px;
-  padding:15px;
+background:#0c1017;
+border:1px solid #252d3a;
+border-radius:14px;
+padding:15px
 }
 
 .card h4{
-  margin:0 0 9px;
-  font-size:14px;
+margin:0 0 9px;
+font-size:14px
 }
 
 .card p{
-  margin:0;
-  color:#b7c0cf;
-  line-height:1.5;
-  font-size:13px;
+margin:0;
+color:#b7c0cf;
+font-size:13px;
+line-height:1.5
 }
 
 .timeline{
-  margin-top:18px;
+margin-top:18px
 }
 
 .scene{
-  display:grid;
-  grid-template-columns:70px 1fr 80px;
-  gap:10px;
-  align-items:center;
-  padding:10px;
-  border-bottom:1px solid #222935;
+display:grid;
+grid-template-columns:70px 1fr 70px;
+gap:10px;
+padding:11px 0;
+border-bottom:1px solid #222935
 }
 
 .scene:last-child{
-  border-bottom:0;
+border-bottom:0
 }
 
 .sceneNum{
-  color:#7e8cff;
-  font-weight:800;
+color:#7d8bff;
+font-weight:800;
+font-size:12px
 }
 
 .sceneTitle{
-  font-weight:700;
-  font-size:13px;
+font-size:13px;
+font-weight:700
 }
 
 .sceneText{
-  color:#9faabc;
-  font-size:12px;
-  margin-top:4px;
+margin-top:4px;
+color:#9da8b8;
+font-size:12px
 }
 
 .sceneTime{
-  color:#8e99aa;
-  text-align:right;
-  font-size:12px;
+text-align:right;
+color:#8995a6;
+font-size:12px
 }
 
 .muted{
-  color:#8994a5;
-  font-size:12px;
+color:#8994a5;
+font-size:12px
+}
+
+.languageInfo{
+padding:10px;
+border:1px solid #293142;
+background:#0b0f16;
+border-radius:10px;
+font-size:12px;
+color:#9da8b8;
+margin-top:8px
 }
 
 @media(max-width:900px){
-  .grid{
-    grid-template-columns:1fr;
-  }
-
-  .previewArea{
-    grid-template-columns:1fr;
-  }
-
-  .phone{
-    max-width:330px;
-  }
+.grid{grid-template-columns:1fr}
+.previewArea{grid-template-columns:1fr}
+.phone{max-width:330px}
 }
 </style>
 </head>
@@ -295,1454 +283,1775 @@ canvas{
 <div class="app">
 
 <header>
-  <div>
-    <div class="logo">AI Reel Maker</div>
-    <div class="muted">Professional Editor • Stage 8.3</div>
-  </div>
-  <div class="badge">CORE ENGINE</div>
+<div>
+<div class="logo">AI Reel Maker</div>
+<div class="muted">Professional Editor • Stage 8.5</div>
+</div>
+<div class="badge">DYNAMIC LANGUAGE ENGINE</div>
 </header>
 
 <div class="grid">
 
 <!-- SETTINGS -->
+
 <div class="panel">
 
-  <div class="section">
-    <h3>1. Reel Topic</h3>
+<div class="section">
+<h3>1. Reel Topic</h3>
 
-    <label>What should the reel be about?</label>
-    <input id="topic" value="Ferrari 488" placeholder="Example: Chandrayaan-3">
-  </div>
+<label>Topic</label>
 
-  <div class="section">
-    <h3>2. Reel Settings</h3>
+<input
+id="topic"
+value="Ferrari 488"
+placeholder="Example: Chandrayaan-3"
+>
+</div>
 
-    <div class="row">
 
-      <div class="setting">
-        <label>Duration</label>
-        <select id="duration">
-          <option value="15">15 seconds</option>
-          <option value="30">30 seconds</option>
-          <option value="45" selected>45 seconds</option>
-          <option value="60">60 seconds</option>
-        </select>
-      </div>
+<div class="section">
 
-      <div class="setting">
-        <label>Language</label>
-        <select id="language">
-          <option value="English">English</option>
-          <option value="Hindi">Hindi</option>
-          <option value="Odia">Odia</option>
-          <option value="Bengali">Bengali</option>
-        </select>
-      </div>
+<h3>2. Reel Settings</h3>
 
-    </div>
+<div class="row">
 
-    <div class="setting">
-      <label>Audience</label>
-      <select id="audience">
-        <option value="General">General</option>
-        <option value="Kids">Kids</option>
-        <option value="Students">Students</option>
-        <option value="Professionals">Professionals</option>
-        <option value="Car Enthusiasts">Car Enthusiasts</option>
-        <option value="Tech Enthusiasts">Tech Enthusiasts</option>
-      </select>
-    </div>
+<div class="setting">
+<label>Duration</label>
 
-    <div class="setting">
-      <label>Content Style</label>
-      <select id="contentStyle">
-        <option value="Fast & Viral">Fast & Viral</option>
-        <option value="Educational">Educational</option>
-        <option value="News">News</option>
-        <option value="Storytelling">Storytelling</option>
-        <option value="Cinematic">Cinematic</option>
-      </select>
-    </div>
+<select id="duration">
+<option value="15">15 seconds</option>
+<option value="30">30 seconds</option>
+<option value="45" selected>45 seconds</option>
+<option value="60">60 seconds</option>
+</select>
+</div>
 
-    <div class="row">
 
-      <div class="setting">
-        <label>Hook Style</label>
-        <select id="hookStyle">
-          <option value="Curiosity">Curiosity</option>
-          <option value="Question">Question</option>
-          <option value="Bold Statement">Bold Statement</option>
-          <option value="Story">Story</option>
-        </select>
-      </div>
+<div class="setting">
 
-      <div class="setting">
-        <label>Voice Style</label>
-        <select id="voiceStyle">
-          <option value="Energetic">Energetic</option>
-          <option value="Calm">Calm</option>
-          <option value="Professional">Professional</option>
-          <option value="Dramatic">Dramatic</option>
-        </select>
-      </div>
+<label>Language</label>
 
-    </div>
-  </div>
+<select id="language">
 
-  <div class="section">
-    <h3>3. Visual Settings</h3>
+<option value="en">English</option>
+<option value="hi">Hindi</option>
+<option value="bn">Bengali</option>
+<option value="or">Odia</option>
+<option value="ta">Tamil</option>
+<option value="te">Telugu</option>
+<option value="mr">Marathi</option>
+<option value="gu">Gujarati</option>
+<option value="kn">Kannada</option>
+<option value="ml">Malayalam</option>
+<option value="pa">Punjabi</option>
+<option value="ur">Urdu</option>
+<option value="fr">French</option>
+<option value="es">Spanish</option>
+<option value="de">German</option>
+<option value="it">Italian</option>
+<option value="pt">Portuguese</option>
+<option value="ru">Russian</option>
+<option value="ja">Japanese</option>
+<option value="ko">Korean</option>
+<option value="zh-CN">Chinese</option>
+<option value="ar">Arabic</option>
+<option value="tr">Turkish</option>
+<option value="nl">Dutch</option>
+<option value="pl">Polish</option>
 
-    <div class="setting">
-      <label>Visual Style</label>
-      <select id="visualStyle">
-        <option value="Cinematic">Cinematic</option>
-        <option value="Modern">Modern</option>
-        <option value="Minimal">Minimal</option>
-        <option value="Neon">Neon</option>
-      </select>
-    </div>
+</select>
 
-    <div class="setting">
-      <label>Transition</label>
-      <select id="transition">
-        <option value="Fade">Fade</option>
-        <option value="Slide">Slide</option>
-        <option value="Zoom">Zoom</option>
-        <option value="None">None</option>
-      </select>
-    </div>
-  </div>
+</div>
 
-  <div class="section">
-    <h3>4. Captions</h3>
+</div>
 
-    <label class="check">
-      <input type="checkbox" id="captions" checked>
-      Enable animated captions
-    </label>
 
-    <div class="setting">
-      <label>Caption Animation</label>
-      <select id="captionAnimation">
-        <option value="Pop">Pop</option>
-        <option value="Fade">Fade</option>
-        <option value="Slide">Slide</option>
-        <option value="Type">Type</option>
-      </select>
-    </div>
-  </div>
+<div class="languageInfo" id="languageInfo">
+Selected language controls script, captions and voice.
+</div>
 
-  <div class="section">
-    <h3>5. Background Music</h3>
 
-    <label class="check">
-      <input type="checkbox" id="music" checked>
-      Enable background music
-    </label>
+<div class="setting">
 
-    <div class="setting">
-      <label>Music Volume: <span id="volumeText">25%</span></label>
-      <input id="volume" type="range" min="0" max="100" value="25">
-    </div>
-  </div>
+<label>Audience</label>
 
-  <button class="primary" id="generateBtn">
-    Generate Reel
-  </button>
+<select id="audience">
+<option>General</option>
+<option>Kids</option>
+<option>Students</option>
+<option>Professionals</option>
+<option>Car Enthusiasts</option>
+<option>Tech Enthusiasts</option>
+</select>
 
-  <div class="actions">
-    <button class="secondary" id="previewBtn">▶ Preview</button>
-    <button class="secondary" id="stopBtn">■ Stop</button>
-  </div>
+</div>
 
-  <div class="actions">
-    <button class="secondary" id="renderBtn">Render & Download</button>
-    <button class="secondary danger" id="newBtn">New Reel</button>
-  </div>
 
-  <div class="status" id="status">
-    Ready.
-  </div>
+<div class="setting">
 
-  <div class="progress">
-    <div class="progressBar" id="progressBar"></div>
-  </div>
+<label>Content Style</label>
+
+<select id="contentStyle">
+<option>Fast & Viral</option>
+<option>Educational</option>
+<option>News</option>
+<option>Storytelling</option>
+<option>Cinematic</option>
+</select>
+
+</div>
+
+
+<div class="row">
+
+<div class="setting">
+
+<label>Hook Style</label>
+
+<select id="hookStyle">
+<option>Curiosity</option>
+<option>Question</option>
+<option>Bold Statement</option>
+<option>Story</option>
+</select>
+
+</div>
+
+
+<div class="setting">
+
+<label>Voice Style</label>
+
+<select id="voiceStyle">
+<option>Energetic</option>
+<option>Calm</option>
+<option>Professional</option>
+<option>Dramatic</option>
+</select>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h3>3. Visual Settings</h3>
+
+<div class="setting">
+
+<label>Visual Style</label>
+
+<select id="visualStyle">
+<option>Cinematic</option>
+<option>Modern</option>
+<option>Minimal</option>
+<option>Neon</option>
+</select>
+
+</div>
+
+
+<div class="setting">
+
+<label>Transition</label>
+
+<select id="transition">
+<option>Fade</option>
+<option>Slide</option>
+<option>Zoom</option>
+<option>None</option>
+</select>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h3>4. Captions</h3>
+
+<label class="check">
+<input type="checkbox" id="captions" checked>
+Animated captions
+</label>
+
+<div class="setting">
+
+<label>Animation</label>
+
+<select id="captionAnimation">
+<option>Pop</option>
+<option>Fade</option>
+<option>Slide</option>
+<option>Type</option>
+</select>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h3>5. Background Music</h3>
+
+<label class="check">
+<input type="checkbox" id="music" checked>
+Background music
+</label>
+
+<div class="setting">
+
+<label>
+Volume: <span id="volumeText">25%</span>
+</label>
+
+<input
+id="volume"
+type="range"
+min="0"
+max="100"
+value="25"
+>
+
+</div>
+
+</div>
+
+
+<button class="primary" id="generateBtn">
+Generate Reel
+</button>
+
+
+<div class="actions">
+
+<button class="secondary" id="previewBtn">
+▶ Preview
+</button>
+
+<button class="secondary" id="stopBtn">
+■ Stop
+</button>
+
+</div>
+
+
+<div class="actions">
+
+<button class="secondary" id="renderBtn">
+Render & Download
+</button>
+
+<button class="secondary danger" id="newBtn">
+New Reel
+</button>
+
+</div>
+
+
+<div class="status" id="status">
+Ready.
+</div>
+
+<div class="progress">
+<div class="progressBar" id="progressBar"></div>
+</div>
 
 </div>
 
 
 <!-- PREVIEW -->
+
 <div class="panel">
 
-  <div class="previewArea">
+<div class="previewArea">
 
-    <div class="phone">
-      <canvas id="canvas" width="540" height="960"></canvas>
-    </div>
+<div class="phone">
 
-    <div class="info">
+<canvas
+id="canvas"
+width="540"
+height="960">
+</canvas>
 
-      <div class="card">
-        <h4>Generated Hook</h4>
-        <p id="hookOutput">Generate a reel to create your hook.</p>
-      </div>
+</div>
 
-      <div class="card">
-        <h4>Voiceover</h4>
-        <p id="voiceOutput">Your generated voiceover will appear here.</p>
-      </div>
 
-      <div class="card">
-        <h4>Social Caption</h4>
-        <p id="captionOutput">Your Instagram caption will appear here.</p>
-      </div>
+<div class="info">
 
-      <div class="card">
-        <h4>Active Settings</h4>
-        <p id="settingsOutput">No reel generated yet.</p>
-      </div>
+<div class="card">
+<h4>Generated Hook</h4>
+<p id="hookOutput">
+Generate a reel first.
+</p>
+</div>
 
-    </div>
 
-  </div>
+<div class="card">
+<h4>Voiceover</h4>
+<p id="voiceOutput">
+Voiceover will appear here.
+</p>
+</div>
 
-  <div class="timeline card">
 
-    <h4>Scene Timeline</h4>
+<div class="card">
+<h4>Social Caption</h4>
+<p id="captionOutput">
+Caption will appear here.
+</p>
+</div>
 
-    <div id="timeline">
-      <div class="muted">Generate a reel to create scenes.</div>
-    </div>
 
-  </div>
+<div class="card">
+<h4>Active Settings</h4>
+<p id="settingsOutput">
+No reel generated yet.
+</p>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="timeline card">
+
+<h4>Scene Timeline</h4>
+
+<div id="timeline">
+
+<div class="muted">
+Generate a reel to create scenes.
+</div>
+
+</div>
 
 </div>
 
 </div>
+
+</div>
+
 </div>
 
 
 <script>
-/* =========================================================
-   AI REEL MAKER — STAGE 8.3 CORE ENGINE
-   ========================================================= */
 
-const $ = id => document.getElementById(id);
+/* =====================================================
+   STAGE 8.5
+   DYNAMIC LANGUAGE ENGINE
+   ===================================================== */
 
-const canvas = $("canvas");
-const ctx = canvas.getContext("2d");
+const $=id=>document.getElementById(id);
 
-let reel = null;
-let previewTimer = null;
-let previewStart = 0;
-let audioContext = null;
-let musicGain = null;
-let musicOsc = null;
-let renderBusy = false;
+const canvas=$("canvas");
+const ctx=canvas.getContext("2d");
+
+let reel=null;
+
+let previewTimer=null;
+let previewStart=0;
+
+let renderBusy=false;
+
+let audioContext=null;
+let musicOsc=null;
+let musicGain=null;
 
 
-/* ---------------------------------------------------------
-   TOPIC DATA
-   --------------------------------------------------------- */
+/* =====================================================
+   LANGUAGE INFORMATION
+   ===================================================== */
 
-const topicDatabase = {
+const languages={
 
-  ferrari488:{
-    keywords:["ferrari 488","488 gtb","488 pista"],
-    titles:[
-      "Ferrari 488",
-      "Twin-Turbo V8",
-      "Performance",
-      "Aerodynamics",
-      "Driving Experience",
-      "The 488 Legacy"
-    ],
-    texts:[
-      "A Ferrari that changed the brand's modern supercar era.",
-      "Its twin-turbocharged V8 transformed Ferrari's performance formula.",
-      "The 488 combines explosive acceleration with precise handling.",
-      "Aerodynamic engineering helps keep the car stable at high speed.",
-      "Every part of the car is designed around the driver's experience.",
-      "The 488 became one of Ferrari's most memorable modern supercars."
-    ]
-  },
-
-  chandrayaan3:{
-    keywords:["chandrayaan-3","chandrayaan 3"],
-    titles:[
-      "Chandrayaan-3",
-      "The Mission",
-      "Vikram Lander",
-      "Pragyan Rover",
-      "Moon Science",
-      "A Historic Landing"
-    ],
-    texts:[
-      "Chandrayaan-3 was India's lunar landing demonstration mission.",
-      "The mission was designed to demonstrate a safe and soft landing on the Moon.",
-      "The Vikram lander carried scientific instruments to study the lunar surface.",
-      "The Pragyan rover explored the surface and carried out in-situ measurements.",
-      "The mission collected scientific data about the Moon's surface environment.",
-      "Chandrayaan-3 successfully soft-landed on August 23, 2023."
-    ]
-  },
-
-  bmw:{
-    keywords:["bmw m3 gtr","m3 gtr","bmw"],
-    titles:[
-      "BMW M3 GTR",
-      "The Legendary Shape",
-      "Performance",
-      "Racing DNA",
-      "The Sound",
-      "The Legacy"
-    ],
-    texts:[
-      "The BMW M3 GTR became famous for combining road-car attitude with racing DNA.",
-      "Its aggressive proportions made it instantly recognizable.",
-      "Performance-focused engineering defined its character.",
-      "Motorsport influenced the car's design and philosophy.",
-      "The M3 GTR became especially famous through racing and gaming culture.",
-      "Its legacy continues to influence modern enthusiasts."
-    ]
-  }
+en:{name:"English",speech:["en-IN","en-US","en-GB"]},
+hi:{name:"Hindi",speech:["hi-IN"]},
+bn:{name:"Bengali",speech:["bn-IN","bn-BD"]},
+or:{name:"Odia",speech:["or-IN"]},
+ta:{name:"Tamil",speech:["ta-IN","ta-LK"]},
+te:{name:"Telugu",speech:["te-IN"]},
+mr:{name:"Marathi",speech:["mr-IN"]},
+gu:{name:"Gujarati",speech:["gu-IN"]},
+kn:{name:"Kannada",speech:["kn-IN"]},
+ml:{name:"Malayalam",speech:["ml-IN"]},
+pa:{name:"Punjabi",speech:["pa-IN"]},
+ur:{name:"Urdu",speech:["ur-IN","ur-PK"]},
+fr:{name:"French",speech:["fr-FR"]},
+es:{name:"Spanish",speech:["es-ES","es-MX"]},
+de:{name:"German",speech:["de-DE"]},
+it:{name:"Italian",speech:["it-IT"]},
+pt:{name:"Portuguese",speech:["pt-BR","pt-PT"]},
+ru:{name:"Russian",speech:["ru-RU"]},
+ja:{name:"Japanese",speech:["ja-JP"]},
+ko:{name:"Korean",speech:["ko-KR"]},
+"zh-CN":{name:"Chinese",speech:["zh-CN"]},
+ar:{name:"Arabic",speech:["ar-SA","ar-EG"]},
+tr:{name:"Turkish",speech:["tr-TR"]},
+nl:{name:"Dutch",speech:["nl-NL"]},
+pl:{name:"Polish",speech:["pl-PL"]}
 
 };
 
 
-/* ---------------------------------------------------------
+/* =====================================================
+   TRANSLATION SERVICE
+   ===================================================== */
+
+/*
+This prototype sends English source text to MyMemory
+for translation.
+
+For the final product this function should be replaced
+by our own backend/AI translation service.
+*/
+
+async function translateText(text,target){
+
+if(target==="en")
+return text;
+
+const url=
+"https://api.mymemory.translated.net/get"+
+"?q="+encodeURIComponent(text)+
+"&langpair=en|"+encodeURIComponent(target);
+
+try{
+
+const response=
+await fetch(url);
+
+if(!response.ok)
+throw new Error("Translation failed");
+
+const data=
+await response.json();
+
+const translated=
+data?.responseData?.translatedText;
+
+if(translated)
+return translated;
+
+return text;
+
+}catch(error){
+
+console.warn(
+"Translation unavailable:",
+error
+);
+
+return text;
+
+}
+
+}
+
+
+/* =====================================================
+   TOPIC KNOWLEDGE
+   ===================================================== */
+
+const topicData={
+
+"ferrari 488":[
+
+"Ferrari 488 changed the modern supercar era.",
+"Its twin-turbocharged V8 transformed Ferrari performance.",
+"The 488 combines explosive acceleration with precise handling.",
+"Aerodynamic engineering helps keep the car stable at high speed.",
+"Every part of the car is designed around the driving experience.",
+"The Ferrari 488 became one of Ferrari's most memorable modern supercars."
+
+],
+
+"chandrayaan-3":[
+
+"Chandrayaan-3 was India's lunar landing demonstration mission.",
+"The mission was designed to demonstrate a safe and soft landing on the Moon.",
+"The Vikram lander carried scientific instruments to study the lunar surface.",
+"The Pragyan rover explored the surface and carried out scientific measurements.",
+"The mission collected scientific data about the Moon's surface environment.",
+"Chandrayaan-3 successfully soft-landed on August 23, 2023."
+
+],
+
+"bmw m3 gtr":[
+
+"The BMW M3 GTR became famous for its racing DNA.",
+"Its aggressive proportions made it instantly recognizable.",
+"Performance-focused engineering defined its character.",
+"Motorsport influenced the car's design and philosophy.",
+"The M3 GTR became famous through racing and gaming culture.",
+"Its legacy continues to influence modern enthusiasts."
+
+]
+
+};
+
+
+/* =====================================================
    FIND TOPIC
-   --------------------------------------------------------- */
+   ===================================================== */
 
-function detectTopic(topic){
+function findTopic(topic){
 
-  const t = topic.toLowerCase().trim();
+const normalized=
+topic.toLowerCase().trim();
 
-  for(const key in topicDatabase){
+for(const key in topicData){
 
-    const data = topicDatabase[key];
+if(normalized.includes(key))
+return topicData[key];
 
-    if(data.keywords.some(k => t.includes(k))){
-      return data;
-    }
-  }
+}
 
-  return {
-    titles:[
-      topic || "Your Topic",
-      "The Big Idea",
-      "What Makes It Interesting",
-      "Key Details",
-      "Why It Matters",
-      "The Takeaway"
-    ],
+return [
 
-    texts:[
-      `Let's explore ${topic}.`,
-      `${topic} has several interesting details worth knowing.`,
-      `Here is one of the key things to understand about ${topic}.`,
-      `Looking closer reveals why this topic gets attention.`,
-      `These details help explain the bigger picture.`,
-      `That is what makes ${topic} worth exploring.`
-    ]
-  };
+`Let's explore ${topic}.`,
+`${topic} has several interesting details worth knowing.`,
+"Here is one important detail about the topic.",
+"Looking closer reveals why this topic gets attention.",
+"These details help explain the bigger picture.",
+"That is what makes this topic interesting."
+
+];
+
 }
 
 
-/* ---------------------------------------------------------
-   LANGUAGE
-   --------------------------------------------------------- */
+/* =====================================================
+   HOOK
+   ===================================================== */
 
-function translateText(text, language){
+async function makeHook(topic,style,language){
 
-  if(language === "English") return text;
+const base={
 
-  const dictionaries = {
+Curiosity:
+`There is more to ${topic} than most people realize.`,
 
-    Hindi:{
-      "A Ferrari that changed the brand's modern supercar era.":
-      "यह Ferrari की आधुनिक सुपरकार दुनिया को बदलने वाली कार थी.",
+Question:
+`What makes ${topic} so interesting?`,
 
-      "Chandrayaan-3 was India's lunar landing demonstration mission.":
-      "चंद्रयान-3 भारत का चंद्र लैंडिंग प्रदर्शन मिशन था.",
+"Bold Statement":
+`${topic} changed the game.`,
 
-      "The mission was designed to demonstrate a safe and soft landing on the Moon.":
-      "इस मिशन का उद्देश्य चंद्रमा पर सुरक्षित सॉफ्ट लैंडिंग का प्रदर्शन करना था.",
+Story:
+`The story of ${topic} starts with one important idea.`
 
-      "The Vikram lander carried scientific instruments to study the lunar surface.":
-      "विक्रम लैंडर में चंद्र सतह का अध्ययन करने वाले वैज्ञानिक उपकरण थे.",
+};
 
-      "The Pragyan rover explored the surface and carried out in-situ measurements.":
-      "प्रज्ञान रोवर ने चंद्र सतह पर जाकर वैज्ञानिक माप किए.",
+return translateText(
+base[style],
+language
+);
 
-      "The mission collected scientific data about the Moon's surface environment.":
-      "मिशन ने चंद्रमा की सतह के वातावरण से वैज्ञानिक डेटा एकत्र किया.",
-
-      "Chandrayaan-3 successfully soft-landed on August 23, 2023.":
-      "चंद्रयान-3 ने 23 अगस्त 2023 को सफल सॉफ्ट लैंडिंग की."
-    },
-
-    Bengali:{
-      "Chandrayaan-3 was India's lunar landing demonstration mission.":
-      "চন্দ্রযান-৩ ছিল ভারতের চাঁদে অবতরণ প্রদর্শনকারী মিশন।",
-
-      "The mission was designed to demonstrate a safe and soft landing on the Moon.":
-      "এই মিশনের লক্ষ্য ছিল চাঁদে নিরাপদ সফট ল্যান্ডিং প্রদর্শন করা।"
-    },
-
-    Odia:{
-      "Chandrayaan-3 was India's lunar landing demonstration mission.":
-      "ଚନ୍ଦ୍ରଯାନ-୩ ଭାରତର ଚନ୍ଦ୍ର ଅବତରଣ ପ୍ରଦର୍ଶନ ମିଶନ ଥିଲା।",
-
-      "The mission was designed to demonstrate a safe and soft landing on the Moon.":
-      "ଏହି ମିଶନର ଲକ୍ଷ୍ୟ ଚନ୍ଦ୍ରରେ ସୁରକ୍ଷିତ ସଫ୍ଟ ଲ୍ୟାଣ୍ଡିଂ ପ୍ରଦର୍ଶନ କରିବା ଥିଲା।"
-    }
-  };
-
-  return dictionaries[language]?.[text] || text;
 }
 
 
-/* ---------------------------------------------------------
-   AUDIENCE MODIFIER
-   --------------------------------------------------------- */
+/* =====================================================
+   GENERATE REEL
+   ===================================================== */
 
-function audienceModifier(audience){
+async function generateReel(){
 
-  switch(audience){
+if(renderBusy)return;
 
-    case "Kids":
-      return "Explained in a simple, easy-to-understand way for younger viewers.";
+renderBusy=true;
 
-    case "Students":
-      return "Focused on useful facts and learning value for students.";
+$("generateBtn").disabled=true;
 
-    case "Professionals":
-      return "Uses a more precise and professional explanation.";
+const topic=
+$("topic").value.trim()||"Your Topic";
 
-    case "Car Enthusiasts":
-      return "Focuses on engineering, performance and enthusiast-level details.";
+const duration=
+Number($("duration").value);
 
-    case "Tech Enthusiasts":
-      return "Focuses on technology, engineering and innovation.";
+const language=
+$("language").value;
 
-    default:
-      return "Designed for a general audience.";
-  }
+const audience=
+$("audience").value;
+
+const contentStyle=
+$("contentStyle").value;
+
+const hookStyle=
+$("hookStyle").value;
+
+const voiceStyle=
+$("voiceStyle").value;
+
+const visualStyle=
+$("visualStyle").value;
+
+const transition=
+$("transition").value;
+
+const captions=
+$("captions").checked;
+
+const captionAnimation=
+$("captionAnimation").value;
+
+const music=
+$("music").checked;
+
+const volume=
+Number($("volume").value);
+
+
+$("status").textContent=
+"Reading your settings...";
+
+$("progressBar").style.width="10%";
+
+
+/* English source */
+
+const sourceScenes=
+findTopic(topic);
+
+
+/* Translate every scene */
+
+const translatedScenes=[];
+
+for(let i=0;i<sourceScenes.length;i++){
+
+$("status").textContent=
+`Translating scene ${i+1}/${sourceScenes.length} into ${languages[language]?.name||language}...`;
+
+$("progressBar").style.width=
+`${15+(i/sourceScenes.length)*55}%`;
+
+const translated=
+await translateText(
+sourceScenes[i],
+language
+);
+
+translatedScenes.push(translated);
+
 }
 
 
-/* ---------------------------------------------------------
-   HOOK GENERATOR
-   --------------------------------------------------------- */
+/* Hook */
 
-function createHook(topic, style, audience){
+$("status").textContent=
+"Creating hook...";
 
-  if(style === "Question"){
-    return `What makes ${topic} so interesting?`;
-  }
+const hook=
+await makeHook(
+topic,
+hookStyle,
+language
+);
 
-  if(style === "Bold Statement"){
-    return `${topic} is far more interesting than most people realize.`;
-  }
 
-  if(style === "Story"){
-    return `The story of ${topic} starts with one important idea.`;
-  }
+/* Duration */
 
-  return `There is more to ${topic} than meets the eye.`;
+let count=
+duration<=15?3:
+duration<=30?4:
+duration<=45?6:6;
+
+const scenes=[];
+
+for(let i=0;i<count;i++){
+
+scenes.push({
+
+title:`Scene ${i+1}`,
+
+text:
+translatedScenes[
+i%translatedScenes.length
+]
+
+});
+
 }
 
 
-/* ---------------------------------------------------------
-   CONTENT STYLE
-   --------------------------------------------------------- */
+/* Caption */
 
-function styleModifier(style){
+const caption=
+await translateText(
+`${topic} — ${contentStyle} — ${audience}`,
+language
+);
 
-  if(style === "Educational")
-    return "Educational";
 
-  if(style === "News")
-    return "News";
+/* Final object */
 
-  if(style === "Storytelling")
-    return "Storytelling";
+reel={
 
-  if(style === "Cinematic")
-    return "Cinematic";
+topic,
+duration,
+language,
+audience,
+contentStyle,
+hookStyle,
+voiceStyle,
+visualStyle,
+transition,
+captions,
+captionAnimation,
+music,
+volume,
 
-  return "Fast & Viral";
+hook,
+
+scenes,
+
+voiceover:
+scenes.map(s=>s.text).join(" "),
+
+caption
+
+};
+
+
+displayReel();
+
+
+$("progressBar").style.width="100%";
+
+$("status").textContent=
+`Reel generated in ${languages[language]?.name||language}.`;
+
+$("generateBtn").disabled=false;
+
+renderBusy=false;
+
 }
 
 
-/* ---------------------------------------------------------
-   GENERATE SCENES
-   --------------------------------------------------------- */
-
-function generateScenes(data, duration, language){
-
-  let count;
-
-  if(duration <= 15) count = 3;
-  else if(duration <= 30) count = 4;
-  else if(duration <= 45) count = 6;
-  else count = 8;
-
-  const scenes = [];
-
-  for(let i=0;i<count;i++){
-
-    const index = i % data.titles.length;
-
-    scenes.push({
-      title:data.titles[index],
-      text:translateText(data.texts[index],language),
-      sourceText:data.texts[index]
-    });
-  }
-
-  return scenes;
-}
-
-
-/* ---------------------------------------------------------
-   CREATE REEL
-   --------------------------------------------------------- */
-
-function createReel(){
-
-  const topic = $("topic").value.trim() || "Your Topic";
-  const duration = Number($("duration").value);
-  const language = $("language").value;
-  const audience = $("audience").value;
-  const contentStyle = $("contentStyle").value;
-  const hookStyle = $("hookStyle").value;
-  const voiceStyle = $("voiceStyle").value;
-  const visualStyle = $("visualStyle").value;
-  const transition = $("transition").value;
-  const captions = $("captions").checked;
-  const captionAnimation = $("captionAnimation").value;
-  const music = $("music").checked;
-  const volume = Number($("volume").value);
-
-  const data = detectTopic(topic);
-
-  const scenes = generateScenes(
-    data,
-    duration,
-    language
-  );
-
-  const hook = createHook(
-    topic,
-    hookStyle,
-    audience
-  );
-
-  const voiceLines = scenes.map(s => s.text);
-
-  const caption =
-    `${topic} • ${contentStyle} • ${audience}`;
-
-  reel = {
-    topic,
-    duration,
-    language,
-    audience,
-    contentStyle,
-    hookStyle,
-    voiceStyle,
-    visualStyle,
-    transition,
-    captions,
-    captionAnimation,
-    music,
-    volume,
-    hook,
-    scenes,
-    voiceLines,
-    caption,
-    audienceDescription:audienceModifier(audience),
-    styleDescription:styleModifier(contentStyle),
-    createdAt:Date.now()
-  };
-
-  return reel;
-}
-
-
-/* ---------------------------------------------------------
-   DISPLAY REEL
-   --------------------------------------------------------- */
+/* =====================================================
+   DISPLAY
+   ===================================================== */
 
 function displayReel(){
 
-  if(!reel) return;
+$("hookOutput").textContent=
+reel.hook;
 
-  $("hookOutput").textContent = reel.hook;
+$("voiceOutput").textContent=
+reel.voiceover;
 
-  $("voiceOutput").textContent =
-    reel.voiceLines.join(" ");
+$("captionOutput").textContent=
+reel.caption;
 
-  $("captionOutput").textContent =
-    reel.caption;
+$("settingsOutput").textContent=
+`${languages[reel.language]?.name||reel.language} • ${reel.duration}s • ${reel.audience} • ${reel.contentStyle} • Voice: ${reel.voiceStyle} • Music: ${reel.music?"ON":"OFF"} • Captions: ${reel.captions?"ON":"OFF"}`;
 
-  $("settingsOutput").textContent =
-    `${reel.duration}s • ${reel.language} • ${reel.audience} • ${reel.contentStyle} • ${reel.visualStyle} • Voice: ${reel.voiceStyle} • Music: ${reel.music ? "ON" : "OFF"} • Captions: ${reel.captions ? "ON" : "OFF"}`;
 
-  const timeline = $("timeline");
+const timeline=
+$("timeline");
 
-  timeline.innerHTML = "";
+timeline.innerHTML="";
 
-  const sceneDuration =
-    reel.duration / reel.scenes.length;
+const sceneTime=
+reel.duration/reel.scenes.length;
 
-  reel.scenes.forEach((scene,index)=>{
+reel.scenes.forEach((scene,i)=>{
 
-    const div = document.createElement("div");
+const row=
+document.createElement("div");
 
-    div.className = "scene";
+row.className="scene";
 
-    div.innerHTML = `
-      <div class="sceneNum">SCENE ${index+1}</div>
+row.innerHTML=`
 
-      <div>
-        <div class="sceneTitle">${escapeHTML(scene.title)}</div>
-        <div class="sceneText">${escapeHTML(scene.text)}</div>
-      </div>
+<div class="sceneNum">
+SCENE ${i+1}
+</div>
 
-      <div class="sceneTime">
-        ${sceneDuration.toFixed(1)}s
-      </div>
-    `;
+<div>
 
-    timeline.appendChild(div);
-  });
+<div class="sceneTitle">
+${escapeHTML(scene.title)}
+</div>
+
+<div class="sceneText">
+${escapeHTML(scene.text)}
+</div>
+
+</div>
+
+<div class="sceneTime">
+${sceneTime.toFixed(1)}s
+</div>
+
+`;
+
+timeline.appendChild(row);
+
+});
+
+drawFrame(0);
+
 }
 
 
-/* ---------------------------------------------------------
-   HTML ESCAPE
-   --------------------------------------------------------- */
+/* =====================================================
+   ESCAPE
+   ===================================================== */
 
-function escapeHTML(value){
+function escapeHTML(text){
 
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+return String(text)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
 }
 
 
-/* ---------------------------------------------------------
-   GENERATION PROGRESS
-   --------------------------------------------------------- */
+/* =====================================================
+   CANVAS
+   ===================================================== */
 
-function generateWithProgress(){
+function colors(style){
 
-  if(renderBusy) return;
+if(style==="Neon")
+return ["#16001f","#4c006d"];
 
-  renderBusy = true;
+if(style==="Modern")
+return ["#06131e","#16445f"];
 
-  $("generateBtn").disabled = true;
+if(style==="Minimal")
+return ["#111","#2b2b2b"];
 
-  const stages = [
-    "Reading your settings...",
-    "Understanding the topic...",
-    "Building the hook...",
-    "Writing scenes...",
-    "Applying audience style...",
-    "Applying language...",
-    "Preparing captions...",
-    "Preparing reel..."
-  ];
+return ["#05070d","#192941"];
 
-  let i = 0;
-
-  $("progressBar").style.width = "0%";
-
-  const timer = setInterval(()=>{
-
-    $("status").textContent =
-      stages[i];
-
-    $("progressBar").style.width =
-      `${((i+1)/stages.length)*100}%`;
-
-    i++;
-
-    if(i >= stages.length){
-
-      clearInterval(timer);
-
-      createReel();
-
-      displayReel();
-
-      drawFrame(0);
-
-      $("status").textContent =
-        `Reel generated successfully • ${reel.language} • ${reel.audience} • ${reel.duration}s`;
-
-      renderBusy = false;
-
-      $("generateBtn").disabled = false;
-    }
-
-  },180);
 }
 
-
-/* ---------------------------------------------------------
-   VISUAL BACKGROUND
-   --------------------------------------------------------- */
-
-function backgroundFor(style){
-
-  if(style === "Neon"){
-    return ["#080014","#26004c"];
-  }
-
-  if(style === "Modern"){
-    return ["#07121c","#17364b"];
-  }
-
-  if(style === "Minimal"){
-    return ["#101010","#242424"];
-  }
-
-  return ["#05070d","#152238"];
-}
-
-
-/* ---------------------------------------------------------
-   DRAW SCENE
-   --------------------------------------------------------- */
 
 function drawFrame(seconds){
 
-  if(!reel) return;
+if(!reel)return;
 
-  const W = canvas.width;
-  const H = canvas.height;
+const W=canvas.width;
+const H=canvas.height;
 
-  const sceneDuration =
-    reel.duration / reel.scenes.length;
+const sceneDuration=
+reel.duration/reel.scenes.length;
 
-  let index =
-    Math.floor(seconds / sceneDuration);
+let index=
+Math.floor(seconds/sceneDuration);
 
-  if(index >= reel.scenes.length)
-    index = reel.scenes.length-1;
+if(index>=reel.scenes.length)
+index=reel.scenes.length-1;
 
-  const scene = reel.scenes[index];
+const scene=
+reel.scenes[index];
 
-  const local =
-    (seconds % sceneDuration) / sceneDuration;
+const local=
+(seconds%sceneDuration)/sceneDuration;
 
-  const colors =
-    backgroundFor(reel.visualStyle);
+const c=
+colors(reel.visualStyle);
 
-  const gradient =
-    ctx.createLinearGradient(0,0,W,H);
+const gradient=
+ctx.createLinearGradient(0,0,W,H);
 
-  gradient.addColorStop(0,colors[0]);
-  gradient.addColorStop(1,colors[1]);
+gradient.addColorStop(0,c[0]);
+gradient.addColorStop(1,c[1]);
 
-  ctx.fillStyle = gradient;
+ctx.fillStyle=gradient;
+ctx.fillRect(0,0,W,H);
 
-  ctx.fillRect(0,0,W,H);
 
-  /* moving light */
+/* animated light */
 
-  const x =
-    W * (0.2 + 0.6 * ((Math.sin(seconds*0.7)+1)/2));
+const x=
+W*(.2+.6*((Math.sin(seconds*.7)+1)/2));
 
-  const y =
-    H * (0.25 + 0.2 * Math.sin(seconds*0.4));
+const y=
+H*(.25+.15*Math.sin(seconds*.5));
 
-  const glow =
-    ctx.createRadialGradient(
-      x,y,10,
-      x,y,330
-    );
+const glow=
+ctx.createRadialGradient(
+x,y,10,
+x,y,350
+);
 
-  glow.addColorStop(0,"rgba(120,150,255,.30)");
-  glow.addColorStop(1,"rgba(0,0,0,0)");
+glow.addColorStop(
+0,
+"rgba(120,150,255,.3)"
+);
 
-  ctx.fillStyle = glow;
-  ctx.fillRect(0,0,W,H);
+glow.addColorStop(
+1,
+"rgba(0,0,0,0)"
+);
 
-  /* scene number */
+ctx.fillStyle=glow;
+ctx.fillRect(0,0,W,H);
 
-  ctx.fillStyle = "rgba(255,255,255,.55)";
-  ctx.font = "bold 22px Arial";
-  ctx.fillText(
-    `SCENE ${index+1}`,
-    42,
-    60
-  );
 
-  /* title */
+/* scene */
 
-  ctx.textAlign = "center";
+ctx.fillStyle=
+"rgba(255,255,255,.5)";
 
-  let titleY = H*0.34;
+ctx.font=
+"bold 21px Arial";
 
-  let scale = 1;
+ctx.fillText(
+`SCENE ${index+1}`,
+42,
+60
+);
 
-  if(reel.transition === "Zoom"){
-    scale =
-      0.94 + local*0.06;
-  }
 
-  ctx.save();
+/* title */
 
-  ctx.translate(W/2,titleY);
-  ctx.scale(scale,scale);
+ctx.textAlign="center";
 
-  ctx.fillStyle = "#fff";
-  ctx.font = "bold 50px Arial";
+ctx.fillStyle="#fff";
 
-  wrapText(
-    scene.title,
-    430,
-    58
-  );
+ctx.font=
+"bold 48px Arial";
 
-  ctx.restore();
+ctx.fillText(
+scene.title,
+W/2,
+H*.34
+);
 
-  /* body */
 
-  ctx.fillStyle =
-    "rgba(225,232,245,.85)";
+/* text */
 
-  ctx.font =
-    "24px Arial";
+ctx.font=
+"24px Arial";
 
-  wrapText(
-    scene.text,
-    W*0.78,
-    H*0.48,
-    34
-  );
+ctx.fillStyle=
+"rgba(230,236,247,.9)";
 
-  /* captions */
+drawText(
+scene.text,
+W/2,
+H*.48,
+410,
+34
+);
 
-  if(reel.captions){
 
-    const captionText =
-      scene.text;
+/* captions */
 
-    let alpha = 1;
+if(reel.captions){
 
-    if(reel.captionAnimation === "Fade"){
-      alpha = Math.min(1,local*4);
-    }
+ctx.save();
 
-    ctx.globalAlpha = alpha;
+let cy=H*.82;
 
-    let captionY = H*0.82;
+if(reel.captionAnimation==="Slide")
+cy=H*.92-local*H*.1;
 
-    if(reel.captionAnimation === "Slide"){
-      captionY =
-        H*0.92 - local*H*0.10;
-    }
+if(reel.captionAnimation==="Fade")
+ctx.globalAlpha=
+Math.min(1,local*4);
 
-    if(reel.captionAnimation === "Pop"){
-      const s =
-        0.85 + Math.min(0.15,local*0.6);
+if(reel.captionAnimation==="Pop"){
 
-      ctx.save();
+ctx.translate(W/2,cy);
 
-      ctx.translate(W/2,captionY);
-      ctx.scale(s,s);
+const scale=
+.86+Math.min(.14,local*.5);
 
-      drawCaption(captionText);
+ctx.scale(scale,scale);
 
-      ctx.restore();
+drawCaption(scene.text);
 
-    }else{
+}else{
 
-      ctx.save();
+ctx.translate(W/2,cy);
 
-      ctx.translate(W/2,captionY);
+drawCaption(scene.text);
 
-      drawCaption(captionText);
+}
 
-      ctx.restore();
-    }
+ctx.restore();
 
-    ctx.globalAlpha = 1;
-  }
-
-  ctx.textAlign = "left";
-
-  /* branding */
-
-  ctx.fillStyle =
-    "rgba(255,255,255,.45)";
-
-  ctx.font = "bold 17px Arial";
-
-  ctx.fillText(
-    "AI REEL MAKER",
-    42,
-    H-35
-  );
 }
 
 
-/* ---------------------------------------------------------
-   CAPTION
-   --------------------------------------------------------- */
+/* branding */
+
+ctx.textAlign="left";
+
+ctx.fillStyle=
+"rgba(255,255,255,.4)";
+
+ctx.font=
+"bold 16px Arial";
+
+ctx.fillText(
+"AI REEL MAKER",
+42,
+H-35
+);
+
+}
+
+
+function drawText(text,x,y,maxWidth,lineHeight){
+
+const words=
+text.split(" ");
+
+let lines=[];
+let line="";
+
+for(const word of words){
+
+const test=
+line?line+" "+word:word;
+
+if(ctx.measureText(test).width>maxWidth){
+
+lines.push(line);
+line=word;
+
+}else{
+
+line=test;
+
+}
+
+}
+
+if(line)lines.push(line);
+
+const total=
+lines.length*lineHeight;
+
+lines.forEach((line,i)=>{
+
+ctx.fillText(
+line,
+x,
+y-total/2+i*lineHeight
+);
+
+});
+
+}
+
 
 function drawCaption(text){
 
-  const max = 410;
+const max=420;
 
-  const words =
-    text.split(" ");
+const words=
+text.split(" ");
 
-  let lines = [];
-  let line = "";
+let lines=[];
+let line="";
 
-  for(const word of words){
+for(const word of words){
 
-    const test =
-      line ? line+" "+word : word;
+const test=
+line?line+" "+word:word;
 
-    if(ctx.measureText(test).width > max){
+if(ctx.measureText(test).width>max){
 
-      lines.push(line);
-      line = word;
+lines.push(line);
+line=word;
 
-    }else{
+}else{
 
-      line = test;
-    }
-  }
+line=test;
 
-  if(line) lines.push(line);
+}
 
-  const lineHeight = 35;
+}
 
-  const boxHeight =
-    lines.length*lineHeight+34;
+if(line)lines.push(line);
 
-  ctx.fillStyle =
-    "rgba(0,0,0,.65)";
+const h=
+lines.length*34+32;
 
-  ctx.roundRect(
-    -225,
-    -boxHeight/2,
-    450,
-    boxHeight,
-    18
-  );
+ctx.fillStyle=
+"rgba(0,0,0,.68)";
 
-  ctx.fill();
+ctx.beginPath();
 
-  ctx.fillStyle = "#fff";
-  ctx.font = "bold 23px Arial";
-  ctx.textAlign = "center";
+ctx.roundRect(
+-230,
+-h/2,
+460,
+h,
+18
+);
 
-  lines.forEach((line,i)=>{
+ctx.fill();
 
-    ctx.fillText(
-      line,
-      0,
-      -((lines.length-1)*lineHeight)/2
-      + i*lineHeight + 8
-    );
+ctx.fillStyle="#fff";
 
-  });
+ctx.font=
+"bold 22px Arial";
+
+ctx.textAlign="center";
+
+lines.forEach((line,i)=>{
+
+ctx.fillText(
+line,
+0,
+-(lines.length-1)*17+i*34+8
+);
+
+});
+
 }
 
 
-/* ---------------------------------------------------------
-   TEXT WRAP
-   --------------------------------------------------------- */
+/* =====================================================
+   VOICE
+   ===================================================== */
 
-function wrapText(text,maxWidth,lineHeight=34){
+function findVoice(language){
 
-  const words =
-    text.split(" ");
+const info=
+languages[language];
 
-  let lines=[];
-  let line="";
+if(!info)return null;
 
-  for(const word of words){
+const voices=
+speechSynthesis.getVoices();
 
-    const test =
-      line ? line+" "+word : word;
+for(const wanted of info.speech){
 
-    if(ctx.measureText(test).width > maxWidth){
+const exact=
+voices.find(
+v=>v.lang.toLowerCase()===
+wanted.toLowerCase()
+);
 
-      lines.push(line);
-      line=word;
+if(exact)return exact;
 
-    }else{
+}
 
-      line=test;
-    }
-  }
+const base=
+info.speech[0].split("-")[0];
 
-  if(line) lines.push(line);
+return voices.find(
+v=>v.lang.toLowerCase().startsWith(base)
+)||null;
 
-  const total =
-    lines.length*lineHeight;
-
-  lines.forEach((line,i)=>{
-
-    ctx.fillText(
-      line,
-      0,
-      i*lineHeight
-        -total/2
-        +lineHeight
-    );
-  });
 }
 
 
-/* ---------------------------------------------------------
-   PREVIEW
-   --------------------------------------------------------- */
+function speak(){
 
-function startPreview(){
+if(!reel)return;
 
-  if(!reel){
+speechSynthesis.cancel();
 
-    $("status").textContent =
-      "Generate the reel first.";
+const voice=
+findVoice(reel.language);
 
-    return;
-  }
+if(!voice){
 
-  stopPreview();
+$("status").textContent=
+`No installed browser voice found for ${languages[reel.language]?.name}. Preview text is available, but voice synthesis for this language needs a supported voice.`;
 
-  previewStart =
-    performance.now();
+return;
 
-  $("status").textContent =
-    "Playing preview...";
+}
 
-  function loop(now){
+const parts=[
+reel.hook,
+...reel.scenes.map(s=>s.text)
+];
 
-    if(!previewTimer)
-      return;
+let index=0;
 
-    const elapsed =
-      (now-previewStart)/1000;
 
-    if(elapsed >= reel.duration){
+function next(){
 
-      drawFrame(0);
+if(index>=parts.length){
 
-      $("status").textContent =
-        "Preview finished.";
+$("status").textContent=
+"Voiceover finished.";
 
-      stopPreview();
+return;
 
-      return;
-    }
+}
 
-    drawFrame(elapsed);
+const u=
+new SpeechSynthesisUtterance(
+parts[index]
+);
 
-    previewTimer =
-      requestAnimationFrame(loop);
-  }
+u.voice=voice;
 
-  previewTimer =
-    requestAnimationFrame(loop);
+u.lang=voice.lang;
+
+if(reel.voiceStyle==="Energetic"){
+u.rate=1.08;
+u.pitch=1.08;
+}
+
+if(reel.voiceStyle==="Calm"){
+u.rate=.9;
+u.pitch=.95;
+}
+
+if(reel.voiceStyle==="Professional"){
+u.rate=1;
+u.pitch=1;
+}
+
+if(reel.voiceStyle==="Dramatic"){
+u.rate=.9;
+u.pitch=.82;
+}
+
+u.onend=()=>{
+
+index++;
+next();
+
+};
+
+u.onerror=()=>{
+
+index++;
+next();
+
+};
+
+speechSynthesis.speak(u);
+
+}
+
+next();
+
 }
 
 
-/* ---------------------------------------------------------
-   STOP PREVIEW
-   --------------------------------------------------------- */
+function stopVoice(){
 
-function stopPreview(){
+speechSynthesis.cancel();
 
-  if(previewTimer){
-
-    cancelAnimationFrame(previewTimer);
-
-    previewTimer = null;
-  }
-
-  if(reel)
-    drawFrame(0);
 }
 
 
-/* ---------------------------------------------------------
+/* =====================================================
    MUSIC
-   --------------------------------------------------------- */
-
-function startMusic(){
-
-  if(!reel || !reel.music)
-    return;
-
-  stopMusic();
-
-  audioContext =
-    new (window.AudioContext ||
-         window.webkitAudioContext)();
-
-  musicGain =
-    audioContext.createGain();
-
-  musicGain.gain.value =
-    reel.volume / 100 * 0.12;
-
-  musicOsc =
-    audioContext.createOscillator();
-
-  musicOsc.type = "sine";
-
-  musicOsc.frequency.value = 110;
-
-  musicOsc.connect(musicGain);
-
-  musicGain.connect(audioContext.destination);
-
-  musicOsc.start();
-}
-
+   ===================================================== */
 
 function stopMusic(){
 
-  try{
+try{
 
-    if(musicOsc)
-      musicOsc.stop();
+if(musicOsc)
+musicOsc.stop();
 
-  }catch(e){}
+}catch(e){}
 
-  musicOsc = null;
+musicOsc=null;
 
-  if(audioContext){
+if(audioContext){
 
-    audioContext.close()
-      .catch(()=>{});
+audioContext.close()
+.catch(()=>{});
 
-    audioContext = null;
-  }
+audioContext=null;
+
+}
+
 }
 
 
-/* ---------------------------------------------------------
-   RENDER
-   --------------------------------------------------------- */
+function startMusic(){
 
-async function renderVideo(){
+if(!reel?.music)return;
 
-  if(!reel){
+stopMusic();
 
-    $("status").textContent =
-      "Generate the reel first.";
+audioContext=
+new(
+window.AudioContext||
+window.webkitAudioContext
+)();
 
-    return;
-  }
+musicGain=
+audioContext.createGain();
 
-  if(renderBusy) return;
+musicGain.gain.value=
+reel.volume/100*.1;
 
-  renderBusy = true;
+musicOsc=
+audioContext.createOscillator();
 
-  $("renderBtn").disabled = true;
+musicOsc.type="sine";
 
-  stopPreview();
+musicOsc.frequency.value=110;
 
-  $("status").textContent =
-    "Preparing render...";
+musicOsc.connect(musicGain);
 
-  $("progressBar").style.width =
-    "0%";
-
-  /*
-     Important:
-     The render uses the SAME reel object
-     created from the selected settings.
-  */
-
-  const stream =
-    canvas.captureStream(30);
-
-  const chunks = [];
-
-  let recorder;
-
-  try{
-
-    recorder =
-      new MediaRecorder(
-        stream,
-        {mimeType:"video/webm;codecs=vp9"}
-      );
-
-  }catch(e){
-
-    recorder =
-      new MediaRecorder(stream);
-  }
-
-  recorder.ondataavailable = e => {
-
-    if(e.data && e.data.size)
-      chunks.push(e.data);
-  };
-
-  recorder.onstop = ()=>{
-
-    const blob =
-      new Blob(
-        chunks,
-        {type:"video/webm"}
-      );
-
-    const url =
-      URL.createObjectURL(blob);
-
-    const a =
-      document.createElement("a");
-
-    a.href = url;
-
-    a.download =
-      `AI-Reel-${Date.now()}.webm`;
-
-    document.body.appendChild(a);
-
-    a.click();
-
-    a.remove();
-
-    setTimeout(
-      ()=>URL.revokeObjectURL(url),
-      5000
-    );
-
-    $("progressBar").style.width =
-      "100%";
-
-    $("status").textContent =
-      "Render complete. Reel downloaded.";
-
-    $("renderBtn").disabled = false;
-
-    renderBusy = false;
-  };
-
-  recorder.start();
-
-  const start =
-    performance.now();
-
-  function renderLoop(now){
-
-    const elapsed =
-      (now-start)/1000;
-
-    const percent =
-      Math.min(
-        100,
-        elapsed/reel.duration*100
-      );
-
-    $("progressBar").style.width =
-      percent+"%";
-
-    $("status").textContent =
-      `Rendering reel... ${Math.round(percent)}%`;
-
-    drawFrame(
-      Math.min(elapsed,reel.duration)
-    );
-
-    if(elapsed < reel.duration){
-
-      requestAnimationFrame(renderLoop);
-
-    }else{
-
-      setTimeout(
-        ()=>recorder.stop(),
-        150
-      );
-    }
-  }
-
-  requestAnimationFrame(renderLoop);
-}
-
-
-/* ---------------------------------------------------------
-   VOLUME
-   --------------------------------------------------------- */
-
-$("volume").addEventListener("input",()=>{
-
-  const value =
-    Number($("volume").value);
-
-  $("volumeText").textContent =
-    value+"%";
-
-  if(musicGain){
-
-    musicGain.gain.value =
-      value/100*0.12;
-  }
-});
-
-
-/* ---------------------------------------------------------
-   GENERATE BUTTON
-   --------------------------------------------------------- */
-
-$("generateBtn").addEventListener(
-  "click",
-  generateWithProgress
+musicGain.connect(
+audioContext.destination
 );
 
+musicOsc.start();
 
-/* ---------------------------------------------------------
+}
+
+
+/* =====================================================
    PREVIEW
-   --------------------------------------------------------- */
+   ===================================================== */
 
-$("previewBtn").addEventListener(
-  "click",
-  ()=>{
+function preview(){
 
-    if(!reel){
-      $("status").textContent =
-        "Generate the reel first.";
-      return;
-    }
+if(!reel){
 
-    startPreview();
-  }
+$("status").textContent=
+"Generate the reel first.";
+
+return;
+
+}
+
+stopPreview();
+
+stopVoice();
+
+stopMusic();
+
+previewStart=
+performance.now();
+
+if(reel.music)
+startMusic();
+
+speak();
+
+$("status").textContent=
+"Playing preview...";
+
+function loop(now){
+
+const elapsed=
+(now-previewStart)/1000;
+
+if(elapsed>=reel.duration){
+
+drawFrame(0);
+
+stopPreview();
+
+stopVoice();
+
+stopMusic();
+
+$("status").textContent=
+"Preview finished.";
+
+return;
+
+}
+
+drawFrame(elapsed);
+
+previewTimer=
+requestAnimationFrame(loop);
+
+}
+
+previewTimer=
+requestAnimationFrame(loop);
+
+}
+
+
+function stopPreview(){
+
+if(previewTimer){
+
+cancelAnimationFrame(
+previewTimer
+);
+
+previewTimer=null;
+
+}
+
+}
+
+
+/* =====================================================
+   RENDER + AUDIO
+   ===================================================== */
+
+async function render(){
+
+if(!reel){
+
+$("status").textContent=
+"Generate the reel first.";
+
+return;
+
+}
+
+if(renderBusy)return;
+
+renderBusy=true;
+
+$("renderBtn").disabled=true;
+
+stopPreview();
+
+stopVoice();
+
+stopMusic();
+
+const videoStream=
+canvas.captureStream(30);
+
+const combined=
+new MediaStream();
+
+videoStream
+.getVideoTracks()
+.forEach(t=>combined.addTrack(t));
+
+
+let renderAudio=null;
+let destination=null;
+
+
+if(reel.music){
+
+renderAudio=
+new(
+window.AudioContext||
+window.webkitAudioContext
+)();
+
+destination=
+renderAudio.createMediaStreamDestination();
+
+const gain=
+renderAudio.createGain();
+
+gain.gain.value=
+reel.volume/100*.1;
+
+const osc=
+renderAudio.createOscillator();
+
+osc.type="sine";
+
+osc.frequency.value=110;
+
+osc.connect(gain);
+
+gain.connect(
+renderAudio.destination
+);
+
+gain.connect(destination);
+
+osc.start();
+
+musicOsc=osc;
+
+}
+
+
+if(destination){
+
+destination.stream
+.getAudioTracks()
+.forEach(t=>combined.addTrack(t));
+
+}
+
+
+let recorder;
+
+try{
+
+recorder=
+new MediaRecorder(
+combined,
+{
+mimeType:"video/webm;codecs=vp9,opus"
+}
+);
+
+}catch(e){
+
+recorder=
+new MediaRecorder(combined);
+
+}
+
+
+const chunks=[];
+
+recorder.ondataavailable=e=>{
+
+if(e.data.size)
+chunks.push(e.data);
+
+};
+
+
+recorder.onstop=()=>{
+
+const blob=
+new Blob(
+chunks,
+{type:"video/webm"}
+);
+
+const url=
+URL.createObjectURL(blob);
+
+const a=
+document.createElement("a");
+
+a.href=url;
+
+a.download=
+"AI-Reel-"+Date.now()+".webm";
+
+document.body.appendChild(a);
+
+a.click();
+
+a.remove();
+
+setTimeout(
+()=>URL.revokeObjectURL(url),
+5000
+);
+
+if(renderAudio){
+
+renderAudio.close()
+.catch(()=>{});
+
+}
+
+$("progressBar").style.width="100%";
+
+$("status").textContent=
+"Render complete. Downloaded reel includes background music.";
+
+$("renderBtn").disabled=false;
+
+renderBusy=false;
+
+};
+
+
+recorder.start();
+
+const start=
+performance.now();
+
+function loop(now){
+
+const elapsed=
+(now-start)/1000;
+
+const percent=
+Math.min(
+100,
+elapsed/reel.duration*100
+);
+
+$("progressBar").style.width=
+percent+"%";
+
+$("status").textContent=
+`Rendering ${Math.round(percent)}%...`;
+
+drawFrame(
+Math.min(elapsed,reel.duration)
+);
+
+if(elapsed<reel.duration){
+
+requestAnimationFrame(loop);
+
+}else{
+
+setTimeout(
+()=>recorder.stop(),
+300
+);
+
+}
+
+}
+
+requestAnimationFrame(loop);
+
+}
+
+
+/* =====================================================
+   UI
+   ===================================================== */
+
+$("language").addEventListener(
+"change",
+()=>{
+
+const code=
+$("language").value;
+
+const name=
+languages[code]?.name||code;
+
+$("languageInfo").textContent=
+`Selected: ${name}. Generate Reel will translate the script, hook, captions and voiceover into this language.`;
+
+}
 );
 
 
-/* ---------------------------------------------------------
-   STOP
-   --------------------------------------------------------- */
+$("volume").addEventListener(
+"input",
+()=>{
 
-$("stopBtn").addEventListener(
-  "click",
-  ()=>{
+$("volumeText").textContent=
+$("volume").value+"%";
 
-    stopPreview();
-    stopMusic();
+if(musicGain){
 
-    $("status").textContent =
-      "Stopped.";
-  }
+musicGain.gain.value=
+Number($("volume").value)/100*.1;
+
+}
+
+}
 );
 
 
-/* ---------------------------------------------------------
-   RENDER
-   --------------------------------------------------------- */
+$("generateBtn").onclick=
+generateReel;
 
-$("renderBtn").addEventListener(
-  "click",
-  renderVideo
-);
+$("previewBtn").onclick=
+preview;
 
+$("stopBtn").onclick=
+()=>{
 
-/* ---------------------------------------------------------
-   NEW REEL
-   --------------------------------------------------------- */
+stopPreview();
+stopVoice();
+stopMusic();
 
-$("newBtn").addEventListener(
-  "click",
-  ()=>{
+$("status").textContent=
+"Stopped.";
 
-    stopPreview();
-    stopMusic();
+};
 
-    reel = null;
-
-    $("topic").value = "";
-
-    $("hookOutput").textContent =
-      "Generate a reel to create your hook.";
-
-    $("voiceOutput").textContent =
-      "Your generated voiceover will appear here.";
-
-    $("captionOutput").textContent =
-      "Your Instagram caption will appear here.";
-
-    $("settingsOutput").textContent =
-      "No reel generated yet.";
-
-    $("timeline").innerHTML =
-      '<div class="muted">Generate a reel to create scenes.</div>';
-
-    $("progressBar").style.width =
-      "0%";
-
-    ctx.clearRect(
-      0,0,
-      canvas.width,
-      canvas.height
-    );
-
-    $("status").textContent =
-      "Ready for a new reel.";
-  }
-);
+$("renderBtn").onclick=
+render;
 
 
-/* ---------------------------------------------------------
-   INITIAL FRAME
-   --------------------------------------------------------- */
+$("newBtn").onclick=
+()=>{
 
-ctx.fillStyle = "#07090e";
+stopPreview();
+stopVoice();
+stopMusic();
+
+reel=null;
+
+$("topic").value="";
+
+$("hookOutput").textContent=
+"Generate a reel first.";
+
+$("voiceOutput").textContent=
+"Voiceover will appear here.";
+
+$("captionOutput").textContent=
+"Caption will appear here.";
+
+$("settingsOutput").textContent=
+"No reel generated yet.";
+
+$("timeline").innerHTML=
+'<div class="muted">Generate a reel to create scenes.</div>';
+
+$("progressBar").style.width="0%";
+
+$("status").textContent=
+"Ready.";
+
+};
+
+
+/* =====================================================
+   INITIAL CANVAS
+   ===================================================== */
+
+ctx.fillStyle="#07090e";
 
 ctx.fillRect(
-  0,0,
-  canvas.width,
-  canvas.height
+0,0,
+canvas.width,
+canvas.height
 );
 
-ctx.fillStyle = "#6575ff";
+ctx.fillStyle="#7180ff";
 
-ctx.font =
-  "bold 34px Arial";
+ctx.font=
+"bold 34px Arial";
 
-ctx.textAlign =
-  "center";
+ctx.textAlign="center";
 
 ctx.fillText(
-  "AI REEL MAKER",
-  canvas.width/2,
-  canvas.height/2
+"AI REEL MAKER",
+canvas.width/2,
+canvas.height/2
 );
 
-ctx.font =
-  "18px Arial";
+ctx.font="18px Arial";
 
-ctx.fillStyle =
-  "#9aa5b7";
+ctx.fillStyle="#9aa5b7";
 
 ctx.fillText(
-  "Generate a reel to begin",
-  canvas.width/2,
-  canvas.height/2+45
+"Generate a reel to begin",
+canvas.width/2,
+canvas.height/2+45
 );
 
-ctx.textAlign =
-  "left";
+ctx.textAlign="left";
+
+
+/*
+Some browsers load their speech voices
+after the page starts.
+*/
+
+speechSynthesis.onvoiceschanged=
+()=>speechSynthesis.getVoices();
 
 </script>
 
