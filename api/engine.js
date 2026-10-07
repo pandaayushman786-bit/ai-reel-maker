@@ -4,7 +4,8 @@ const LANGUAGE_LOCALES = {
   en: "en-IN", hi: "hi-IN", bn: "bn-IN", or: "or-IN", ta: "ta-IN", te: "te-IN",
   mr: "mr-IN", gu: "gu-IN", kn: "kn-IN", ml: "ml-IN", pa: "pa-IN", ur: "ur-IN",
   fr: "fr-FR", es: "es-ES", de: "de-DE", it: "it-IT", pt: "pt-BR", ru: "ru-RU",
-  ja: "ja-JP", ko: "ko-KR", "zh-CN": "zh-CN", ar: "ar-SA", tr: "tr-TR", nl: "nl-NL", pl: "pl-PL"
+  ja: "ja-JP", ko: "ko-KR", "zh-CN": "zh-CN", ar: "ar-SA", tr: "tr-TR",
+  nl: "nl-NL", pl: "pl-PL"
 };
 
 const cache = { voices: null, expires: 0 };
@@ -17,7 +18,9 @@ function json(res, status, body) {
 
 function cleanJsonText(text) {
   if (!text) throw new Error("AI returned an empty response.");
+
   const fenced = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+
   return (fenced ? fenced[1] : text).trim();
 }
 
@@ -43,12 +46,30 @@ function localFallbackScript(body) {
   const hook = hooks[hookStyle] || hooks.Curiosity;
 
   const scenes = [
-    { title: "The topic", text: `${topicText} has attracted attention for a reason.` },
-    { title: "Why it matters", text: `There is more to ${topicText} than what we see at first.` },
-    { title: "Key point", text: `One important part of the story is how ${topicText} has developed over time.` },
-    { title: "The bigger picture", text: `${topicText} can be understood better by looking at its wider impact.` },
-    { title: "What to remember", text: `The most important thing is to separate confirmed information from assumptions.` },
-    { title: "Final thought", text: `That is the quick story behind ${topicText}.` }
+    {
+      title: "The topic",
+      text: `${topicText} has attracted attention for a reason.`
+    },
+    {
+      title: "Why it matters",
+      text: `There is more to ${topicText} than what we see at first.`
+    },
+    {
+      title: "Key point",
+      text: `One important part of the story is how ${topicText} has developed over time.`
+    },
+    {
+      title: "The bigger picture",
+      text: `${topicText} can be understood better by looking at its wider impact.`
+    },
+    {
+      title: "What to remember",
+      text: `The most important thing is to separate confirmed information from assumptions.`
+    },
+    {
+      title: "Final thought",
+      text: `That is the quick story behind ${topicText}.`
+    }
   ];
 
   return {
@@ -198,6 +219,7 @@ JSON shape:
     parsed.duration = duration;
 
     return parsed;
+
   } catch (error) {
     console.warn(
       "OpenRouter request failed. Using local fallback:",
@@ -287,6 +309,7 @@ function voiceProsody(style) {
   if (style === "Energetic") return { rate: "+8%", pitch: "+4%" };
   if (style === "Calm") return { rate: "-8%", pitch: "-2%" };
   if (style === "Dramatic") return { rate: "-4%", pitch: "-6%" };
+
   return { rate: "0%", pitch: "0%" };
 }
 
@@ -301,10 +324,15 @@ async function synthesize(body) {
   const language = body.language || "en";
   const locale = LANGUAGE_LOCALES[language];
 
-  if (!locale) throw new Error("Selected language is not configured.");
+  if (!locale) {
+    throw new Error("Selected language is not configured.");
+  }
 
   const text = String(body.text || "").trim();
-  if (!text) throw new Error("No text supplied for voiceover.");
+
+  if (!text) {
+    throw new Error("No text supplied for voiceover.");
+  }
 
   const voices = await listVoices();
   const voice = pickVoice(voices, locale);
@@ -344,7 +372,10 @@ async function synthesize(body) {
 
   if (!r.ok) {
     const msg = await r.text().catch(() => "");
-    throw new Error(`Azure TTS failed (${r.status}). ${msg.slice(0, 240)}`);
+
+    throw new Error(
+      `Azure TTS failed (${r.status}). ${msg.slice(0, 240)}`
+    );
   }
 
   const audio = Buffer.from(await r.arrayBuffer());
@@ -358,7 +389,9 @@ async function synthesize(body) {
 
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
-    return json(res, 405, { error: "POST only." });
+    return json(res, 405, {
+      error: "POST only."
+    });
   }
 
   try {
@@ -381,6 +414,7 @@ module.exports = async function handler(req, res) {
           .send(result.audio);
 
         return;
+
       } catch (ttsError) {
         console.warn(
           "TTS unavailable. Returning a graceful no-audio response:",
@@ -391,7 +425,8 @@ module.exports = async function handler(req, res) {
           audio: null,
           voice: null,
           fallback: true,
-          fallbackReason: ttsError?.message || "Voice provider unavailable."
+          fallbackReason:
+            ttsError?.message || "Voice provider unavailable."
         });
       }
     }
