@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AI Reel Maker — Stage 8.5 Voice Fixed</title>
+<title>AI Reel Maker — Stage 8.5</title>
 
 <style>
 *{box-sizing:border-box}
@@ -50,10 +50,6 @@ canvas{width:100%;height:100%;display:block}
 .languageInfo{padding:10px;border:1px solid #293142;background:#0b0f16;border-radius:10px;font-size:12px;color:#9da8b8;margin-top:8px}
 .hint{font-size:11px;color:#7f8a9b;line-height:1.45;margin-top:7px}
 .pill{display:inline-block;border:1px solid #333d4f;background:#10151e;border-radius:999px;padding:4px 8px;font-size:11px;color:#aeb9cc;margin:2px 4px 0 0}
-.ok{color:#9fe7b2}
-.warn{color:#ffd47a}
-.error{color:#ff9ba8}
-.hidden{display:none!important}
 
 @media(max-width:900px){
 .grid{grid-template-columns:1fr}
@@ -70,9 +66,9 @@ canvas{width:100%;height:100%;display:block}
 <header>
 <div>
 <div class="logo">AI Reel Maker</div>
-<div class="muted">Professional Editor • Stage 8.5 Voice Fixed</div>
+<div class="muted">Professional Editor • Stage 8.5</div>
 </div>
-<div class="badge">STABLE MULTILINGUAL PIPELINE</div>
+<div class="badge">OPENROUTER • NO AZURE REQUIRED</div>
 </header>
 
 <div class="grid">
@@ -135,8 +131,7 @@ canvas{width:100%;height:100%;display:block}
 </div>
 
 <div class="languageInfo" id="languageInfo">
-Choose a language, then Generate Reel.
-The selected language is sent to the server for script generation and cloud voiceover.
+Choose a language, then Generate Reel. OpenRouter creates the script. Preview uses your browser voice. No Azure Speech key is required.
 </div>
 
 <div class="setting">
@@ -188,6 +183,7 @@ The selected language is sent to the server for script generation and cloud voic
 </div>
 
 <div class="section">
+
 <h3>3. Visual Settings</h3>
 
 <div class="setting">
@@ -213,6 +209,7 @@ The selected language is sent to the server for script generation and cloud voic
 </div>
 
 <div class="section">
+
 <h3>4. Captions</h3>
 
 <label class="check">
@@ -233,6 +230,7 @@ Animated captions
 </div>
 
 <div class="section">
+
 <h3>5. Background Music</h3>
 
 <label class="check">
@@ -246,8 +244,7 @@ Background music
 </div>
 
 <div class="hint">
-The prototype generates a real audio bed through Web Audio.
-A licensed music library can replace this later.
+Background music is generated locally using Web Audio. Preview uses browser speech. Azure is not required.
 </div>
 
 </div>
@@ -257,7 +254,7 @@ Generate Reel
 </button>
 
 <div class="actions">
-<button class="secondary" id="previewBtn" disabled>
+<button class="secondary" id="previewBtn">
 ▶ Preview
 </button>
 
@@ -267,7 +264,7 @@ Generate Reel
 </div>
 
 <div class="actions">
-<button class="secondary" id="renderBtn" disabled>
+<button class="secondary" id="renderBtn">
 Render & Download
 </button>
 
@@ -288,6 +285,7 @@ Ready.
 
 
 <!-- RIGHT PANEL -->
+
 <div class="panel">
 
 <div class="previewArea">
@@ -305,7 +303,7 @@ Ready.
 
 <div class="card">
 <h4>Voiceover</h4>
-<p id="voiceOutput">Voiceover will appear here.</p>
+<p id="voiceOutput">Voiceover script will appear here.</p>
 <div id="voiceMeta" class="hint"></div>
 </div>
 
@@ -334,29 +332,22 @@ Ready.
 </div>
 </div>
 
-
 <script>
 
-const $=id=>document.getElementById(id);
+const $ = id => document.getElementById(id);
 
-const canvas=$("canvas");
-const ctx=canvas.getContext("2d");
+const canvas = $("canvas");
+const ctx = canvas.getContext("2d");
 
-let reel=null;
-let generationSeq=0;
-let previewRAF=null;
-let renderRunning=false;
+let reel = null;
+let generationSeq = 0;
+let generationController = null;
+let previewRAF = null;
+let renderRunning = false;
+let activeAudioContext = null;
+let activeNodes = [];
 
-let voiceBuffer=null;
-let voiceBlobUrl=null;
-
-let activeAudioContext=null;
-let activeNodes=[];
-
-let generationController=null;
-
-
-const languages={
+const languages = {
 
 en:{name:"English",locale:"en-IN"},
 hi:{name:"Hindi",locale:"hi-IN"},
@@ -387,30 +378,29 @@ pl:{name:"Polish",locale:"pl-PL"}
 };
 
 
-function setProgress(n,text){
+function setProgress(percent,text){
 
-$("progressBar").style.width=
-Math.max(0,Math.min(100,n))+"%";
+$("progressBar").style.width =
+Math.max(0,Math.min(100,percent))+"%";
 
-$("status").innerHTML=
-"<strong>"+text+"</strong>";
+$("status").textContent = text;
 
 }
 
 
 function readSettings(){
 
-const lang=$("language").value;
-
 return {
 
-topic:$("topic").value.trim(),
+topic:$("topic").value.trim() || "Your Topic",
 
 duration:Number($("duration").value),
 
-language:lang,
+language:$("language").value,
 
-languageName:languages[lang]?.name||lang,
+languageName:
+languages[$("language").value]?.name ||
+$("language").value,
 
 audience:$("audience").value,
 
@@ -437,63 +427,77 @@ volume:Number($("volume").value)
 }
 
 
+function abortGeneration(){
+
+if(generationController){
+
+try{
+generationController.abort();
+}catch(e){}
+
+generationController=null;
+
+}
+
+generationSeq++;
+
+}
+
+
 async function api(action,payload,signal){
 
-const res=await fetch(
-"/api/engine",
-{
+const res = await fetch("/api/engine",{
+
 method:"POST",
+
 headers:{
 "Content-Type":"application/json"
 },
+
 body:JSON.stringify({
 action,
 ...payload
 }),
-signal
-}
-);
 
-const ct=res.headers.get("content-type")||"";
+signal
+
+});
+
+const contentType =
+res.headers.get("content-type") || "";
 
 if(!res.ok){
 
-let msg="Request failed";
+let message="Request failed";
 
 try{
 
-msg=
-ct.includes("json")
-?
-(await res.json()).error
-:
-await res.text();
+if(contentType.includes("json")){
+
+const data=await res.json();
+
+message=data.error || message;
+
+}else{
+
+message=await res.text() || message;
+
+}
 
 }catch(e){}
 
-throw new Error(msg||"Request failed");
+throw new Error(message);
 
 }
 
-return ct.includes("json")
-?
-await res.json()
-:
-await res.blob();
+return contentType.includes("json")
+? await res.json()
+: await res.blob();
 
 }
 
 
-function clearVoice(){
-
-voiceBuffer=null;
-
-if(voiceBlobUrl){
-
-URL.revokeObjectURL(voiceBlobUrl);
-voiceBlobUrl=null;
-
-}
+function stopSpeech(){
 
 if("speechSynthesis" in window){
 
@@ -504,162 +508,68 @@ speechSynthesis.cancel();
 }
 
 
-function abortGeneration(){
+function getBrowserVoice(){
 
-generationSeq++;
-
-if(generationController){
-
-generationController.abort();
-generationController=null;
-
-}
-
-}
-
-
-async function decodeBlob(blob){
-
-const arrayBuffer=await blob.arrayBuffer();
-
-const AC=
-window.AudioContext||
-window.webkitAudioContext;
-
-if(!AC){
-
-throw new Error("Web Audio is not supported in this browser.");
-
-}
-
-const ac=new AC();
-
-try{
-
-const buffer=
-await ac.decodeAudioData(
-arrayBuffer.slice(0)
-);
-
-return buffer;
-
-}finally{
-
-await ac.close().catch(()=>{});
-
-}
-
-}
-
-
-/* ---------------- FALLBACK BROWSER VOICE ---------------- */
-
-function getFallbackVoice(){
-
-if(!("speechSynthesis" in window)){
-
+if(!("speechSynthesis" in window))
 return null;
-
-}
 
 const voices=speechSynthesis.getVoices();
 
-if(!voices.length){
-
-return null;
-
-}
-
-const wanted=
-languages[reel?.settings?.language]?.locale||
+const language =
+languages[reel?.settings?.language]?.locale ||
 "en-IN";
 
-const base=wanted.split("-")[0];
-
-let voice=
-voices.find(v=>
-v.lang.toLowerCase()===wanted.toLowerCase()
+const exact=voices.find(v =>
+v.lang.toLowerCase() === language.toLowerCase()
 );
 
-if(!voice){
+if(exact)return exact;
 
-voice=
-voices.find(v=>
-v.lang.toLowerCase().startsWith(base.toLowerCase())
-);
+const short=language.split("-")[0];
 
-}
-
-if(!voice){
-
-voice=
-voices.find(v=>
-v.default
-);
-
-}
-
-return voice||voices[0]||null;
+return voices.find(v =>
+v.lang.toLowerCase().startsWith(short.toLowerCase())
+) || voices[0] || null;
 
 }
 
 
 function speakFallback(){
 
-if(
-!reel||
-!("speechSynthesis" in window)
-){
-
+if(!reel || !("speechSynthesis" in window))
 return false;
 
-}
-
-speechSynthesis.cancel();
+stopSpeech();
 
 const text=[
 reel.hook,
-...reel.scenes.map(x=>x.text)
-].join(". ");
+...reel.scenes.map(scene=>scene.text)
+].join(" ");
 
-const utterance=
+const utterance =
 new SpeechSynthesisUtterance(text);
 
-const voice=getFallbackVoice();
+const voice=getBrowserVoice();
 
-if(voice){
-
+if(voice)
 utterance.voice=voice;
-utterance.lang=voice.lang;
 
-}else{
-
-utterance.lang=
-languages[reel.settings.language]?.locale||
+utterance.lang =
+languages[reel.settings.language]?.locale ||
 "en-IN";
 
-}
-
 if(reel.settings.voiceStyle==="Dramatic"){
-
 utterance.rate=.88;
 utterance.pitch=.82;
-
 }else if(reel.settings.voiceStyle==="Calm"){
-
 utterance.rate=.92;
 utterance.pitch=.92;
-
 }else if(reel.settings.voiceStyle==="Professional"){
-
 utterance.rate=1;
 utterance.pitch=1;
-
 }else{
-
 utterance.rate=1.08;
 utterance.pitch=1;
-
 }
 
 speechSynthesis.speak(utterance);
@@ -669,8 +579,6 @@ return true;
 }
 
 
-/* ---------------- GENERATION ---------------- */
-
 async function generateReel(){
 
 if(renderRunning)return;
@@ -679,19 +587,18 @@ abortGeneration();
 
 const mySeq=generationSeq;
 
-generationController=
-new AbortController();
+generationController=new AbortController();
 
-const signal=
-generationController.signal;
+const signal=generationController.signal;
 
 stopPreview();
 
-clearVoice();
-
 reel=null;
 
-setProgress(4,"Starting generation...");
+setProgress(
+4,
+"Starting generation..."
+);
 
 $("generateBtn").disabled=true;
 $("previewBtn").disabled=true;
@@ -701,25 +608,19 @@ try{
 
 const settings=readSettings();
 
-if(!settings.topic){
-
-throw new Error("Please enter a reel topic.");
-
-}
-
 setProgress(
 12,
-`Building ${settings.languageName} script...`
+`Building ${settings.languageName} script with OpenRouter...`
 );
 
-const data=
-await api(
+const data=await api(
 "generate",
 settings,
 signal
 );
 
-if(mySeq!==generationSeq)return;
+if(mySeq!==generationSeq)
+return;
 
 reel={
 ...data,
@@ -728,99 +629,30 @@ settings
 
 renderUI();
 
-setProgress(
-60,
-"Generating cloud voiceover..."
-);
-
-const tts=
-await api(
-"tts",
-{
-language:settings.language,
-languageName:settings.languageName,
-voiceStyle:settings.voiceStyle,
-text:[
-data.hook,
-...data.scenes.map(x=>x.text)
-].join("\n")
-},
-signal
-);
-
-if(mySeq!==generationSeq)return;
-
-
-/*
-IMPORTANT:
-The server can return either:
-
-1. Audio Blob = cloud TTS worked
-2. JSON fallback = cloud TTS unavailable
-
-Never try to decode the JSON as audio.
-*/
-
-if(tts instanceof Blob){
-
-voiceBlobUrl=
-URL.createObjectURL(tts);
-
-setProgress(
-82,
-"Preparing cloud voice..."
-);
-
-voiceBuffer=
-await decodeBlob(tts);
-
-if(mySeq!==generationSeq)return;
-
-$("voiceOutput").textContent=
-"Cloud voiceover generated successfully.";
-
 $("voiceMeta").innerHTML=
-`<span class="pill ok">Cloud TTS ready</span>
-<span class="pill">${languages[settings.language]?.name||settings.language}</span>
-<span class="pill">${voiceBuffer.duration.toFixed(1)}s audio</span>`;
-
-}else{
-
-voiceBuffer=null;
-voiceBlobUrl=null;
-
-$("voiceOutput").textContent=
-"Cloud voice unavailable. Browser voice fallback is ready for Preview.";
-
-$("voiceMeta").innerHTML=
-`<span class="pill ok">Browser voice fallback ready</span>
-<span class="pill">${languages[settings.language]?.name||settings.language}</span>
-<span class="pill warn">Cloud TTS unavailable</span>`;
-
-}
+`<span class="pill">Browser voice ready</span>
+<span class="pill">${settings.languageName}</span>
+<span class="pill">No Azure required</span>`;
 
 setProgress(
 100,
-voiceBuffer
-?
-"Reel ready. Cloud voiceover is ready."
-:
-"Reel ready. Browser voice fallback is ready for Preview."
+"Reel ready. Preview uses browser voice."
 );
 
 $("previewBtn").disabled=false;
 $("renderBtn").disabled=false;
 
-}catch(err){
+}catch(error){
 
-if(err.name==="AbortError")return;
+if(error.name==="AbortError")
+return;
 
-console.error(err);
+console.error(error);
 
 setProgress(
 0,
-err.message||
-"Generation failed. Check your API configuration."
+error.message ||
+"Generation failed. Check OpenRouter configuration."
 );
 
 }finally{
@@ -828,6 +660,7 @@ err.message||
 if(mySeq===generationSeq){
 
 $("generateBtn").disabled=false;
+
 generationController=null;
 
 }
@@ -837,171 +670,181 @@ generationController=null;
 }
 
 
-/* ---------------- UI ---------------- */
-
 function renderUI(){
 
-if(!reel)return;
+$("hookOutput").textContent =
+reel.hook || "";
 
-$("hookOutput").textContent=
-reel.hook||"";
+$("voiceOutput").textContent =
+[
+reel.hook,
+...reel.scenes.map(scene=>scene.text)
+].join("\n\n");
 
-$("captionOutput").textContent=
-reel.caption||"";
+$("captionOutput").textContent =
+`${reel.caption || ""}
 
-$("voiceOutput").textContent=
-"Preparing voiceover...";
+${(reel.hashtags || []).join(" ")}`;
 
-$("settingsOutput").textContent=
-`Topic: ${reel.settings.topic}
+const s=reel.settings;
 
-Duration: ${reel.settings.duration}s
+$("settingsOutput").textContent =
+`${s.duration}s • ${s.languageName} • ${s.audience} • ${s.contentStyle} • ${s.hookStyle} hook • ${s.voiceStyle} voice • ${s.visualStyle} • ${s.transition} • captions ${s.captions?"ON":"OFF"} • music ${s.music?"ON":"OFF"}`;
 
-Language: ${reel.settings.languageName}
-
-Audience: ${reel.settings.audience}
-
-Style: ${reel.settings.contentStyle}
-
-Voice: ${reel.settings.voiceStyle}
-
-Visual: ${reel.settings.visualStyle}`;
-
-$("timeline").innerHTML=
-reel.scenes.map(scene=>`
-
-<div class="scene">
-
-<div class="sceneNum">
-SCENE ${scene.index}
-</div>
-
-<div>
-
-<div class="sceneTitle">
-${escapeHTML(scene.title||"")}
-</div>
-
-<div class="sceneText">
-${escapeHTML(scene.text||"")}
-</div>
-
-</div>
-
-<div class="sceneTime">
-${Number(scene.duration||0).toFixed(1)}s
-</div>
-
-</div>
-
-`).join("");
+renderTimeline();
 
 drawFrame(0);
 
 }
 
 
-function escapeHTML(text){
-
-return String(text||"")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
-
-}
-
-
-/* ---------------- SCENES ---------------- */
-
 function getSegments(){
 
-if(!reel)return[];
+if(!reel)
+return [];
 
-const segments=[];
+const items=[
+{
+title:"Hook",
+text:reel.hook,
+isHook:true
+},
+...reel.scenes.map(scene=>({
+...scene,
+isHook:false
+}))
+];
 
-const hookDuration=
-Math.min(
-4,
-Math.max(
-2,
-reel.settings.duration*.12
-)
+const totalText=
+items.reduce(
+(total,item)=>
+total+Math.max(1,item.text.length),
+0
 );
 
-segments.push({
-start:0,
-end:hookDuration,
-index:0,
-isHook:true,
-title:"HOOK",
-text:reel.hook||reel.settings.topic
-});
+let cursor=0;
 
-const sceneCount=
-reel.scenes.length||6;
+return items.map((item,index)=>{
 
-const remaining=
-Math.max(
-.1,
-reel.settings.duration-hookDuration
+const duration=
+reel.settings.duration *
+(
+Math.max(1,item.text.length) /
+totalText
 );
 
-const each=
-remaining/sceneCount;
+const segment={
+...item,
+start:cursor,
+end:cursor+duration,
+index
+};
 
-reel.scenes.forEach((scene,i)=>{
+cursor+=duration;
 
-segments.push({
-
-start:
-hookDuration+i*each,
-
-end:
-hookDuration+(i+1)*each,
-
-index:
-i+1,
-
-isHook:false,
-
-title:scene.title||`Scene ${i+1}`,
-
-text:scene.text||""
+return segment;
 
 });
-
-});
-
-return segments;
 
 }
 
 
-/* ---------------- VISUAL ENGINE ---------------- */
+function escapeHtml(value){
+
+return String(value ?? "").replace(
+/[&<>"']/g,
+char=>({
+
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+
+}[char])
+);
+
+}
+
+
+function renderTimeline(){
+
+const segments=getSegments();
+
+$("timeline").innerHTML =
+segments
+.filter(segment=>!segment.isHook)
+.map((segment,index)=>`
+
+<div class="scene">
+
+<div class="sceneNum">
+SCENE ${index+1}
+</div>
+
+<div>
+
+<div class="sceneTitle">
+${escapeHtml(segment.title || `Scene ${index+1}`)}
+</div>
+
+<div class="sceneText">
+${escapeHtml(segment.text)}
+</div>
+
+</div>
+
+<div class="sceneTime">
+${segment.start.toFixed(1)}–${segment.end.toFixed(1)}s
+</div>
+
+</div>
+
+`).join("");
+
+}
+
 
 function colors(style,topic){
 
-if(style==="Neon"){
+const t=topic.toLowerCase();
 
-return["#190b2d","#40105c"];
+if(
+t.includes("ferrari") ||
+t.includes("bmw") ||
+t.includes("car")
+){
+
+if(style==="Neon")
+return ["#190b1b","#081a2d"];
+
+if(style==="Minimal")
+return ["#171717","#333333"];
+
+return ["#160d0a","#182331"];
 
 }
 
-if(style==="Modern"){
+if(
+t.includes("chandrayaan") ||
+t.includes("moon") ||
+t.includes("space")
+){
 
-return["#061525","#12395d"];
+if(style==="Neon")
+return ["#170f2c","#071c2b"];
+
+return ["#090d1d","#10264d"];
 
 }
 
-if(style==="Minimal"){
+if(style==="Neon")
+return ["#230f2b","#06182d"];
 
-return["#151719","#2c3034"];
+if(style==="Minimal")
+return ["#151719","#2c3034"];
 
-}
-
-return["#0b1020","#1b315f"];
+return ["#0b1020","#1b315f"];
 
 }
 
@@ -1011,7 +854,11 @@ function roundRect(c,x,y,w,h,r){
 c.beginPath();
 
 c.roundRect(
-x,y,w,h,r
+x,
+y,
+w,
+h,
+r
 );
 
 c.fill();
@@ -1025,10 +872,8 @@ ctx.font=font;
 
 const words=
 /\s/.test(text)
-?
-text.split(/\s+/)
-:
-[...text];
+? text.split(/\s+/)
+: [...text];
 
 const lines=[];
 
@@ -1038,10 +883,10 @@ for(const word of words){
 
 const test=
 line
-?
-line+" "+word
-:
-word;
+? line+
+(/\s/.test(text)?" ":"")+
+word
+: word;
 
 if(
 ctx.measureText(test).width<=maxWidth
@@ -1051,7 +896,8 @@ line=test;
 
 }else{
 
-if(line)lines.push(line);
+if(line)
+lines.push(line);
 
 line=word;
 
@@ -1059,9 +905,10 @@ line=word;
 
 }
 
-if(line)lines.push(line);
+if(line)
+lines.push(line);
 
-return lines.length?lines:[""];
+return lines.length ? lines : [""];
 
 }
 
@@ -1079,9 +926,7 @@ alpha=1
 ctx.save();
 
 ctx.globalAlpha=alpha;
-
 ctx.fillStyle="#fff";
-
 ctx.textAlign="center";
 
 const lines=
@@ -1094,12 +939,14 @@ font
 const total=
 lines.length*lineHeight;
 
-lines.forEach((line,i)=>{
+lines.forEach((line,index)=>{
 
 ctx.fillText(
 line,
 x,
-y-total/2+i*lineHeight+lineHeight*.25
+y-total/2+
+index*lineHeight+
+lineHeight*.25
 );
 
 });
@@ -1118,36 +965,23 @@ local
 ctx.save();
 
 let scale=1;
+let y=canvas.height*.82;
 
-let cy=canvas.height*.82;
+if(animation==="Pop")
+scale=.88+Math.min(.12,local*.6);
 
-if(animation==="Pop"){
-
-scale=
-.88+
-Math.min(.12,local*.6);
-
-}
-
-if(animation==="Slide"){
-
-cy=
+if(animation==="Slide")
+y=
 canvas.height*.9-
 local*canvas.height*.08;
 
-}
-
-if(animation==="Fade"){
-
+if(animation==="Fade")
 ctx.globalAlpha=
 Math.min(1,local*5);
 
-}
-
 if(animation==="Type"){
 
-text=
-text.slice(
+text=text.slice(
 0,
 Math.max(
 1,
@@ -1162,13 +996,10 @@ Math.min(1,local*1.8)
 
 ctx.translate(
 canvas.width/2,
-cy
+y
 );
 
-ctx.scale(
-scale,
-scale
-);
+ctx.scale(scale,scale);
 
 const lines=
 wrapText(
@@ -1177,7 +1008,7 @@ text,
 "bold 22px Arial"
 );
 
-const h=
+const height=
 lines.length*34+34;
 
 ctx.fillStyle=
@@ -1186,26 +1017,23 @@ ctx.fillStyle=
 roundRect(
 ctx,
 -230,
--h/2,
+-height/2,
 460,
-h,
+height,
 18
 );
 
 ctx.fillStyle="#fff";
-
-ctx.font=
-"bold 22px Arial";
-
+ctx.font="bold 22px Arial";
 ctx.textAlign="center";
 
-lines.forEach((line,i)=>{
+lines.forEach((line,index)=>{
 
 ctx.fillText(
 line,
 0,
 -(lines.length-1)*17+
-i*34+
+index*34+
 8
 );
 
@@ -1223,20 +1051,19 @@ if(!reel)return;
 const W=canvas.width;
 const H=canvas.height;
 
-const segments=
-getSegments();
+const segments=getSegments();
 
-let seg=
+let segment=
 segments[segments.length-1];
 
-for(const s of segments){
+for(const item of segments){
 
 if(
-seconds>=s.start &&
-seconds<=s.end
+seconds>=item.start &&
+seconds<=item.end
 ){
 
-seg=s;
+segment=item;
 break;
 
 }
@@ -1248,10 +1075,10 @@ Math.max(
 0,
 Math.min(
 1,
-(seconds-seg.start)/
+(seconds-segment.start) /
 Math.max(
 .001,
-seg.end-seg.start
+segment.end-segment.start
 )
 )
 );
@@ -1264,10 +1091,7 @@ reel.settings.topic
 
 const gradient=
 ctx.createLinearGradient(
-0,
-0,
-W,
-H
+0,0,W,H
 );
 
 gradient.addColorStop(
@@ -1281,16 +1105,7 @@ c[1]
 );
 
 ctx.fillStyle=gradient;
-
-ctx.fillRect(
-0,
-0,
-W,
-H
-);
-
-
-/* animated glow */
+ctx.fillRect(0,0,W,H);
 
 const glowX=
 W*
@@ -1331,16 +1146,7 @@ glow.addColorStop(
 );
 
 ctx.fillStyle=glow;
-
-ctx.fillRect(
-0,
-0,
-W,
-H
-);
-
-
-/* moving lines */
+ctx.fillRect(0,0,W,H);
 
 ctx.globalAlpha=.24;
 ctx.strokeStyle="#fff";
@@ -1352,14 +1158,8 @@ const px=
 (seconds*70+i*130)%W;
 
 ctx.beginPath();
-
 ctx.moveTo(px,0);
-
-ctx.lineTo(
-px-90,
-H
-);
-
+ctx.lineTo(px-90,H);
 ctx.stroke();
 
 }
@@ -1367,32 +1167,23 @@ ctx.stroke();
 ctx.globalAlpha=1;
 
 ctx.textAlign="left";
-
 ctx.fillStyle=
 "rgba(255,255,255,.55)";
-
-ctx.font=
-"bold 19px Arial";
+ctx.font="bold 19px Arial";
 
 ctx.fillText(
-seg.isHook
-?
-"HOOK"
-:
-`SCENE ${seg.index}`,
+segment.isHook
+?"HOOK"
+:`SCENE ${segment.index}`,
 34,
 55
 );
 
 let title=
-seg.title||"";
+segment.title || "";
 
-if(seg.isHook){
-
-title=
-reel.settings.topic;
-
-}
+if(segment.isHook)
+title=reel.settings.topic;
 
 drawCentered(
 title,
@@ -1404,7 +1195,7 @@ H*.31,
 );
 
 drawCentered(
-seg.text,
+segment.text,
 W/2,
 H*.48,
 430,
@@ -1416,7 +1207,7 @@ H*.48,
 if(reel.settings.captions){
 
 drawCaption(
-seg.text,
+segment.text,
 reel.settings.captionAnimation,
 local
 );
@@ -1424,12 +1215,9 @@ local
 }
 
 ctx.textAlign="left";
-
 ctx.fillStyle=
 "rgba(255,255,255,.42)";
-
-ctx.font=
-"bold 15px Arial";
+ctx.font="bold 15px Arial";
 
 ctx.fillText(
 "AI REEL MAKER",
@@ -1438,10 +1226,8 @@ H-34
 );
 
 ctx.textAlign="right";
-
 ctx.fillStyle=
 "rgba(255,255,255,.3)";
-
 ctx.font="12px Arial";
 
 ctx.fillText(
@@ -1456,87 +1242,22 @@ H-34
 }
 
 
-/* ---------------- AUDIO ---------------- */
-
-function connectVoiceAndMusic(
-audioContext,
-destination,
-withOutput
-){
-
-let voice=null;
-
-if(voiceBuffer){
-
-voice=
-audioContext.createBufferSource();
-
-voice.buffer=
-voiceBuffer;
-
-const voiceGain=
-audioContext.createGain();
-
-voiceGain.gain.value=.92;
-
-voice.connect(voiceGain);
-
-voiceGain.connect(destination);
-
-if(withOutput){
-
-voiceGain.connect(
-audioContext.destination
-);
-
-}
-
-activeNodes.push(
-voice,
-voiceGain
-);
-
-}
-
-if(
-reel &&
-reel.settings.music
-){
-
-createMusic(
-audioContext,
-destination,
-withOutput
-);
-
-}
-
-return voice;
-
-}
-
-
 function createMusic(
-ac,
+audioContext,
 destination,
 withOutput
 ){
 
 const gain=
-ac.createGain();
+audioContext.createGain();
 
 gain.gain.value=
 (reel.settings.volume/100)*.11;
 
 gain.connect(destination);
 
-if(withOutput){
-
-gain.connect(
-ac.destination
-);
-
-}
+if(withOutput)
+gain.connect(audioContext.destination);
 
 const notes=[
 110,
@@ -1557,60 +1278,54 @@ reel.settings.duration/.5
 for(let i=0;i<beats;i++){
 
 const osc=
-ac.createOscillator();
+audioContext.createOscillator();
 
-const env=
-ac.createGain();
+const envelope=
+audioContext.createGain();
 
 osc.type=
 reel.settings.contentStyle==="Cinematic"
-?
-"sine"
-:
-"triangle";
+?"sine"
+:"triangle";
 
 osc.frequency.value=
 notes[i%notes.length]*
-(
-i%8===0
-?
-2
-:
-1
-);
+(i%8===0?2:1);
 
-const t=i*.5;
+const time=i*.5;
 
-env.gain.setValueAtTime(
+envelope.gain.setValueAtTime(
 0,
-ac.currentTime+t
+audioContext.currentTime+time
 );
 
-env.gain.linearRampToValueAtTime(
+envelope.gain.linearRampToValueAtTime(
 .34,
-ac.currentTime+t+.035
+audioContext.currentTime+
+time+.035
 );
 
-env.gain.exponentialRampToValueAtTime(
+envelope.gain.exponentialRampToValueAtTime(
 .001,
-ac.currentTime+t+.46
+audioContext.currentTime+
+time+.46
 );
 
-osc.connect(env);
-
-env.connect(gain);
+osc.connect(envelope);
+envelope.connect(gain);
 
 osc.start(
-ac.currentTime+t
+audioContext.currentTime+time
 );
 
 osc.stop(
-ac.currentTime+t+.47
+audioContext.currentTime+
+time+.47
 );
 
 activeNodes.push(
 osc,
-env
+envelope
 );
 
 }
@@ -1620,7 +1335,48 @@ activeNodes.push(gain);
 }
 
 
-/* ---------------- PREVIEW ---------------- */
+function stopPreview(){
+
+if(previewRAF){
+
+cancelAnimationFrame(
+previewRAF
+);
+
+previewRAF=null;
+
+}
+
+stopSpeech();
+
+for(const node of activeNodes){
+
+try{
+
+if(node.stop)
+node.stop();
+
+}catch(e){}
+
+}
+
+activeNodes=[];
+
+if(activeAudioContext){
+
+activeAudioContext
+.close()
+.catch(()=>{});
+
+activeAudioContext=null;
+
+}
+
+if(reel)
+drawFrame(0);
+
+}
+
 
 async function preview(){
 
@@ -1635,19 +1391,18 @@ return;
 
 }
 
-if(renderRunning)return;
+if(renderRunning)
+return;
 
 stopPreview();
 
-const AC=
-window.AudioContext||
-window.webkitAudioContext;
-
-if(!AC){
+if(
+!("speechSynthesis" in window)
+){
 
 setProgress(
 0,
-"Web Audio is not supported in this browser."
+"Browser speech is not supported. Try Chrome."
 );
 
 return;
@@ -1655,60 +1410,40 @@ return;
 }
 
 activeAudioContext=
-new AC();
+new(
+window.AudioContext ||
+window.webkitAudioContext
+)();
 
 await activeAudioContext.resume();
 
-const voice=
-connectVoiceAndMusic(
+if(reel.settings.music){
+
+createMusic(
 activeAudioContext,
 activeAudioContext.destination,
 true
 );
 
+}
+
 const start=
 activeAudioContext.currentTime;
 
-if(voice){
-
-voice.start();
-
-setProgress(
-0,
-"Playing preview with cloud voiceover..."
-);
-
-}else{
-
-const fallback=
 speakFallback();
 
-if(fallback){
-
 setProgress(
 0,
-"Playing preview with browser voice fallback..."
+"Playing preview with browser voice..."
 );
-
-}else{
-
-setProgress(
-0,
-"Playing preview with music and visuals..."
-);
-
-}
-
-}
-
 
 const tick=()=>{
 
-if(!activeAudioContext)return;
+if(!activeAudioContext)
+return;
 
 const elapsed=
-activeAudioContext.currentTime-
-start;
+activeAudioContext.currentTime-start;
 
 drawFrame(
 Math.min(
@@ -1718,8 +1453,7 @@ reel.settings.duration
 );
 
 if(
-elapsed<
-reel.settings.duration
+elapsed<reel.settings.duration
 ){
 
 previewRAF=
@@ -1744,82 +1478,20 @@ requestAnimationFrame(tick);
 }
 
 
-/* ---------------- STOP ---------------- */
-
-function stopPreview(){
-
-if(previewRAF){
-
-cancelAnimationFrame(
-previewRAF
-);
-
-previewRAF=null;
-
-}
-
-if(
-"speechSynthesis" in window
-){
-
-speechSynthesis.cancel();
-
-}
-
-for(const node of activeNodes){
-
-try{
-
-node.stop?.();
-
-}catch(e){}
-
-}
-
-activeNodes=[];
-
-if(activeAudioContext){
-
-activeAudioContext
-.close()
-.catch(()=>{});
-
-activeAudioContext=null;
-
-}
-
-if(reel){
-
-drawFrame(0);
-
-}
-
-}
-
-
-/* ---------------- RENDER ---------------- */
-
 function supportedMime(){
 
-if(!window.MediaRecorder){
-
+if(!window.MediaRecorder)
 return "";
 
-}
-
 const types=[
-
 "video/webm;codecs=vp9,opus",
-
 "video/webm;codecs=vp8,opus",
-
 "video/webm"
-
 ];
 
 return types.find(
 type=>MediaRecorder.isTypeSupported(type)
-)||"";
+) || "";
 
 }
 
@@ -1837,18 +1509,19 @@ return;
 
 }
 
-if(renderRunning)return;
+if(renderRunning)
+return;
 
 stopPreview();
 
 if(
-!window.MediaRecorder||
+!window.MediaRecorder ||
 !canvas.captureStream
 ){
 
 setProgress(
 0,
-"This browser does not support reel rendering. Please use Chrome."
+"This browser does not support rendering. Please use Chrome."
 );
 
 return;
@@ -1863,39 +1536,19 @@ $("generateBtn").disabled=true;
 
 setProgress(
 2,
-voiceBuffer
-?
-"Preparing cloud voice + render audio..."
-:
-"Preparing render audio..."
+"Preparing render..."
 );
 
-const AC=
-window.AudioContext||
-window.webkitAudioContext;
+const audioContext=
+new(
+window.AudioContext ||
+window.webkitAudioContext
+)();
 
-if(!AC){
+await audioContext.resume();
 
-renderRunning=false;
-
-$("renderBtn").disabled=false;
-$("previewBtn").disabled=false;
-$("generateBtn").disabled=false;
-
-setProgress(
-0,
-"Web Audio is not supported."
-);
-
-return;
-
-}
-
-const ac=new AC();
-
-await ac.resume();
-
-activeAudioContext=ac;
+activeAudioContext=
+audioContext;
 
 activeNodes=[];
 
@@ -1903,33 +1556,34 @@ const videoStream=
 canvas.captureStream(30);
 
 const destination=
-ac.createMediaStreamDestination();
+audioContext.createMediaStreamDestination();
 
-const voice=
-connectVoiceAndMusic(
-ac,
+if(reel.settings.music){
+
+createMusic(
+audioContext,
 destination,
 false
 );
+
+}
 
 const combined=
 new MediaStream();
 
 videoStream
 .getVideoTracks()
-.forEach(
-track=>combined.addTrack(track)
+.forEach(track=>
+combined.addTrack(track)
 );
 
-destination
-.stream
+destination.stream
 .getAudioTracks()
-.forEach(
-track=>combined.addTrack(track)
+.forEach(track=>
+combined.addTrack(track)
 );
 
-const mime=
-supportedMime();
+const mime=supportedMime();
 
 let recorder;
 
@@ -1939,62 +1593,31 @@ recorder=
 new MediaRecorder(
 combined,
 mime
-?
-{
+?{
 mimeType:mime,
 videoBitsPerSecond:5000000,
 audioBitsPerSecond:128000
 }
-:
-undefined
+:undefined
 );
 
 }catch(error){
 
-console.error(error);
-
-try{
-
 recorder=
 new MediaRecorder(combined);
-
-}catch(secondError){
-
-videoStream
-.getTracks()
-.forEach(t=>t.stop());
-
-await ac.close().catch(()=>{});
-
-activeAudioContext=null;
-activeNodes=[];
-renderRunning=false;
-
-$("renderBtn").disabled=false;
-$("previewBtn").disabled=false;
-$("generateBtn").disabled=false;
-
-setProgress(
-0,
-"Your browser could not start the video recorder."
-);
-
-return;
-
-}
 
 }
 
 const chunks=[];
 
-const done=
+const finished=
 new Promise(resolve=>{
 
 recorder.ondataavailable=
 event=>{
 
 if(
-event.data&&
+event.data &&
 event.data.size
 ){
 
@@ -2008,31 +1631,27 @@ recorder.onerror=
 event=>{
 
 resolve(
-event.error||
+event.error ||
 new Error("Recorder error")
 );
 
 };
 
-recorder.onstop=()=>resolve(null);
+recorder.onstop=()=>{
+resolve(null);
+};
 
 });
 
 recorder.start(1000);
 
 const start=
-ac.currentTime;
-
-if(voice){
-
-voice.start();
-
-}
+audioContext.currentTime;
 
 function frame(){
 
 const elapsed=
-ac.currentTime-start;
+audioContext.currentTime-start;
 
 drawFrame(
 Math.min(
@@ -2041,22 +1660,19 @@ reel.settings.duration
 )
 );
 
-const progress=
+const percent=
 Math.min(
 99,
-elapsed/
-reel.settings.duration*
-100
+elapsed/reel.settings.duration*100
 );
 
 setProgress(
-progress,
-`Rendering ${Math.floor(progress)}%...`
+percent,
+`Rendering ${Math.floor(percent)}%...`
 );
 
 if(
-elapsed<
-reel.settings.duration
+elapsed<reel.settings.duration
 ){
 
 requestAnimationFrame(frame);
@@ -2065,11 +1681,9 @@ requestAnimationFrame(frame);
 
 setTimeout(
 ()=>{
-try{
 recorder.stop();
-}catch(e){}
 },
-350
+300
 );
 
 }
@@ -2079,25 +1693,20 @@ recorder.stop();
 requestAnimationFrame(frame);
 
 const error=
-await done;
+await finished;
 
 activeAudioContext=null;
-
 activeNodes=[];
 
 videoStream
 .getTracks()
-.forEach(
-track=>track.stop()
-);
+.forEach(track=>track.stop());
 
 combined
 .getTracks()
-.forEach(
-track=>track.stop()
-);
+.forEach(track=>track.stop());
 
-await ac
+await audioContext
 .close()
 .catch(()=>{});
 
@@ -2114,7 +1723,7 @@ console.error(error);
 setProgress(
 0,
 "Render failed: "+
-(error.message||"MediaRecorder error")
+(error.message || "MediaRecorder error")
 );
 
 return;
@@ -2126,7 +1735,7 @@ new Blob(
 chunks,
 {
 type:
-recorder.mimeType||
+recorder.mimeType ||
 "video/webm"
 }
 );
@@ -2134,19 +1743,19 @@ recorder.mimeType||
 const url=
 URL.createObjectURL(blob);
 
-const a=
+const link=
 document.createElement("a");
 
-a.href=url;
+link.href=url;
 
-a.download=
+link.download=
 `AI-Reel-${Date.now()}.webm`;
 
-document.body.appendChild(a);
+document.body.appendChild(link);
 
-a.click();
+link.click();
 
-a.remove();
+link.remove();
 
 setTimeout(
 ()=>{
@@ -2155,33 +1764,13 @@ URL.revokeObjectURL(url);
 10000
 );
 
-if(voice){
-
 setProgress(
 100,
-"Render complete. Downloaded video includes the cloud voiceover and background music."
-);
-
-}else if(reel.settings.music){
-
-setProgress(
-100,
-"Render complete. Downloaded video includes visuals and background music. Browser voice fallback is used for Preview."
-);
-
-}else{
-
-setProgress(
-100,
-"Render complete. Downloaded video contains the generated visuals."
+"Render complete. Downloaded video includes visuals and background music."
 );
 
 }
 
-}
-
-
-/* ---------------- NEW REEL ---------------- */
 
 function newReel(){
 
@@ -2189,15 +1778,13 @@ abortGeneration();
 
 stopPreview();
 
-clearVoice();
-
 reel=null;
 
 $("hookOutput").textContent=
 "Generate a reel first.";
 
 $("voiceOutput").textContent=
-"Voiceover will appear here.";
+"Voiceover script will appear here.";
 
 $("voiceMeta").textContent="";
 
@@ -2210,10 +1797,6 @@ $("settingsOutput").textContent=
 $("timeline").innerHTML=
 '<div class="muted">Generate a reel to create scenes.</div>';
 
-$("previewBtn").disabled=true;
-
-$("renderBtn").disabled=true;
-
 setProgress(
 0,
 "Ready for a new reel."
@@ -2223,8 +1806,6 @@ drawBlank();
 
 }
 
-
-/* ---------------- BLANK CANVAS ---------------- */
 
 function drawBlank(){
 
@@ -2251,8 +1832,7 @@ canvas.width/2,
 canvas.height/2-10
 );
 
-ctx.font=
-"16px Arial";
+ctx.font="16px Arial";
 
 ctx.fillStyle=
 "rgba(255,255,255,.45)";
@@ -2265,8 +1845,6 @@ canvas.height/2+22
 
 }
 
-
-/* ---------------- EVENTS ---------------- */
 
 $("volume").addEventListener(
 "input",
@@ -2281,11 +1859,12 @@ $("language").addEventListener(
 "change",
 ()=>{
 
-const lang=
-$("language").value;
+const selected=
+languages[$("language").value];
 
 $("languageInfo").textContent=
-`${languages[lang]?.name||lang} is selected. Nothing regenerates until you press Generate Reel.`;
+`${selected?.name ||
+$("language").value} is selected. Nothing regenerates until you press Generate Reel.`;
 
 }
 );
@@ -2296,12 +1875,10 @@ $("generateBtn").addEventListener(
 generateReel
 );
 
-
 $("previewBtn").addEventListener(
 "click",
 preview
 );
-
 
 $("stopBtn").addEventListener(
 "click",
@@ -2309,44 +1886,24 @@ $("stopBtn").addEventListener(
 
 stopPreview();
 
-if(reel){
-
+if(reel)
 setProgress(
 100,
 "Stopped."
 );
 
 }
-
-}
 );
-
 
 $("renderBtn").addEventListener(
 "click",
 renderReel
 );
 
-
 $("newBtn").addEventListener(
 "click",
 newReel
 );
-
-
-/* Some browsers load voices asynchronously. */
-
-if("speechSynthesis" in window){
-
-speechSynthesis.onvoiceschanged=
-()=>{
-
-/* Refresh available browser voices. */
-
-};
-
-}
-
 
 drawBlank();
 
