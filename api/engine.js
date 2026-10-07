@@ -1,4 +1,4 @@
-const OPENAI_MODEL = process.env.OPENAI_MODEL || "gpt-4.1-mini";
+const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "openrouter/free";
 
 const LANGUAGE_LOCALES = {
   en: "en-IN", hi: "hi-IN", bn: "bn-IN", or: "or-IN", ta: "ta-IN", te: "te-IN",
@@ -20,12 +20,6 @@ function cleanJsonText(text) {
   const fenced = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
   return (fenced ? fenced[1] : text).trim();
 }
-
-/* ---------------------------------------------------------
-   LOCAL FALLBACK
-   Used only when OpenAI is unavailable or has no credits.
-   This allows the editor/render pipeline to be tested.
---------------------------------------------------------- */
 
 function localFallbackScript(body) {
   const {
@@ -49,36 +43,18 @@ function localFallbackScript(body) {
   const hook = hooks[hookStyle] || hooks.Curiosity;
 
   const scenes = [
-    {
-      title: "The topic",
-      text: `${topicText} has attracted attention for a reason.`
-    },
-    {
-      title: "Why it matters",
-      text: `There is more to ${topicText} than what we see at first.`
-    },
-    {
-      title: "Key point",
-      text: `One important part of the story is how ${topicText} has developed over time.`
-    },
-    {
-      title: "The bigger picture",
-      text: `${topicText} can be understood better by looking at its wider impact.`
-    },
-    {
-      title: "What to remember",
-      text: `The most important thing is to separate confirmed information from assumptions.`
-    },
-    {
-      title: "Final thought",
-      text: `That is the quick story behind ${topicText}.`
-    }
+    { title: "The topic", text: `${topicText} has attracted attention for a reason.` },
+    { title: "Why it matters", text: `There is more to ${topicText} than what we see at first.` },
+    { title: "Key point", text: `One important part of the story is how ${topicText} has developed over time.` },
+    { title: "The bigger picture", text: `${topicText} can be understood better by looking at its wider impact.` },
+    { title: "What to remember", text: `The most important thing is to separate confirmed information from assumptions.` },
+    { title: "Final thought", text: `That is the quick story behind ${topicText}.` }
   ];
 
   return {
     hook,
     scenes,
-    caption: `${topicText} — a quick ${contentStyle.toLowerCase()} reel for ${audience.toLowerCase()} viewers.`,
+    caption: `${topicText} — a quick ${String(contentStyle).toLowerCase()} reel for ${String(audience).toLowerCase()} viewers.`,
     hashtags: [
       "#AIReelMaker",
       "#Shorts",
@@ -86,18 +62,14 @@ function localFallbackScript(body) {
       "#" + topicText.replace(/[^a-zA-Z0-9]/g, "")
     ],
     fallback: true,
-    fallbackReason: "OpenAI was unavailable or had no available credits.",
+    fallbackReason: "OpenRouter was unavailable or the selected free model could not respond.",
     language: languageName,
     duration
   };
 }
 
-/* ---------------------------------------------------------
-   OPENAI SCRIPT GENERATION
---------------------------------------------------------- */
-
 async function generateScript(body) {
-  const key = process.env.OPENAI_API_KEY;
+  const key = process.env.OPENROUTER_API_KEY;
 
   const {
     topic = "Your Topic",
@@ -108,11 +80,8 @@ async function generateScript(body) {
     hookStyle = "Curiosity"
   } = body;
 
-  /*
-   * If no OpenAI key exists, use local fallback.
-   */
   if (!key) {
-    console.warn("OPENAI_API_KEY is not configured. Using local fallback.");
+    console.warn("OPENROUTER_API_KEY is not configured. Using local fallback.");
     return localFallbackScript(body);
   }
 
@@ -134,7 +103,7 @@ Requirements:
 - Keep it concise enough for a spoken reel.
 - Hook should be strong and match the selected hook style.
 - Scene titles should be short.
-- Avoid unsupported exact statistics or claims you cannot justify from the topic alone.
+- Do not invent exact statistics, quotes, dates, or other precise claims unless they are clearly established by the topic/context.
 - Return ONLY valid JSON. No markdown and no extra text.
 
 JSON shape:
@@ -153,47 +122,54 @@ JSON shape:
 }`;
 
   try {
-    const r = await fetch("https://api.openai.com/v1/responses", {
+    const r = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${key}`,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "HTTP-Referer": "https://ai-reel-maker1.vercel.app",
+        "X-Title": "AI Reel Maker"
       },
       body: JSON.stringify({
-        model: OPENAI_MODEL,
-        input: prompt,
-        max_output_tokens: 1600
+        model: OPENROUTER_MODEL,
+        messages: [
+          {
+            role: "system",
+            content: "You create concise, accurate short-form reel scripts. Follow the requested output format exactly."
+          },
+          {
+            role: "user",
+            content: prompt
+          }
+        ],
+        temperature: 0.7,
+        max_tokens: 1800
       })
     });
 
-    const data = await r.json();
+    const data = await r.json().catch(() => ({}));
 
-    /*
-     * Important:
-     * If the account has no credits, rate limit, or another
-     * OpenAI problem occurs, do NOT crash the whole editor.
-     * Use the local test generator instead.
-     */
     if (!r.ok) {
       console.warn(
-        "OpenAI unavailable:",
+        "OpenRouter unavailable:",
         data?.error?.message || `HTTP ${r.status}`
       );
 
-      return localFallbackScript({
-        ...body,
-        fallbackReason: data?.error?.message || `OpenAI HTTP ${r.status}`
-      });
+      return localFallbackScript(body);
     }
 
-    const raw = cleanJsonText(data?.output_text || "");
+    const raw = cleanJsonText(
+      data?.choices?.[0]?.message?.content ||
+      data?.choices?.[0]?.text ||
+      ""
+    );
 
     let parsed;
 
     try {
       parsed = JSON.parse(raw);
     } catch (e) {
-      console.warn("OpenAI returned invalid JSON. Using fallback.");
+      console.warn("OpenRouter returned invalid JSON. Using fallback.");
       return localFallbackScript(body);
     }
 
@@ -202,7 +178,7 @@ JSON shape:
       !Array.isArray(parsed.scenes) ||
       parsed.scenes.length !== 6
     ) {
-      console.warn("OpenAI returned incomplete reel. Using fallback.");
+      console.warn("OpenRouter returned an incomplete reel. Using fallback.");
       return localFallbackScript(body);
     }
 
@@ -218,12 +194,13 @@ JSON shape:
       : [];
 
     parsed.fallback = false;
+    parsed.language = languageName;
+    parsed.duration = duration;
 
     return parsed;
-
   } catch (error) {
     console.warn(
-      "OpenAI request failed. Using local fallback:",
+      "OpenRouter request failed. Using local fallback:",
       error?.message || error
     );
 
@@ -231,18 +208,12 @@ JSON shape:
   }
 }
 
-/* ---------------------------------------------------------
-   AZURE SPEECH
---------------------------------------------------------- */
-
 async function listVoices() {
   const key = process.env.AZURE_SPEECH_KEY;
   const region = process.env.AZURE_SPEECH_REGION;
 
   if (!key || !region) {
-    throw new Error(
-      "AZURE_SPEECH_KEY and AZURE_SPEECH_REGION are not configured in Vercel."
-    );
+    throw new Error("Azure Speech is not configured.");
   }
 
   if (cache.voices && Date.now() < cache.expires) {
@@ -286,7 +257,6 @@ function pickVoice(voices, locale) {
   );
 
   if (neural) return neural;
-
   if (exact[0]) return exact[0];
 
   const base = locale.split("-")[0].toLowerCase();
@@ -314,18 +284,9 @@ function xmlEscape(s) {
 }
 
 function voiceProsody(style) {
-  if (style === "Energetic") {
-    return { rate: "+8%", pitch: "+4%" };
-  }
-
-  if (style === "Calm") {
-    return { rate: "-8%", pitch: "-2%" };
-  }
-
-  if (style === "Dramatic") {
-    return { rate: "-4%", pitch: "-6%" };
-  }
-
+  if (style === "Energetic") return { rate: "+8%", pitch: "+4%" };
+  if (style === "Calm") return { rate: "-8%", pitch: "-2%" };
+  if (style === "Dramatic") return { rate: "-4%", pitch: "-6%" };
   return { rate: "0%", pitch: "0%" };
 }
 
@@ -334,30 +295,23 @@ async function synthesize(body) {
   const region = process.env.AZURE_SPEECH_REGION;
 
   if (!key || !region) {
-    throw new Error(
-      "AZURE_SPEECH_KEY and AZURE_SPEECH_REGION are not configured in Vercel."
-    );
+    throw new Error("Azure Speech is not configured.");
   }
 
   const language = body.language || "en";
   const locale = LANGUAGE_LOCALES[language];
 
-  if (!locale) {
-    throw new Error("Selected language is not configured.");
-  }
+  if (!locale) throw new Error("Selected language is not configured.");
 
   const text = String(body.text || "").trim();
-
-  if (!text) {
-    throw new Error("No text supplied for voiceover.");
-  }
+  if (!text) throw new Error("No text supplied for voiceover.");
 
   const voices = await listVoices();
   const voice = pickVoice(voices, locale);
 
   if (!voice) {
     throw new Error(
-      `Azure Speech has no voice available for ${body.languageName || language} in this region.`
+      `Azure Speech has no voice available for ${body.languageName || language}.`
     );
   }
 
@@ -390,10 +344,7 @@ async function synthesize(body) {
 
   if (!r.ok) {
     const msg = await r.text().catch(() => "");
-
-    throw new Error(
-      `Azure TTS failed (${r.status}). ${msg.slice(0, 240)}`
-    );
+    throw new Error(`Azure TTS failed (${r.status}). ${msg.slice(0, 240)}`);
   }
 
   const audio = Buffer.from(await r.arrayBuffer());
@@ -404,10 +355,6 @@ async function synthesize(body) {
     locale
   };
 }
-
-/* ---------------------------------------------------------
-   VERCEL HANDLER
---------------------------------------------------------- */
 
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
@@ -423,16 +370,30 @@ module.exports = async function handler(req, res) {
     }
 
     if (body.action === "tts") {
-      const result = await synthesize(body);
+      try {
+        const result = await synthesize(body);
 
-      res.status(200)
-        .setHeader("Content-Type", "audio/mpeg")
-        .setHeader("Cache-Control", "no-store")
-        .setHeader("X-AI-Voice", result.voice)
-        .setHeader("X-AI-Locale", result.locale)
-        .send(result.audio);
+        res.status(200)
+          .setHeader("Content-Type", "audio/mpeg")
+          .setHeader("Cache-Control", "no-store")
+          .setHeader("X-AI-Voice", result.voice)
+          .setHeader("X-AI-Locale", result.locale)
+          .send(result.audio);
 
-      return;
+        return;
+      } catch (ttsError) {
+        console.warn(
+          "TTS unavailable. Returning a graceful no-audio response:",
+          ttsError?.message || ttsError
+        );
+
+        return json(res, 200, {
+          audio: null,
+          voice: null,
+          fallback: true,
+          fallbackReason: ttsError?.message || "Voice provider unavailable."
+        });
+      }
     }
 
     return json(res, 400, {
