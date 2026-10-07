@@ -3,88 +3,2354 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AI Reel Maker — Stage 8.5 Fixed</title>
+<title>AI Reel Maker — Stage 8.5 Voice Fixed</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;background:#080a0f;color:#fff;font-family:Arial,Helvetica,sans-serif}.app{max-width:1250px;margin:auto;padding:22px}header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.logo{font-size:26px;font-weight:800}.badge{padding:7px 12px;border:1px solid #303747;border-radius:20px;color:#9eacff;font-size:12px}.grid{display:grid;grid-template-columns:370px 1fr;gap:20px}.panel{background:#11151d;border:1px solid #252c38;border-radius:18px;padding:18px}.section{margin-bottom:20px}.section h3{font-size:15px;margin:0 0 12px}label{display:block;font-size:12px;color:#9da8b9;margin-bottom:6px}input,select{width:100%;padding:11px;background:#0a0d13;color:white;border:1px solid #303746;border-radius:10px;outline:none}input:focus,select:focus{border-color:#7180ff}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.setting{margin-bottom:12px}.check{display:flex;align-items:center;gap:8px;font-size:13px;color:#dce2eb;margin:9px 0}.check input{width:auto}button{font:inherit;cursor:pointer}.primary{width:100%;padding:14px;border:0;border-radius:12px;background:#6878ff;color:white;font-weight:800}.primary:disabled,.secondary:disabled{opacity:.55;cursor:not-allowed}.secondary{padding:11px;border-radius:10px;border:1px solid #343d4d;background:#171c25;color:#fff}.danger{border-color:#653a42;background:#24161a;color:#ffb6c0}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.status{margin-top:13px;padding:11px;background:#0b0f16;border:1px solid #242b37;border-radius:10px;color:#adb8c9;font-size:13px}.progress{height:7px;background:#252b36;border-radius:10px;overflow:hidden;margin-top:9px}.progressBar{height:100%;width:0;background:#7280ff;transition:.2s}.previewArea{display:grid;grid-template-columns:minmax(250px,390px) 1fr;gap:20px}.phone{width:100%;max-width:390px;aspect-ratio:9/16;background:#050609;border:1px solid #303744;border-radius:22px;overflow:hidden;margin:auto}canvas{width:100%;height:100%;display:block}.info{display:flex;flex-direction:column;gap:12px}.card{background:#0c1017;border:1px solid #252d3a;border-radius:14px;padding:15px}.card h4{margin:0 0 9px;font-size:14px}.card p{margin:0;color:#b7c0cf;font-size:13px;line-height:1.5;white-space:pre-wrap}.timeline{margin-top:18px}.scene{display:grid;grid-template-columns:62px 1fr 65px;gap:10px;padding:11px 0;border-bottom:1px solid #222935}.scene:last-child{border-bottom:0}.sceneNum{color:#7d8bff;font-weight:800;font-size:12px}.sceneTitle{font-size:13px;font-weight:700}.sceneText{margin-top:4px;color:#9da8b8;font-size:12px}.sceneTime{text-align:right;color:#8995a6;font-size:12px}.muted{color:#8994a5;font-size:12px}.languageInfo{padding:10px;border:1px solid #293142;background:#0b0f16;border-radius:10px;font-size:12px;color:#9da8b8;margin-top:8px}.hint{font-size:11px;color:#7f8a9b;line-height:1.45;margin-top:7px}.pill{display:inline-block;border:1px solid #333d4f;background:#10151e;border-radius:999px;padding:4px 8px;font-size:11px;color:#aeb9cc;margin:2px 4px 0 0}.ok{color:#9fe7b2}.warn{color:#ffd47a}.error{color:#ff9ba8}.smallBtn{padding:7px 9px;font-size:11px;border-radius:8px}.status strong{color:#fff}.audioReady{margin-top:8px}.hidden{display:none!important}@media(max-width:900px){.grid{grid-template-columns:1fr}.previewArea{grid-template-columns:1fr}.phone{max-width:330px}}
+*{box-sizing:border-box}
+body{margin:0;background:#080a0f;color:#fff;font-family:Arial,Helvetica,sans-serif}
+.app{max-width:1250px;margin:auto;padding:22px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.logo{font-size:26px;font-weight:800}
+.badge{padding:7px 12px;border:1px solid #303747;border-radius:20px;color:#9eacff;font-size:12px}
+.grid{display:grid;grid-template-columns:370px 1fr;gap:20px}
+.panel{background:#11151d;border:1px solid #252c38;border-radius:18px;padding:18px}
+.section{margin-bottom:20px}
+.section h3{font-size:15px;margin:0 0 12px}
+label{display:block;font-size:12px;color:#9da8b9;margin-bottom:6px}
+input,select{width:100%;padding:11px;background:#0a0d13;color:white;border:1px solid #303746;border-radius:10px;outline:none}
+input:focus,select:focus{border-color:#7180ff}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.setting{margin-bottom:12px}
+.check{display:flex;align-items:center;gap:8px;font-size:13px;color:#dce2eb;margin:9px 0}
+.check input{width:auto}
+button{font:inherit;cursor:pointer}
+.primary{width:100%;padding:14px;border:0;border-radius:12px;background:#6878ff;color:white;font-weight:800}
+.primary:disabled,.secondary:disabled{opacity:.55;cursor:not-allowed}
+.secondary{padding:11px;border-radius:10px;border:1px solid #343d4d;background:#171c25;color:#fff}
+.danger{border-color:#653a42;background:#24161a;color:#ffb6c0}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.status{margin-top:13px;padding:11px;background:#0b0f16;border:1px solid #242b37;border-radius:10px;color:#adb8c9;font-size:13px}
+.progress{height:7px;background:#252b36;border-radius:10px;overflow:hidden;margin-top:9px}
+.progressBar{height:100%;width:0;background:#7280ff;transition:.2s}
+.previewArea{display:grid;grid-template-columns:minmax(250px,390px) 1fr;gap:20px}
+.phone{width:100%;max-width:390px;aspect-ratio:9/16;background:#050609;border:1px solid #303744;border-radius:22px;overflow:hidden;margin:auto}
+canvas{width:100%;height:100%;display:block}
+.info{display:flex;flex-direction:column;gap:12px}
+.card{background:#0c1017;border:1px solid #252d3a;border-radius:14px;padding:15px}
+.card h4{margin:0 0 9px;font-size:14px}
+.card p{margin:0;color:#b7c0cf;font-size:13px;line-height:1.5;white-space:pre-wrap}
+.timeline{margin-top:18px}
+.scene{display:grid;grid-template-columns:62px 1fr 65px;gap:10px;padding:11px 0;border-bottom:1px solid #222935}
+.scene:last-child{border-bottom:0}
+.sceneNum{color:#7d8bff;font-weight:800;font-size:12px}
+.sceneTitle{font-size:13px;font-weight:700}
+.sceneText{margin-top:4px;color:#9da8b8;font-size:12px}
+.sceneTime{text-align:right;color:#8995a6;font-size:12px}
+.muted{color:#8994a5;font-size:12px}
+.languageInfo{padding:10px;border:1px solid #293142;background:#0b0f16;border-radius:10px;font-size:12px;color:#9da8b8;margin-top:8px}
+.hint{font-size:11px;color:#7f8a9b;line-height:1.45;margin-top:7px}
+.pill{display:inline-block;border:1px solid #333d4f;background:#10151e;border-radius:999px;padding:4px 8px;font-size:11px;color:#aeb9cc;margin:2px 4px 0 0}
+.ok{color:#9fe7b2}
+.warn{color:#ffd47a}
+.error{color:#ff9ba8}
+.hidden{display:none!important}
+
+@media(max-width:900px){
+.grid{grid-template-columns:1fr}
+.previewArea{grid-template-columns:1fr}
+.phone{max-width:330px}
+}
 </style>
 </head>
+
 <body>
+
 <div class="app">
-<header><div><div class="logo">AI Reel Maker</div><div class="muted">Professional Editor • Stage 8.5 Fixed Foundation</div></div><div class="badge">STABLE MULTILINGUAL PIPELINE</div></header>
+
+<header>
+<div>
+<div class="logo">AI Reel Maker</div>
+<div class="muted">Professional Editor • Stage 8.5 Voice Fixed</div>
+</div>
+<div class="badge">STABLE MULTILINGUAL PIPELINE</div>
+</header>
+
 <div class="grid">
+
+<!-- LEFT PANEL -->
 <div class="panel">
-<div class="section"><h3>1. Reel Topic</h3><label>Topic</label><input id="topic" value="Ferrari 488" placeholder="Example: Chandrayaan-3"></div>
-<div class="section"><h3>2. Reel Settings</h3>
-<div class="row"><div class="setting"><label>Duration</label><select id="duration"><option value="15">15 seconds</option><option value="30">30 seconds</option><option value="45" selected>45 seconds</option><option value="60">60 seconds</option></select></div>
-<div class="setting"><label>Language</label><select id="language">
-<option value="en">English</option><option value="hi">Hindi</option><option value="bn">Bengali</option><option value="or">Odia</option><option value="ta">Tamil</option><option value="te">Telugu</option><option value="mr">Marathi</option><option value="gu">Gujarati</option><option value="kn">Kannada</option><option value="ml">Malayalam</option><option value="pa">Punjabi</option><option value="ur">Urdu</option><option value="fr">French</option><option value="es">Spanish</option><option value="de">German</option><option value="it">Italian</option><option value="pt">Portuguese</option><option value="ru">Russian</option><option value="ja">Japanese</option><option value="ko">Korean</option><option value="zh-CN">Chinese</option><option value="ar">Arabic</option><option value="tr">Turkish</option><option value="nl">Dutch</option><option value="pl">Polish</option>
-</select></div></div>
-<div class="languageInfo" id="languageInfo">Choose a language, then Generate Reel. The selected language is sent to the server for script generation and cloud voiceover.</div>
-<div class="setting"><label>Audience</label><select id="audience"><option>General</option><option>Kids</option><option>Students</option><option>Professionals</option><option>Car Enthusiasts</option><option>Tech Enthusiasts</option></select></div>
-<div class="setting"><label>Content Style</label><select id="contentStyle"><option>Fast & Viral</option><option>Educational</option><option>News</option><option>Storytelling</option><option>Cinematic</option></select></div>
-<div class="row"><div class="setting"><label>Hook Style</label><select id="hookStyle"><option>Curiosity</option><option>Question</option><option>Bold Statement</option><option>Story</option></select></div><div class="setting"><label>Voice Style</label><select id="voiceStyle"><option>Energetic</option><option>Calm</option><option>Professional</option><option>Dramatic</option></select></div></div>
+
+<div class="section">
+<h3>1. Reel Topic</h3>
+<label>Topic</label>
+<input id="topic" value="Ferrari 488" placeholder="Example: Chandrayaan-3">
 </div>
-<div class="section"><h3>3. Visual Settings</h3><div class="setting"><label>Visual Style</label><select id="visualStyle"><option>Cinematic</option><option>Modern</option><option>Minimal</option><option>Neon</option></select></div><div class="setting"><label>Transition</label><select id="transition"><option>Fade</option><option>Slide</option><option>Zoom</option><option>None</option></select></div></div>
-<div class="section"><h3>4. Captions</h3><label class="check"><input type="checkbox" id="captions" checked> Animated captions</label><div class="setting"><label>Animation</label><select id="captionAnimation"><option>Pop</option><option>Fade</option><option>Slide</option><option>Type</option></select></div></div>
-<div class="section"><h3>5. Background Music</h3><label class="check"><input type="checkbox" id="music" checked> Background music</label><div class="setting"><label>Volume: <span id="volumeText">25%</span></label><input id="volume" type="range" min="0" max="100" value="25"></div><div class="hint">The prototype now generates a real audio bed through Web Audio and embeds it in the exported reel. A licensed track library can replace this later.</div></div>
-<button class="primary" id="generateBtn">Generate Reel</button>
-<div class="actions"><button class="secondary" id="previewBtn">▶ Preview</button><button class="secondary" id="stopBtn">■ Stop</button></div>
-<div class="actions"><button class="secondary" id="renderBtn">Render & Download</button><button class="secondary danger" id="newBtn">New Reel</button></div>
-<div class="status" id="status">Ready.</div><div class="progress"><div class="progressBar" id="progressBar"></div></div>
+
+<div class="section">
+<h3>2. Reel Settings</h3>
+
+<div class="row">
+
+<div class="setting">
+<label>Duration</label>
+<select id="duration">
+<option value="15">15 seconds</option>
+<option value="30">30 seconds</option>
+<option value="45" selected>45 seconds</option>
+<option value="60">60 seconds</option>
+</select>
 </div>
+
+<div class="setting">
+<label>Language</label>
+<select id="language">
+<option value="en">English</option>
+<option value="hi">Hindi</option>
+<option value="bn">Bengali</option>
+<option value="or">Odia</option>
+<option value="ta">Tamil</option>
+<option value="te">Telugu</option>
+<option value="mr">Marathi</option>
+<option value="gu">Gujarati</option>
+<option value="kn">Kannada</option>
+<option value="ml">Malayalam</option>
+<option value="pa">Punjabi</option>
+<option value="ur">Urdu</option>
+<option value="fr">French</option>
+<option value="es">Spanish</option>
+<option value="de">German</option>
+<option value="it">Italian</option>
+<option value="pt">Portuguese</option>
+<option value="ru">Russian</option>
+<option value="ja">Japanese</option>
+<option value="ko">Korean</option>
+<option value="zh-CN">Chinese</option>
+<option value="ar">Arabic</option>
+<option value="tr">Turkish</option>
+<option value="nl">Dutch</option>
+<option value="pl">Polish</option>
+</select>
+</div>
+
+</div>
+
+<div class="languageInfo" id="languageInfo">
+Choose a language, then Generate Reel.
+The selected language is sent to the server for script generation and cloud voiceover.
+</div>
+
+<div class="setting">
+<label>Audience</label>
+<select id="audience">
+<option>General</option>
+<option>Kids</option>
+<option>Students</option>
+<option>Professionals</option>
+<option>Car Enthusiasts</option>
+<option>Tech Enthusiasts</option>
+</select>
+</div>
+
+<div class="setting">
+<label>Content Style</label>
+<select id="contentStyle">
+<option>Fast & Viral</option>
+<option>Educational</option>
+<option>News</option>
+<option>Storytelling</option>
+<option>Cinematic</option>
+</select>
+</div>
+
+<div class="row">
+
+<div class="setting">
+<label>Hook Style</label>
+<select id="hookStyle">
+<option>Curiosity</option>
+<option>Question</option>
+<option>Bold Statement</option>
+<option>Story</option>
+</select>
+</div>
+
+<div class="setting">
+<label>Voice Style</label>
+<select id="voiceStyle">
+<option>Energetic</option>
+<option>Calm</option>
+<option>Professional</option>
+<option>Dramatic</option>
+</select>
+</div>
+
+</div>
+</div>
+
+<div class="section">
+<h3>3. Visual Settings</h3>
+
+<div class="setting">
+<label>Visual Style</label>
+<select id="visualStyle">
+<option>Cinematic</option>
+<option>Modern</option>
+<option>Minimal</option>
+<option>Neon</option>
+</select>
+</div>
+
+<div class="setting">
+<label>Transition</label>
+<select id="transition">
+<option>Fade</option>
+<option>Slide</option>
+<option>Zoom</option>
+<option>None</option>
+</select>
+</div>
+
+</div>
+
+<div class="section">
+<h3>4. Captions</h3>
+
+<label class="check">
+<input type="checkbox" id="captions" checked>
+Animated captions
+</label>
+
+<div class="setting">
+<label>Animation</label>
+<select id="captionAnimation">
+<option>Pop</option>
+<option>Fade</option>
+<option>Slide</option>
+<option>Type</option>
+</select>
+</div>
+
+</div>
+
+<div class="section">
+<h3>5. Background Music</h3>
+
+<label class="check">
+<input type="checkbox" id="music" checked>
+Background music
+</label>
+
+<div class="setting">
+<label>Volume: <span id="volumeText">25%</span></label>
+<input id="volume" type="range" min="0" max="100" value="25">
+</div>
+
+<div class="hint">
+The prototype generates a real audio bed through Web Audio.
+A licensed music library can replace this later.
+</div>
+
+</div>
+
+<button class="primary" id="generateBtn">
+Generate Reel
+</button>
+
+<div class="actions">
+<button class="secondary" id="previewBtn" disabled>
+▶ Preview
+</button>
+
+<button class="secondary" id="stopBtn">
+■ Stop
+</button>
+</div>
+
+<div class="actions">
+<button class="secondary" id="renderBtn" disabled>
+Render & Download
+</button>
+
+<button class="secondary danger" id="newBtn">
+New Reel
+</button>
+</div>
+
+<div class="status" id="status">
+Ready.
+</div>
+
+<div class="progress">
+<div class="progressBar" id="progressBar"></div>
+</div>
+
+</div>
+
+
+<!-- RIGHT PANEL -->
 <div class="panel">
-<div class="previewArea"><div class="phone"><canvas id="canvas" width="540" height="960"></canvas></div>
+
+<div class="previewArea">
+
+<div class="phone">
+<canvas id="canvas" width="540" height="960"></canvas>
+</div>
+
 <div class="info">
-<div class="card"><h4>Generated Hook</h4><p id="hookOutput">Generate a reel first.</p></div>
-<div class="card"><h4>Voiceover</h4><p id="voiceOutput">Voiceover will appear here.</p><div id="voiceMeta" class="hint"></div></div>
-<div class="card"><h4>Social Caption</h4><p id="captionOutput">Caption will appear here.</p></div>
-<div class="card"><h4>Active Settings</h4><p id="settingsOutput">No reel generated yet.</p></div>
-</div></div>
-<div class="timeline card"><h4>Scene Timeline</h4><div id="timeline"><div class="muted">Generate a reel to create scenes.</div></div></div>
+
+<div class="card">
+<h4>Generated Hook</h4>
+<p id="hookOutput">Generate a reel first.</p>
+</div>
+
+<div class="card">
+<h4>Voiceover</h4>
+<p id="voiceOutput">Voiceover will appear here.</p>
+<div id="voiceMeta" class="hint"></div>
+</div>
+
+<div class="card">
+<h4>Social Caption</h4>
+<p id="captionOutput">Caption will appear here.</p>
+</div>
+
+<div class="card">
+<h4>Active Settings</h4>
+<p id="settingsOutput">No reel generated yet.</p>
+</div>
+
 </div>
 </div>
+
+<div class="timeline card">
+<h4>Scene Timeline</h4>
+<div id="timeline">
+<div class="muted">Generate a reel to create scenes.</div>
 </div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+
 <script>
+
 const $=id=>document.getElementById(id);
-const canvas=$("canvas"),ctx=canvas.getContext("2d");
-let reel=null;let generationSeq=0;let previewRAF=null;let renderRunning=false;let voiceBuffer=null;let voiceBlobUrl=null;let activeAudioContext=null;let activeNodes=[];let generationController=null;
+
+const canvas=$("canvas");
+const ctx=canvas.getContext("2d");
+
+let reel=null;
+let generationSeq=0;
+let previewRAF=null;
+let renderRunning=false;
+
+let voiceBuffer=null;
+let voiceBlobUrl=null;
+
+let activeAudioContext=null;
+let activeNodes=[];
+
+let generationController=null;
+
+
 const languages={
- en:{name:"English",locale:"en-IN"},hi:{name:"Hindi",locale:"hi-IN"},bn:{name:"Bengali",locale:"bn-IN"},or:{name:"Odia",locale:"or-IN"},ta:{name:"Tamil",locale:"ta-IN"},te:{name:"Telugu",locale:"te-IN"},mr:{name:"Marathi",locale:"mr-IN"},gu:{name:"Gujarati",locale:"gu-IN"},kn:{name:"Kannada",locale:"kn-IN"},ml:{name:"Malayalam",locale:"ml-IN"},pa:{name:"Punjabi",locale:"pa-IN"},ur:{name:"Urdu",locale:"ur-IN"},fr:{name:"French",locale:"fr-FR"},es:{name:"Spanish",locale:"es-ES"},de:{name:"German",locale:"de-DE"},it:{name:"Italian",locale:"it-IT"},pt:{name:"Portuguese",locale:"pt-BR"},ru:{name:"Russian",locale:"ru-RU"},ja:{name:"Japanese",locale:"ja-JP"},ko:{name:"Korean",locale:"ko-KR"},"zh-CN":{name:"Chinese",locale:"zh-CN"},ar:{name:"Arabic",locale:"ar-SA"},tr:{name:"Turkish",locale:"tr-TR"},nl:{name:"Dutch",locale:"nl-NL"},pl:{name:"Polish",locale:"pl-PL"}
+
+en:{name:"English",locale:"en-IN"},
+hi:{name:"Hindi",locale:"hi-IN"},
+bn:{name:"Bengali",locale:"bn-IN"},
+or:{name:"Odia",locale:"or-IN"},
+ta:{name:"Tamil",locale:"ta-IN"},
+te:{name:"Telugu",locale:"te-IN"},
+mr:{name:"Marathi",locale:"mr-IN"},
+gu:{name:"Gujarati",locale:"gu-IN"},
+kn:{name:"Kannada",locale:"kn-IN"},
+ml:{name:"Malayalam",locale:"ml-IN"},
+pa:{name:"Punjabi",locale:"pa-IN"},
+ur:{name:"Urdu",locale:"ur-IN"},
+fr:{name:"French",locale:"fr-FR"},
+es:{name:"Spanish",locale:"es-ES"},
+de:{name:"German",locale:"de-DE"},
+it:{name:"Italian",locale:"it-IT"},
+pt:{name:"Portuguese",locale:"pt-BR"},
+ru:{name:"Russian",locale:"ru-RU"},
+ja:{name:"Japanese",locale:"ja-JP"},
+ko:{name:"Korean",locale:"ko-KR"},
+"zh-CN":{name:"Chinese",locale:"zh-CN"},
+ar:{name:"Arabic",locale:"ar-SA"},
+tr:{name:"Turkish",locale:"tr-TR"},
+nl:{name:"Dutch",locale:"nl-NL"},
+pl:{name:"Polish",locale:"pl-PL"}
+
 };
-function setProgress(n,text){$("progressBar").style.width=Math.max(0,Math.min(100,n))+"%";$("status").textContent=text;}
-function readSettings(){return{topic:$("topic").value.trim()||"Your Topic",duration:Number($("duration").value),language:$("language").value,languageName:languages[$("language").value]?.name||$("language").value,audience:$("audience").value,contentStyle:$("contentStyle").value,hookStyle:$("hookStyle").value,voiceStyle:$("voiceStyle").value,visualStyle:$("visualStyle").value,transition:$("transition").value,captions:$("captions").checked,captionAnimation:$("captionAnimation").value,music:$("music").checked,volume:Number($("volume").value)}}
-function abortGeneration(){if(generationController){try{generationController.abort()}catch(e){}generationController=null}generationSeq++;}
-async function api(action,payload,signal){const res=await fetch("/api/engine",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action,...payload}),signal});const ct=res.headers.get("content-type")||"";if(!res.ok){let msg="Request failed";try{msg=(ct.includes("json")?(await res.json()).error:await res.text())||msg}catch(e){}throw new Error(msg)}return ct.includes("json")?res.json():res.blob();}
-function clearVoice(){voiceBuffer=null;if(voiceBlobUrl){URL.revokeObjectURL(voiceBlobUrl);voiceBlobUrl=null}}
-async function generateReel(){if(renderRunning)return;abortGeneration();const mySeq=generationSeq;generationController=new AbortController();const signal=generationController.signal;stopPreview();clearVoice();reel=null;setProgress(4,"Starting generation...");$("generateBtn").disabled=true;$("previewBtn").disabled=true;$("renderBtn").disabled=true;try{const s=readSettings();setProgress(12,`Building ${s.languageName} script...`);const data=await api("generate",s,signal);if(mySeq!==generationSeq)return;reel={...data,settings:s};renderUI();setProgress(60,"Generating cloud voiceover...");const tts=await api("tts",{language:s.language,languageName:s.languageName,voiceStyle:s.voiceStyle,text:[data.hook,...data.scenes.map(x=>x.text)].join("\n")},signal);if(mySeq!==generationSeq)return;voiceBlobUrl=URL.createObjectURL(tts);setProgress(82,"Preparing audio...");voiceBuffer=await decodeBlob(tts);if(mySeq!==generationSeq)return;setProgress(100,"Reel ready. Preview and Render now use the same audio.");$("voiceMeta").innerHTML=`<span class="pill ok">Cloud TTS ready</span><span class="pill">${languages[s.language]?.name||s.language}</span><span class="pill">${voiceBuffer.duration.toFixed(1)}s audio</span>`;$("previewBtn").disabled=false;$("renderBtn").disabled=false}catch(err){if(err.name==="AbortError")return;console.error(err);setProgress(0,err.message||"Generation failed. Check your API configuration.")}finally{if(mySeq===generationSeq){$("generateBtn").disabled=false;generationController=null}}}
-async function decodeBlob(blob){const ab=await blob.arrayBuffer();const ac=new(window.AudioContext||window.webkitAudioContext)();const buf=await ac.decodeAudioData(ab.slice(0));await ac.close().catch(()=>{});return buf}
-function renderUI(){$("hookOutput").textContent=reel.hook;$('voiceOutput').textContent=[reel.hook,...reel.scenes.map(s=>s.text)].join("\n\n");$('captionOutput').textContent=`${reel.caption}\n\n${(reel.hashtags||[]).join(" ")}`;const s=reel.settings;$('settingsOutput').textContent=`${s.duration}s • ${s.languageName} • ${s.audience} • ${s.contentStyle} • ${s.hookStyle} hook • ${s.voiceStyle} voice • ${s.visualStyle} • ${s.transition} • captions ${s.captions?"ON":"OFF"} • music ${s.music?"ON":"OFF"}`;renderTimeline();drawFrame(0)}
-function getSegments(){if(!reel)return[];const items=[{title:"Hook",text:reel.hook,isHook:true},...reel.scenes.map(s=>({...s,isHook:false}))];const totalText=items.reduce((a,x)=>a+Math.max(1,x.text.length),0);let cursor=0;return items.map((x,i)=>{const dur=reel.settings.duration*(Math.max(1,x.text.length)/totalText);const seg={...x,start:cursor,end:cursor+dur,index:i};cursor+=dur;return seg})}
-function renderTimeline(){const segs=getSegments();$('timeline').innerHTML=segs.filter(s=>!s.isHook).map((s,i)=>`<div class="scene"><div class="sceneNum">SCENE ${i+1}</div><div><div class="sceneTitle">${escapeHtml(s.title||`Scene ${i+1}`)}</div><div class="sceneText">${escapeHtml(s.text)}</div></div><div class="sceneTime">${s.start.toFixed(1)}–${s.end.toFixed(1)}s</div></div>`).join("")}
-function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
-function colors(style,topic){const t=topic.toLowerCase();if(t.includes("ferrari")||t.includes("bmw")||t.includes("car")){if(style==="Neon")return["#190b1b","#081a2d"];if(style==="Minimal")return["#171717","#333333"];return["#160d0a","#182331"]}if(t.includes("chandrayaan")||t.includes("moon")||t.includes("space")){if(style==="Neon")return["#170f2c","#071c2b"];return["#090d1d","#10264d"]}if(style==="Neon")return["#230f2b","#06182d"];if(style==="Minimal")return["#151719","#2c3034"];return["#0b1020","#1b315f"]}
-function roundRect(c,x,y,w,h,r){c.beginPath();c.roundRect(x,y,w,h,r);c.fill()}
-function wrapText(text,maxWidth,font){ctx.font=font;const words=/\s/.test(text)?text.split(/\s+/):[...text];const lines=[];let line="";for(const word of words){const test=line?line+(/\s/.test(text)?" ":"")+word:word;if(ctx.measureText(test).width<=maxWidth)line=test;else{if(line)lines.push(line);line=word}}if(line)lines.push(line);return lines.length?lines:[""]}
-function drawCentered(text,x,y,maxWidth,font,lineHeight,alpha=1){ctx.save();ctx.globalAlpha=alpha;ctx.fillStyle="#fff";ctx.textAlign="center";const lines=wrapText(text,maxWidth,font);const total=lines.length*lineHeight;lines.forEach((l,i)=>ctx.fillText(l,x,y-total/2+i*lineHeight+lineHeight*.25));ctx.restore()}
-function drawCaption(text,anim,local){ctx.save();let scale=1;let cy=canvas.height*.82;if(anim==="Pop")scale=.88+Math.min(.12,local*.6);if(anim==="Slide")cy=canvas.height*.9-local*canvas.height*.08;if(anim==="Fade")ctx.globalAlpha=Math.min(1,local*5);if(anim==="Type")text=text.slice(0,Math.max(1,Math.floor(text.length*Math.min(1,local*1.8))));ctx.translate(canvas.width/2,cy);ctx.scale(scale,scale);const lines=wrapText(text,420,"bold 22px Arial");const h=lines.length*34+34;ctx.fillStyle="rgba(0,0,0,.7)";roundRect(ctx,-230,-h/2,460,h,18);ctx.fillStyle="#fff";ctx.font="bold 22px Arial";ctx.textAlign="center";lines.forEach((l,i)=>ctx.fillText(l,0,-(lines.length-1)*17+i*34+8));ctx.restore()}
-function drawFrame(seconds){if(!reel)return;const W=canvas.width,H=canvas.height;const segs=getSegments();let seg=segs[segs.length-1];for(const s of segs){if(seconds>=s.start&&seconds<=s.end){seg=s;break}}const local=Math.max(0,Math.min(1,(seconds-seg.start)/Math.max(.001,seg.end-seg.start)));const c=colors(reel.settings.visualStyle,reel.settings.topic);const g=ctx.createLinearGradient(0,0,W,H);g.addColorStop(0,c[0]);g.addColorStop(1,c[1]);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
-const glowX=W*(.2+.6*((Math.sin(seconds*.7)+1)/2));const glowY=H*(.22+.18*Math.sin(seconds*.55));const glow=ctx.createRadialGradient(glowX,glowY,10,glowX,glowY,380);glow.addColorStop(0,"rgba(120,150,255,.28)");glow.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=glow;ctx.fillRect(0,0,W,H);
-ctx.globalAlpha=.24;ctx.strokeStyle="#fff";ctx.lineWidth=2;for(let i=0;i<6;i++){const px=(seconds*70+i*130)%W;ctx.beginPath();ctx.moveTo(px,0);ctx.lineTo(px-90,H);ctx.stroke()}ctx.globalAlpha=1;
-ctx.textAlign="left";ctx.fillStyle="rgba(255,255,255,.55)";ctx.font="bold 19px Arial";ctx.fillText(seg.isHook?"HOOK":`SCENE ${seg.index}`,34,55);
-let title=seg.title||"";if(seg.isHook)title=reel.settings.topic;drawCentered(title,W/2,H*.31,460,"bold 46px Arial",56);
-drawCentered(seg.text,W/2,H*.48,430,"24px Arial",34,.96);
-if(reel.settings.captions)drawCaption(seg.text,reel.settings.captionAnimation,local);
-ctx.textAlign="left";ctx.fillStyle="rgba(255,255,255,.42)";ctx.font="bold 15px Arial";ctx.fillText("AI REEL MAKER",34,H-34);
-ctx.textAlign="right";ctx.fillStyle="rgba(255,255,255,.3)";ctx.font="12px Arial";ctx.fillText(`${Math.min(reel.settings.duration,Math.max(0,seconds)).toFixed(1)}s / ${reel.settings.duration}s`,W-34,H-34)}
-function connectVoiceAndMusic(ctxAudio,destination,withOutput){const voice=ctxAudio.createBufferSource();voice.buffer=voiceBuffer;const voiceGain=ctxAudio.createGain();voiceGain.gain.value=.92;voice.connect(voiceGain);voiceGain.connect(destination);if(withOutput)voiceGain.connect(ctxAudio.destination);activeNodes.push(voice,voiceGain);if(reel.settings.music)createMusic(ctxAudio,destination,withOutput);return voice}
-function createMusic(ac,destination,withOutput){const gain=ac.createGain();gain.gain.value=(reel.settings.volume/100)*.11;gain.connect(destination);if(withOutput)gain.connect(ac.destination);const notes=[110,138.59,164.81,196,164.81,138.59,123.47,164.81];const beats=Math.ceil(reel.settings.duration/.5)+1;for(let i=0;i<beats;i++){const osc=ac.createOscillator(),env=ac.createGain();osc.type=reel.settings.contentStyle==="Cinematic"?"sine":"triangle";osc.frequency.value=notes[i%notes.length]*(i%8===0?2:1);const t=i*.5;env.gain.setValueAtTime(0,ac.currentTime+t);env.gain.linearRampToValueAtTime(.34,ac.currentTime+t+.035);env.gain.exponentialRampToValueAtTime(.001,ac.currentTime+t+.46);osc.connect(env);env.connect(gain);osc.start(ac.currentTime+t);osc.stop(ac.currentTime+t+.47);activeNodes.push(osc,env)}activeNodes.push(gain)}
-async function preview(){if(!reel)return setProgress(0,"Generate the reel first.");if(renderRunning)return;stopPreview();if(!voiceBuffer)return setProgress(0,"Voiceover is not ready yet.");activeAudioContext=new(window.AudioContext||window.webkitAudioContext)();await activeAudioContext.resume();const voice=connectVoiceAndMusic(activeAudioContext,activeAudioContext.destination,true);const start=activeAudioContext.currentTime;voice.start();setProgress(0,"Playing preview...");const tick=()=>{if(!activeAudioContext)return;const elapsed=activeAudioContext.currentTime-start;drawFrame(Math.min(elapsed,reel.settings.duration));if(elapsed<reel.settings.duration){previewRAF=requestAnimationFrame(tick)}else{stopPreview();setProgress(100,"Preview finished.")}};previewRAF=requestAnimationFrame(tick);}
-function stopPreview(){if(previewRAF){cancelAnimationFrame(previewRAF);previewRAF=null}for(const node of activeNodes){try{node.stop?.()}catch(e){}}activeNodes=[];if(activeAudioContext){activeAudioContext.close().catch(()=>{});activeAudioContext=null}if(reel)drawFrame(0)}
-function supportedMime(){const types=["video/webm;codecs=vp9,opus","video/webm;codecs=vp8,opus","video/webm"];return types.find(t=>MediaRecorder.isTypeSupported(t))||""}
-async function renderReel(){if(!reel||!voiceBuffer)return setProgress(0,"Generate the reel first.");if(renderRunning)return;stopPreview();renderRunning=true;$("renderBtn").disabled=true;$("previewBtn").disabled=true;$("generateBtn").disabled=true;setProgress(2,"Preparing render audio...");const ac=new(window.AudioContext||window.webkitAudioContext)();await ac.resume();activeAudioContext=ac;activeNodes=[];const videoStream=canvas.captureStream(30);const dest=ac.createMediaStreamDestination();const voice=connectVoiceAndMusic(ac,dest,false);const combined=new MediaStream();videoStream.getVideoTracks().forEach(t=>combined.addTrack(t));dest.stream.getAudioTracks().forEach(t=>combined.addTrack(t));const mime=supportedMime();let recorder;try{recorder=new MediaRecorder(combined,mime?{mimeType:mime,videoBitsPerSecond:5000000,audioBitsPerSecond:128000}:undefined)}catch(e){recorder=new MediaRecorder(combined)}const chunks=[];const done=new Promise(resolve=>{recorder.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};recorder.onerror=e=>resolve(e.error||new Error("Recorder error"));recorder.onstop=()=>resolve(null)});recorder.start(1000);const start=ac.currentTime;voice.start();function frame(){const elapsed=ac.currentTime-start;drawFrame(Math.min(elapsed,reel.settings.duration));const p=Math.min(99,elapsed/reel.settings.duration*100);setProgress(p,`Rendering ${Math.floor(p)}%...`);if(elapsed<reel.settings.duration){requestAnimationFrame(frame)}else{setTimeout(()=>recorder.stop(),250)}}requestAnimationFrame(frame);const err=await done;activeAudioContext=null;activeNodes=[];videoStream.getTracks().forEach(t=>t.stop());combined.getTracks().forEach(t=>t.stop());await ac.close().catch(()=>{});renderRunning=false;$("renderBtn").disabled=false;$("previewBtn").disabled=false;$("generateBtn").disabled=false;if(err){console.error(err);setProgress(0,"Render failed: "+(err.message||"MediaRecorder error"));return}const blob=new Blob(chunks,{type:recorder.mimeType||"video/webm"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=`AI-Reel-${Date.now()}.webm`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);setProgress(100,"Render complete. Downloaded video contains the generated voiceover and background audio.")}
-function newReel(){abortGeneration();stopPreview();clearVoice();reel=null;$("hookOutput").textContent="Generate a reel first.";$("voiceOutput").textContent="Voiceover will appear here.";$("voiceMeta").textContent="";$("captionOutput").textContent="Caption will appear here.";$("settingsOutput").textContent="No reel generated yet.";$("timeline").innerHTML='<div class="muted">Generate a reel to create scenes.</div>';setProgress(0,"Ready for a new reel.");drawBlank()}
-function drawBlank(){ctx.fillStyle="#080b12";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle="rgba(255,255,255,.75)";ctx.textAlign="center";ctx.font="bold 30px Arial";ctx.fillText("AI Reel Maker",canvas.width/2,canvas.height/2-10);ctx.font="16px Arial";ctx.fillStyle="rgba(255,255,255,.45)";ctx.fillText("Generate a reel to begin",canvas.width/2,canvas.height/2+22)}
-$("volume").addEventListener("input",()=>$('volumeText').textContent=$("volume").value+"%");$("language").addEventListener("change",()=>{$("languageInfo").textContent=`${languages[$("language").value]?.name||$("language").value} is selected. Nothing regenerates until you press Generate Reel.`});$("generateBtn").addEventListener("click",generateReel);$("previewBtn").addEventListener("click",preview);$("stopBtn").addEventListener("click",()=>{stopPreview();if(reel)setProgress(100,"Stopped.")});$("renderBtn").addEventListener("click",renderReel);$("newBtn").addEventListener("click",newReel);drawBlank();
+
+
+function setProgress(n,text){
+
+$("progressBar").style.width=
+Math.max(0,Math.min(100,n))+"%";
+
+$("status").innerHTML=
+"<strong>"+text+"</strong>";
+
+}
+
+
+function readSettings(){
+
+const lang=$("language").value;
+
+return {
+
+topic:$("topic").value.trim(),
+
+duration:Number($("duration").value),
+
+language:lang,
+
+languageName:languages[lang]?.name||lang,
+
+audience:$("audience").value,
+
+contentStyle:$("contentStyle").value,
+
+hookStyle:$("hookStyle").value,
+
+voiceStyle:$("voiceStyle").value,
+
+visualStyle:$("visualStyle").value,
+
+transition:$("transition").value,
+
+captions:$("captions").checked,
+
+captionAnimation:$("captionAnimation").value,
+
+music:$("music").checked,
+
+volume:Number($("volume").value)
+
+};
+
+}
+
+
+async function api(action,payload,signal){
+
+const res=await fetch(
+"/api/engine",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+action,
+...payload
+}),
+signal
+}
+);
+
+const ct=res.headers.get("content-type")||"";
+
+if(!res.ok){
+
+let msg="Request failed";
+
+try{
+
+msg=
+ct.includes("json")
+?
+(await res.json()).error
+:
+await res.text();
+
+}catch(e){}
+
+throw new Error(msg||"Request failed");
+
+}
+
+return ct.includes("json")
+?
+await res.json()
+:
+await res.blob();
+
+}
+
+
+function clearVoice(){
+
+voiceBuffer=null;
+
+if(voiceBlobUrl){
+
+URL.revokeObjectURL(voiceBlobUrl);
+voiceBlobUrl=null;
+
+}
+
+if("speechSynthesis" in window){
+
+speechSynthesis.cancel();
+
+}
+
+}
+
+
+function abortGeneration(){
+
+generationSeq++;
+
+if(generationController){
+
+generationController.abort();
+generationController=null;
+
+}
+
+}
+
+
+async function decodeBlob(blob){
+
+const arrayBuffer=await blob.arrayBuffer();
+
+const AC=
+window.AudioContext||
+window.webkitAudioContext;
+
+if(!AC){
+
+throw new Error("Web Audio is not supported in this browser.");
+
+}
+
+const ac=new AC();
+
+try{
+
+const buffer=
+await ac.decodeAudioData(
+arrayBuffer.slice(0)
+);
+
+return buffer;
+
+}finally{
+
+await ac.close().catch(()=>{});
+
+}
+
+}
+
+
+/* ---------------- FALLBACK BROWSER VOICE ---------------- */
+
+function getFallbackVoice(){
+
+if(!("speechSynthesis" in window)){
+
+return null;
+
+}
+
+const voices=speechSynthesis.getVoices();
+
+if(!voices.length){
+
+return null;
+
+}
+
+const wanted=
+languages[reel?.settings?.language]?.locale||
+"en-IN";
+
+const base=wanted.split("-")[0];
+
+let voice=
+voices.find(v=>
+v.lang.toLowerCase()===wanted.toLowerCase()
+);
+
+if(!voice){
+
+voice=
+voices.find(v=>
+v.lang.toLowerCase().startsWith(base.toLowerCase())
+);
+
+}
+
+if(!voice){
+
+voice=
+voices.find(v=>
+v.default
+);
+
+}
+
+return voice||voices[0]||null;
+
+}
+
+
+function speakFallback(){
+
+if(
+!reel||
+!("speechSynthesis" in window)
+){
+
+return false;
+
+}
+
+speechSynthesis.cancel();
+
+const text=[
+reel.hook,
+...reel.scenes.map(x=>x.text)
+].join(". ");
+
+const utterance=
+new SpeechSynthesisUtterance(text);
+
+const voice=getFallbackVoice();
+
+if(voice){
+
+utterance.voice=voice;
+utterance.lang=voice.lang;
+
+}else{
+
+utterance.lang=
+languages[reel.settings.language]?.locale||
+"en-IN";
+
+}
+
+if(reel.settings.voiceStyle==="Dramatic"){
+
+utterance.rate=.88;
+utterance.pitch=.82;
+
+}else if(reel.settings.voiceStyle==="Calm"){
+
+utterance.rate=.92;
+utterance.pitch=.92;
+
+}else if(reel.settings.voiceStyle==="Professional"){
+
+utterance.rate=1;
+utterance.pitch=1;
+
+}else{
+
+utterance.rate=1.08;
+utterance.pitch=1;
+
+}
+
+speechSynthesis.speak(utterance);
+
+return true;
+
+}
+
+
+/* ---------------- GENERATION ---------------- */
+
+async function generateReel(){
+
+if(renderRunning)return;
+
+abortGeneration();
+
+const mySeq=generationSeq;
+
+generationController=
+new AbortController();
+
+const signal=
+generationController.signal;
+
+stopPreview();
+
+clearVoice();
+
+reel=null;
+
+setProgress(4,"Starting generation...");
+
+$("generateBtn").disabled=true;
+$("previewBtn").disabled=true;
+$("renderBtn").disabled=true;
+
+try{
+
+const settings=readSettings();
+
+if(!settings.topic){
+
+throw new Error("Please enter a reel topic.");
+
+}
+
+setProgress(
+12,
+`Building ${settings.languageName} script...`
+);
+
+const data=
+await api(
+"generate",
+settings,
+signal
+);
+
+if(mySeq!==generationSeq)return;
+
+reel={
+...data,
+settings
+};
+
+renderUI();
+
+setProgress(
+60,
+"Generating cloud voiceover..."
+);
+
+const tts=
+await api(
+"tts",
+{
+language:settings.language,
+languageName:settings.languageName,
+voiceStyle:settings.voiceStyle,
+text:[
+data.hook,
+...data.scenes.map(x=>x.text)
+].join("\n")
+},
+signal
+);
+
+if(mySeq!==generationSeq)return;
+
+
+/*
+IMPORTANT:
+The server can return either:
+
+1. Audio Blob = cloud TTS worked
+2. JSON fallback = cloud TTS unavailable
+
+Never try to decode the JSON as audio.
+*/
+
+if(tts instanceof Blob){
+
+voiceBlobUrl=
+URL.createObjectURL(tts);
+
+setProgress(
+82,
+"Preparing cloud voice..."
+);
+
+voiceBuffer=
+await decodeBlob(tts);
+
+if(mySeq!==generationSeq)return;
+
+$("voiceOutput").textContent=
+"Cloud voiceover generated successfully.";
+
+$("voiceMeta").innerHTML=
+`<span class="pill ok">Cloud TTS ready</span>
+<span class="pill">${languages[settings.language]?.name||settings.language}</span>
+<span class="pill">${voiceBuffer.duration.toFixed(1)}s audio</span>`;
+
+}else{
+
+voiceBuffer=null;
+voiceBlobUrl=null;
+
+$("voiceOutput").textContent=
+"Cloud voice unavailable. Browser voice fallback is ready for Preview.";
+
+$("voiceMeta").innerHTML=
+`<span class="pill ok">Browser voice fallback ready</span>
+<span class="pill">${languages[settings.language]?.name||settings.language}</span>
+<span class="pill warn">Cloud TTS unavailable</span>`;
+
+}
+
+setProgress(
+100,
+voiceBuffer
+?
+"Reel ready. Cloud voiceover is ready."
+:
+"Reel ready. Browser voice fallback is ready for Preview."
+);
+
+$("previewBtn").disabled=false;
+$("renderBtn").disabled=false;
+
+}catch(err){
+
+if(err.name==="AbortError")return;
+
+console.error(err);
+
+setProgress(
+0,
+err.message||
+"Generation failed. Check your API configuration."
+);
+
+}finally{
+
+if(mySeq===generationSeq){
+
+$("generateBtn").disabled=false;
+generationController=null;
+
+}
+
+}
+
+}
+
+
+/* ---------------- UI ---------------- */
+
+function renderUI(){
+
+if(!reel)return;
+
+$("hookOutput").textContent=
+reel.hook||"";
+
+$("captionOutput").textContent=
+reel.caption||"";
+
+$("voiceOutput").textContent=
+"Preparing voiceover...";
+
+$("settingsOutput").textContent=
+`Topic: ${reel.settings.topic}
+
+Duration: ${reel.settings.duration}s
+
+Language: ${reel.settings.languageName}
+
+Audience: ${reel.settings.audience}
+
+Style: ${reel.settings.contentStyle}
+
+Voice: ${reel.settings.voiceStyle}
+
+Visual: ${reel.settings.visualStyle}`;
+
+$("timeline").innerHTML=
+reel.scenes.map(scene=>`
+
+<div class="scene">
+
+<div class="sceneNum">
+SCENE ${scene.index}
+</div>
+
+<div>
+
+<div class="sceneTitle">
+${escapeHTML(scene.title||"")}
+</div>
+
+<div class="sceneText">
+${escapeHTML(scene.text||"")}
+</div>
+
+</div>
+
+<div class="sceneTime">
+${Number(scene.duration||0).toFixed(1)}s
+</div>
+
+</div>
+
+`).join("");
+
+drawFrame(0);
+
+}
+
+
+function escapeHTML(text){
+
+return String(text||"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* ---------------- SCENES ---------------- */
+
+function getSegments(){
+
+if(!reel)return[];
+
+const segments=[];
+
+const hookDuration=
+Math.min(
+4,
+Math.max(
+2,
+reel.settings.duration*.12
+)
+);
+
+segments.push({
+start:0,
+end:hookDuration,
+index:0,
+isHook:true,
+title:"HOOK",
+text:reel.hook||reel.settings.topic
+});
+
+const sceneCount=
+reel.scenes.length||6;
+
+const remaining=
+Math.max(
+.1,
+reel.settings.duration-hookDuration
+);
+
+const each=
+remaining/sceneCount;
+
+reel.scenes.forEach((scene,i)=>{
+
+segments.push({
+
+start:
+hookDuration+i*each,
+
+end:
+hookDuration+(i+1)*each,
+
+index:
+i+1,
+
+isHook:false,
+
+title:scene.title||`Scene ${i+1}`,
+
+text:scene.text||""
+
+});
+
+});
+
+return segments;
+
+}
+
+
+/* ---------------- VISUAL ENGINE ---------------- */
+
+function colors(style,topic){
+
+if(style==="Neon"){
+
+return["#190b2d","#40105c"];
+
+}
+
+if(style==="Modern"){
+
+return["#061525","#12395d"];
+
+}
+
+if(style==="Minimal"){
+
+return["#151719","#2c3034"];
+
+}
+
+return["#0b1020","#1b315f"];
+
+}
+
+
+function roundRect(c,x,y,w,h,r){
+
+c.beginPath();
+
+c.roundRect(
+x,y,w,h,r
+);
+
+c.fill();
+
+}
+
+
+function wrapText(text,maxWidth,font){
+
+ctx.font=font;
+
+const words=
+/\s/.test(text)
+?
+text.split(/\s+/)
+:
+[...text];
+
+const lines=[];
+
+let line="";
+
+for(const word of words){
+
+const test=
+line
+?
+line+" "+word
+:
+word;
+
+if(
+ctx.measureText(test).width<=maxWidth
+){
+
+line=test;
+
+}else{
+
+if(line)lines.push(line);
+
+line=word;
+
+}
+
+}
+
+if(line)lines.push(line);
+
+return lines.length?lines:[""];
+
+}
+
+
+function drawCentered(
+text,
+x,
+y,
+maxWidth,
+font,
+lineHeight,
+alpha=1
+){
+
+ctx.save();
+
+ctx.globalAlpha=alpha;
+
+ctx.fillStyle="#fff";
+
+ctx.textAlign="center";
+
+const lines=
+wrapText(
+text,
+maxWidth,
+font
+);
+
+const total=
+lines.length*lineHeight;
+
+lines.forEach((line,i)=>{
+
+ctx.fillText(
+line,
+x,
+y-total/2+i*lineHeight+lineHeight*.25
+);
+
+});
+
+ctx.restore();
+
+}
+
+
+function drawCaption(
+text,
+animation,
+local
+){
+
+ctx.save();
+
+let scale=1;
+
+let cy=canvas.height*.82;
+
+if(animation==="Pop"){
+
+scale=
+.88+
+Math.min(.12,local*.6);
+
+}
+
+if(animation==="Slide"){
+
+cy=
+canvas.height*.9-
+local*canvas.height*.08;
+
+}
+
+if(animation==="Fade"){
+
+ctx.globalAlpha=
+Math.min(1,local*5);
+
+}
+
+if(animation==="Type"){
+
+text=
+text.slice(
+0,
+Math.max(
+1,
+Math.floor(
+text.length*
+Math.min(1,local*1.8)
+)
+)
+);
+
+}
+
+ctx.translate(
+canvas.width/2,
+cy
+);
+
+ctx.scale(
+scale,
+scale
+);
+
+const lines=
+wrapText(
+text,
+420,
+"bold 22px Arial"
+);
+
+const h=
+lines.length*34+34;
+
+ctx.fillStyle=
+"rgba(0,0,0,.7)";
+
+roundRect(
+ctx,
+-230,
+-h/2,
+460,
+h,
+18
+);
+
+ctx.fillStyle="#fff";
+
+ctx.font=
+"bold 22px Arial";
+
+ctx.textAlign="center";
+
+lines.forEach((line,i)=>{
+
+ctx.fillText(
+line,
+0,
+-(lines.length-1)*17+
+i*34+
+8
+);
+
+});
+
+ctx.restore();
+
+}
+
+
+function drawFrame(seconds){
+
+if(!reel)return;
+
+const W=canvas.width;
+const H=canvas.height;
+
+const segments=
+getSegments();
+
+let seg=
+segments[segments.length-1];
+
+for(const s of segments){
+
+if(
+seconds>=s.start &&
+seconds<=s.end
+){
+
+seg=s;
+break;
+
+}
+
+}
+
+const local=
+Math.max(
+0,
+Math.min(
+1,
+(seconds-seg.start)/
+Math.max(
+.001,
+seg.end-seg.start
+)
+)
+);
+
+const c=
+colors(
+reel.settings.visualStyle,
+reel.settings.topic
+);
+
+const gradient=
+ctx.createLinearGradient(
+0,
+0,
+W,
+H
+);
+
+gradient.addColorStop(
+0,
+c[0]
+);
+
+gradient.addColorStop(
+1,
+c[1]
+);
+
+ctx.fillStyle=gradient;
+
+ctx.fillRect(
+0,
+0,
+W,
+H
+);
+
+
+/* animated glow */
+
+const glowX=
+W*
+(
+.2+
+.6*
+(
+(Math.sin(seconds*.7)+1)/2
+)
+);
+
+const glowY=
+H*
+(
+.22+
+.18*
+Math.sin(seconds*.55)
+);
+
+const glow=
+ctx.createRadialGradient(
+glowX,
+glowY,
+10,
+glowX,
+glowY,
+380
+);
+
+glow.addColorStop(
+0,
+"rgba(120,150,255,.28)"
+);
+
+glow.addColorStop(
+1,
+"rgba(0,0,0,0)"
+);
+
+ctx.fillStyle=glow;
+
+ctx.fillRect(
+0,
+0,
+W,
+H
+);
+
+
+/* moving lines */
+
+ctx.globalAlpha=.24;
+ctx.strokeStyle="#fff";
+ctx.lineWidth=2;
+
+for(let i=0;i<6;i++){
+
+const px=
+(seconds*70+i*130)%W;
+
+ctx.beginPath();
+
+ctx.moveTo(px,0);
+
+ctx.lineTo(
+px-90,
+H
+);
+
+ctx.stroke();
+
+}
+
+ctx.globalAlpha=1;
+
+ctx.textAlign="left";
+
+ctx.fillStyle=
+"rgba(255,255,255,.55)";
+
+ctx.font=
+"bold 19px Arial";
+
+ctx.fillText(
+seg.isHook
+?
+"HOOK"
+:
+`SCENE ${seg.index}`,
+34,
+55
+);
+
+let title=
+seg.title||"";
+
+if(seg.isHook){
+
+title=
+reel.settings.topic;
+
+}
+
+drawCentered(
+title,
+W/2,
+H*.31,
+460,
+"bold 46px Arial",
+56
+);
+
+drawCentered(
+seg.text,
+W/2,
+H*.48,
+430,
+"24px Arial",
+34,
+.96
+);
+
+if(reel.settings.captions){
+
+drawCaption(
+seg.text,
+reel.settings.captionAnimation,
+local
+);
+
+}
+
+ctx.textAlign="left";
+
+ctx.fillStyle=
+"rgba(255,255,255,.42)";
+
+ctx.font=
+"bold 15px Arial";
+
+ctx.fillText(
+"AI REEL MAKER",
+34,
+H-34
+);
+
+ctx.textAlign="right";
+
+ctx.fillStyle=
+"rgba(255,255,255,.3)";
+
+ctx.font="12px Arial";
+
+ctx.fillText(
+`${Math.min(
+reel.settings.duration,
+Math.max(0,seconds)
+).toFixed(1)}s / ${reel.settings.duration}s`,
+W-34,
+H-34
+);
+
+}
+
+
+/* ---------------- AUDIO ---------------- */
+
+function connectVoiceAndMusic(
+audioContext,
+destination,
+withOutput
+){
+
+let voice=null;
+
+if(voiceBuffer){
+
+voice=
+audioContext.createBufferSource();
+
+voice.buffer=
+voiceBuffer;
+
+const voiceGain=
+audioContext.createGain();
+
+voiceGain.gain.value=.92;
+
+voice.connect(voiceGain);
+
+voiceGain.connect(destination);
+
+if(withOutput){
+
+voiceGain.connect(
+audioContext.destination
+);
+
+}
+
+activeNodes.push(
+voice,
+voiceGain
+);
+
+}
+
+if(
+reel &&
+reel.settings.music
+){
+
+createMusic(
+audioContext,
+destination,
+withOutput
+);
+
+}
+
+return voice;
+
+}
+
+
+function createMusic(
+ac,
+destination,
+withOutput
+){
+
+const gain=
+ac.createGain();
+
+gain.gain.value=
+(reel.settings.volume/100)*.11;
+
+gain.connect(destination);
+
+if(withOutput){
+
+gain.connect(
+ac.destination
+);
+
+}
+
+const notes=[
+110,
+138.59,
+164.81,
+196,
+164.81,
+138.59,
+123.47,
+164.81
+];
+
+const beats=
+Math.ceil(
+reel.settings.duration/.5
+)+1;
+
+for(let i=0;i<beats;i++){
+
+const osc=
+ac.createOscillator();
+
+const env=
+ac.createGain();
+
+osc.type=
+reel.settings.contentStyle==="Cinematic"
+?
+"sine"
+:
+"triangle";
+
+osc.frequency.value=
+notes[i%notes.length]*
+(
+i%8===0
+?
+2
+:
+1
+);
+
+const t=i*.5;
+
+env.gain.setValueAtTime(
+0,
+ac.currentTime+t
+);
+
+env.gain.linearRampToValueAtTime(
+.34,
+ac.currentTime+t+.035
+);
+
+env.gain.exponentialRampToValueAtTime(
+.001,
+ac.currentTime+t+.46
+);
+
+osc.connect(env);
+
+env.connect(gain);
+
+osc.start(
+ac.currentTime+t
+);
+
+osc.stop(
+ac.currentTime+t+.47
+);
+
+activeNodes.push(
+osc,
+env
+);
+
+}
+
+activeNodes.push(gain);
+
+}
+
+
+/* ---------------- PREVIEW ---------------- */
+
+async function preview(){
+
+if(!reel){
+
+setProgress(
+0,
+"Generate the reel first."
+);
+
+return;
+
+}
+
+if(renderRunning)return;
+
+stopPreview();
+
+const AC=
+window.AudioContext||
+window.webkitAudioContext;
+
+if(!AC){
+
+setProgress(
+0,
+"Web Audio is not supported in this browser."
+);
+
+return;
+
+}
+
+activeAudioContext=
+new AC();
+
+await activeAudioContext.resume();
+
+const voice=
+connectVoiceAndMusic(
+activeAudioContext,
+activeAudioContext.destination,
+true
+);
+
+const start=
+activeAudioContext.currentTime;
+
+if(voice){
+
+voice.start();
+
+setProgress(
+0,
+"Playing preview with cloud voiceover..."
+);
+
+}else{
+
+const fallback=
+speakFallback();
+
+if(fallback){
+
+setProgress(
+0,
+"Playing preview with browser voice fallback..."
+);
+
+}else{
+
+setProgress(
+0,
+"Playing preview with music and visuals..."
+);
+
+}
+
+}
+
+
+const tick=()=>{
+
+if(!activeAudioContext)return;
+
+const elapsed=
+activeAudioContext.currentTime-
+start;
+
+drawFrame(
+Math.min(
+elapsed,
+reel.settings.duration
+)
+);
+
+if(
+elapsed<
+reel.settings.duration
+){
+
+previewRAF=
+requestAnimationFrame(tick);
+
+}else{
+
+stopPreview();
+
+setProgress(
+100,
+"Preview finished."
+);
+
+}
+
+};
+
+previewRAF=
+requestAnimationFrame(tick);
+
+}
+
+
+/* ---------------- STOP ---------------- */
+
+function stopPreview(){
+
+if(previewRAF){
+
+cancelAnimationFrame(
+previewRAF
+);
+
+previewRAF=null;
+
+}
+
+if(
+"speechSynthesis" in window
+){
+
+speechSynthesis.cancel();
+
+}
+
+for(const node of activeNodes){
+
+try{
+
+node.stop?.();
+
+}catch(e){}
+
+}
+
+activeNodes=[];
+
+if(activeAudioContext){
+
+activeAudioContext
+.close()
+.catch(()=>{});
+
+activeAudioContext=null;
+
+}
+
+if(reel){
+
+drawFrame(0);
+
+}
+
+}
+
+
+/* ---------------- RENDER ---------------- */
+
+function supportedMime(){
+
+if(!window.MediaRecorder){
+
+return "";
+
+}
+
+const types=[
+
+"video/webm;codecs=vp9,opus",
+
+"video/webm;codecs=vp8,opus",
+
+"video/webm"
+
+];
+
+return types.find(
+type=>MediaRecorder.isTypeSupported(type)
+)||"";
+
+}
+
+
+async function renderReel(){
+
+if(!reel){
+
+setProgress(
+0,
+"Generate the reel first."
+);
+
+return;
+
+}
+
+if(renderRunning)return;
+
+stopPreview();
+
+if(
+!window.MediaRecorder||
+!canvas.captureStream
+){
+
+setProgress(
+0,
+"This browser does not support reel rendering. Please use Chrome."
+);
+
+return;
+
+}
+
+renderRunning=true;
+
+$("renderBtn").disabled=true;
+$("previewBtn").disabled=true;
+$("generateBtn").disabled=true;
+
+setProgress(
+2,
+voiceBuffer
+?
+"Preparing cloud voice + render audio..."
+:
+"Preparing render audio..."
+);
+
+const AC=
+window.AudioContext||
+window.webkitAudioContext;
+
+if(!AC){
+
+renderRunning=false;
+
+$("renderBtn").disabled=false;
+$("previewBtn").disabled=false;
+$("generateBtn").disabled=false;
+
+setProgress(
+0,
+"Web Audio is not supported."
+);
+
+return;
+
+}
+
+const ac=new AC();
+
+await ac.resume();
+
+activeAudioContext=ac;
+
+activeNodes=[];
+
+const videoStream=
+canvas.captureStream(30);
+
+const destination=
+ac.createMediaStreamDestination();
+
+const voice=
+connectVoiceAndMusic(
+ac,
+destination,
+false
+);
+
+const combined=
+new MediaStream();
+
+videoStream
+.getVideoTracks()
+.forEach(
+track=>combined.addTrack(track)
+);
+
+destination
+.stream
+.getAudioTracks()
+.forEach(
+track=>combined.addTrack(track)
+);
+
+const mime=
+supportedMime();
+
+let recorder;
+
+try{
+
+recorder=
+new MediaRecorder(
+combined,
+mime
+?
+{
+mimeType:mime,
+videoBitsPerSecond:5000000,
+audioBitsPerSecond:128000
+}
+:
+undefined
+);
+
+}catch(error){
+
+console.error(error);
+
+try{
+
+recorder=
+new MediaRecorder(combined);
+
+}catch(secondError){
+
+videoStream
+.getTracks()
+.forEach(t=>t.stop());
+
+await ac.close().catch(()=>{});
+
+activeAudioContext=null;
+activeNodes=[];
+renderRunning=false;
+
+$("renderBtn").disabled=false;
+$("previewBtn").disabled=false;
+$("generateBtn").disabled=false;
+
+setProgress(
+0,
+"Your browser could not start the video recorder."
+);
+
+return;
+
+}
+
+}
+
+const chunks=[];
+
+const done=
+new Promise(resolve=>{
+
+recorder.ondataavailable=
+event=>{
+
+if(
+event.data&&
+event.data.size
+){
+
+chunks.push(event.data);
+
+}
+
+};
+
+recorder.onerror=
+event=>{
+
+resolve(
+event.error||
+new Error("Recorder error")
+);
+
+};
+
+recorder.onstop=()=>resolve(null);
+
+});
+
+recorder.start(1000);
+
+const start=
+ac.currentTime;
+
+if(voice){
+
+voice.start();
+
+}
+
+function frame(){
+
+const elapsed=
+ac.currentTime-start;
+
+drawFrame(
+Math.min(
+elapsed,
+reel.settings.duration
+)
+);
+
+const progress=
+Math.min(
+99,
+elapsed/
+reel.settings.duration*
+100
+);
+
+setProgress(
+progress,
+`Rendering ${Math.floor(progress)}%...`
+);
+
+if(
+elapsed<
+reel.settings.duration
+){
+
+requestAnimationFrame(frame);
+
+}else{
+
+setTimeout(
+()=>{
+try{
+recorder.stop();
+}catch(e){}
+},
+350
+);
+
+}
+
+}
+
+requestAnimationFrame(frame);
+
+const error=
+await done;
+
+activeAudioContext=null;
+
+activeNodes=[];
+
+videoStream
+.getTracks()
+.forEach(
+track=>track.stop()
+);
+
+combined
+.getTracks()
+.forEach(
+track=>track.stop()
+);
+
+await ac
+.close()
+.catch(()=>{});
+
+renderRunning=false;
+
+$("renderBtn").disabled=false;
+$("previewBtn").disabled=false;
+$("generateBtn").disabled=false;
+
+if(error){
+
+console.error(error);
+
+setProgress(
+0,
+"Render failed: "+
+(error.message||"MediaRecorder error")
+);
+
+return;
+
+}
+
+const blob=
+new Blob(
+chunks,
+{
+type:
+recorder.mimeType||
+"video/webm"
+}
+);
+
+const url=
+URL.createObjectURL(blob);
+
+const a=
+document.createElement("a");
+
+a.href=url;
+
+a.download=
+`AI-Reel-${Date.now()}.webm`;
+
+document.body.appendChild(a);
+
+a.click();
+
+a.remove();
+
+setTimeout(
+()=>{
+URL.revokeObjectURL(url);
+},
+10000
+);
+
+if(voice){
+
+setProgress(
+100,
+"Render complete. Downloaded video includes the cloud voiceover and background music."
+);
+
+}else if(reel.settings.music){
+
+setProgress(
+100,
+"Render complete. Downloaded video includes visuals and background music. Browser voice fallback is used for Preview."
+);
+
+}else{
+
+setProgress(
+100,
+"Render complete. Downloaded video contains the generated visuals."
+);
+
+}
+
+}
+
+
+/* ---------------- NEW REEL ---------------- */
+
+function newReel(){
+
+abortGeneration();
+
+stopPreview();
+
+clearVoice();
+
+reel=null;
+
+$("hookOutput").textContent=
+"Generate a reel first.";
+
+$("voiceOutput").textContent=
+"Voiceover will appear here.";
+
+$("voiceMeta").textContent="";
+
+$("captionOutput").textContent=
+"Caption will appear here.";
+
+$("settingsOutput").textContent=
+"No reel generated yet.";
+
+$("timeline").innerHTML=
+'<div class="muted">Generate a reel to create scenes.</div>';
+
+$("previewBtn").disabled=true;
+
+$("renderBtn").disabled=true;
+
+setProgress(
+0,
+"Ready for a new reel."
+);
+
+drawBlank();
+
+}
+
+
+/* ---------------- BLANK CANVAS ---------------- */
+
+function drawBlank(){
+
+ctx.fillStyle="#080b12";
+
+ctx.fillRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+ctx.fillStyle=
+"rgba(255,255,255,.75)";
+
+ctx.textAlign="center";
+
+ctx.font=
+"bold 30px Arial";
+
+ctx.fillText(
+"AI Reel Maker",
+canvas.width/2,
+canvas.height/2-10
+);
+
+ctx.font=
+"16px Arial";
+
+ctx.fillStyle=
+"rgba(255,255,255,.45)";
+
+ctx.fillText(
+"Generate a reel to begin",
+canvas.width/2,
+canvas.height/2+22
+);
+
+}
+
+
+/* ---------------- EVENTS ---------------- */
+
+$("volume").addEventListener(
+"input",
+()=>{
+$("volumeText").textContent=
+$("volume").value+"%";
+}
+);
+
+
+$("language").addEventListener(
+"change",
+()=>{
+
+const lang=
+$("language").value;
+
+$("languageInfo").textContent=
+`${languages[lang]?.name||lang} is selected. Nothing regenerates until you press Generate Reel.`;
+
+}
+);
+
+
+$("generateBtn").addEventListener(
+"click",
+generateReel
+);
+
+
+$("previewBtn").addEventListener(
+"click",
+preview
+);
+
+
+$("stopBtn").addEventListener(
+"click",
+()=>{
+
+stopPreview();
+
+if(reel){
+
+setProgress(
+100,
+"Stopped."
+);
+
+}
+
+}
+);
+
+
+$("renderBtn").addEventListener(
+"click",
+renderReel
+);
+
+
+$("newBtn").addEventListener(
+"click",
+newReel
+);
+
+
+/* Some browsers load voices asynchronously. */
+
+if("speechSynthesis" in window){
+
+speechSynthesis.onvoiceschanged=
+()=>{
+
+/* Refresh available browser voices. */
+
+};
+
+}
+
+
+drawBlank();
+
 </script>
+
 </body>
 </html>
